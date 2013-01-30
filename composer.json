@@ -12,6 +12,6 @@
     ],
     "require": {
         "php": ">=5.3.7",
-	"symfony/framework-bundle": "v2.*"
+	"symfony/framework-bundle": "2.1.*@dev"
     }
 }
