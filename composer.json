@@ -1,0 +1,12 @@
+{
+    "name": "debril/rss-atom-bundle,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/alexdebril/rss-atom-bundle.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.7"
+    }
+}
