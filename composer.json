@@ -1,5 +1,5 @@
 {
-    "name": "debril/rss-atom-bundle,
+    "name": "debril/rss-atom-bundle",
     "repositories": [
         {
             "type": "vcs",
