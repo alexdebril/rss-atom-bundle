@@ -60,7 +60,6 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssBundle\Protocol\FeedReader::getFeedContent
-     * @todo   Implement testGetFeedContent().
      * @expectedException Debril\RssBundle\Protocol\Parser\ParserException
      */
     public function testGetFeedContentException()
@@ -71,10 +70,9 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssBundle\Protocol\FeedReader::getResponse
-     * @todo   Implement testGetResponse().
+     * @covers Debril\RssBundle\Protocol\FeedReader::getFeedContent
      */
-    public function testGetResponse()
+    public function testGetRssFeedContent()
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
 
@@ -83,10 +81,49 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("\Debril\RssBundle\Protocol\FeedContent", $feed);
 
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test is not finished yet.'
-        );
+        $item = $feed->current();
+        $this->assertInstanceOf("\Debril\RssBundle\Protocol\Item", $item);
+
+        $this->assertNotNull($item->getId());
+        $this->assertNotNull($item->getLink());
+        $this->assertNotNull($item->getTitle());
+        $this->assertNotNull($item->getSummary());
+        $this->assertInstanceOf("\DateTime", $item->getUpdated());
+    }
+
+    /**
+     * @covers Debril\RssBundle\Protocol\FeedReader::getFeedContent
+     */
+    public function testGetAtomFeedContent()
+    {
+        $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
+        $this->object->addParser(new Parser\AtomParser);
+
+        $feed = $this->object->getFeedContent($url, new \DateTime);
+
+        $this->assertInstanceOf("\Debril\RssBundle\Protocol\FeedContent", $feed);
+
+        $item = $feed->current();
+        $this->assertInstanceOf("\Debril\RssBundle\Protocol\Item", $item);
+
+        $this->assertNotNull($item->getId());
+        $this->assertNotNull($item->getLink());
+        $this->assertNotNull($item->getTitle());
+        $this->assertNotNull($item->getSummary());
+        $this->assertInstanceOf("\DateTime", $item->getUpdated());
+    }
+
+
+    /**
+     * @covers Debril\RssBundle\Protocol\FeedReader::getResponse
+     */
+    public function testGetResponse()
+    {
+        $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
+        $this->object->addParser(new Parser\AtomParser);
+        $response = $this->object->getResponse($url, new \DateTime);
+
+        $this->assertInstanceOf("Debril\RssBundle\Driver\HttpDriverResponse", $response);
     }
 
     /**
@@ -95,10 +132,14 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
+        $this->object->addParser(new Parser\RssParser);
+
+        $response = $this->object->getResponse($url, new \DateTime);
+
+        $feed = $this->object->parseBody($response);
+
+        $this->assertInstanceOf("\Debril\RssBundle\Protocol\FeedContent", $feed);
     }
 
     /**
@@ -107,10 +148,27 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAccurateParser()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->object->addParser(new Parser\RssParser);
+        $this->object->addParser(new Parser\AtomParser);
+
+        $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
+
+        $rssBody = $this->object->getResponse($url, new \DateTime)->getBody();
+
+        $this->assertInstanceOf(
+                                    "Debril\RssBundle\Protocol\Parser\RssParser",
+                                    $this->object->getAccurateParser(new \SimpleXMLElement($rssBody) )
+                        );
+
+        $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
+
+        $atomBody = $this->object->getResponse($url, new \DateTime)->getBody();
+
+        $this->assertInstanceOf(
+                                    "Debril\RssBundle\Protocol\Parser\AtomParser",
+                                    $this->object->getAccurateParser(new \SimpleXMLElement($atomBody))
+                        );
+
     }
 
 }

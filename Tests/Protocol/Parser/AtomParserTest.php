@@ -78,6 +78,12 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("Debril\RssBundle\Protocol\FeedContent", $feed);
 
         $this->assertNotNull($feed->getId(), "feed->getId() should not return an empty value");
+        $this->assertGreaterThan(0, $feed->getItemsCount());
+        $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertNotNull($feed->getLink());
+        $this->assertInternalType("string", $feed->getLink());
+        $this->assertNotNull($feed->getSubtitle());
+        $this->assertNotNull($feed->getTitle());
     }
 
 }

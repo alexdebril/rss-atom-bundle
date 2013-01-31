@@ -40,6 +40,9 @@ class RssParser extends Parser
         $feedContent = new FeedContent();
 
         $feedContent->setId($xmlBody->channel->link);
+        $feedContent->setLink($xmlBody->channel->link);
+        $feedContent->setTitle($xmlBody->channel->title);
+
         $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate);
         $feedContent->setLastModified($updated);
 
@@ -48,6 +51,7 @@ class RssParser extends Parser
             $item = new Item();
             $item->setTitle($domElement->title)
                 ->setSummary($domElement->description)
+                ->setId($domElement->guid)
                 ->setUpdated(self::convertToDateTime($domElement->pubDate))
                 ->setLink($domElement->link);
 

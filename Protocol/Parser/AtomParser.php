@@ -48,6 +48,10 @@ class AtomParser extends Parser
 
         $feedContent->setId($xmlBody->id);
 
+        $feedContent->setLink(current($xmlBody->link[0]['href']));
+        $feedContent->setTitle($xmlBody->title);
+        $feedContent->setSubtitle($xmlBody->subtitle);
+
         $updated = self::convertToDateTime($xmlBody->updated, \DateTime::RFC3339);
         $feedContent->setLastModified($updated);
 
@@ -55,6 +59,7 @@ class AtomParser extends Parser
         {
             $item = new Item();
             $item->setTitle($domElement->title)
+                ->setId($domElement->id)
                 ->setSummary($domElement->summary)
                 ->setUpdated(self::convertToDateTime($domElement->updated, \DateTime::RFC3339))
                 ->setLink($domElement->link);

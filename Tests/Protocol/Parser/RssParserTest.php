@@ -76,10 +76,9 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($feed->getId(), "feed->getId() should not return an empty value");
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
-        $feed->getLastModified();
-        $feed->getLink();
-        $feed->getSubtitle();
-        $feed->getTitle();
+        $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertNotNull($feed->getLink());
+        $this->assertNotNull($feed->getTitle());
     }
 
 
