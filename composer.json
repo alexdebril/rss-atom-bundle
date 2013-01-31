@@ -17,5 +17,5 @@
     "autoload": {
         "psr-0": { "Debril\\RssBundle": "" }
     },
-    "target-dir": "Debril/RssBundle",
+    "target-dir": "Debril/RssBundle"
 }
