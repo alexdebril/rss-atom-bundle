@@ -15,7 +15,7 @@
 	"symfony/framework-bundle": ">=2.1"
     },
     "autoload": {
-        "psr-0": { "Debril\\RssBundle": "bundle" }
+        "psr-0": { "Debril\\RssBundle": "src" }
     },
-    "target-dir": "bundle"
+    "target-dir": "src"
 }
