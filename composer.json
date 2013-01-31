@@ -13,5 +13,9 @@
     "require": {
         "php": ">=5.3.7",
 	"symfony/framework-bundle": ">=2.1"
-    }
+    },
+    "autoload": {
+        "psr-0": { "Debril\\RssBundle": "" }
+    },
+    "target-dir": "Debril/RssBundle",
 }
