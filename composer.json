@@ -1,5 +1,5 @@
 {
-    "name": "debril/rss-atom-bundle",
+    "name": "Debril/RssAtomBundle",
     "type": "library",
     "description" : "RSS and Atom support for Symfony 2",
     "keywords" : ["rss","atom"],
@@ -13,9 +13,5 @@
     "require": {
         "php": ">=5.3.7",
 	"symfony/framework-bundle": ">=2.1"
-    },
-    "autoload": {
-        "psr-0": { "Debril\\RssBundle": "src" }
-    },
-    "target-dir": "src"
+    }
 }
