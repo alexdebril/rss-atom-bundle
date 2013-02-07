@@ -41,7 +41,11 @@ class HttpPeclDriverTest extends \PHPUnit_Framework_TestCase
     {
         if (! class_exists("HttpRequest") )
         {
-            throw new \Exception('HttpPeclDriver cannot be tested : PECL HttpRequest not found');
+            $this->markTestIncomplete(
+                'This test cannot be run.'
+            );
+
+            return;
         }
         $lastModified = new \DateTime;
         $response = $this->object->getResponse(self::URL, $lastModified);
