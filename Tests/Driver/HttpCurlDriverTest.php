@@ -35,7 +35,6 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Driver\HttpCurlDriver::getResponse
-     * @todo   Implement testGetResponse().
      */
     public function testGetResponse()
     {
@@ -47,6 +46,26 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType("string", $response->getBody());
         $this->assertGreaterThan(0, strlen($response->getBody()));
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Driver\HttpCurlDriver::getResponse
+     * @expectedException Debril\RssAtomBundle\Driver\DriverUnreachableResourceException
+     */
+    public function testGetResponseException()
+    {
+        $date = \DateTime::createFromFormat('j-M-Y', '10-Feb-2002');
+        $this->object->getResponse('http://idonotexist', $date);
+    }
+
+    public function testGetHttpResponse()
+    {
+        $headers = file_get_contents(dirname(__FILE__) . '/../../Resources/tests/curl-200-headers.txt');
+        $body = file_get_contents(dirname(__FILE__) . '/../../Resources/sample-atom.xml');
+
+        $response = $this->object->getHttpResponse($headers, $body);
+
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Driver\HttpDriverResponse", $response);
     }
 
 }

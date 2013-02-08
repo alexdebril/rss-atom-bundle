@@ -242,6 +242,16 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedContent::addAcceptableItem
+     * @expectedException Debril\RssAtomBundle\Protocol\FeedContentException
+     */
+    public function testAddAcceptableItemException()
+    {
+        $item = new Item();
+        $this->object->addAcceptableItem($item, \DateTime::createFromFormat('j-M-Y', '16-Feb-2012'));
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\FeedContent::current
      * @todo   Implement testCurrent().
      */
