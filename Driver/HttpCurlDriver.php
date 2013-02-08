@@ -34,16 +34,34 @@ class HttpCurlDriver implements HttpDriver
             $err = curl_error($curl);
             throw new DriverUnreachableResourceException("Error accessing {$url} : {$err}");
         }
-        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-        $headerstring = substr($curlReturn, 0, $headerSize);
-        $body = substr($curlReturn, $headerSize);
 
-        $headers = explode("\n", $headerstring);
+        $headerSize   = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+        curl_close($curl);
+
+        return $this->getHttpResponse(
+                        substr($curlReturn, 0, $headerSize),
+                        substr($curlReturn, $headerSize)
+                );
+    }
+
+    /**
+     *
+     * @param string $headerString
+     * @param string $body
+     * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     */
+    public function getHttpResponse($headerString, $body)
+    {
+        $headers = array();
+        preg_match('/(?<version>\S+) (?P<code>\d+) (?P<message>\V+)/', $headerString, $headers);
 
         $response = new HttpDriverResponse();
 
         $response->setBody($body);
-        $response->setHeaders($headers);
+        $response->setHttpCode($headers['code']);
+        $response->setHttpMessage($headers['message']);
+        $response->setHttpVersion($headers['version']);
+        $response->setHeaders($headerString);
 
         return $response;
     }

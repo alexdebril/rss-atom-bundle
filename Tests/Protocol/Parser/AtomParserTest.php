@@ -41,7 +41,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $file = dirname(__FILE__) . '/../../../Resources/sample-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $this->assertFalse( $this->object->canHandle($xmlBody) );
-        $this->object->parse($xmlBody);
+        $this->object->parse($xmlBody, new \DateTime);
     }
 
     /**
@@ -62,7 +62,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
     {
         $file = dirname(__FILE__) . '/../../../Resources/truncated-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $this->object->parse($xmlBody);
+        $this->object->parse($xmlBody, new \DateTime);
     }
 
     /**
@@ -73,7 +73,9 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
     {
         $file = dirname(__FILE__) . '/../../../Resources/sample-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $feed = $this->object->parse($xmlBody);
+
+        $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
+        $feed = $this->object->parse($xmlBody, $date);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $feed);
 

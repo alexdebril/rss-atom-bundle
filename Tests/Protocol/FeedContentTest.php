@@ -33,6 +33,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $this->object->setLink(self::link);
         $this->object->setTitle(self::title);
         $this->object->setSubtitle(self::subtitle);
+        $this->object->setLastModified(new \DateTime);
 
         for( $i = 0; $i < 5; $i++ )
         {
@@ -220,6 +221,21 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $count = $this->object->getItemsCount();
 
         $ret = $this->object->addItem(new Item());
+
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
+        $this->assertEquals($count+1, $this->object->getItemsCount());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedContent::addAcceptableItem
+     */
+    public function testAddAcceptableItem()
+    {
+        $count = $this->object->getItemsCount();
+
+        $item = new Item();
+        $item->setUpdated(\DateTime::createFromFormat('j-M-Y', '17-Feb-2012'));
+        $ret = $this->object->addAcceptableItem($item, \DateTime::createFromFormat('j-M-Y', '16-Feb-2012'));
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
         $this->assertEquals($count+1, $this->object->getItemsCount());

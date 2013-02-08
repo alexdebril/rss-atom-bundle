@@ -8,7 +8,7 @@ namespace Debril\RssAtomBundle\Driver;
 class HttpPeclDriverTest extends \PHPUnit_Framework_TestCase
 {
 
-    const URL = 'http://feeds2.feedburner.com/androidcentral';
+    const URL = 'https://raw.github.com/alexdebril/rss-atom-bundle/master/Resources/sample-atom.xml';
 
     /**
      * @var HttpPeclDriver

@@ -16,18 +16,18 @@ class DefaultController extends Controller
     public function indexAction($name)
     {
         $reader = $this->getReader();
-        
+
         $date = DateTime::createFromFormat("Y-m-d H:i:s", "2012-12-25 22:04:00");
-        $url = 'http://feeds2.feedburner.com/androidcentral';        
-        
+        $url = 'https://raw.github.com/alexdebril/rss-atom-bundle/master/Resources/sample-atom.xml';
+
         $content = $reader->getFeedContent($url, $date);
-        
+
         var_dump($content);
         return array('name' => $name);
     }
-    
+
     /**
-     * 
+     *
      * @return Debril\RssAtomBundle\Protocol\FeedReader
      */
     protected function getReader()

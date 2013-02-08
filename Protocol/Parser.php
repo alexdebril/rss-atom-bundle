@@ -26,10 +26,11 @@ abstract class Parser
      * Parses the feed's body to create a FeedContent instance.
      *
      * @param SimpleXMLElement $xmlBody
-     * @throws ParserException
+     * @param \DateTime $modifiedSince
      * @return FeedContent
+     * @throws ParserException
      */
-    public function parse(SimpleXMLElement $xmlBody)
+    public function parse(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {
         if ( ! $this->canHandle($xmlBody) )
         {
@@ -38,7 +39,7 @@ abstract class Parser
 
         $this->checkBodyStructure($xmlBody);
 
-        return $this->parseBody($xmlBody);
+        return $this->parseBody($xmlBody, $modifiedSince);
     }
 
     /**
@@ -98,8 +99,9 @@ abstract class Parser
      * Performs the actual conversion into a FeedContent instance
      *
      * @param SimpleXMLElement $body
+     * @param DateTime $modifiedSince
      * @return FeedContent
      */
-    abstract protected function parseBody(SimpleXMLElement $body);
+    abstract protected function parseBody(SimpleXMLElement $body, \DateTime $modifiedSince);
 
 }

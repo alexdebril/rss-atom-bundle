@@ -77,7 +77,8 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
 
         $this->object->addParser(new Parser\RssParser);
-        $feed = $this->object->getFeedContent($url, new \DateTime);
+        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
+        $feed = $this->object->getFeedContent($url, $date);
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
 
@@ -99,7 +100,8 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
         $this->object->addParser(new Parser\AtomParser);
 
-        $feed = $this->object->getFeedContent($url, new \DateTime);
+        $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
+        $feed = $this->object->getFeedContent($url, $date);
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
 
@@ -135,9 +137,10 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
         $this->object->addParser(new Parser\RssParser);
 
-        $response = $this->object->getResponse($url, new \DateTime);
+        $date = new \DateTime;
+        $response = $this->object->getResponse($url, $date);
 
-        $feed = $this->object->parseBody($response);
+        $feed = $this->object->parseBody($response, $date);
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
     }

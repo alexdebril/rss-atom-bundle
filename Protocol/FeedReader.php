@@ -11,8 +11,11 @@
 namespace Debril\RssAtomBundle\Protocol;
 
 use \SimpleXMLElement;
+
 use Debril\RssAtomBundle\Driver\HttpDriver;
+use Debril\RssAtomBundle\Driver\HttpDriverResponse;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
+use Debril\RssAtomBundle\Protocol\FeedCannotBeReadException;
 
 class FeedReader
 {
@@ -64,11 +67,11 @@ class FeedReader
      * @param \DateTime $lastModified
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    public function getFeedContent($url, \DateTime $lastModified)
+    public function getFeedContent($url, \DateTime $modifiedSince)
     {
-        $response = $this->getResponse($url, $lastModified);
+        $response = $this->getResponse($url, $modifiedSince);
 
-        return $this->parseBody($response);
+        return $this->parseBody($response, $modifiedSince);
     }
 
     /**
@@ -77,21 +80,29 @@ class FeedReader
      * @param \Datetime $lastModified
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
-    public function getResponse($url, \Datetime $lastModified)
+    public function getResponse($url, \Datetime $modifiedSince)
     {
-        return $this->getDriver()->getResponse($url, $lastModified);
+        return $this->getDriver()->getResponse($url, $modifiedSince);
     }
 
     /**
-     * @param HttpMessage $message
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     *
+     * @param \Debril\RssAtomBundle\Driver\HttpDriverResponse $response
+     * @param \Datetime $modifiedSince
+     * @return FeedContent
+     * @throws FeedCannotBeReadException
      */
-    public function parseBody(\Debril\RssAtomBundle\Driver\HttpDriverResponse $response)
+    public function parseBody(HttpDriverResponse $response, \Datetime $modifiedSince)
     {
-        $xmlBody = new SimpleXMLElement($response->getBody());
-        $parser = $this->getAccurateParser($xmlBody);
+        if ( $response->getHttpCodeIsOk() )
+        {
+            $xmlBody = new SimpleXMLElement($response->getBody());
+            $parser = $this->getAccurateParser($xmlBody);
 
-        return $parser->parse($xmlBody);
+            return $parser->parse($xmlBody, $modifiedSince);
+        }
+
+        throw new FeedCannotBeReadException($response->getHttpMessage(), $response->getHttpCode());
     }
 
     /**

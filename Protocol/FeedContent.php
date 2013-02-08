@@ -6,10 +6,13 @@
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- * 
+ *
  */
 
 namespace Debril\RssAtomBundle\Protocol;
+
+use Debril\RssAtomBundle\Protocol\Item;
+use Debril\RssAtomBundle\Protocol\FeedContentException;
 
 class FeedContent implements \Iterator
 {
@@ -72,6 +75,8 @@ class FeedContent implements \Iterator
     public function setLastModified(\DateTime $lastModified)
     {
         $this->lastModified = $lastModified;
+
+        return $this;
     }
 
     /**
@@ -186,10 +191,32 @@ class FeedContent implements \Iterator
     }
 
     /**
+     *
+     * @param \Debril\RssAtomBundle\Protocol\Item $item
+     * @param \DateTime $startDate
+     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @throws FeedContentException
+     */
+    public function addAcceptableItem(Item $item, \DateTime $startDate)
+    {
+        if ( $item->getUpdated() instanceof \DateTime )
+        {
+            $interval = $startDate->diff($item->getUpdated());
+
+            if ($interval->invert === 0 )
+                $this->addItem ($item);
+        }
+        else
+            throw new FeedContentException("tried to add an item without date");
+
+        return $this;
+    }
+
+    /**
      * @param \Debril\RssAtomBundle\Protocol\Item $item
      * @return FeedContent
      */
-    public function addItem(\Debril\RssAtomBundle\Protocol\Item $item)
+    public function addItem(Item $item)
     {
         $this->items[] = $item;
 

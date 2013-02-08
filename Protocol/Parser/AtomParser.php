@@ -39,10 +39,12 @@ class AtomParser extends Parser
 
 
     /**
+     *
      * @param SimpleXMLElement $xmlBody
+     * @param \DateTime $modifiedSince
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    protected function parseBody( SimpleXMLElement $xmlBody )
+    protected function parseBody( SimpleXMLElement $xmlBody, \DateTime $modifiedSince )
     {
         $feedContent = new FeedContent();
 
@@ -64,7 +66,7 @@ class AtomParser extends Parser
                 ->setUpdated(self::convertToDateTime($domElement->updated, \DateTime::RFC3339))
                 ->setLink($domElement->link);
 
-            $feedContent->addItem($item);
+            $feedContent->addAcceptableItem($item, $modifiedSince);
         }
 
         return $feedContent;

@@ -32,6 +32,7 @@ class FileDriver implements HttpDriver
         $body = file_get_contents($url);
 
         $response = new HttpDriverResponse();
+        $response->setHttpCode(HttpDriverResponse::HTTP_CODE_OK);
         $response->setBody($body);
 
         return $response;
