@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Date: Thu, 07 Feb 2013 20:29:48 GMT
+Server: Apache/2.2.22 (Linux/SUSE)
+Last-Modified: Thu, 07 Feb 2013 00:47:27 GMT
+ETag: "6422c0-427-4d517c96a65c0"
+Accept-Ranges: bytes
+Content-Length: 1063
+Content-Type: text/xml
