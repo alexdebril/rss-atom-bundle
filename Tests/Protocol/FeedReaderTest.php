@@ -35,8 +35,17 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::__construct
+     */
+    public function testConstruct()
+    {
+        $reader = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver);
+
+        $this->assertAttributeInstanceOf("\Debril\RssAtomBundle\Driver\FileDriver", 'driver', $reader);
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::addParser
-     * @todo   Implement testAddParser().
      */
     public function testAddParser()
     {
@@ -130,7 +139,6 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
-     * @todo   Implement testParseBody().
      */
     public function testParseBody()
     {
@@ -147,7 +155,6 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::getAccurateParser
-     * @todo   Implement testGetAccurateParser().
      */
     public function testGetAccurateParser()
     {
@@ -183,6 +190,26 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
         $rssBody = $this->object->getResponse($url, new \DateTime)->getBody();
         $this->object->getAccurateParser(new \SimpleXMLElement($rssBody) );
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     * @expectedException Debril\RssAtomBundle\Protocol\FeedCannotBeReadException
+     */
+    public function testParseBody304()
+    {
+        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
+
+        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
+        $response->setHttpCode(304);
+
+        $mock->expects($this->any())
+                ->method('getResponse')
+                ->will($this->returnValue($response));
+
+        $reader = new FeedReader($mock);
+
+        $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
 
 }
