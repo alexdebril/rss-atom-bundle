@@ -13,9 +13,10 @@
         <service id="RssParser" class="Debril\RssAtomBundle\Protocol\Parser\RssParser" />
         <service id="AtomParser" class="Debril\RssAtomBundle\Protocol\Parser\AtomParser" />
         <service id="HttpPecl" class="Debril\RssAtomBundle\Driver\HttpPeclDriver" />
+	<service id="HttpCurl" class="Debril\RssAtomBundle\Driver\HttpCurlDriver" />
 
         <service id="FeedReader" class="Debril\RssAtomBundle\Protocol\FeedReader">
-            <argument type="service" id="HttpPecl"/>
+            <argument type="service" id="HttpCurl"/>
             <call method="addParser">
              <argument type="service" id="RssParser" />
             </call>
