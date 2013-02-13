@@ -17,6 +17,40 @@ use Debril\RssAtomBundle\Driver\HttpDriverResponse;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
 use Debril\RssAtomBundle\Protocol\FeedCannotBeReadException;
 
+/**
+ * Class to read any kind of supported feeds (RSS, ATOM, and more if you need)
+ *
+ * FeedReader uses an HttpDriver to pull feeds and one more Parser instances to
+ * parse them. For each feed, FeedReader automatically chooses the accurate
+ * Parser and use it to return a FeedContent instance.
+ *
+ * <code>
+ * // a HttpDriver instance is required to construct a FeedReader.
+ * // Here we use the HttpCurlDriver (recommanded)
+ * $reader = new FeedReader(new HttpCurlDriver());
+ *
+ * // now we add the parsers
+ * $reader->addParser(new AtomParser());
+ * $reader->addParser(new RssParser());
+ *
+ * // $url is obviously the feed you want to read
+ * // $dateTime is the last moment you read the feed
+ * $content = $reader->getFeedContent($url, $dateTime);
+ *
+ * // now we can display the feed's content
+ * echo $feed->getTitle();
+ *
+ * // each
+ * foreach( $content as $item )
+ * {
+ *      echo $item->getTitle();
+ *      echo $item->getSummary();
+ * }
+ * </code>
+ *
+ * @see FeedContent
+ * 
+ */
 class FeedReader
 {
 
