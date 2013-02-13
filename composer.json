@@ -11,8 +11,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.7",
-	"symfony/framework-bundle": ">=2.1"
+        "php": ">=5.3.3",
+	"symfony/config": ">=2.1"
     },
     "autoload": {
         "psr-0": { "Debril\\RssAtomBundle": "" }
