@@ -49,14 +49,14 @@ use Debril\RssAtomBundle\Protocol\FeedCannotBeReadException;
  * </code>
  *
  * @see FeedContent
- * 
+ *
  */
 class FeedReader
 {
 
     /**
      *
-     * @var type
+     * @var array
      */
     protected $parsers = array();
 

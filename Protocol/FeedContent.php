@@ -14,6 +14,28 @@ namespace Debril\RssAtomBundle\Protocol;
 use Debril\RssAtomBundle\Protocol\Item;
 use Debril\RssAtomBundle\Protocol\FeedContentException;
 
+/**
+ * A full Feed's content representation, containing both the headers of the feed
+ * (not the HTTP one) and its news.
+ *
+ * This class is meant to be used reading or writing a feed. You will get
+ * an instance of this class if you grab a RSS or ATOM feed over the internet.
+ * You will also use this class to publish a feed.
+ *
+ * An example of reading implementation is given in the FeedReader's documentation.
+ *
+ * You can create a new feed as described below :
+ *
+ * <code>
+ * $feed = new FeedContent;
+ *
+ * $feed->setLastModified($lastTimeANewsWasUpdated);
+ *
+ * $feed->setTitle('your feed title');
+ * $feed->setSubTitle('the subtitle');
+ * $feed->addItem($item);
+ * </code>
+ */
 class FeedContent implements \Iterator
 {
 
