@@ -78,4 +78,4 @@ These are the very next priorities :
 * RSS/Atom write support
 * 100% Code coverage
 
-Maybe other features will be implemented afterwards.
+Maybe other features will be implemented afterwards, like data source management
