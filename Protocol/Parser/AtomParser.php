@@ -23,7 +23,6 @@ class AtomParser extends Parser
             'id',
             'updated',
             'title',
-            'subtitle',
             'link',
             'entry',
         );
