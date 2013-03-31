@@ -7,31 +7,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class StreamController extends Controller
 {
+
     /**
-     * @Route("/hello/{name}")
+     * @Route("/stream")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction($contentId)
     {
-        $reader = $this->getReader();
 
-        $date = DateTime::createFromFormat("Y-m-d H:i:s", "2012-12-25 22:04:00");
-        $url = 'https://raw.github.com/alexdebril/rss-atom-bundle/master/Resources/sample-atom.xml';
+        $formatter = $this->getFormatter();
 
-        $content = $reader->getFeedContent($url, $date);
+        $content = $this->getContent($contentId);
 
-        var_dump($content);
-        return array('name' => $name);
+        return $formatter->toString($content);
     }
 
     /**
      *
-     * @return Debril\RssAtomBundle\Protocol\FeedReader
+     * @param mixed $contentId
      */
-    protected function getReader()
+    protected function getContent($contentId)
     {
-        return $this->get('FeedReader');
+        $provider = $this->get('FeedContentProvider');
+
+        return $provider->getFeedContentById($contentId);
     }
+
+    /**
+     *
+     * @return Debril\RssAtomBundle\Protocol\FeedFormatter
+     */
+    protected function getFormatter()
+    {
+        return $this->get('FeedFormatter');
+    }
+
 }

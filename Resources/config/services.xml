@@ -1,28 +1,31 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <!--
-    <parameters>
-        <parameter key="debril_rss.example.class">Debril\RssAtomBundle\Example</parameter>
-    </parameters>
--->
+        <parameters>
+            <parameter key="debril_rss.example.class">Debril\RssAtomBundle\Example</parameter>
+        </parameters>
+    -->
     <services>
         <service id="RssParser" class="Debril\RssAtomBundle\Protocol\Parser\RssParser" />
         <service id="AtomParser" class="Debril\RssAtomBundle\Protocol\Parser\AtomParser" />
         <service id="HttpPecl" class="Debril\RssAtomBundle\Driver\HttpPeclDriver" />
-	<service id="HttpCurl" class="Debril\RssAtomBundle\Driver\HttpCurlDriver" />
+        <service id="HttpCurl" class="Debril\RssAtomBundle\Driver\HttpCurlDriver" />
 
         <service id="FeedReader" class="Debril\RssAtomBundle\Protocol\FeedReader">
             <argument type="service" id="HttpCurl"/>
             <call method="addParser">
-             <argument type="service" id="RssParser" />
+                <argument type="service" id="RssParser" />
             </call>
             <call method="addParser">
-             <argument type="service" id="AtomParser" />
+                <argument type="service" id="AtomParser" />
             </call>
         </service>
+
+        <service id="FeedFormatter" class="Debril\RssAtomBundle\Protocol\FeedAtomFormatter" />
+        
     </services>
 </container>
