@@ -95,12 +95,12 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
 
         $this->object->setMetas($element, $this->feed);
 
-        $this->assertEquals($this->feed->getTitle(), $element->title );
+        $this->assertEquals($this->feed->getTitle(), $element->title);
         $this->assertEquals($this->feed->getSubtitle(), $element->subtitle);
 
-        $this->assertEquals($this->feed->getId(), $element->id);
-        $this->assertEquals($this->feed->getLink(), $element->link);
+        $this->assertEquals($this->feed->getLink(), $element->id);
 
+        $this->assertInstanceOf("\SimpleXmlElement", $element->link);
         $this->assertEquals($element->updated, $this->feed->getLastModified()->format(\DateTime::ATOM));
     }
 
@@ -114,15 +114,16 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
         $this->object->setEntries($element, $this->feed);
         $this->feed->rewind();
 
-        foreach( $element->entry as $entry )
+        foreach ($element->entry as $entry)
         {
             $item = $this->feed->current();
 
-            $this->assertEquals($entry->title, $item->getTitle());
-            $this->assertEquals($entry->link, $item->getLink());
-            $this->assertEquals($entry->summary, $item->getSummary());
-            $this->assertEquals($entry->id, $item->getId());
-            $this->assertEquals($entry->updated, $item->getUpdated()->format(\DateTime::ATOM));
+            $this->assertEquals($item->getTitle(), $entry->title);
+            $this->assertInstanceOf("\SimpleXmlElement", $entry->link);
+
+            $this->assertEquals($item->getSummary(), $entry->summary);
+            $this->assertEquals($item->getLink(), $entry->id);
+            $this->assertEquals($item->getUpdated()->format(\DateTime::ATOM), $entry->updated);
         }
     }
 
