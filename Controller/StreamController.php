@@ -21,7 +21,10 @@ class StreamController extends Controller
 
         $content = $this->getContent($contentId);
 
-        return new Response($formatter->toString($content));
+        $response = new Response($formatter->toString($content));
+        $response->headers->set('Content-Type', 'application/xhtml+xml');
+
+        return $response;
     }
 
     /**
