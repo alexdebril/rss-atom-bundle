@@ -2,7 +2,7 @@
 
 namespace Debril\RssAtomBundle\Controller;
 
-use \DateTime;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,7 +21,7 @@ class StreamController extends Controller
 
         $content = $this->getContent($contentId);
 
-        return $formatter->toString($content);
+        return new Response($formatter->toString($content));
     }
 
     /**

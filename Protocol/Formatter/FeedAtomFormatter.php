@@ -9,6 +9,7 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol\Formatter;
 
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
@@ -65,8 +66,10 @@ class FeedAtomFormatter implements FeedFormatter
     {
         $element->addChild('title', $content->getTitle());
         $element->addChild('subtitle', $content->getSubtitle());
-        $element->addChild('id', $content->getId());
-        $element->addChild('link', $content->getLink());
+        $element->addChild('id', $content->getLink());
+        $link = $element->addChild('link');
+        $link->addAttribute('href', $content->getLink());
+        $link->addAttribute('rel', 'self');
         $element->addChild('updated', $content->getLastModified()->format(\DateTime::ATOM));
     }
 
@@ -77,14 +80,16 @@ class FeedAtomFormatter implements FeedFormatter
      */
     public function setEntries(\SimpleXMLElement $element, FeedContent $content)
     {
-        foreach( $content as $item )
+        foreach ($content as $item)
         {
             $entry = $element->addChild('entry');
             $entry->addChild('title', $item->getTitle());
-            $entry->addChild('link', $item->getLink());
-            $entry->addChild('id', $item->getId());
+            $entry->addChild('link')->addAttribute('href', $item->getLink());
+            $entry->addChild('id', $item->getLink());
             $entry->addChild('updated', $item->getUpdated()->format(\DateTime::ATOM));
             $entry->addChild('summary', $item->getSummary());
         }
     }
+
 }
+
