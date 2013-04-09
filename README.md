@@ -23,13 +23,13 @@ Installation in a Symfony 2 project
 This is the most common way if you want to add RssAtomBundle into an existing project.
 Edit compose.json and add the following line in the "require" section:
 
-    "debril/rss-atom-bundle": "0.4"
+    "debril/rss-atom-bundle": "~0.5"
 
 then, ask Composer to install it:
 
     composer.phar install
 
-Assuming that you want to install the 0.4 version. Each version has its own tag, you may want to browse the versions list available on Packagist: https://packagist.org/packages/debril/rss-atom-bundle
+Assuming that you want to install the version 0.5 or later. Each version has its own tag, you may want to browse the versions list available on Packagist: https://packagist.org/packages/debril/rss-atom-bundle
 
 
 Fetching the repository
