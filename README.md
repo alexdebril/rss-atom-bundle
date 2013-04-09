@@ -27,7 +27,7 @@ Edit compose.json and add the following line in the "require" section:
 
 then, ask Composer to install it:
 
-    composer.phar install
+    composer.phar update debril/rss-atom-bundle
 
 Assuming that you want to install the version 0.5 or later. Each version has its own tag, you may want to browse the versions list available on Packagist: https://packagist.org/packages/debril/rss-atom-bundle
 
