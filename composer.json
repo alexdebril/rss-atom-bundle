@@ -1,9 +1,9 @@
 {
     "name": "debril/rss-atom-bundle",
     "type": "library",
-    "description" : "RSS and Atom support for Symfony 2",
-    "keywords" : ["rss","atom"],
-    "license" : "LGPL",
+    "description": "RSS and Atom support for Symfony 2",
+    "keywords": ["rss", "atom"],
+    "license": "LGPL",
     "repositories": [
         {
             "type": "vcs",
@@ -12,10 +12,12 @@
     ],
     "require": {
         "php": ">=5.3.3",
-	"symfony/config": ">=2.1"
+        "symfony/config": ">=2.1"
     },
     "autoload": {
-        "psr-0": { "Debril\\RssAtomBundle": "" }
+        "psr-0": {
+            "Debril\\RssAtomBundle": ""
+        }
     },
     "target-dir": "Debril/RssAtomBundle"
 }
