@@ -1,7 +1,7 @@
 RssAtomBundle
 =============
 
-RssAtomBundle is a Bundle for Symfony 2 made to easily access Rss and Atom feeds. It features:
+RssAtomBundle is a Bundle for Symfony 2 made to easily access RSS and Atom feeds. It features:
 
 - Detection of the feed format (RSS / Atom)
 - HTTP Headers support in order to save network traffic
