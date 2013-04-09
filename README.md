@@ -46,7 +46,7 @@ Unit Testing
 
 You can run the unit test suites using the following command in the Bundle's source director:
 
-    phpunit
+    bin/phpunit
 
 Documentation
 =============
