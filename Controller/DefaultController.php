@@ -22,7 +22,6 @@ class DefaultController extends Controller
 
         $content = $reader->getFeedContent($url, $date);
 
-        var_dump($content);
         return array('name' => $name);
     }
 
