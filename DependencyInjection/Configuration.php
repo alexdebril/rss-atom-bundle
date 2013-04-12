@@ -12,13 +12,18 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+
     /**
      * {@inheritDoc}
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('debril_rss');
+        $rootNode = $treeBuilder->root('debril_rss_atom');
+        $rootNode
+                ->children()
+                ->scalarNode('feed_provider')->defaultValue('Debril\RssAtomBundle\Provider\MockProvider')->end()
+                ->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
@@ -26,4 +31,5 @@ class Configuration implements ConfigurationInterface
 
         return $treeBuilder;
     }
+
 }
