@@ -152,7 +152,7 @@ class Item
      * @return \Debril\RssAtomBundle\Protocol\Item
      */
     public function setImage($image)
-    {
+	{
         $this->image = $image;
 
         return $this;
