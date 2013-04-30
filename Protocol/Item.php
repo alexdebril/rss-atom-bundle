@@ -40,6 +40,11 @@ class Item
     protected $link;
 
     /**
+     * @var string
+     */
+    protected $image;
+    
+    /**
      * @return string
      */
     public function getTitle()
@@ -134,4 +139,22 @@ class Item
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param unknown_type $image
+     * @return \Debril\RssAtomBundle\Protocol\Item
+     */
+    public function setImage($image)
+	{
+        $this->image = $image;
+
+        return $this;
+    }
 }

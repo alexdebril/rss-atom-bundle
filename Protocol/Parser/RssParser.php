@@ -37,16 +37,19 @@ class RssParser extends Parser
      * @param \DateTime $modifiedSince
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    protected function parseBody( SimpleXMLElement $xmlBody, \DateTime $modifiedSince )
-    {
+    protected function parseBody( SimpleXMLElement $xmlBody, \DateTime $modifiedSince ) 
+	{
         $feedContent = new FeedContent();
 
         $feedContent->setId($xmlBody->channel->link);
         $feedContent->setLink($xmlBody->channel->link);
         $feedContent->setTitle($xmlBody->channel->title);
 
-        $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate);
-        $feedContent->setLastModified($updated);
+        if (isset($xmlBody->channel->lastBuildDate)){
+            $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate);
+            $feedContent->setLastModified($updated);
+        }
+
 
         foreach( $xmlBody->channel->item as $domElement )
         {
@@ -55,7 +58,8 @@ class RssParser extends Parser
                 ->setSummary($domElement->description)
                 ->setId($domElement->guid)
                 ->setUpdated(self::convertToDateTime($domElement->pubDate))
-                ->setLink($domElement->link);
+                ->setLink($domElement->link)
+                ->setImage($domElement->image);
 
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }
