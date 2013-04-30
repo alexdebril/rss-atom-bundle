@@ -37,8 +37,7 @@ class RssParser extends Parser
      * @param \DateTime $modifiedSince
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    protected function parseBody( SimpleXMLElement $xmlBody, \DateTime $modifiedSince )
-    {
+    protected function parseBody( SimpleXMLElement $xmlBody, \DateTime $modifiedSince ) {
         $feedContent = new FeedContent();
 
         $feedContent->setId($xmlBody->channel->link);
