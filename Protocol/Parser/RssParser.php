@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,19 +9,20 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
 use Debril\RssAtomBundle\Protocol\FeedContent;
 use Debril\RssAtomBundle\Protocol\Item;
-
 use \SimpleXMLElement;
 
 class RssParser extends Parser
 {
+
     protected $mandatoryFields = array(
-            'channel',
-        );
+        'channel',
+    );
 
     /**
      * @param SimpleXMLElement $xmlBody
@@ -37,29 +39,29 @@ class RssParser extends Parser
      * @param \DateTime $modifiedSince
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    protected function parseBody( SimpleXMLElement $xmlBody, \DateTime $modifiedSince ) 
-	{
+    protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
+    {
         $feedContent = new FeedContent();
 
         $feedContent->setId($xmlBody->channel->link);
         $feedContent->setLink($xmlBody->channel->link);
         $feedContent->setTitle($xmlBody->channel->title);
 
-        if (isset($xmlBody->channel->lastBuildDate)){
+        if (isset($xmlBody->channel->lastBuildDate))
+        {
             $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate);
             $feedContent->setLastModified($updated);
         }
 
-
-        foreach( $xmlBody->channel->item as $domElement )
+        foreach ($xmlBody->channel->item as $domElement)
         {
             $item = new Item();
             $item->setTitle($domElement->title)
-                ->setSummary($domElement->description)
-                ->setId($domElement->guid)
-                ->setUpdated(self::convertToDateTime($domElement->pubDate))
-                ->setLink($domElement->link)
-                ->setImage($domElement->image);
+                    ->setSummary($domElement->description)
+                    ->setId($domElement->guid)
+                    ->setUpdated(self::convertToDateTime($domElement->pubDate))
+                    ->setLink($domElement->link)
+                    ->setImage($domElement->image);
 
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }
@@ -68,3 +70,4 @@ class RssParser extends Parser
     }
 
 }
+

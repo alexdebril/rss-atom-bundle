@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,12 +9,14 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol;
 
 use \DateTime;
 
 class Item
 {
+
     /**
      * @var string
      */
@@ -43,7 +46,7 @@ class Item
      * @var string
      */
     protected $image;
-    
+
     /**
      * @return string
      */
@@ -152,9 +155,11 @@ class Item
      * @return \Debril\RssAtomBundle\Protocol\Item
      */
     public function setImage($image)
-	{
+    {
         $this->image = $image;
 
         return $this;
     }
+
 }
+
