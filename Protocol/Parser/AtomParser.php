@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,24 +9,32 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
 use Debril\RssAtomBundle\Protocol\FeedContent;
 use Debril\RssAtomBundle\Protocol\Item;
-
 use \SimpleXMLElement;
 
 class AtomParser extends Parser
 {
 
     protected $mandatoryFields = array(
-            'id',
-            'updated',
-            'title',
-            'link',
-            'entry',
-        );
+        'id',
+        'updated',
+        'title',
+        'link',
+        'entry',
+    );
+
+    /**
+     * 
+     */
+    public function __construct()
+    {
+        $this->setdateFormats(array(\DateTime::RFC3339));
+    }
 
     /**
      * @param SimpleXMLElement $xmlBody
@@ -34,8 +43,7 @@ class AtomParser extends Parser
     public function canHandle(SimpleXMLElement $xmlBody)
     {
         return 'feed' === $xmlBody->getName();
-     }
-
+    }
 
     /**
      *
@@ -43,7 +51,7 @@ class AtomParser extends Parser
      * @param \DateTime $modifiedSince
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    protected function parseBody( SimpleXMLElement $xmlBody, \DateTime $modifiedSince )
+    protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {
         $feedContent = new FeedContent();
 
@@ -53,17 +61,18 @@ class AtomParser extends Parser
         $feedContent->setTitle($xmlBody->title);
         $feedContent->setSubtitle($xmlBody->subtitle);
 
-        $updated = self::convertToDateTime($xmlBody->updated, \DateTime::RFC3339);
+        $format = $this->guessDateFormat($xmlBody->updated);
+        $updated = self::convertToDateTime($xmlBody->updated, $format);
         $feedContent->setLastModified($updated);
 
-        foreach( $xmlBody->entry as $domElement )
+        foreach ($xmlBody->entry as $domElement)
         {
             $item = new Item();
             $item->setTitle($domElement->title)
-                ->setId($domElement->id)
-                ->setSummary($domElement->summary)
-                ->setUpdated(self::convertToDateTime($domElement->updated, \DateTime::RFC3339))
-                ->setLink($domElement->link);
+                    ->setId($domElement->id)
+                    ->setSummary($domElement->summary)
+                    ->setUpdated(self::convertToDateTime($domElement->updated, $format))
+                    ->setLink($domElement->link);
 
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }
@@ -72,3 +81,4 @@ class AtomParser extends Parser
     }
 
 }
+

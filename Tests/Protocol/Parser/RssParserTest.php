@@ -38,7 +38,7 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
     {
         $file = dirname(__FILE__) . '/../../../Resources/sample-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $this->assertFalse( $this->object->canHandle($xmlBody) );
+        $this->assertFalse($this->object->canHandle($xmlBody));
     }
 
     /**
@@ -48,7 +48,7 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
     {
         $file = dirname(__FILE__) . '/../../../Resources/sample-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $this->assertTrue( $this->object->canHandle($xmlBody) );
+        $this->assertTrue($this->object->canHandle($xmlBody));
     }
 
     /**
@@ -83,5 +83,39 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($feed->getTitle());
     }
 
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     */
+    public function testGuessDateFormat()
+    {
+        $default = array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
+
+        $this->object->setdateFormats($default);
+
+        $date = 'Mon, 06 Sep 2009 16:45:00 GMT';
+        $format = $this->object->guessDateFormat($date);
+
+        $this->assertEquals(\DateTime::RSS, $format);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
+     */
+    public function testGuessDateFormatException()
+    {
+        $default = array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
+
+        $this->object->setdateFormats($default);
+
+        $date = '2003-13T18:30:02Z';
+        $this->object->guessDateFormat($date);
+    }
 
 }

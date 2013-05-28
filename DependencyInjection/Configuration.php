@@ -25,6 +25,12 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('feed_provider')->defaultValue('Debril\RssAtomBundle\Provider\MockProvider')->end()
                 ->end();
 
+        $rootNode
+                ->children()
+                ->arrayNode('date_formats')
+                ->prototype('scalar')->end()
+                ->end();
+
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.

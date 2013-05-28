@@ -25,6 +25,14 @@ class RssParser extends Parser
     );
 
     /**
+     * 
+     */
+    public function __construct()
+    {
+        $this->setdateFormats(array(\DateTime::RSS));
+    }
+
+    /**
      * @param SimpleXMLElement $xmlBody
      * @return boolean
      */
@@ -49,17 +57,19 @@ class RssParser extends Parser
 
         if (isset($xmlBody->channel->lastBuildDate))
         {
-            $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate);
+            $format = $this->guessDateFormat($xmlBody->channel->lastBuildDate);
+            $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate, $format);
             $feedContent->setLastModified($updated);
         }
 
         foreach ($xmlBody->channel->item as $domElement)
         {
             $item = new Item();
+            $format = isset($format) ? $format : $this->guessDateFormat($domElement->pubDate);
             $item->setTitle($domElement->title)
                     ->setSummary($domElement->description)
                     ->setId($domElement->guid)
-                    ->setUpdated(self::convertToDateTime($domElement->pubDate))
+                    ->setUpdated(self::convertToDateTime($domElement->pubDate, $format))
                     ->setLink($domElement->link)
                     ->setImage($domElement->image);
 

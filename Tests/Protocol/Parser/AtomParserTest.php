@@ -40,7 +40,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
     {
         $file = dirname(__FILE__) . '/../../../Resources/sample-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $this->assertFalse( $this->object->canHandle($xmlBody) );
+        $this->assertFalse($this->object->canHandle($xmlBody));
         $this->object->parse($xmlBody, new \DateTime);
     }
 
@@ -51,7 +51,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
     {
         $file = dirname(__FILE__) . '/../../../Resources/sample-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $this->assertTrue( $this->object->canHandle($xmlBody) );
+        $this->assertTrue($this->object->canHandle($xmlBody));
     }
 
     /**
@@ -86,6 +86,56 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType("string", $feed->getLink());
         $this->assertNotNull($feed->getSubtitle());
         $this->assertNotNull($feed->getTitle());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::setDateFormats
+     */
+    public function testSetDateFormats()
+    {
+        $default = array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
+
+        $this->object->setdateFormats($default);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     */
+    public function testGuessDateFormat()
+    {
+        $default = array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
+
+        $this->object->setdateFormats($default);
+
+        $date = '2003-12-13T18:30:02Z';
+        $format = $this->object->guessDateFormat($date);
+
+        $this->assertEquals(\DateTime::RFC3339, $format);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
+     */
+    public function testGuessDateFormatException()
+    {
+        $default = array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
+
+        $this->object->setdateFormats($default);
+
+        $date = '2003-13T18:30:02Z';
+        $format = $this->object->guessDateFormat($date);
+
+        $this->assertEquals(\DateTime::RFC3339, $format);
     }
 
 }

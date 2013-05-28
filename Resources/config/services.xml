@@ -6,7 +6,11 @@
 
     <services>
         <service id="RssParser" class="Debril\RssAtomBundle\Protocol\Parser\RssParser" />
-        <service id="AtomParser" class="Debril\RssAtomBundle\Protocol\Parser\AtomParser" />
+        <service id="AtomParser" class="Debril\RssAtomBundle\Protocol\Parser\AtomParser">
+            <call method="setDateFormats">
+                <argument>%debril_rss_atom.date_formats%</argument>
+            </call>
+        </service>
         <service id="HttpPecl" class="Debril\RssAtomBundle\Driver\HttpPeclDriver" />
         <service id="HttpCurl" class="Debril\RssAtomBundle\Driver\HttpCurlDriver" />
 

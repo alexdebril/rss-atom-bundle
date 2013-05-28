@@ -36,6 +36,23 @@ class DebrilRssAtomExtension extends Extension
         $container->setParameter(
                 'debril_rss_atom.feed_provider', $config['feed_provider']
         );
+
+        $default = array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
+
+        if (!isset($config['date_formats']))
+        {
+            $container->setParameter(
+                    'debril_rss_atom.date_formats', $default
+            );
+        } else
+        {
+            $container->setParameter(
+                    'debril_rss_atom.date_formats', array_merge($default, $config['date_formats'])
+            );
+        }
     }
 
 }

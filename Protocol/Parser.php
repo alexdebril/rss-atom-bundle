@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,19 +9,30 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol;
 
 use \SimpleXMLElement;
 use \DateTime;
-
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
+
 /**
  * Parser
  */
 abstract class Parser
 {
 
+    /**
+     *
+     * @var array[string]
+     */
     protected $mandatoryFields = array();
+
+    /**
+     *
+     * @var array[string]
+     */
+    protected $dateFormats = array();
 
     /**
      * Parses the feed's body to create a FeedContent instance.
@@ -32,7 +44,7 @@ abstract class Parser
      */
     public function parse(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {
-        if ( ! $this->canHandle($xmlBody) )
+        if (!$this->canHandle($xmlBody))
         {
             throw new ParserException('this is not a supported format');
         }
@@ -53,20 +65,46 @@ abstract class Parser
 
         foreach ($this->mandatoryFields as $field)
         {
-            if ( ! isset($body->$field) )
+            if (!isset($body->$field))
             {
                 $errors[] = "missing {$field}";
             }
         }
 
-        if ( 0 < count($errors) )
+        if (0 < count($errors))
         {
             $report = implode(", ", $errors);
             throw new ParserException(
-                    "error while parsing the feed : {$report}"
+            "error while parsing the feed : {$report}"
             );
         }
+    }
 
+    /**
+     *
+     * @param array $dates
+     */
+    public function setdateFormats(array $dates)
+    {
+        $this->dateFormats = $dates;
+    }
+
+    /**
+     *
+     * @param type $date
+     * @return string date Format
+     * @throws ParserException
+     */
+    public function guessDateFormat($date)
+    {
+        foreach ($this->dateFormats as $format)
+        {
+            $test = \DateTime::createFromFormat($format, $date);
+            if ($test instanceof \DateTime)
+                return $format;
+        }
+
+        throw new ParserException('Impossible to guess date format : ' . $date);
     }
 
     /**
@@ -79,7 +117,7 @@ abstract class Parser
     {
         $date = DateTime::createFromFormat($format, $string);
 
-        if ( ! $date instanceof \DateTime )
+        if (!$date instanceof \DateTime)
         {
             throw new ParserException("date is the wrong format : {$string} - expected {$format}");
         }
@@ -103,5 +141,5 @@ abstract class Parser
      * @return FeedContent
      */
     abstract protected function parseBody(SimpleXMLElement $body, \DateTime $modifiedSince);
-
 }
+
