@@ -9,11 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
+
     /**
-     * @Route("/hello/{name}")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
         $reader = $this->getReader();
 
@@ -21,8 +21,9 @@ class DefaultController extends Controller
         $url = 'https://raw.github.com/alexdebril/rss-atom-bundle/master/Resources/sample-atom.xml';
 
         $content = $reader->getFeedContent($url, $date);
+        $response = new \Symfony\Component\HttpFoundation\Response(print_r($content, true));
 
-        return array('name' => $name);
+        return $response;
     }
 
     /**
@@ -33,4 +34,5 @@ class DefaultController extends Controller
     {
         return $this->get('FeedReader');
     }
+
 }

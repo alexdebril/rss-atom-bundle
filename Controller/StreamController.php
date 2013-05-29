@@ -11,7 +11,7 @@ class StreamController extends Controller
 {
 
     /**
-     * @Route("/stream")
+     * @Route("/stream/{contentId}")
      * @Template()
      */
     public function indexAction($contentId)
