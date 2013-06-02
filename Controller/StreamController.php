@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Debril\RssAtomBundle\Provider\FeedContentProvider;
 
 class StreamController extends Controller
 {
@@ -35,6 +36,10 @@ class StreamController extends Controller
     {
         $provider = $this->get('FeedContentProvider');
 
+        if (!$provider instanceof FeedContentProvider)
+        {
+            throw new \Exception('Provider is not a FeedContentProvider instance');
+        }
         return $provider->getFeedContentById($contentId);
     }
 
