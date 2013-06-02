@@ -29,7 +29,7 @@ class AtomParser extends Parser
     );
 
     /**
-     * 
+     *
      */
     public function __construct()
     {
@@ -70,14 +70,25 @@ class AtomParser extends Parser
             $item = new Item();
             $item->setTitle($domElement->title)
                     ->setId($domElement->id)
-                    ->setSummary($domElement->summary)
+                    ->setSummary($this->parseContent($domElement->content))
                     ->setUpdated(self::convertToDateTime($domElement->updated, $format))
-                    ->setLink($domElement->link);
+                    ->setLink($domElement->link[0]['href']);
 
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }
 
         return $feedContent;
+    }
+
+    protected function parseContent(SimpleXMLElement $content)
+    {
+        $out = '';
+        foreach ($content->children() as $child)
+        {
+            $out .= $child->asXML();
+        }
+
+        return $out;
     }
 
 }
