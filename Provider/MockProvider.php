@@ -14,6 +14,7 @@
 
 namespace Debril\RssAtomBundle\Provider;
 
+use \Symfony\Component\OptionsResolver\Options;
 use Debril\RssAtomBundle\Protocol\FeedContent;
 use Debril\RssAtomBundle\Protocol\Item;
 
@@ -22,13 +23,14 @@ class MockProvider implements FeedContentProvider
 
     /**
      *
-     * @param type $contentId
+     * @param \Symfony\Component\OptionsResolver\Options $options
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    public function getFeedContentById($contentId)
+    public function getFeedContentById(Options $options)
     {
         $content = new FeedContent;
 
+        $contentId = $options->get('contentId');
         $content->setId($contentId);
 
         $content->setTitle('thank you for using RssAtomBundle');

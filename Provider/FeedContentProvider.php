@@ -14,13 +14,15 @@
 
 namespace Debril\RssAtomBundle\Provider;
 
+use \Symfony\Component\OptionsResolver\Options;
+
 interface FeedContentProvider
 {
 
     /**
      *
-     * @param mixed $contentId
+     * @param \Symfony\Component\OptionsResolver $params
      */
-    public function getFeedContentById($contentId);
+    public function getFeedContentById(Options $options);
 }
 
