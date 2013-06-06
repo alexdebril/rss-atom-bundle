@@ -6,6 +6,19 @@
 
     <route id="debril_rss_atom_stream" pattern="/stream/{contentId}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
+        <default key="contentId">null</default>
+    </route>
+
+    <route id="debril_rss_atom_atom" pattern="/atom/{contentId}">
+        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
+        <default key="format">atom</default>
+        <default key="contentId">null</default>
+    </route>
+
+    <route id="debril_rss_atom_rss" pattern="/rss/{contentId}">
+        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
+        <default key="format">rss</default>
+        <default key="contentId">null</default>
     </route>
 
     <route id="debril_rss_atom_validate" pattern="/validate">
