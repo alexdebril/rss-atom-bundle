@@ -12,17 +12,19 @@ use Debril\RssAtomBundle\Provider\FeedContentProvider;
 class StreamController extends Controller
 {
 
+    const DEFAULT_SOURCE = 'DefaultFeedProvider';
+
     /**
      * @Route("/stream/{contentId}")
      * @Template()
      */
-    public function indexAction($format, $contentId = null)
+    public function indexAction($format, $contentId = null, $source = self::DEFAULT_SOURCE)
     {
         $options = new Options;
         if (!is_null($contentId))
             $options->set('contentId', $contentId);
 
-        return $this->createStreamResponse($options, $format);
+        return $this->createStreamResponse($options, $format, $source);
     }
 
     /**
@@ -30,10 +32,10 @@ class StreamController extends Controller
      * @param \Symfony\Component\OptionsResolver\Options $options
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createStreamResponse(Options $options, $format)
+    public function createStreamResponse(Options $options, $format, $source = self::DEFAULT_SOURCE)
     {
         $formatter = $this->getFormatter($format);
-        $content = $this->getContent($options);
+        $content = $this->getContent($options, $source);
 
         $response = new Response($formatter->toString($content));
         $response->headers->set('Content-Type', 'application/xhtml+xml');
@@ -47,14 +49,15 @@ class StreamController extends Controller
      * @return FeedContent
      * @throws \Exception
      */
-    protected function getContent(Options $options)
+    protected function getContent(Options $options, $source)
     {
-        $provider = $this->get('FeedContentProvider');
+        $provider = $this->get($source);
 
         if (!$provider instanceof FeedContentProvider)
         {
             throw new \Exception('Provider is not a FeedContentProvider instance');
         }
+
         return $provider->getFeedContentById($options);
     }
 
@@ -68,7 +71,7 @@ class StreamController extends Controller
     {
         $services = array(
             'rss' => 'FeedFormatter',
-            'atom' => 'FeedFormatter',
+            'atom' => 'AtomFormatter',
         );
 
         if (!array_key_exists($format, $services))

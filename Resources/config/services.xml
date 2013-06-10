@@ -24,9 +24,9 @@
             </call>
         </service>
 
-        <service id="FeedFormatter" class="Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter" />
+        <service id="AtomFormatter" class="Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter" />
 
-        <service id="FeedContentProvider" class="%debril_rss_atom.feed_provider%" />
+        <service id="DefaultFeedProvider" class="%debril_rss_atom.feed_provider%" />
 
     </services>
 </container>
