@@ -70,7 +70,7 @@ class StreamController extends Controller
     protected function getFormatter($format)
     {
         $services = array(
-            'rss' => 'FeedFormatter',
+            'rss' => 'RssFormatter',
             'atom' => 'AtomFormatter',
         );
 
