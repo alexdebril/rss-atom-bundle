@@ -64,7 +64,7 @@ class FeedAtomFormatter implements FeedFormatter
      */
     public function setMetas(\SimpleXMLElement $element, FeedContent $content)
     {
-        $element->addChild('title', $content->getTitle());
+        $element->addChild('title', htmlspecialchars($content->getTitle()));
         $element->addChild('subtitle', $content->getSubtitle());
         $element->addChild('id', $content->getLink());
         $link = $element->addChild('link');
@@ -83,7 +83,7 @@ class FeedAtomFormatter implements FeedFormatter
         foreach ($content as $item)
         {
             $entry = $element->addChild('entry');
-            $entry->addChild('title', $item->getTitle());
+            $entry->addChild('title', htmlspecialchars($item->getTitle()));
             $entry->addChild('link')->addAttribute('href', $item->getLink());
             $entry->addChild('id', $item->getLink());
             $entry->addChild('updated', $item->getUpdated()->format(\DateTime::ATOM));
