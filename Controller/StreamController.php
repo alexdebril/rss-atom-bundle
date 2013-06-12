@@ -15,16 +15,48 @@ class StreamController extends Controller
     const DEFAULT_SOURCE = 'DefaultFeedProvider';
 
     /**
+     *
+     * @var \DateTime
+     */
+    protected $since;
+
+    /**
      * @Route("/stream/{contentId}")
      * @Template()
      */
     public function indexAction($format, $contentId = null, $source = self::DEFAULT_SOURCE)
     {
         $options = new Options;
+
+        $options->set('Since', $this->getModifiedSince());
+
         if (!is_null($contentId))
             $options->set('contentId', $contentId);
 
         return $this->createStreamResponse($options, $format, $source);
+    }
+
+    /**
+     *
+     * @return \DateTime
+     */
+    public function getModifiedSince()
+    {
+        if (is_null($this->since))
+        {
+            if ($this->getRequest()->headers->has('If-Modified-Since'))
+            {
+                $this->since = \DateTime::createFromFormat(
+                                \DateTime::RSS, $this->getRequest()->headers->get('If-Modified-Since')
+                );
+            } else
+            {
+                $this->since = new \DateTime;
+                $this->since->setTimestamp(1);
+            }
+        }
+
+        return $this->since;
     }
 
     /**
@@ -34,11 +66,22 @@ class StreamController extends Controller
      */
     public function createStreamResponse(Options $options, $format, $source = self::DEFAULT_SOURCE)
     {
-        $formatter = $this->getFormatter($format);
         $content = $this->getContent($options, $source);
 
-        $response = new Response($formatter->toString($content));
-        $response->headers->set('Content-Type', 'application/xhtml+xml');
+        if ($content->getLastModified() > $this->getModifiedSince())
+        {
+            $formatter = $this->getFormatter($format);
+            $response = new Response($formatter->toString($content));
+            $response->headers->set('Content-Type', 'application/xhtml+xml');
+
+            $response->setPublic();
+            $response->setMaxAge(3600);
+            $response->setLastModified($content->getLastModified());
+        } else
+        {
+            $response = new Response;
+            $response->setNotModified();
+        }
 
         return $response;
     }
