@@ -25,17 +25,17 @@ class FeedRssFormatter implements FeedFormatter
      */
     public function toString(FeedContent $content)
     {
-        $element = $this->toSimpleXml($content);
+        $element = $this->toDom($content);
 
-        return $element->asXML();
+        return $element->saveXML();
     }
 
     /**
      *
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
-     * @return \SimpleXMLElement
+     * @return \DomDocument
      */
-    public function toSimpleXml(FeedContent $content)
+    public function toDom(FeedContent $content)
     {
         $element = $this->getRootElement();
 
@@ -47,14 +47,20 @@ class FeedRssFormatter implements FeedFormatter
 
     /**
      *
-     * @return \SimpleXMLElement
+     * @return \DomDocument
      */
     public function getRootElement()
     {
-        $element = new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><rss />');
-        $element->addAttribute('version', '2.0');
+        $dom = new \DOMDocument('1.0', 'utf-8');
+        $dom->formatOutput = true;
 
-        return $element;
+        $rss = $dom->createElement('rss');
+        $rss->setAttribute('version', '2.0');
+        $channel = $dom->createElement('channel');
+        $rss->appendChild($channel);
+        $dom->appendChild($rss);
+
+        return $dom;
     }
 
     /**
@@ -62,12 +68,19 @@ class FeedRssFormatter implements FeedFormatter
      * @param \SimpleXMLElement $element
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
      */
-    public function setMetas(\SimpleXMLElement $element, FeedContent $content)
+    public function setMetas(\DOMDocument $document, FeedContent $content)
     {
-        $element->addChild('title', $content->getTitle());
-        $element->addChild('link', $content->getLink());
-        $element->addChild('lastBuildDate', $content->getLastModified()->format(\DateTime::RSS));
-        $element->addChild('pubDate', $content->getLastModified()->format(\DateTime::RSS));
+        $elements = array();
+        $elements[] = $document->createElement('title', htmlspecialchars($content->getTitle()));
+        $elements[] = $document->createElement('link', $content->getLink());
+
+        $elements[] = $document->createElement('lastBuildDate', $content->getLastModified()->format(\DateTime::RSS));
+        $elements[] = $document->createElement('pubDate', $content->getLastModified()->format(\DateTime::RSS));
+
+        foreach ($elements as $element)
+        {
+            $document->documentElement->firstChild->appendChild($element);
+        }
     }
 
     /**
@@ -75,16 +88,29 @@ class FeedRssFormatter implements FeedFormatter
      * @param \SimpleXMLElement $element
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
      */
-    public function setEntries(\SimpleXMLElement $element, FeedContent $content)
+    public function setEntries(\DomDocument $document, FeedContent $content)
     {
         foreach ($content as $item)
         {
-            $entry = $element->addChild('item');
-            $entry->addChild('title', $item->getTitle());
-            $entry->addChild('link', $item->getLink());
-            $entry->addChild('guid', $item->getLink());
-            $entry->addChild('pubDate', $item->getUpdated()->format(\DateTime::RSS));
-            $entry->addChild('description', $item->getSummary());
+            $entry = $document->createElement('item');
+
+            $elements = array();
+            $elements[] = $document->createElement('title', htmlspecialchars($item->getTitle()));
+
+            $elements[] = $document->createElement('link', $item->getLink());
+            $elements[] = $document->createElement('guid', $item->getLink());
+            $elements[] = $document->createElement('pubDate', $item->getUpdated()->format(\DateTime::RSS));
+
+            $elements[] = $document->createElement('description', $item->getSummary() .
+                    $item->getDescription()
+            );
+
+            foreach ($elements as $element)
+            {
+                $entry->appendChild($element);
+            }
+
+            $document->documentElement->firstChild->appendChild($entry);
         }
     }
 

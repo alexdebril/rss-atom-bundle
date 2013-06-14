@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -38,6 +39,9 @@ use Debril\RssAtomBundle\Protocol\FeedContentException;
  */
 class FeedContent implements \Iterator
 {
+
+    const XHTML = 'xhtml';
+    const TEXT = 'text';
 
     /**
      *
@@ -80,6 +84,12 @@ class FeedContent implements \Iterator
      * @var string
      */
     protected $id;
+
+    /**
+     *
+     * @var type
+     */
+    protected $contentType = self::TEXT;
 
     /**
      *
@@ -221,12 +231,12 @@ class FeedContent implements \Iterator
      */
     public function addAcceptableItem(Item $item, \DateTime $startDate)
     {
-        if ( $item->getUpdated() instanceof \DateTime )
+        if ($item->getUpdated() instanceof \DateTime)
         {
             $interval = $startDate->diff($item->getUpdated());
 
-            if ($interval->invert === 0 )
-                $this->addItem ($item);
+            if ($interval->invert === 0)
+                $this->addItem($item);
         }
         else
             throw new FeedContentException("tried to add an item without date");
@@ -292,4 +302,26 @@ class FeedContent implements \Iterator
         return $this->current() instanceof \Debril\RssAtomBundle\Protocol\Item;
     }
 
+    /**
+     *
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->contentType;
+    }
+
+    /**
+     *
+     * @param type $contentType
+     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     */
+    public function setContentType($contentType)
+    {
+        $this->contentType = $contentType;
+
+        return $this;
+    }
+
 }
+

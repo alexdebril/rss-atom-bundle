@@ -28,6 +28,14 @@ class Item
     protected $summary;
 
     /**
+     * RSS : description
+     * ATOM : Content
+     *
+     * @var string
+     */
+    protected $description;
+
+    /**
      * @var DateTime
      */
     protected $updated;
@@ -81,6 +89,27 @@ class Item
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     *
+     * @param string $description
+     * @return \Debril\RssAtomBundle\Protocol\Item
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }

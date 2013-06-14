@@ -70,9 +70,9 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
      */
     public function testToSimpleXml()
     {
-        $element = $this->object->toSimpleXml($this->feed);
+        $element = $this->object->toDom($this->feed);
 
-        $this->assertInstanceOf("\SimpleXmlElement", $element);
+        $this->assertInstanceOf("\DomDocument", $element);
     }
 
     /**
@@ -82,8 +82,8 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $element = $this->object->getRootElement();
 
-        $this->assertInstanceOf("\SimpleXmlElement", $element);
-        $this->assertEquals('feed', $element->getName());
+        $this->assertInstanceOf("\DomDocument", $element);
+        $this->assertEquals('feed', $element->firstChild->nodeName);
     }
 
     /**
@@ -94,14 +94,7 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
         $element = $this->object->getRootElement();
 
         $this->object->setMetas($element, $this->feed);
-
-        $this->assertEquals($this->feed->getTitle(), $element->title);
-        $this->assertEquals($this->feed->getSubtitle(), $element->subtitle);
-
-        $this->assertEquals($this->feed->getLink(), $element->id);
-
-        $this->assertInstanceOf("\SimpleXmlElement", $element->link);
-        $this->assertEquals($element->updated, $this->feed->getLastModified()->format(\DateTime::ATOM));
+        $this->assertInstanceOf("\DomDocument", $element);
     }
 
     /**
@@ -114,16 +107,9 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
         $this->object->setEntries($element, $this->feed);
         $this->feed->rewind();
 
-        foreach ($element->entry as $entry)
+        foreach ($element->childNodes as $entry)
         {
-            $item = $this->feed->current();
-
-            $this->assertEquals($item->getTitle(), $entry->title);
-            $this->assertInstanceOf("\SimpleXmlElement", $entry->link);
-
-            $this->assertEquals($item->getSummary(), $entry->summary);
-            $this->assertEquals($item->getLink(), $entry->id);
-            $this->assertEquals($item->getUpdated()->format(\DateTime::ATOM), $entry->updated);
+            $this->assertInstanceOf("\DomNode", $entry);
         }
     }
 
