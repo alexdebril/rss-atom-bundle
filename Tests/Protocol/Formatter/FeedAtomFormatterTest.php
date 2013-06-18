@@ -66,9 +66,9 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::toSimpleXml
+     * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::toDom
      */
-    public function testToSimpleXml()
+    public function testToDom()
     {
         $element = $this->object->toDom($this->feed);
 
