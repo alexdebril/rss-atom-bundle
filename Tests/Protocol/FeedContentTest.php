@@ -14,11 +14,8 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     const title = 'feed title';
-
     const subtitle = 'feed subtitle';
-
     const id = 'feed id';
-
     const link = 'http://example.com';
 
     /**
@@ -35,7 +32,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $this->object->setSubtitle(self::subtitle);
         $this->object->setLastModified(new \DateTime);
 
-        for( $i = 0; $i < 5; $i++ )
+        for ($i = 0; $i < 5; $i++)
         {
             $item = new Item();
             $item->setId($i);
@@ -44,7 +41,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
         $lastModified = new \DateTime();
 
-         $this->headers = array(
+        $this->headers = array(
             'Last-Modified' => $lastModified->format(\DateTime::RFC2822),
             'Content-Lenght' => '110',
         );
@@ -106,7 +103,6 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($this->headers, $this->object->getHeaders());
     }
-
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedContent::getTitle
@@ -204,7 +200,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     {
         $count = 0;
 
-        foreach( $this->object as $item )
+        foreach ($this->object as $item)
         {
             $count++;
         }
@@ -223,7 +219,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $ret = $this->object->addItem(new Item());
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
-        $this->assertEquals($count+1, $this->object->getItemsCount());
+        $this->assertEquals($count + 1, $this->object->getItemsCount());
     }
 
     /**
@@ -238,7 +234,23 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $ret = $this->object->addAcceptableItem($item, \DateTime::createFromFormat('j-M-Y', '16-Feb-2012'));
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
-        $this->assertEquals($count+1, $this->object->getItemsCount());
+        $this->assertEquals($count + 1, $this->object->getItemsCount());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedContent::addAcceptableItem
+     */
+    public function testAddUnacceptableItem()
+    {
+        $count = $this->object->getItemsCount();
+
+        $item = new Item();
+        $date = new \DateTime;
+        $item->setUpdated($date);
+        $ret = $this->object->addAcceptableItem($item, $date);
+
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
+        $this->assertEquals($count, $this->object->getItemsCount());
     }
 
     /**
@@ -288,7 +300,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $count = 0;
         $ids = array();
 
-        foreach( $this->object as $item )
+        foreach ($this->object as $item)
         {
             $count++;
             $this->assertArrayNotHasKey($item->getId(), $ids);
@@ -328,7 +340,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
         $count = $this->object->getItemsCount();
 
-        for ( $i = 0; $i < $count; $i++ )
+        for ($i = 0; $i < $count; $i++)
         {
             $this->object->next();
         }

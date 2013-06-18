@@ -233,9 +233,7 @@ class FeedContent implements \Iterator
     {
         if ($item->getUpdated() instanceof \DateTime)
         {
-            $interval = $startDate->diff($item->getUpdated());
-
-            if ($interval->invert === 0)
+            if ($item->getUpdated() > $startDate)
                 $this->addItem($item);
         }
         else
