@@ -39,13 +39,21 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
     public function testGetResponse()
     {
         $date = \DateTime::createFromFormat('j-M-Y', '10-Feb-2002');
-        $response = $this->object->getResponse(self::URL, $date);
+        try
+        {
+            $response = $this->object->getResponse(self::URL, $date);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Driver\HttpDriverResponse", $response);
-        $this->assertInternalType("integer", $response->getHttpCode());
+            $this->assertInstanceOf("Debril\RssAtomBundle\Driver\HttpDriverResponse", $response);
+            $this->assertInternalType("integer", $response->getHttpCode());
 
-        $this->assertInternalType("string", $response->getBody());
-        $this->assertGreaterThan(0, strlen($response->getBody()));
+            $this->assertInternalType("string", $response->getBody());
+            $this->assertGreaterThan(0, strlen($response->getBody()));
+        } catch (DriverUnreachableResourceException $e)
+        {
+            $this->markTestIncomplete(
+                    'This test cannot be run.'
+            );
+        }
     }
 
     /**
