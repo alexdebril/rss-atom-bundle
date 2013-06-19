@@ -112,6 +112,16 @@ class FeedAtomFormatter implements FeedFormatter
                     $document, 'content', $content->getContentType(), $item->getDescription()
             );
 
+            if (!is_null($item->getAuthor()))
+            {
+                $author = $document->createElement('author');
+                $author->appendChild($document->createElement('name', $item->getAuthor()->getName()));
+                $author->appendChild($document->createElement('email', $item->getAuthor()->getEmail()));
+                $author->appendChild($document->createElement('uri', $item->getAuthor()->getUri()));
+
+                $elements[] = $author;
+            }
+
             foreach ($elements as $element)
             {
                 $entry->appendChild($element);

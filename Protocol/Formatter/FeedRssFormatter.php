@@ -105,6 +105,10 @@ class FeedRssFormatter implements FeedFormatter
                     $item->getDescription()
             );
 
+            if (!is_null($item->getAuthor()))
+            {
+                $elements[] = $document->createElement('author', $item->getAuthor()->getName());
+            }
             foreach ($elements as $element)
             {
                 $entry->appendChild($element);
