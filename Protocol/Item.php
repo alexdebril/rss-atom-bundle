@@ -13,6 +13,7 @@
 namespace Debril\RssAtomBundle\Protocol;
 
 use \DateTime;
+use \Debril\RssAtomBundle\Protocol\Author;
 
 class Item
 {
@@ -54,6 +55,12 @@ class Item
      * @var string
      */
     protected $image;
+
+    /**
+     *
+     * @var \Debril\RssAtomBundle\Protocol\Author
+     */
+    protected $author;
 
     /**
      * @return string
@@ -187,6 +194,26 @@ class Item
     {
         $this->image = $image;
 
+        return $this;
+    }
+
+    /**
+     *
+     * @return \Debril\RssAtomBundle\Protocol\Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     *
+     * @param \Debril\RssAtomBundle\Protocol\Author $author
+     * @return \Debril\RssAtomBundle\Protocol\Item
+     */
+    public function setAuthor(Author $author)
+    {
+        $this->author = $author;
         return $this;
     }
 
