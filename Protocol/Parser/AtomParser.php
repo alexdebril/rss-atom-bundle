@@ -66,21 +66,21 @@ class AtomParser extends Parser
         $updated = self::convertToDateTime($xmlBody->updated, $format);
         $feedContent->setLastModified($updated);
 
-        foreach ($xmlBody->entry as $domElement)
+        foreach ($xmlBody->entry as $xmlElement)
         {
             $item = new Item();
-            $item->setTitle($domElement->title)
-                    ->setId($domElement->id)
-                    ->setSummary($this->parseContent($domElement->content))
-                    ->setUpdated(self::convertToDateTime($domElement->updated, $format))
-                    ->setLink($domElement->link[0]['href']);
+            $item->setTitle($xmlElement->title)
+                    ->setId($xmlElement->id)
+                    ->setSummary($this->parseContent($xmlElement->content))
+                    ->setUpdated(self::convertToDateTime($xmlElement->updated, $format))
+                    ->setLink($xmlElement->link[0]['href']);
 
-            if ($domElement->author)
+            if ($xmlElement->author)
             {
                 $author = new Author;
-                $author->setEmail($domElement->author->email);
-                $author->setName($domElement->author->name);
-                $author->setUri($domElement->author->uri);
+                $author->setEmail($xmlElement->author->email);
+                $author->setName($xmlElement->author->name);
+                $author->setUri($xmlElement->author->uri);
 
                 $item->setAuthor($author);
             }
