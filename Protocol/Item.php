@@ -58,6 +58,12 @@ class Item
     protected $author;
 
     /**
+     *
+     * @var string
+     */
+    protected $comment;
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -190,6 +196,27 @@ class Item
     public function setAuthor(Author $author)
     {
         $this->author = $author;
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     *
+     * @param string $comment
+     * @return \Debril\RssAtomBundle\Protocol\Item
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
         return $this;
     }
 
