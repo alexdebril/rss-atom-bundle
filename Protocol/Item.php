@@ -179,25 +179,6 @@ class Item
     }
 
     /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param unknown_type $image
-     * @return \Debril\RssAtomBundle\Protocol\Item
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
      *
      * @return \Debril\RssAtomBundle\Protocol\Author
      */

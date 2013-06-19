@@ -25,7 +25,7 @@ class RssParser extends Parser
     );
 
     /**
-     * 
+     *
      */
     public function __construct()
     {
@@ -70,8 +70,7 @@ class RssParser extends Parser
                     ->setSummary($domElement->description)
                     ->setId($domElement->guid)
                     ->setUpdated(self::convertToDateTime($domElement->pubDate, $format))
-                    ->setLink($domElement->link)
-                    ->setImage($domElement->image);
+                    ->setLink($domElement->link);
 
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }
