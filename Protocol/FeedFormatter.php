@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,12 +9,14 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol;
 
 use Debril\RssAtomBundle\Protocol\FeedContent;
 
 interface FeedFormatter
 {
+
     /**
      *
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
@@ -24,25 +27,24 @@ interface FeedFormatter
      *
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
      */
-    public function toSimpleXml(FeedContent $content);
+    public function toDom(FeedContent $content);
 
     /**
-     * @return \SimpleXmlElement
+     * @return \DomDocument
      */
     public function getRootElement();
 
     /**
      *
-     * @param \SimpleXMLElement $element
+     * @param \DomDocument $element
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
      */
-    public function setMetas(\SimpleXMLElement $element, FeedContent $content);
+    public function setMetas(\DomDocument $element, FeedContent $content);
 
     /**
      *
-     * @param \SimpleXMLElement $element
+     * @param \DomDocument $element
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
      */
-    public function setEntries(\SimpleXMLElement $element, FeedContent $content);
-
+    public function setEntries(\DomDocument $element, FeedContent $content);
 }
