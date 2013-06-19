@@ -15,6 +15,7 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
 use Debril\RssAtomBundle\Protocol\Parser;
 use Debril\RssAtomBundle\Protocol\FeedContent;
 use Debril\RssAtomBundle\Protocol\Item;
+use Debril\RssAtomBundle\Protocol\Author;
 use \SimpleXMLElement;
 
 class AtomParser extends Parser
@@ -73,6 +74,16 @@ class AtomParser extends Parser
                     ->setSummary($this->parseContent($domElement->content))
                     ->setUpdated(self::convertToDateTime($domElement->updated, $format))
                     ->setLink($domElement->link[0]['href']);
+
+            if ($domElement->author)
+            {
+                $author = new Author;
+                $author->setEmail($domElement->author->email);
+                $author->setName($domElement->author->name);
+                $author->setUri($domElement->author->uri);
+
+                $item->setAuthor($author);
+            }
 
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }

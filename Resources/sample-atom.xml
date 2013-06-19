@@ -21,6 +21,7 @@
         <author>
             <name>John Doe</name>
             <email>johndoe@example.com</email>
+            <uri>http://johndoe.com</uri>
         </author>
     </entry>
 
