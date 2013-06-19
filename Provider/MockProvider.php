@@ -17,6 +17,7 @@ namespace Debril\RssAtomBundle\Provider;
 use \Symfony\Component\OptionsResolver\Options;
 use Debril\RssAtomBundle\Protocol\FeedContent;
 use Debril\RssAtomBundle\Protocol\Item;
+use Debril\RssAtomBundle\Protocol\Author;
 
 class MockProvider implements FeedContentProvider
 {
@@ -45,6 +46,14 @@ class MockProvider implements FeedContentProvider
         $item->setTitle('This is an item');
         $item->setSummary('this stream was generated using the MockProvider class');
         $item->setUpdated(new \DateTime);
+
+        $author = new Author;
+
+        $author->setEmail('contact@example.com');
+        $author->setName('Contributor');
+        $author->setUri('http://example.com');
+        $item->setAuthor($author);
+
         $content->addItem($item);
 
         return $content;
