@@ -62,15 +62,15 @@ class RssParser extends Parser
             $feedContent->setLastModified($updated);
         }
 
-        foreach ($xmlBody->channel->item as $domElement)
+        foreach ($xmlBody->channel->item as $xmlElement)
         {
             $item = new Item();
-            $format = isset($format) ? $format : $this->guessDateFormat($domElement->pubDate);
-            $item->setTitle($domElement->title)
-                    ->setSummary($domElement->description)
-                    ->setId($domElement->guid)
-                    ->setUpdated(self::convertToDateTime($domElement->pubDate, $format))
-                    ->setLink($domElement->link);
+            $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
+            $item->setTitle($xmlElement->title)
+                    ->setSummary($xmlElement->description)
+                    ->setId($xmlElement->guid)
+                    ->setUpdated(self::convertToDateTime($xmlElement->pubDate, $format))
+                    ->setLink($xmlElement->link);
 
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }
