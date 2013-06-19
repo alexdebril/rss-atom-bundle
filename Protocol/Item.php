@@ -52,11 +52,6 @@ class Item
     protected $link;
 
     /**
-     * @var string
-     */
-    protected $image;
-
-    /**
      *
      * @var \Debril\RssAtomBundle\Protocol\Author
      */
