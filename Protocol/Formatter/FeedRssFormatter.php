@@ -14,6 +14,7 @@ namespace Debril\RssAtomBundle\Protocol\Formatter;
 
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
 use Debril\RssAtomBundle\Protocol\FeedContent;
+use Debril\RssAtomBundle\Protocol\Item;
 
 class FeedRssFormatter implements FeedFormatter
 {
@@ -102,8 +103,7 @@ class FeedRssFormatter implements FeedFormatter
             $elements[] = $document->createElement('guid', $item->getLink());
             $elements[] = $document->createElement('pubDate', $item->getUpdated()->format(\DateTime::RSS));
             $elements[] = $document->createElement('comments', $item->getComment());
-            $elements[] = $document->createElement('description', $item->getSummary() .
-                    $item->getDescription()
+            $elements[] = $document->createElement('description', $this->buildDescription($item)
             );
 
             if (!is_null($item->getAuthor()))
@@ -117,6 +117,19 @@ class FeedRssFormatter implements FeedFormatter
 
             $document->documentElement->firstChild->appendChild($entry);
         }
+    }
+
+    protected function buildDescription(Item $item)
+    {
+        if (!is_null($item->getSummary()) && !is_null($item->getDescription()))
+        {
+            return "<div>{$item->getSummary()}</div><div>{$item->getDescription()}</div>";
+        }
+
+        if (is_null($item->getSummary()))
+            return $item->getDescription();
+        else
+            return $item->getSummary();
     }
 
 }
