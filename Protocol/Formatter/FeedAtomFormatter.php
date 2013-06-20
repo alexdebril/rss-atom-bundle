@@ -112,6 +112,15 @@ class FeedAtomFormatter implements FeedFormatter
                     $document, 'content', $content->getContentType(), $item->getDescription()
             );
 
+            if (!is_null($item->getComment()))
+            {
+                $comments = $document->createElement('link');
+                $comments->setAttribute('href', $item->getComment());
+                $comments->setAttribute('rel', 'related');
+
+                $elements[] = $comments;
+            }
+
             if (!is_null($item->getAuthor()))
             {
                 $author = $document->createElement('author');

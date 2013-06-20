@@ -46,6 +46,7 @@ class MockProvider implements FeedContentProvider
         $item->setTitle('This is an item');
         $item->setSummary('this stream was generated using the MockProvider class');
         $item->setUpdated(new \DateTime);
+        $item->setComment('http://example.com/comments');
 
         $author = new Author;
 

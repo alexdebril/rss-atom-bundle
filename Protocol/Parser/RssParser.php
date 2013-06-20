@@ -71,7 +71,8 @@ class RssParser extends Parser
                     ->setSummary($xmlElement->description)
                     ->setId($xmlElement->guid)
                     ->setUpdated(self::convertToDateTime($xmlElement->pubDate, $format))
-                    ->setLink($xmlElement->link);
+                    ->setLink($xmlElement->link)
+                    ->setComment($xmlElement->comments);
 
             if ($xmlElement->author)
             {
