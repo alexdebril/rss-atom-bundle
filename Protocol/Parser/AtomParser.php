@@ -14,7 +14,7 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
 use Debril\RssAtomBundle\Protocol\FeedContent;
-use Debril\RssAtomBundle\Protocol\Item;
+use Debril\RssAtomBundle\Protocol\Parser\Item;
 use Debril\RssAtomBundle\Protocol\Author;
 use \SimpleXMLElement;
 
