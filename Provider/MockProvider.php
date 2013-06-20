@@ -45,6 +45,7 @@ class MockProvider implements FeedContentProvider
         $item->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/somelink');
         $item->setTitle('This is an item');
         $item->setSummary('this stream was generated using the MockProvider class');
+        $item->setDescription('lorem ipsum ....');
         $item->setUpdated(new \DateTime);
         $item->setComment('http://example.com/comments');
 
