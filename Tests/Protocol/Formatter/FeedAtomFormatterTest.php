@@ -2,7 +2,7 @@
 
 namespace Debril\RssAtomBundle\Protocol\Formatter;
 
-use \Debril\RssAtomBundle\Protocol\FeedContent;
+use \Debril\RssAtomBundle\Protocol\Parser\FeedContent;
 use \Debril\RssAtomBundle\Protocol\Parser\Item;
 
 /**
