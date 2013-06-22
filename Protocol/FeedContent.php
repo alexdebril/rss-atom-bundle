@@ -22,12 +22,6 @@ interface FeedContent
 
     /**
      *
-     * @return array
-     */
-    public function getHeaders();
-
-    /**
-     *
      * @return string
      */
     public function getTitle();
@@ -55,4 +49,10 @@ interface FeedContent
      * @return string
      */
     public function getContentType();
+
+    /**
+     *
+     * @return array[\Debril\RssAtomBundle\Protocol\Item]
+     */
+    public function getItems();
 }

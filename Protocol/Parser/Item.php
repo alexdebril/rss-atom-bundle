@@ -181,7 +181,7 @@ class Item implements \Debril\RssAtomBundle\Protocol\Item
 
     /**
      *
-     * @return \Debril\RssAtomBundle\Protocol\Author
+     * @return string
      */
     public function getAuthor()
     {
@@ -190,12 +190,13 @@ class Item implements \Debril\RssAtomBundle\Protocol\Item
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\Author $author
+     * @param string $author
      * @return \Debril\RssAtomBundle\Protocol\Item
      */
-    public function setAuthor(Author $author)
+    public function setAuthor($author)
     {
         $this->author = $author;
+
         return $this;
     }
 

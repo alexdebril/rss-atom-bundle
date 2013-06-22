@@ -14,6 +14,7 @@ namespace Debril\RssAtomBundle\Protocol\Formatter;
 
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
 use Debril\RssAtomBundle\Protocol\FeedContent;
+use Debril\RssAtomBundle\Protocol\Item;
 
 class FeedAtomFormatter implements FeedFormatter
 {
@@ -91,53 +92,63 @@ class FeedAtomFormatter implements FeedFormatter
      */
     public function setEntries(\DomDocument $document, FeedContent $content)
     {
-        foreach ($content as $item)
+        $items = $content->getItems();
+        foreach ($items as $item)
         {
-            $entry = $document->createElement('entry');
-
-            $elements = array();
-            $elements[] = $document->createElement('title', htmlspecialchars($item->getTitle()));
-
-            $link = $document->createElement('link');
-            $link->setAttribute('href', $item->getLink());
-            $elements[] = $link;
-
-            $elements[] = $document->createElement('id', $item->getLink());
-            $elements[] = $document->createElement('updated', $item->getUpdated()->format(\DateTime::ATOM));
-            $elements[] = $this->generateFragment(
-                    $document, 'summary', $content->getContentType(), $item->getSummary()
-            );
-
-            $elements[] = $this->generateFragment(
-                    $document, 'content', $content->getContentType(), $item->getDescription()
-            );
-
-            if (!is_null($item->getComment()))
-            {
-                $comments = $document->createElement('link');
-                $comments->setAttribute('href', $item->getComment());
-                $comments->setAttribute('rel', 'related');
-
-                $elements[] = $comments;
-            }
-
-            if (!is_null($item->getAuthor()))
-            {
-                $author = $document->createElement('author');
-                $author->appendChild($document->createElement('name', $item->getAuthor()->getName()));
-                $author->appendChild($document->createElement('email', $item->getAuthor()->getEmail()));
-                $author->appendChild($document->createElement('uri', $item->getAuthor()->getUri()));
-
-                $elements[] = $author;
-            }
-
-            foreach ($elements as $element)
-            {
-                $entry->appendChild($element);
-            }
-
-            $document->documentElement->appendChild($entry);
+            $this->addEntry($document, $item, $content);
         }
+    }
+
+    /**
+     *
+     * @param \DOMDocument $document
+     * @param \Debril\RssAtomBundle\Protocol\Item $item
+     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
+     */
+    protected function addEntry(\DOMDocument $document, Item $item, FeedContent $content)
+    {
+        $entry = $document->createElement('entry');
+
+        $elements = array();
+        $elements[] = $document->createElement('title', htmlspecialchars($item->getTitle()));
+
+        $link = $document->createElement('link');
+        $link->setAttribute('href', $item->getLink());
+        $elements[] = $link;
+
+        $elements[] = $document->createElement('id', $item->getLink());
+        $elements[] = $document->createElement('updated', $item->getUpdated()->format(\DateTime::ATOM));
+        $elements[] = $this->generateFragment(
+                $document, 'summary', $content->getContentType(), $item->getSummary()
+        );
+
+        $elements[] = $this->generateFragment(
+                $document, 'content', $content->getContentType(), $item->getDescription()
+        );
+
+        if (!is_null($item->getComment()))
+        {
+            $comments = $document->createElement('link');
+            $comments->setAttribute('href', $item->getComment());
+            $comments->setAttribute('rel', 'related');
+
+            $elements[] = $comments;
+        }
+
+        if (!is_null($item->getAuthor()))
+        {
+            $author = $document->createElement('author');
+            $author->appendChild($document->createElement('name', $item->getAuthor()));
+
+            $elements[] = $author;
+        }
+
+        foreach ($elements as $element)
+        {
+            $entry->appendChild($element);
+        }
+
+        $document->documentElement->appendChild($entry);
     }
 
     /**

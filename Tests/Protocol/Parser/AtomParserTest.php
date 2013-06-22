@@ -87,12 +87,8 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($feed->getSubtitle());
         $this->assertNotNull($feed->getTitle());
 
-        $item = $feed->rewind()->current();
-        $author = $item->getAuthor();
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Author", $author);
-        $this->assertEquals('johndoe@example.com', $author->getEmail());
-        $this->assertEquals('John Doe', $author->getName());
-        $this->assertEquals('http://johndoe.com', $author->getUri());
+        $item = current($feed->getItems());
+        $this->assertEquals('John Doe', $item->getAuthor());
     }
 
     /**

@@ -13,8 +13,6 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     protected $object;
 
-
-
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -22,7 +20,6 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver);
-
     }
 
     /**
@@ -62,9 +59,8 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testGetDriver()
     {
         $this->assertInstanceOf(
-                    "\Debril\RssAtomBundle\Driver\HttpDriver",
-                    $this->object->getDriver()
-                );
+                "\Debril\RssAtomBundle\Driver\HttpDriver", $this->object->getDriver()
+        );
     }
 
     /**
@@ -91,7 +87,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
 
-        $item = $feed->current();
+        $item = current($feed->getItems());
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\Item", $item);
 
         $this->assertNotNull($item->getId());
@@ -114,7 +110,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
 
-        $item = $feed->current();
+        $item = current($feed->getItems());
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\Item", $item);
 
         $this->assertNotNull($item->getId());
@@ -123,7 +119,6 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($item->getSummary());
         $this->assertInstanceOf("\DateTime", $item->getUpdated());
     }
-
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::getResponse
@@ -166,19 +161,16 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $rssBody = $this->object->getResponse($url, new \DateTime)->getBody();
 
         $this->assertInstanceOf(
-                                    "Debril\RssAtomBundle\Protocol\Parser\RssParser",
-                                    $this->object->getAccurateParser(new \SimpleXMLElement($rssBody) )
-                        );
+                "Debril\RssAtomBundle\Protocol\Parser\RssParser", $this->object->getAccurateParser(new \SimpleXMLElement($rssBody))
+        );
 
         $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
 
         $atomBody = $this->object->getResponse($url, new \DateTime)->getBody();
 
         $this->assertInstanceOf(
-                                    "Debril\RssAtomBundle\Protocol\Parser\AtomParser",
-                                    $this->object->getAccurateParser(new \SimpleXMLElement($atomBody))
-                        );
-
+                "Debril\RssAtomBundle\Protocol\Parser\AtomParser", $this->object->getAccurateParser(new \SimpleXMLElement($atomBody))
+        );
     }
 
     /**
@@ -189,7 +181,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
         $rssBody = $this->object->getResponse($url, new \DateTime)->getBody();
-        $this->object->getAccurateParser(new \SimpleXMLElement($rssBody) );
+        $this->object->getAccurateParser(new \SimpleXMLElement($rssBody));
     }
 
     /**

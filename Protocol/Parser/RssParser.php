@@ -15,7 +15,6 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
 use Debril\RssAtomBundle\Protocol\Parser;
 use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
 use Debril\RssAtomBundle\Protocol\Parser\Item;
-use Debril\RssAtomBundle\Protocol\Author;
 use \SimpleXMLElement;
 
 class RssParser extends Parser
@@ -72,15 +71,9 @@ class RssParser extends Parser
                     ->setId($xmlElement->guid)
                     ->setUpdated(self::convertToDateTime($xmlElement->pubDate, $format))
                     ->setLink($xmlElement->link)
-                    ->setComment($xmlElement->comments);
+                    ->setComment($xmlElement->comments)
+                    ->setAuthor($xmlElement->author);
 
-            if ($xmlElement->author)
-            {
-                $author = new Author;
-                $author->setName($xmlElement->author);
-
-                $item->setAuthor($author);
-            }
             $feedContent->addAcceptableItem($item, $modifiedSince);
         }
 

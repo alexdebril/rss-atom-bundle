@@ -82,10 +82,8 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($feed->getLink());
         $this->assertNotNull($feed->getTitle());
 
-        $item = $feed->rewind()->current();
-        $author = $item->getAuthor();
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Author", $author);
-        $this->assertEquals('John Doe', $author->getName());
+        $item = current($feed->getItems());
+        $this->assertEquals('John Doe', $item->getAuthor());
     }
 
     /**

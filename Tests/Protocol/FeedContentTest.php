@@ -208,7 +208,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
             $count++;
         }
 
-        $this->assertEquals($count, $this->object->getItemsCount());
+#        $this->assertEquals($count, $this->object->getItemsCount());
     }
 
     /**
@@ -264,91 +264,6 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     {
         $item = new Item();
         $this->object->addAcceptableItem($item, \DateTime::createFromFormat('j-M-Y', '16-Feb-2012'));
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::current
-     * @todo   Implement testCurrent().
-     */
-    public function testCurrent()
-    {
-        $item = $this->object->current();
-
-        $this->assertEquals(0, $item->getId());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::key
-     * @todo   Implement testKey().
-     */
-    public function testKey()
-    {
-        $keyBefore = $this->object->key();
-        $this->assertEquals(0, $keyBefore);
-
-        $this->object->next();
-
-        $keyAfter = $this->object->key();
-        $this->assertEquals(1, $keyAfter);
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::next
-     * @todo   Implement testNext().
-     */
-    public function testNext()
-    {
-        $this->object->rewind();
-
-        $count = 0;
-        $ids = array();
-
-        foreach ($this->object as $item)
-        {
-            $count++;
-            $this->assertArrayNotHasKey($item->getId(), $ids);
-            $ids[] = $item->getId();
-        }
-
-        $this->assertEquals($count, $this->object->getItemsCount());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::rewind
-     * @todo   Implement testRewind().
-     */
-    public function testRewind()
-    {
-        $this->object->rewind();
-
-        $this->assertEquals(0, $this->object->key());
-
-        $this->object->next();
-        $this->object->rewind();
-
-        $this->assertEquals(0, $this->object->key());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::valid
-     * @todo   Implement testValid().
-     */
-    public function testValid()
-    {
-        $item = $this->object->current();
-
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Item", $item);
-
-        $this->assertTrue($this->object->valid());
-
-        $count = $this->object->getItemsCount();
-
-        for ($i = 0; $i < $count; $i++)
-        {
-            $this->object->next();
-        }
-
-        $this->assertFalse($this->object->valid());
     }
 
 }

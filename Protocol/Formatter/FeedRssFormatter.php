@@ -92,31 +92,42 @@ class FeedRssFormatter implements FeedFormatter
      */
     public function setEntries(\DomDocument $document, FeedContent $content)
     {
-        foreach ($content as $item)
+        $items = $content->getItems();
+        foreach ($items as $item)
         {
-            $entry = $document->createElement('item');
-
-            $elements = array();
-            $elements[] = $document->createElement('title', htmlspecialchars($item->getTitle()));
-
-            $elements[] = $document->createElement('link', $item->getLink());
-            $elements[] = $document->createElement('guid', $item->getLink());
-            $elements[] = $document->createElement('pubDate', $item->getUpdated()->format(\DateTime::RSS));
-            $elements[] = $document->createElement('comments', $item->getComment());
-            $elements[] = $document->createElement('description', $this->buildDescription($item)
-            );
-
-            if (!is_null($item->getAuthor()))
-            {
-                $elements[] = $document->createElement('author', $item->getAuthor()->getName());
-            }
-            foreach ($elements as $element)
-            {
-                $entry->appendChild($element);
-            }
-
-            $document->documentElement->firstChild->appendChild($entry);
+            $this->addEntry($document, $item);
         }
+    }
+
+    /**
+     *
+     * @param \DomDocument $document
+     * @param \Debril\RssAtomBundle\Protocol\Item $item
+     */
+    protected function addEntry(\DomDocument $document, Item $item)
+    {
+        $entry = $document->createElement('item');
+
+        $elements = array();
+        $elements[] = $document->createElement('title', htmlspecialchars($item->getTitle()));
+
+        $elements[] = $document->createElement('link', $item->getLink());
+        $elements[] = $document->createElement('guid', $item->getLink());
+        $elements[] = $document->createElement('pubDate', $item->getUpdated()->format(\DateTime::RSS));
+        $elements[] = $document->createElement('comments', $item->getComment());
+        $elements[] = $document->createElement('description', $this->buildDescription($item)
+        );
+
+        if (!is_null($item->getAuthor()))
+        {
+            $elements[] = $document->createElement('author', $item->getAuthor());
+        }
+        foreach ($elements as $element)
+        {
+            $entry->appendChild($element);
+        }
+
+        $document->documentElement->firstChild->appendChild($entry);
     }
 
     protected function buildDescription(Item $item)

@@ -37,12 +37,6 @@ interface Item
     public function getSummary();
 
     /**
-     * @param unknown_type $summary
-     * @return \Debril\RssAtomBundle\Protocol\Item
-     */
-    public function setSummary($summary);
-
-    /**
      * @return DateTime
      */
     public function getUpdated();
@@ -54,7 +48,7 @@ interface Item
 
     /**
      *
-     * @return \Debril\RssAtomBundle\Protocol\Author
+     * @return string
      */
     public function getAuthor();
 

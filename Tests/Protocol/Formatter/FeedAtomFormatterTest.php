@@ -106,7 +106,6 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
         $element = $this->object->getRootElement();
 
         $this->object->setEntries($element, $this->feed);
-        $this->feed->rewind();
 
         foreach ($element->childNodes as $entry)
         {

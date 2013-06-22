@@ -37,7 +37,7 @@ use Debril\RssAtomBundle\Protocol\FeedContentException;
  * $feed->addItem($item);
  * </code>
  */
-class FeedContent implements \Iterator, \Debril\RssAtomBundle\Protocol\FeedContent
+class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent
 {
 
     const XHTML = 'xhtml';
@@ -224,6 +224,15 @@ class FeedContent implements \Iterator, \Debril\RssAtomBundle\Protocol\FeedConte
 
     /**
      *
+     * @return array[\Debril\RssAtomBundle\Protocol\Item]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     *
      * @param \Debril\RssAtomBundle\Protocol\Item $item
      * @param \DateTime $startDate
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
@@ -251,53 +260,6 @@ class FeedContent implements \Iterator, \Debril\RssAtomBundle\Protocol\FeedConte
         $this->items[] = $item;
 
         return $this;
-    }
-
-    /**
-     *
-     * @return \Debril\RssAtomBundle\Protocol\Item
-     */
-    public function current()
-    {
-        return current($this->items);
-    }
-
-    /**
-     *
-     * @return int
-     */
-    public function key()
-    {
-        return key($this->items);
-    }
-
-    /**
-     *
-     * @return \Debril\RssAtomBundle\Protocol\Item
-     */
-    public function next()
-    {
-        return next($this->items);
-    }
-
-    /**
-     *
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
-     */
-    public function rewind()
-    {
-        reset($this->items);
-
-        return $this;
-    }
-
-    /**
-     *
-     * @return boolean
-     */
-    public function valid()
-    {
-        return $this->current() instanceof \Debril\RssAtomBundle\Protocol\Item;
     }
 
     /**
