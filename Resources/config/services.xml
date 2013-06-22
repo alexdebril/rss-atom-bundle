@@ -4,30 +4,47 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="debril.parser.rss.class">Debril\RssAtomBundle\Protocol\Parser\RssParser</parameter>
+        <parameter key="debril.parser.atom.class">Debril\RssAtomBundle\Protocol\Parser\AtomParser</parameter>
+        <parameter key="debril.reader.class">Debril\RssAtomBundle\Protocol\FeedReader</parameter>
+        <parameter key="debril.formatter.rss.class">Debril\RssAtomBundle\Protocol\Formatter\FeedRssFormatter</parameter>
+        <parameter key="debril.formatter.atom.class">Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter</parameter>
+        <parameter key="debril.http.pecl.class">Debril\RssAtomBundle\Driver\HttpPeclDriver</parameter>
+        <parameter key="debril.http.curl.class">Debril\RssAtomBundle\Driver\HttpCurlDriver</parameter>
+        <parameter key="debril.provider.mock.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
+        <parameter key="debril.provider.default.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
+    </parameters>
     <services>
-        <service id="RssParser" class="Debril\RssAtomBundle\Protocol\Parser\RssParser" />
-        <service id="AtomParser" class="Debril\RssAtomBundle\Protocol\Parser\AtomParser">
+        <service id="debril.parser.rss" class="%debril.parser.rss.class%">
             <call method="setDateFormats">
                 <argument>%debril_rss_atom.date_formats%</argument>
             </call>
         </service>
-        <service id="HttpPecl" class="Debril\RssAtomBundle\Driver\HttpPeclDriver" />
-        <service id="HttpCurl" class="Debril\RssAtomBundle\Driver\HttpCurlDriver" />
-
-        <service id="FeedReader" class="Debril\RssAtomBundle\Protocol\FeedReader">
-            <argument type="service" id="HttpCurl"/>
-            <call method="addParser">
-                <argument type="service" id="RssParser" />
-            </call>
-            <call method="addParser">
-                <argument type="service" id="AtomParser" />
+        <service id="debril.parser.atom" class="%debril.parser.atom.class%">
+            <call method="setDateFormats">
+                <argument>%debril_rss_atom.date_formats%</argument>
             </call>
         </service>
 
-        <service id="AtomFormatter" class="Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter" />
-        <service id="RssFormatter" class="Debril\RssAtomBundle\Protocol\Formatter\FeedRssFormatter" />
+        <service id="debril.http.pecl" class="%debril.http.pecl.class%" />
+        <service id="debril.http.curl" class="%debril.http.curl.class%" />
 
-        <service id="DefaultFeedProvider" class="%debril_rss_atom.feed_provider%" />
+        <service id="debril.reader" class="%debril.reader.class%">
+            <argument type="service" id="debril.http.curl"/>
+            <call method="addParser">
+                <argument type="service" id="debril.parser.rss" />
+            </call>
+            <call method="addParser">
+                <argument type="service" id="debril.parser.atom" />
+            </call>
+        </service>
+
+        <service id="debril.formatter.atom" class="%debril.formatter.atom.class%"  />
+        <service id="debril.formatter.rss" class="%debril.formatter.rss.class%" />
+
+        <service id="debril.provider.default" class="%debril.provider.default.class%" />
+        <service id="debril.provider.mock" class="%debril.provider.mock.class%" />
 
     </services>
 </container>

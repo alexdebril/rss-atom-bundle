@@ -22,11 +22,6 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('debril_rss_atom');
         $rootNode
                 ->children()
-                ->scalarNode('feed_provider')->defaultValue('Debril\RssAtomBundle\Provider\MockProvider')->end()
-                ->end();
-
-        $rootNode
-                ->children()
                 ->arrayNode('date_formats')
                 ->prototype('scalar')->end()
                 ->end();

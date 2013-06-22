@@ -12,7 +12,7 @@ use Debril\RssAtomBundle\Provider\FeedContentProvider;
 class StreamController extends Controller
 {
 
-    const DEFAULT_SOURCE = 'DefaultFeedProvider';
+    const DEFAULT_SOURCE = 'debril.provider.default';
 
     /**
      *
@@ -113,8 +113,8 @@ class StreamController extends Controller
     protected function getFormatter($format)
     {
         $services = array(
-            'rss' => 'RssFormatter',
-            'atom' => 'AtomFormatter',
+            'rss' => 'debril.formatter.rss',
+            'atom' => 'debril.formatter.atom',
         );
 
         if (!array_key_exists($format, $services))

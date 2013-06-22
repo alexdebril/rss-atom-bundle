@@ -26,17 +26,6 @@ class DebrilRssAtomExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
-        if (!isset($config['feed_provider']))
-        {
-            throw new \InvalidArgumentException(
-            'The "feed_provider" option must be set'
-            );
-        }
-
-        $container->setParameter(
-                'debril_rss_atom.feed_provider', $config['feed_provider']
-        );
-
         $default = array(
             \DateTime::RFC3339,
             \DateTime::RSS,
