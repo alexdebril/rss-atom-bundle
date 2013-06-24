@@ -39,7 +39,7 @@ class MockProvider implements FeedContentProvider
         $content->setId($contentId);
 
         $content->setTitle('thank you for using RssAtomBundle');
-        $content->setSubtitle('this is the mock FeedContent');
+        $content->setDescription('this is the mock FeedContent');
         $content->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/');
         $content->setLastModified(new \DateTime);
 
