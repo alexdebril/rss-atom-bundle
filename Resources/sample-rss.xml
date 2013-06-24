@@ -10,7 +10,6 @@
 
         <item>
             <title>Example entry</title>
-            <summary>Here is some text containing an interesting description.</summary>
             <description>Here is some text containing an interesting description.</description>
             <link>http://www.wikipedia.org/</link>
             <guid>unique string per item</guid>
