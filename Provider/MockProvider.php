@@ -24,13 +24,18 @@ class MockProvider implements FeedContentProvider
     /**
      *
      * @param \Symfony\Component\OptionsResolver\Options $options
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
+     * @throws \Debril\RssAtomBundle\Protocol\FeedNotFoundException
      */
     public function getFeedContentById(Options $options)
     {
         $content = new FeedContent;
 
         $contentId = $options->get('contentId');
+
+        if ($contentId === 'not-found')
+            throw new FeedNotFoundException;
+
         $content->setId($contentId);
 
         $content->setTitle('thank you for using RssAtomBundle');

@@ -8,6 +8,7 @@ use \Symfony\Component\OptionsResolver\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Debril\RssAtomBundle\Provider\FeedContentProvider;
+use Debril\RssAtomBundle\Provider\FeedNotFoundException;
 
 class StreamController extends Controller
 {
@@ -102,7 +103,13 @@ class StreamController extends Controller
             throw new \Exception('Provider is not a FeedContentProvider instance');
         }
 
-        return $provider->getFeedContentById($options);
+        try
+        {
+            return $provider->getFeedContentById($options);
+        } catch (FeedNotFoundException $e)
+        {
+            throw $this->createNotFoundException('feed not found');
+        }
     }
 
     /**

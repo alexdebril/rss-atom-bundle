@@ -21,10 +21,10 @@
         <default key="contentId">null</default>
     </route>
 
-    <route id="debril_rss_atom_mock_rss" pattern="/mock/rss">
+    <route id="debril_rss_atom_mock_rss" pattern="/mock/rss/{contentId}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="format">rss</default>
-        <default key="source">feed.provider.mock</default>
+        <default key="source">debril.provider.mock</default>
         <default key="contentId">null</default>
     </route>
 </routes>
