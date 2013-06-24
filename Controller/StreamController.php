@@ -13,6 +13,7 @@ class StreamController extends Controller
 {
 
     const DEFAULT_SOURCE = 'debril.provider.default';
+    const FORCE_PARAM_NAME = 'force_refresh';
 
     /**
      *
@@ -68,7 +69,7 @@ class StreamController extends Controller
     {
         $content = $this->getContent($options, $source);
 
-        if ($content->getLastModified() > $this->getModifiedSince())
+        if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince())
         {
             $formatter = $this->getFormatter($format);
             $response = new Response($formatter->toString($content));
@@ -102,6 +103,19 @@ class StreamController extends Controller
         }
 
         return $provider->getFeedContentById($options);
+    }
+
+    /**
+     * Returns true if the controller must ignore the last modified date
+     *
+     * @return boolean
+     */
+    protected function mustForceRefresh()
+    {
+        if ($this->container->hasParameter(self::FORCE_PARAM_NAME))
+            return $this->container->getParameter(self::FORCE_PARAM_NAME);
+
+        return false;
     }
 
     /**
