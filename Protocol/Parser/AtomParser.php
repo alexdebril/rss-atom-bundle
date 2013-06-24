@@ -59,7 +59,7 @@ class AtomParser extends Parser
 
         $feedContent->setLink(current($xmlBody->link[0]['href']));
         $feedContent->setTitle($xmlBody->title);
-        $feedContent->setSubtitle($xmlBody->subtitle);
+        $feedContent->setDescription($xmlBody->subtitle);
 
         $format = $this->guessDateFormat($xmlBody->updated);
         $updated = self::convertToDateTime($xmlBody->updated, $format);
@@ -70,7 +70,8 @@ class AtomParser extends Parser
             $item = new Item();
             $item->setTitle($xmlElement->title)
                     ->setId($xmlElement->id)
-                    ->setSummary($this->parseContent($xmlElement->content))
+                    ->setSummary($xmlElement->summary)
+                    ->setDescription($this->parseContent($xmlElement->content))
                     ->setUpdated(self::convertToDateTime($xmlElement->updated, $format))
                     ->setLink($xmlElement->link[0]['href']);
 

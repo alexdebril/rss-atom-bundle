@@ -33,7 +33,7 @@ use Debril\RssAtomBundle\Protocol\FeedContentException;
  * $feed->setLastModified($lastTimeANewsWasUpdated);
  *
  * $feed->setTitle('your feed title');
- * $feed->setSubTitle('the subtitle');
+ * $feed->setDescription('the description');
  * $feed->addItem($item);
  * </code>
  */
@@ -71,7 +71,7 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent
      *
      * @var string
      */
-    protected $subtitle;
+    protected $description;
 
     /**
      *
@@ -154,19 +154,19 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent
      *
      * @return string
      */
-    public function getSubtitle()
+    public function getDescription()
     {
-        return $this->subtitle;
+        return $this->description;
     }
 
     /**
      *
-     * @param string $subtitle
+     * @param string $description
      * @return \Debril\RssAtomBundle\Protocol\FeedContent
      */
-    public function setSubtitle($subtitle)
+    public function setDescription($description)
     {
-        $this->subtitle = $subtitle;
+        $this->description = $description;
 
         return $this;
     }

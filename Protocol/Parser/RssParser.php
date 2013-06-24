@@ -54,6 +54,7 @@ class RssParser extends Parser
         $feedContent->setId($xmlBody->channel->link);
         $feedContent->setLink($xmlBody->channel->link);
         $feedContent->setTitle($xmlBody->channel->title);
+        $feedContent->setDescription($xmlBody->channel->description);
 
         if (isset($xmlBody->channel->lastBuildDate))
         {
@@ -67,7 +68,7 @@ class RssParser extends Parser
             $item = new Item();
             $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
             $item->setTitle($xmlElement->title)
-                    ->setSummary($xmlElement->description)
+                    ->setDescription($xmlElement->description)
                     ->setId($xmlElement->guid)
                     ->setUpdated(self::convertToDateTime($xmlElement->pubDate, $format))
                     ->setLink($xmlElement->link)

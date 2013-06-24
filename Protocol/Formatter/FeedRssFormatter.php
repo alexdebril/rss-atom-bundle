@@ -73,7 +73,7 @@ class FeedRssFormatter implements FeedFormatter
     {
         $elements = array();
         $elements[] = $document->createElement('title', htmlspecialchars($content->getTitle()));
-        $elements[] = $document->createElement('description', htmlspecialchars($content->getSubtitle()));
+        $elements[] = $document->createElement('description', htmlspecialchars($content->getDescription()));
         $elements[] = $document->createElement('link', $content->getLink());
 
         $elements[] = $document->createElement('lastBuildDate', $content->getLastModified()->format(\DateTime::RSS));

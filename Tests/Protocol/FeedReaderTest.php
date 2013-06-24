@@ -93,7 +93,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($item->getId());
         $this->assertNotNull($item->getLink());
         $this->assertNotNull($item->getTitle());
-        $this->assertNotNull($item->getSummary());
+        $this->assertNotNull($item->getDescription());
         $this->assertInstanceOf("\DateTime", $item->getUpdated());
     }
 

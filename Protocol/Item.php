@@ -26,12 +26,13 @@ interface Item
     public function getId();
 
     /**
-     *
+     * atom : content
      * @return string
      */
     public function getDescription();
 
     /**
+     * atom only
      * @return string
      */
     public function getSummary();
@@ -47,13 +48,14 @@ interface Item
     public function getLink();
 
     /**
+     * atom : item.author.name
      *
      * @return string
      */
     public function getAuthor();
 
     /**
-     *
+     * atom : <link rel="alternate" />
      * @return string
      */
     public function getComment();

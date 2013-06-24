@@ -84,7 +84,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
         $this->assertNotNull($feed->getLink());
         $this->assertInternalType("string", $feed->getLink());
-        $this->assertNotNull($feed->getSubtitle());
+        $this->assertNotNull($feed->getDescription());
         $this->assertNotNull($feed->getTitle());
 
         $item = current($feed->getItems());

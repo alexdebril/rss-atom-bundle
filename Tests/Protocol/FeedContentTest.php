@@ -32,7 +32,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $this->object->setId(self::id);
         $this->object->setLink(self::link);
         $this->object->setTitle(self::title);
-        $this->object->setSubtitle(self::subtitle);
+        $this->object->setDescription(self::subtitle);
         $this->object->setLastModified(new \DateTime);
 
         for ($i = 0; $i < 5; $i++)
@@ -130,25 +130,25 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getSubtitle
-     * @todo   Implement testGetSubtitle().
+     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getDescription
+     * @todo   Implement testgetDescription().
      */
-    public function testGetSubtitle()
+    public function testgetDescription()
     {
-        $this->assertEquals(self::subtitle, $this->object->getSubtitle());
+        $this->assertEquals(self::subtitle, $this->object->getDescription());
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setSubtitle
-     * @todo   Implement testSetSubtitle().
+     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setDescription
+     * @todo   Implement testsetDescription().
      */
-    public function testSetSubtitle()
+    public function testsetDescription()
     {
         $newSubTitle = 'new subtitle';
 
-        $this->object->setSubtitle($newSubTitle);
+        $this->object->setDescription($newSubTitle);
 
-        $this->assertEquals($newSubTitle, $this->object->getSubtitle());
+        $this->assertEquals($newSubTitle, $this->object->getDescription());
     }
 
     /**

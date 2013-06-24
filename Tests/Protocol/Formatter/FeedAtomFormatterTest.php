@@ -34,7 +34,7 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
         $this->feed->setId('feed id');
         $this->feed->setLink('http://example.com');
         $this->feed->setTitle('feed title');
-        $this->feed->setSubtitle('feed subtitle');
+        $this->feed->setDescription('feed subtitle');
         $this->feed->setLastModified(new \DateTime);
 
         $item = new Item;

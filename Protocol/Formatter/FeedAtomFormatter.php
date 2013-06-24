@@ -69,7 +69,7 @@ class FeedAtomFormatter implements FeedFormatter
     {
         $elements = array();
         $elements[] = $document->createElement('title', htmlspecialchars($content->getTitle()));
-        $elements[] = $document->createElement('subtitle', $content->getSubtitle());
+        $elements[] = $document->createElement('subtitle', $content->getDescription());
         $elements[] = $document->createElement('id', $content->getLink());
 
         $link = $document->createElement('link');

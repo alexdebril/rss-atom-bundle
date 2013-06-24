@@ -27,10 +27,10 @@ interface FeedContent
     public function getTitle();
 
     /**
-     *
+     * atom : subtitle
      * @return string
      */
-    public function getSubtitle();
+    public function getDescription();
 
     /**
      *
