@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -9,9 +10,9 @@
  *
  */
 
-namespace Debril\RssAtomBundle\Protocol;
+namespace Debril\RssAtomBundle\Provider;
 
-class FeedContentException extends \Exception
+class FeedNotFoundException extends \Exception
 {
     //put your code here
 }
