@@ -258,7 +258,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::addAcceptableItem
-     * @expectedException Debril\RssAtomBundle\Protocol\Parser\FeedContentException
+     * @expectedException Debril\RssAtomBundle\Protocol\FeedContentException
      */
     public function testAddAcceptableItemException()
     {
