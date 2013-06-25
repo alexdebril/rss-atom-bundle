@@ -1,6 +1,6 @@
 <?php
 
-namespace Debril\RssAtomBundle\Protocol;
+namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use \Debril\RssAtomBundle\Protocol\Parser\Item;
 use \Debril\RssAtomBundle\Protocol\Parser\FeedContent;
@@ -64,7 +64,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getLastModified
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getLastModified
      * @todo   Implement testGetLastModified().
      */
     public function testGetLastModified()
@@ -73,7 +73,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setLastModified
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setLastModified
      * @todo   Implement testSetLastModified().
      */
     public function testSetLastModified()
@@ -86,7 +86,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getHeaders
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getHeaders
      * @todo   Implement testGetHeaders().
      */
     public function testGetHeaders()
@@ -95,7 +95,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setHeaders
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setHeaders
      * @todo   Implement testSetHeaders().
      */
     public function testSetHeaders()
@@ -108,7 +108,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getTitle
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getTitle
      * @todo   Implement testGetTitle().
      */
     public function testGetTitle()
@@ -117,7 +117,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setTitle
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setTitle
      * @todo   Implement testSetTitle().
      */
     public function testSetTitle()
@@ -130,7 +130,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getDescription
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getDescription
      * @todo   Implement testgetDescription().
      */
     public function testgetDescription()
@@ -139,7 +139,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setDescription
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setDescription
      * @todo   Implement testsetDescription().
      */
     public function testsetDescription()
@@ -152,7 +152,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getLink
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getLink
      * @todo   Implement testGetLink().
      */
     public function testGetLink()
@@ -161,7 +161,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setLink
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setLink
      * @todo   Implement testSetLink().
      */
     public function testSetLink()
@@ -174,7 +174,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getId
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getId
      * @todo   Implement testGetId().
      */
     public function testGetId()
@@ -183,7 +183,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::setId
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setId
      * @todo   Implement testSetId().
      */
     public function testSetId()
@@ -196,7 +196,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::getItemsCount
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getItemsCount
      * @todo   Implement testGetItemsCount().
      */
     public function testGetItemsCount()
@@ -212,7 +212,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::addItem
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::addItem
      * @todo   Implement testAddItem().
      */
     public function testAddItem()
@@ -221,12 +221,12 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
         $ret = $this->object->addItem(new Item());
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\FeedContent", $ret);
         $this->assertEquals($count + 1, $this->object->getItemsCount());
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::addAcceptableItem
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::addAcceptableItem
      */
     public function testAddAcceptableItem()
     {
@@ -236,12 +236,12 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $item->setUpdated(\DateTime::createFromFormat('j-M-Y', '17-Feb-2012'));
         $ret = $this->object->addAcceptableItem($item, \DateTime::createFromFormat('j-M-Y', '16-Feb-2012'));
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\FeedContent", $ret);
         $this->assertEquals($count + 1, $this->object->getItemsCount());
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::addAcceptableItem
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::addAcceptableItem
      */
     public function testAddUnacceptableItem()
     {
@@ -252,13 +252,13 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $item->setUpdated($date);
         $ret = $this->object->addAcceptableItem($item, $date);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $ret);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\FeedContent", $ret);
         $this->assertEquals($count, $this->object->getItemsCount());
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\FeedContent::addAcceptableItem
-     * @expectedException Debril\RssAtomBundle\Protocol\FeedContentException
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::addAcceptableItem
+     * @expectedException Debril\RssAtomBundle\Protocol\Parser\FeedContentException
      */
     public function testAddAcceptableItemException()
     {
