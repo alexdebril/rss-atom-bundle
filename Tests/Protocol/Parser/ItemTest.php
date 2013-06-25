@@ -19,6 +19,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     const id = 1;
     const link = 'http://example.com/rss';
     const summary = 'Lorem Ipsum...';
+    const description = 'a description';
+    const author = 'Contributor';
+    const comments = 'http://linktothecomments.com';
+    const contentType = 'text';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -33,6 +37,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->object->setLink(self::link);
         $this->object->setSummary(self::summary);
         $this->object->setUpdated(new \DateTime);
+        $this->object->setDescription(self::description);
+        $this->object->setAuthor(self::author);
+        $this->object->setComment(self::comments);
+        $this->object->setContentType(self::contentType);
     }
 
     /**
@@ -131,7 +139,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getLink
-     * @todo   Implement testGetLink().
      */
     public function testGetLink()
     {
@@ -140,7 +147,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setLink
-     * @todo   Implement testSetLink().
      */
     public function testSetLink()
     {
@@ -149,6 +155,86 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->object->setLink($newLink);
 
         $this->assertEquals($newLink, $this->object->getLink());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getDescription
+     */
+    public function testGetDescription()
+    {
+        $this->assertEquals(self::description, $this->object->getDescription());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setDescription
+     */
+    public function testSetDescription()
+    {
+        $newDescription = 'A brand new description';
+
+        $this->object->setDescription($newDescription);
+
+        $this->assertEquals($newDescription, $this->object->getDescription());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getAuthor
+     */
+    public function testGetAuthor()
+    {
+        $this->assertEquals(self::author, $this->object->getAuthor());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setAuthor
+     */
+    public function testSetAuthor()
+    {
+        $newAuthor = 'New Contributor';
+
+        $this->object->setAuthor($newAuthor);
+
+        $this->assertEquals($newAuthor, $this->object->getAuthor());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getComment
+     */
+    public function testGetComment()
+    {
+        $this->assertEquals(self::comments, $this->object->getComment());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setComment
+     */
+    public function testSetComment()
+    {
+        $newComment = 'http://newlinktothecomments.net';
+
+        $this->object->setComment($newComment);
+
+        $this->assertEquals($newComment, $this->object->getComment());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getContentType
+     */
+    public function testGetContentType()
+    {
+        $this->assertEquals(self::contentType, $this->object->getContentType());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setContentType
+     */
+    public function testSetContentType()
+    {
+        $newContentType = 'xhtml';
+
+        $this->object->setContentType($newContentType);
+
+        $this->assertEquals($newContentType, $this->object->getContentType());
     }
 
 }

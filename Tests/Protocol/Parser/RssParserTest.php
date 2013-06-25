@@ -87,6 +87,21 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::setDateFormats
+     * @covers Debril\RssAtomBundle\Protocol\Parser\RssParser::__construct
+     */
+    public function testSetDateFormats()
+    {
+        $default = array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
+
+        $this->object->setdateFormats($default);
+        $this->assertEquals($default, $this->readAttribute($this->object, 'dateFormats'));
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
      */
     public function testGuessDateFormat()
