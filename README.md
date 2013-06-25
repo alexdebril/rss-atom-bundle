@@ -58,7 +58,7 @@ Reading a feed
 To read a feed you need to use the debril.reader service, this is rather easy :
 
 Wherever you have access to the service container :
-```
+```php
     // fetch the FeedReader
     $reader = $this->container->get('debril.reader');
 
@@ -75,7 +75,8 @@ Wherever you have access to the service container :
     $items = $content->getItems();
 ```
 $reader->getFeedContent() gives you a Debril\RssAtomBundle\Protocol\FeedContent instance, the interface is defined below :
-```
+
+```php
 interface FeedContent
 {
 
@@ -112,7 +113,7 @@ interface FeedContent
 }
 ```
 As you can see, the getItems() method will give an array of Item objects. Its inteface is as below
-```
+```php
 interface Item
 {
 
@@ -155,7 +156,7 @@ interface Item
 ```
 
 And if you are hitting an Atom Feed, the following methods will be available :
-```
+```php
 interface AtomItem
 {
     /**
@@ -185,14 +186,15 @@ The request will be handled by StreamController, according to the following step
 5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the feed is built and sent to the client
 
 Now, how to plug the StreamController with the provider of your choice ? My best advice is to override the debril.provider.default service with your own in services.xml :
-```
+
+```xml
 <service id="debril.provider.default" class="Namespace\Of\Your\Class">
     <argument type="service" id="doctrine" />
 </service>
 ```
 
 Your class just needs to implement the FeedContentProvider interface :
-```
+```php
 interface FeedContentProvider
 {
 
