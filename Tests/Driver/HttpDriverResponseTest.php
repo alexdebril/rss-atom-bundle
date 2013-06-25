@@ -71,7 +71,6 @@ class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::setBody
-     * @todo   Implement testSetBody().
      */
     public function testSetBody()
     {
@@ -79,6 +78,52 @@ class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
         $this->object->setBody($string);
 
         $this->assertEquals($string, $this->object->getBody());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::setHttpCode
+     * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::getHttpCode
+     */
+    public function testSetHttpCode()
+    {
+        $this->object->setHttpCode(200);
+
+        $this->assertEquals(200, $this->object->getHttpCode());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::getHttpCodeIsOk
+     */
+    public function testGetHttpCodeIsOk()
+    {
+        $this->object->setHttpCode(200);
+
+        $this->assertEquals(true, $this->object->getHttpCodeIsOk());
+
+        $this->object->setHttpCode(404);
+
+        $this->assertEquals(false, $this->object->getHttpCodeIsOk());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::getHttpVersion
+     * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::setHttpVersion
+     */
+    public function testGetHttpVersion()
+    {
+        $this->object->setHttpVersion('1.1');
+        $this->assertEquals('1.1', $this->object->getHttpVersion());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::getHttpMessage
+     * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::setHttpMessage
+     */
+    public function testGetHttpMessage()
+    {
+        $message = 'Request ...';
+        $this->object->setHttpmessage($message);
+        $this->assertEquals($message, $this->object->getHttpMessage());
     }
 
 }
