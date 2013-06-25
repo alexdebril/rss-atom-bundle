@@ -16,35 +16,8 @@ use Debril\RssAtomBundle\Protocol\FeedFormatter;
 use Debril\RssAtomBundle\Protocol\FeedContent;
 use Debril\RssAtomBundle\Protocol\Item;
 
-class FeedRssFormatter implements FeedFormatter
+class FeedRssFormatter extends FeedFormatter
 {
-
-    /**
-     *
-     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
-     * @return string
-     */
-    public function toString(FeedContent $content)
-    {
-        $element = $this->toDom($content);
-
-        return $element->saveXML();
-    }
-
-    /**
-     *
-     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
-     * @return \DomDocument
-     */
-    public function toDom(FeedContent $content)
-    {
-        $element = $this->getRootElement();
-
-        $this->setMetas($element, $content);
-        $this->setEntries($element, $content);
-
-        return $element;
-    }
 
     /**
      *
@@ -82,20 +55,6 @@ class FeedRssFormatter implements FeedFormatter
         foreach ($elements as $element)
         {
             $document->documentElement->firstChild->appendChild($element);
-        }
-    }
-
-    /**
-     *
-     * @param \SimpleXMLElement $element
-     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
-     */
-    public function setEntries(\DomDocument $document, FeedContent $content)
-    {
-        $items = $content->getItems();
-        foreach ($items as $item)
-        {
-            $this->addEntry($document, $item);
         }
     }
 
