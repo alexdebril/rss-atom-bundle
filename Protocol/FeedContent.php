@@ -46,12 +46,6 @@ interface FeedContent
 
     /**
      *
-     * @return string
-     */
-    public function getContentType();
-
-    /**
-     *
      * @return array[\Debril\RssAtomBundle\Protocol\Item]
      */
     public function getItems();

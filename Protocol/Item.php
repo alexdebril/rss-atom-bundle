@@ -32,12 +32,6 @@ interface Item
     public function getDescription();
 
     /**
-     * atom only
-     * @return string
-     */
-    public function getSummary();
-
-    /**
      * @return DateTime
      */
     public function getUpdated();

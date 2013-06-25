@@ -15,6 +15,7 @@ namespace Debril\RssAtomBundle\Protocol\Formatter;
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
 use Debril\RssAtomBundle\Protocol\FeedContent;
 use Debril\RssAtomBundle\Protocol\Item;
+use Debril\RssAtomBundle\Protocol\AtomItem;
 
 class FeedAtomFormatter implements FeedFormatter
 {
@@ -95,7 +96,7 @@ class FeedAtomFormatter implements FeedFormatter
         $items = $content->getItems();
         foreach ($items as $item)
         {
-            $this->addEntry($document, $item, $content);
+            $this->addEntry($document, $item);
         }
     }
 
@@ -105,7 +106,7 @@ class FeedAtomFormatter implements FeedFormatter
      * @param \Debril\RssAtomBundle\Protocol\Item $item
      * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
      */
-    protected function addEntry(\DOMDocument $document, Item $item, FeedContent $content)
+    protected function addEntry(\DOMDocument $document, Item $item)
     {
         $entry = $document->createElement('entry');
 
@@ -118,12 +119,18 @@ class FeedAtomFormatter implements FeedFormatter
 
         $elements[] = $document->createElement('id', $item->getLink());
         $elements[] = $document->createElement('updated', $item->getUpdated()->format(\DateTime::ATOM));
-        $elements[] = $this->generateFragment(
-                $document, 'summary', $content->getContentType(), $item->getSummary()
-        );
+
+        $contentType = AtomItem::TEXT;
+        if ($item instanceof AtomItem)
+        {
+            $contentType = $item->getContentType();
+            $elements[] = $this->generateFragment(
+                    $document, 'summary', $contentType, $item->getSummary()
+            );
+        }
 
         $elements[] = $this->generateFragment(
-                $document, 'content', $content->getContentType(), $item->getDescription()
+                $document, 'content', $contentType, $item->getDescription()
         );
 
         if (!is_null($item->getComment()))
