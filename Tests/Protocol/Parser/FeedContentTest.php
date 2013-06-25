@@ -196,19 +196,27 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getItems
+     * @todo   Implement testGetItemsCount().
+     */
+    public function testGetItems()
+    {
+        $items = $this->object->getItems();
+        $item = current($items);
+
+        $this->assertInternalType('array', $items);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Item', $item);
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getItemsCount
      * @todo   Implement testGetItemsCount().
      */
     public function testGetItemsCount()
     {
-        $count = 0;
+        $count = count($this->object->getItems());
 
-        foreach ($this->object as $item)
-        {
-            $count++;
-        }
-
-#        $this->assertEquals($count, $this->object->getItemsCount());
+        $this->assertEquals($count, $this->object->getItemsCount());
     }
 
     /**
