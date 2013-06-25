@@ -27,7 +27,7 @@ class MockProvider implements FeedContentProvider
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      * @throws \Debril\RssAtomBundle\Protocol\FeedNotFoundException
      */
-    public function getFeedContentById(Options $options)
+    public function getFeedContent(Options $options)
     {
         $content = new FeedContent;
 

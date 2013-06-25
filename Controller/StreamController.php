@@ -105,7 +105,7 @@ class StreamController extends Controller
 
         try
         {
-            return $provider->getFeedContentById($options);
+            return $provider->getFeedContent($options);
         } catch (FeedNotFoundException $e)
         {
             throw $this->createNotFoundException('feed not found');

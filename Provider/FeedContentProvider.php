@@ -24,6 +24,6 @@ interface FeedContentProvider
      * @param \Symfony\Component\OptionsResolver $params
      * @throws \Debril\RssAtomBundle\Protocol\FeedNotFoundException
      */
-    public function getFeedContentById(Options $options);
+    public function getFeedContent(Options $options);
 }
 
