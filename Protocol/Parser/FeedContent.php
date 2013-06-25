@@ -40,9 +40,6 @@ use Debril\RssAtomBundle\Protocol\FeedContentException;
 class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent
 {
 
-    const XHTML = 'xhtml';
-    const TEXT = 'text';
-
     /**
      *
      * @var array[\Debril\RssAtomBundle\Protocol\Item]
@@ -84,12 +81,6 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent
      * @var string
      */
     protected $id;
-
-    /**
-     *
-     * @var type
-     */
-    protected $contentType = self::TEXT;
 
     /**
      *
@@ -258,27 +249,6 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent
     public function addItem(Item $item)
     {
         $this->items[] = $item;
-
-        return $this;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getContentType()
-    {
-        return $this->contentType;
-    }
-
-    /**
-     *
-     * @param type $contentType
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
-     */
-    public function setContentType($contentType)
-    {
-        $this->contentType = $contentType;
 
         return $this;
     }

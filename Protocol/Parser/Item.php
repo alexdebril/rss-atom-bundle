@@ -13,9 +13,8 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use \DateTime;
-use \Debril\RssAtomBundle\Protocol\Author;
 
-class Item implements \Debril\RssAtomBundle\Protocol\Item
+class Item implements \Debril\RssAtomBundle\Protocol\Item, \Debril\RssAtomBundle\Protocol\AtomItem
 {
 
     /**
@@ -62,6 +61,12 @@ class Item implements \Debril\RssAtomBundle\Protocol\Item
      * @var string
      */
     protected $comment;
+
+    /**
+     *
+     * @var string
+     */
+    protected $contentType;
 
     /**
      * @return string
@@ -217,6 +222,27 @@ class Item implements \Debril\RssAtomBundle\Protocol\Item
     public function setComment($comment)
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->contentType;
+    }
+
+    /**
+     *
+     * @param string $type
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
+     */
+    public function setContentType($type)
+    {
+        $this->contentType = $type;
 
         return $this;
     }
