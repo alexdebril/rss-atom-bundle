@@ -10,7 +10,6 @@
         <parameter key="debril.reader.class">Debril\RssAtomBundle\Protocol\FeedReader</parameter>
         <parameter key="debril.formatter.rss.class">Debril\RssAtomBundle\Protocol\Formatter\FeedRssFormatter</parameter>
         <parameter key="debril.formatter.atom.class">Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter</parameter>
-        <parameter key="debril.http.pecl.class">Debril\RssAtomBundle\Driver\HttpPeclDriver</parameter>
         <parameter key="debril.http.curl.class">Debril\RssAtomBundle\Driver\HttpCurlDriver</parameter>
         <parameter key="debril.provider.mock.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
         <parameter key="debril.provider.default.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
@@ -27,7 +26,6 @@
             </call>
         </service>
 
-        <service id="debril.http.pecl" class="%debril.http.pecl.class%" />
         <service id="debril.http.curl" class="%debril.http.curl.class%" />
 
         <service id="debril.reader" class="%debril.reader.class%">
