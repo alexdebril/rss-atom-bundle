@@ -1,6 +1,6 @@
 <?php
 
-namespace Debril\RssAtomBundle\Protocol;
+namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use \Debril\RssAtomBundle\Protocol\Parser\Item;
 
@@ -45,7 +45,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::getTitle
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getTitle
      * @todo   Implement testGetTitle().
      */
     public function testGetTitle()
@@ -54,7 +54,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::setTitle
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setTitle
      * @todo   Implement testSetTitle().
      */
     public function testSetTitle()
@@ -66,7 +66,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::getId
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getId
      * @todo   Implement testGetId().
      */
     public function testGetId()
@@ -75,7 +75,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::setId
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setId
      * @todo   Implement testSetId().
      */
     public function testSetId()
@@ -87,7 +87,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::getSummary
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getSummary
      * @todo   Implement testGetSummary().
      */
     public function testGetSummary()
@@ -96,7 +96,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::setSummary
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setSummary
      * @todo   Implement testSetSummary().
      */
     public function testSetSummary()
@@ -108,7 +108,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::getUpdated
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getUpdated
      * @todo   Implement testGetUpdated().
      */
     public function testGetUpdated()
@@ -117,7 +117,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::setUpdated
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setUpdated
      * @todo   Implement testSetUpdated().
      */
     public function testSetUpdated()
@@ -130,7 +130,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::getLink
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getLink
      * @todo   Implement testGetLink().
      */
     public function testGetLink()
@@ -139,7 +139,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Item::setLink
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setLink
      * @todo   Implement testSetLink().
      */
     public function testSetLink()
