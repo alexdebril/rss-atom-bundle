@@ -43,6 +43,8 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
         $item->setSummary('lorem ipsum');
         $item->setTitle('title 1');
         $item->setUpdated(new \DateTime);
+        $item->setComment('http://linktothecomments.com');
+        $item->setAuthor('Contributor');
 
         $this->feed->addItem($item);
     }
@@ -100,6 +102,8 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::setEntries
+     * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::addEntry
+     * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::generateFragment
      */
     public function testSetEntries()
     {

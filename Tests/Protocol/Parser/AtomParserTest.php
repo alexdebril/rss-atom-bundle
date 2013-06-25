@@ -68,6 +68,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::parse
      * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::parseBody
+     * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::parseContent
      */
     public function testParse()
     {
@@ -89,6 +90,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
 
         $item = current($feed->getItems());
         $this->assertEquals('John Doe', $item->getAuthor());
+        $this->assertEquals(\Debril\RssAtomBundle\Protocol\AtomItem::XHTML, $item->getContentType());
     }
 
     /**
@@ -106,6 +108,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::__construct
      */
     public function testGuessDateFormat()
     {
