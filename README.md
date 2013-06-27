@@ -77,7 +77,7 @@ Wherever you have access to the service container :
     // the $content object contains as many Item instances as you have fresh articles in the feed
     $items = $content->getItems();
 ```
-`getFeedContent()` fetches the feed hosted at `$url` and removes items prior to `$date`. If it is the first time you read this feed, then you must specify a date far enough in the past to keep all the items. This method does not loop until the $date is reached, it justs performs one hit and filters the response to keep only the fresh articles.
+`getFeedContent()` fetches the feed hosted at `$url` and removes items prior to `$date`. If it is the first time you read this feed, then you must specify a date far enough in the past to keep all the items. This method does not loop until the `$date` is reached, it justs performs one hit and filters the response to keep only the fresh articles.
 
 `$reader->getFeedContent()` gives you a `Debril\RssAtomBundle\Protocol\FeedContent` instance, the interface is as below :
 
@@ -189,11 +189,11 @@ RssAtomBundle offers the ability to provide RSS/Atom feeds. The route will match
 
 The request will be handled by `StreamController`, according to the following steps :
 
-1 : grabs the ModifiedSince header if it exists
-2 : creates an `Options` instance holding the request's parameters (contentId if it exists)
-3 : gets the provider defined in services.xml and calls the `getFeedContent(Options $options)` method
-4 : compare the content's LastModified property with the ModifiedSince header
-5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the feed is built and sent to the client
+- 1 : grabs the ModifiedSince header if it exists
+- 2 : creates an `Options` instance holding the request's parameters (contentId if it exists)
+- 3 : gets the provider defined in services.xml and calls the `getFeedContent(Options $options)` method
+- 4 : compare the content's LastModified property with the ModifiedSince header
+- 5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the feed is built and sent to the client
 
 Now, how to plug the `StreamController` with the provider of your choice ? My best advice is to override the `debril.provider.default` service with your own in services.xml :
 
