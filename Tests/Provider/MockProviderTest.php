@@ -32,7 +32,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContentById
+     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContent
      */
     public function testGetContent()
     {
@@ -45,7 +45,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContentById
+     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContent
      * @expectedException Debril\RssAtomBundle\Provider\FeedNotFoundException
      */
     public function testGet404()
