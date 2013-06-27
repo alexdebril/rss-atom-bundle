@@ -55,7 +55,10 @@ Usage
 Reading a feed
 --------------
 
-To read a feed you need to use the debril.reader service, this is rather easy :
+To read a feed you need to use the `debril.reader` service. Its `getFeedContent()` method takes two arguments :
+
+- `$url` : URL of the RSS/Atom feed you want to read (eg: http://php.net/feed.atom)
+- `$date` : the last time you read this feed. This is useful to fetch only the articles which were published after your last hit.
 
 Wherever you have access to the service container :
 ```php
@@ -74,7 +77,9 @@ Wherever you have access to the service container :
     // the $content object contains as many Item instances as you have fresh articles in the feed
     $items = $content->getItems();
 ```
-$reader->getFeedContent() gives you a Debril\RssAtomBundle\Protocol\FeedContent instance, the interface is defined below :
+`getFeedContent()` fetches the feed hosted at `$url` and removes items prior to `$date`. If it is the first time you read this feed, then you must specify a date far enough in the past to keep all the items. This method does not loop until the $date is reached, it justs performs one hit and filters the response to keep only the fresh articles.
+
+`$reader->getFeedContent()` gives you a `Debril\RssAtomBundle\Protocol\FeedContent` instance, the interface is as below :
 
 ```php
 interface FeedContent
@@ -112,7 +117,8 @@ interface FeedContent
     public function getItems();
 }
 ```
-As you can see, the getItems() method will give an array of Item objects. Its inteface is as below
+As you can see, the `getItems()` method will give an array of `Item` objects. Its inteface is as below :
+
 ```php
 interface Item
 {
@@ -155,7 +161,8 @@ interface Item
 
 ```
 
-And if you are hitting an Atom Feed, the following methods will be available :
+And if you are reading an Atom Feed, the following methods will be available :
+
 ```php
 interface AtomItem
 {
@@ -170,22 +177,25 @@ interface AtomItem
     public function getContentType();
 }
 ```
+
 getSummary() returns the <summary /> node and getContentType() returns the <content /> node's type attribute
 
 Providing feeds
 ----------------
 RssAtomBundle offers the ability to provide RSS/Atom feeds. The route will match the following pattern : /{format}/{contentId}
-{format} must be "rss" or "atom" (or whatever you want if you add the good routing rule in routing.yml) and contentId is an optional argument
 
-The request will be handled by StreamController, according to the following steps :
+- {format} must be "rss" or "atom" (or whatever you want if you add the good routing rule in routing.yml) 
+- {contentId} is an optional argument. Use it you have several feeds
+
+The request will be handled by `StreamController`, according to the following steps :
 
 1 : grabs the ModifiedSince header if it exists
-2 : create an "Options" instance holding the request's parameters (contentId if it exists)
-3 : gets the provider defined in the services.xml and calls the getFeedContent(Options $options) method
+2 : creates an `Options` instance holding the request's parameters (contentId if it exists)
+3 : gets the provider defined in `services.xml` and calls the `getFeedContent(Options $options)` method
 4 : compare the content's LastModified property with the ModifiedSince header
 5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the feed is built and sent to the client
 
-Now, how to plug the StreamController with the provider of your choice ? My best advice is to override the debril.provider.default service with your own in services.xml :
+Now, how to plug the `StreamController` with the provider of your choice ? My best advice is to override the `debril.provider.default` service with your own in `services.xml` :
 
 ```xml
 <service id="debril.provider.default" class="Namespace\Of\Your\Class">
@@ -193,7 +203,8 @@ Now, how to plug the StreamController with the provider of your choice ? My best
 </service>
 ```
 
-Your class just needs to implement the FeedContentProvider interface :
+Your class just needs to implement the `FeedContentProvider` interface :
+
 ```php
 interface FeedContentProvider
 {
@@ -206,6 +217,8 @@ interface FeedContentProvider
 }
 ```
 
-And if the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error.
+If the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error. Otherwise, `getFeedContent(Options $options)` must return a `FeedContent` instance, which will return an array of `Item` objects through `getItems()`. Then, the controller uses a `FeedFormatter` object to properly turn your `FeedContent` object into a XML stream.
+
+
 
 to be continued ...
