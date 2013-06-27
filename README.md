@@ -191,11 +191,11 @@ The request will be handled by `StreamController`, according to the following st
 
 1 : grabs the ModifiedSince header if it exists
 2 : creates an `Options` instance holding the request's parameters (contentId if it exists)
-3 : gets the provider defined in `services.xml` and calls the `getFeedContent(Options $options)` method
+3 : gets the provider defined in services.xml and calls the `getFeedContent(Options $options)` method
 4 : compare the content's LastModified property with the ModifiedSince header
 5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the feed is built and sent to the client
 
-Now, how to plug the `StreamController` with the provider of your choice ? My best advice is to override the `debril.provider.default` service with your own in `services.xml` :
+Now, how to plug the `StreamController` with the provider of your choice ? My best advice is to override the `debril.provider.default` service with your own in services.xml :
 
 ```xml
 <service id="debril.provider.default" class="Namespace\Of\Your\Class">
@@ -208,7 +208,6 @@ Your class just needs to implement the `FeedContentProvider` interface :
 ```php
 interface FeedContentProvider
 {
-
     /**
      * @param \Symfony\Component\OptionsResolver $params
      * @throws \Debril\RssAtomBundle\Protocol\FeedNotFoundException
@@ -219,6 +218,29 @@ interface FeedContentProvider
 
 If the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error. Otherwise, `getFeedContent(Options $options)` must return a `FeedContent` instance, which will return an array of `Item` objects through `getItems()`. Then, the controller uses a `FeedFormatter` object to properly turn your `FeedContent` object into a XML stream.
 
+Skipping 304 HTTP Code
+----------------------
 
+The HTTP cache handling can be annoying during development process, you can skip it through configuration in your app/config/parameters.yml file : 
 
-to be continued ...
+```yml
+parameters:
+    force_refresh:     true
+```
+
+This way, the `StreamController` will always display your feed's content and return a 200 HTTP code.
+
+Choosing your own provider
+--------------------------
+
+Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file : 
+
+```
+    <route id="your_route_name" pattern="/your/route/{contentId}">
+        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
+        <default key="format">rss</default>
+        <default key="source">your.provider.service</default>
+    </route>
+```
+
+The `source` parameter must contain a valid service name defined in your application.
