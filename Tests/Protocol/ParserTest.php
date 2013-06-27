@@ -9,6 +9,26 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::resetTimezone
+     */
+    public function testResetTimezone()
+    {
+        Parser::resetTimezone();
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::getSystemTimezone
+     */
+    public function testGetSystemTimezone()
+    {
+        Parser::resetTimezone();
+        $tz = Parser::getSystemTimezone();
+
+        $this->assertInstanceOf('\DateTimeZone', $tz);
+        $this->assertEquals(date_default_timezone_get(), $tz->getName());
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::convertToDateTime
      * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
      */

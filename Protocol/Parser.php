@@ -152,6 +152,14 @@ abstract class Parser
     }
 
     /**
+     * Reset the system's time zone
+     */
+    static public function resetTimezone()
+    {
+        self::$timezone = null;
+    }
+
+    /**
      * Tells if the parser can handle the feed or not
      *
      * @param  SimpleXMLElement $xmlBody
