@@ -186,7 +186,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
-     * @expectedException Debril\RssAtomBundle\Protocol\FeedCannotBeReadException
+     * @expectedException Debril\RssAtomBundle\Exception\FeedNotModifiedException
      */
     public function testParseBody304()
     {
@@ -194,6 +194,66 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
         $response->setHttpCode(304);
+
+        $mock->expects($this->any())
+                ->method('getResponse')
+                ->will($this->returnValue($response));
+
+        $reader = new FeedReader($mock);
+
+        $reader->getFeedContent('http://afakeurl', new \DateTime);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     * @expectedException Debril\RssAtomBundle\Exception\FeedNotFoundException
+     */
+    public function testParseBody404()
+    {
+        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
+
+        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
+        $response->setHttpCode(404);
+
+        $mock->expects($this->any())
+                ->method('getResponse')
+                ->will($this->returnValue($response));
+
+        $reader = new FeedReader($mock);
+
+        $reader->getFeedContent('http://afakeurl', new \DateTime);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     * @expectedException Debril\RssAtomBundle\Exception\FeedServerErrorException
+     */
+    public function testParseBody500()
+    {
+        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
+
+        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
+        $response->setHttpCode(500);
+
+        $mock->expects($this->any())
+                ->method('getResponse')
+                ->will($this->returnValue($response));
+
+        $reader = new FeedReader($mock);
+
+        $reader->getFeedContent('http://afakeurl', new \DateTime);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     * @expectedException Debril\RssAtomBundle\Exception\FeedForbiddenException
+     */
+    public function testParseBody403()
+    {
+        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
+
+        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
+        $response->setHttpCode(403);
 
         $mock->expects($this->any())
                 ->method('getResponse')

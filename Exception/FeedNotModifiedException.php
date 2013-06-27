@@ -10,9 +10,10 @@
  *
  */
 
-namespace Debril\RssAtomBundle\Provider;
+namespace Debril\RssAtomBundle\Exception;
 
-class FeedNotFoundException extends \Exception
+class FeedNotModifiedException extends \Exception
 {
-    //put your code here
+
 }
+

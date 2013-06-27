@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,17 +9,17 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Driver;
 
 class HttpDriverResponse
 {
+
     const HTTP_CODE_OK = 200;
-
     const HTTP_CODE_NOT_MODIFIED = 304;
-
     CONST HTTP_CODE_FORBIDDEN = 403;
-
     const HTTP_CODE_NOT_FOUND = 404;
+    const HTTP_CODE_SERVER_ERROR = 500;
 
     /**
      *
@@ -147,7 +148,8 @@ class HttpDriverResponse
      *
      * @return string
      */
-    public function getBody() {
+    public function getBody()
+    {
         return $this->body;
     }
 
@@ -156,7 +158,8 @@ class HttpDriverResponse
      * @param string $body
      * @return \Debril\RssAtomBundle\HttpDriverResponse
      */
-    public function setBody($body) {
+    public function setBody($body)
+    {
         $this->body = $body;
 
         return $this;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,10 +9,11 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
-namespace Debril\RssAtomBundle\Protocol;
 
-class FeedCannotBeReadException extends \Exception
+namespace Debril\RssAtomBundle\Exception;
+
+class FeedServerErrorException extends \Exception
 {
-    //put your code here
+
 }
 

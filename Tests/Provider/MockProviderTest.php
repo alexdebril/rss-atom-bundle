@@ -46,7 +46,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContent
-     * @expectedException Debril\RssAtomBundle\Provider\FeedNotFoundException
+     * @expectedException Debril\RssAtomBundle\Exception\FeedNotFoundException
      */
     public function testGet404()
     {

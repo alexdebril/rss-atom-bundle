@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,14 +9,18 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol;
 
 use \SimpleXMLElement;
-
 use Debril\RssAtomBundle\Driver\HttpDriver;
 use Debril\RssAtomBundle\Driver\HttpDriverResponse;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
-use Debril\RssAtomBundle\Protocol\FeedCannotBeReadException;
+use Debril\RssAtomBundle\Exception\FeedCannotBeReadException;
+use Debril\RssAtomBundle\Exception\FeedNotFoundException;
+use Debril\RssAtomBundle\Exception\FeedNotModifiedException;
+use Debril\RssAtomBundle\Exception\FeedServerErrorException;
+use Debril\RssAtomBundle\Exception\FeedForbiddenException;
 
 /**
  * Class to read any kind of supported feeds (RSS, ATOM, and more if you need)
@@ -70,7 +75,7 @@ class FeedReader
      *
      * @param \Debril\RssAtomBundle\Driver\HttpDriver $driver
      */
-    public function __construct( HttpDriver $driver )
+    public function __construct(HttpDriver $driver)
     {
         $this->driver = $driver;
     }
@@ -128,7 +133,7 @@ class FeedReader
      */
     public function parseBody(HttpDriverResponse $response, \Datetime $modifiedSince)
     {
-        if ( $response->getHttpCodeIsOk() )
+        if ($response->getHttpCodeIsOk())
         {
             $xmlBody = new SimpleXMLElement($response->getBody());
             $parser = $this->getAccurateParser($xmlBody);
@@ -136,7 +141,23 @@ class FeedReader
             return $parser->parse($xmlBody, $modifiedSince);
         }
 
-        throw new FeedCannotBeReadException($response->getHttpMessage(), $response->getHttpCode());
+        switch ($response->getHttpCode())
+        {
+            case HttpDriverResponse::HTTP_CODE_NOT_FOUND :
+                throw new FeedNotFoundException($response->getHttpMessage());
+                break;
+            case HttpDriverResponse::HTTP_CODE_NOT_MODIFIED :
+                throw new FeedNotModifiedException($response->getHttpMessage());
+                break;
+            case HttpDriverResponse::HTTP_CODE_SERVER_ERROR :
+                throw new FeedServerErrorException($response->getHttpMessage());
+                break;
+            case HttpDriverResponse::HTTP_CODE_FORBIDDEN:
+                throw new FeedForbiddenException($response->getHttpMessage());
+                break;
+            default :
+                throw new FeedCannotBeReadException($response->getHttpMessage(), $response->getHttpCode());
+        }
     }
 
     /**
@@ -149,7 +170,7 @@ class FeedReader
 
         foreach ($this->parsers as $parser)
         {
-            if ( $parser->canHandle($xmlBody) )
+            if ($parser->canHandle($xmlBody))
             {
                 return $parser;
             }
@@ -159,3 +180,4 @@ class FeedReader
     }
 
 }
+
