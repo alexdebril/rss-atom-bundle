@@ -23,12 +23,21 @@ abstract class Parser
 {
 
     /**
+     * System's time zone
+     *
+     * @var \DateTimeZone
+     */
+    static protected $timezone;
+
+    /**
+     * List of mandatory fields
      *
      * @var array[string]
      */
     protected $mandatoryFields = array();
 
     /**
+     * Feed's date format
      *
      * @var array[string]
      */
@@ -122,7 +131,24 @@ abstract class Parser
             throw new ParserException("date is the wrong format : {$string} - expected {$format}");
         }
 
+        $date->setTimezone(self::getSystemTimezone());
+
         return $date;
+    }
+
+    /**
+     * Returns the system's timezone
+     *
+     * @return \DateTimeZone
+     */
+    static public function getSystemTimezone()
+    {
+        if (is_null(self::$timezone))
+        {
+            self::$timezone = new \DateTimeZone(date_default_timezone_get());
+        }
+
+        return self::$timezone;
     }
 
     /**
