@@ -244,3 +244,10 @@ Need to keep the existing routes and add one mapped to a different FeedProvider 
 ```
 
 The `source` parameter must contain a valid service name defined in your application.
+
+Contributors
+------------
+
+* Alex Debril
+* Elnur Abdurrakhimov https://github.com/elnur
+* matdev https://github.com/matdev
