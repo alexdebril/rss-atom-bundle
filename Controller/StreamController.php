@@ -8,7 +8,7 @@ use \Symfony\Component\OptionsResolver\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Debril\RssAtomBundle\Provider\FeedContentProvider;
-use Debril\RssAtomBundle\Provider\FeedNotFoundException;
+use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
 class StreamController extends Controller
 {
