@@ -154,7 +154,16 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testGetAccurateParser()
     {
         $this->object->addParser(new Parser\RssParser);
+        $this->object->addParser(new Parser\RdfParser);
         $this->object->addParser(new Parser\AtomParser);
+
+        $url = dirname(__FILE__) . '/../../Resources/sample-rdf.xml';
+
+        $rdfBody = $this->object->getResponse($url, new \DateTime)->getBody();
+
+        $this->assertInstanceOf(
+                "Debril\RssAtomBundle\Protocol\Parser\RdfParser", $this->object->getAccurateParser(new \SimpleXMLElement($rdfBody))
+        );
 
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
 

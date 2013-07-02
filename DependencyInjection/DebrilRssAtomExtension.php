@@ -29,6 +29,8 @@ class DebrilRssAtomExtension extends Extension
         $default = array(
             \DateTime::RFC3339,
             \DateTime::RSS,
+            \DateTime::W3C,
+            'Y-m-d',
         );
 
         if (!isset($config['date_formats']))

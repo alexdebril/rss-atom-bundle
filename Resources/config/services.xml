@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="debril.parser.rss.class">Debril\RssAtomBundle\Protocol\Parser\RssParser</parameter>
+        <parameter key="debril.parser.rdf.class">Debril\RssAtomBundle\Protocol\Parser\RdfParser</parameter>
         <parameter key="debril.parser.atom.class">Debril\RssAtomBundle\Protocol\Parser\AtomParser</parameter>
         <parameter key="debril.reader.class">Debril\RssAtomBundle\Protocol\FeedReader</parameter>
         <parameter key="debril.formatter.rss.class">Debril\RssAtomBundle\Protocol\Formatter\FeedRssFormatter</parameter>
@@ -16,6 +17,11 @@
     </parameters>
     <services>
         <service id="debril.parser.rss" class="%debril.parser.rss.class%">
+            <call method="setDateFormats">
+                <argument>%debril_rss_atom.date_formats%</argument>
+            </call>
+        </service>
+        <service id="debril.parser.rdf" class="%debril.parser.rdf.class%">
             <call method="setDateFormats">
                 <argument>%debril_rss_atom.date_formats%</argument>
             </call>
@@ -32,6 +38,9 @@
             <argument type="service" id="debril.http.curl"/>
             <call method="addParser">
                 <argument type="service" id="debril.parser.rss" />
+            </call>
+            <call method="addParser">
+                <argument type="service" id="debril.parser.rdf" />
             </call>
             <call method="addParser">
                 <argument type="service" id="debril.parser.atom" />
