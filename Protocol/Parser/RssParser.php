@@ -38,7 +38,7 @@ class RssParser extends Parser
      */
     public function canHandle(SimpleXMLElement $xmlBody)
     {
-        return isset($xmlBody->channel);
+        return 'rss' === strtolower($xmlBody->getName());
     }
 
     /**
