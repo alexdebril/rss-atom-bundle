@@ -74,7 +74,7 @@ class FeedRssFormatter extends FeedFormatter
         $elements[] = $document->createElement('guid', $item->getLink());
         $elements[] = $document->createElement('pubDate', $item->getUpdated()->format(\DateTime::RSS));
         $elements[] = $document->createElement('comments', $item->getComment());
-        $elements[] = $document->createElement('description', $item->getDescription());
+        $elements[] = $document->createElement('description', htmlspecialchars($item->getDescription(), ENT_XHTML, 'UTF-8'));
 
         if (!is_null($item->getAuthor()))
         {
