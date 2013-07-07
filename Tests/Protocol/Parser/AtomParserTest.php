@@ -145,4 +145,21 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(\DateTime::RFC3339, $format);
     }
 
+    /**
+     *
+     */
+    public function testHtmlContent()
+    {
+        $file = dirname(__FILE__) . '/../../../Resources/sample-atom-html.xml';
+        $xmlBody = new \SimpleXMLElement(file_get_contents($file));
+
+        $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
+        $feed = $this->object->parse($xmlBody, $date);
+
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $feed);
+        $item = current($feed->getItems());
+
+        $this->assertTrue(strlen($item->getDescription()) > 0);
+    }
+
 }

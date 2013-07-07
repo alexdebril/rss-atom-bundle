@@ -89,13 +89,17 @@ class AtomParser extends Parser
 
     protected function parseContent(SimpleXMLElement $content)
     {
-        $out = '';
-        foreach ($content->children() as $child)
+        if (0 < $content->children()->count())
         {
-            $out .= $child->asXML();
+            $out = '';
+            foreach ($content->children() as $child)
+            {
+                $out .= $child->asXML();
+            }
+            return $out;
         }
 
-        return $out;
+        return $content;
     }
 
 }
