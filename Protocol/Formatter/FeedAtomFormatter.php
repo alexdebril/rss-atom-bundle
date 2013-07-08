@@ -91,7 +91,7 @@ class FeedAtomFormatter extends FeedFormatter
         $elements[] = $document->createElement('id', $item->getLink());
         $elements[] = $document->createElement('updated', $item->getUpdated()->format(\DateTime::ATOM));
 
-        $contentType = AtomItem::TEXT;
+        $contentType = AtomItem::HTML;
         if ($item instanceof AtomItem)
         {
             $contentType = $item->getContentType();
@@ -141,6 +141,8 @@ class FeedAtomFormatter extends FeedFormatter
     protected function generateFragment(\DOMDocument $document, $tag, $type, $content)
     {
         $fragment = $document->createDocumentFragment();
+        $content = str_replace('&', '&amp;', html_entity_decode($content, ENT_COMPAT, 'UTF-8'));
+
         $fragment->appendXML("<{$tag} type=\"{$type}\">
                                     {$content}
                               </{$tag}>"
