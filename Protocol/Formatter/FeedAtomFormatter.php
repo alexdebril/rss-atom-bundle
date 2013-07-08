@@ -93,11 +93,11 @@ class FeedAtomFormatter extends FeedFormatter
 
         if ($item instanceof AtomItem && strlen($item->getSummary()) > 0)
         {
-            $summary = $document->createElement('summary', htmlentities($item->getSummary(), ENT_QUOTES, 'UTF-8'));
+            $summary = $document->createElement('summary', htmlspecialchars($item->getSummary(), ENT_COMPAT, 'UTF-8'));
             $summary->setAttribute('type', AtomItem::HTML);
         }
 
-        $content = $document->createElement('content', htmlentities($item->getDescription(), ENT_QUOTES, 'UTF-8'));
+        $content = $document->createElement('content', htmlspecialchars($item->getDescription(), ENT_COMPAT, 'UTF-8'));
         $content->setAttribute('type', AtomItem::HTML);
         $elements[] = $content;
 
