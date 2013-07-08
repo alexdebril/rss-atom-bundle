@@ -103,7 +103,6 @@ class FeedAtomFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::setEntries
      * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::addEntry
-     * @covers Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter::generateFragment
      */
     public function testSetEntries()
     {

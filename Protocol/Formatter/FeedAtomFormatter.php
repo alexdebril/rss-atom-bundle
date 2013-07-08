@@ -91,18 +91,15 @@ class FeedAtomFormatter extends FeedFormatter
         $elements[] = $document->createElement('id', $item->getLink());
         $elements[] = $document->createElement('updated', $item->getUpdated()->format(\DateTime::ATOM));
 
-        $contentType = AtomItem::HTML;
-        if ($item instanceof AtomItem)
+        if ($item instanceof AtomItem && strlen($item->getSummary()) > 0)
         {
-            $contentType = $item->getContentType();
-            $elements[] = $this->generateFragment(
-                    $document, 'summary', $contentType, $item->getSummary()
-            );
+            $summary = $document->createElement('summary', htmlentities($item->getSummary(), ENT_QUOTES, 'UTF-8'));
+            $summary->setAttribute('type', AtomItem::HTML);
         }
 
-        $elements[] = $this->generateFragment(
-                $document, 'content', $contentType, $item->getDescription()
-        );
+        $content = $document->createElement('content', htmlentities($item->getDescription(), ENT_QUOTES, 'UTF-8'));
+        $content->setAttribute('type', AtomItem::HTML);
+        $elements[] = $content;
 
         if (!is_null($item->getComment()))
         {
@@ -127,28 +124,6 @@ class FeedAtomFormatter extends FeedFormatter
         }
 
         $document->documentElement->appendChild($entry);
-    }
-
-    /**
-     *
-     * @param \DOMDocument $document
-     * @param string $tag
-     * @param string $type
-     * @param string $content
-     *
-     * @return \DomDocumentFragment
-     */
-    protected function generateFragment(\DOMDocument $document, $tag, $type, $content)
-    {
-        $fragment = $document->createDocumentFragment();
-        $content = str_replace('&', '&amp;', html_entity_decode($content, ENT_COMPAT, 'UTF-8'));
-
-        $fragment->appendXML("<{$tag} type=\"{$type}\">
-                                    {$content}
-                              </{$tag}>"
-        );
-
-        return $fragment;
     }
 
 }
