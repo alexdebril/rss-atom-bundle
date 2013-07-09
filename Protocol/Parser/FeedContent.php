@@ -222,27 +222,6 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril
     }
 
     /**
-     *
-     * @deprecated since version 1.2.0
-     * @param \Debril\RssAtomBundle\Protocol\Item $item
-     * @param \DateTime $startDate
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
-     * @throws FeedContentException
-     */
-    public function addAcceptableItem(ParsedItem $item, \DateTime $startDate)
-    {
-        if ($item->getUpdated() instanceof \DateTime)
-        {
-            if ($item->getUpdated() > $startDate)
-                $this->addItem($item);
-        }
-        else
-            throw new FeedContentException("tried to add an item without date");
-
-        return $this;
-    }
-
-    /**
      * @param \Debril\RssAtomBundle\Protocol\Item $item
      * @return FeedContent
      */
