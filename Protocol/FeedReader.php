@@ -94,6 +94,7 @@ class FeedReader
      */
     public function addParser(Parser $parser)
     {
+        $parser->setFactory($this->factory);
         $this->parsers[] = $parser;
 
         return $this;

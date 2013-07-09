@@ -13,8 +13,6 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
-use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
-use Debril\RssAtomBundle\Protocol\Parser\Item;
 use \SimpleXMLElement;
 
 class RssParser extends Parser
@@ -49,7 +47,7 @@ class RssParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {
-        $feedContent = new FeedContent();
+        $feedContent = $this->newFeed();
 
         $feedContent->setId($xmlBody->channel->link);
         $feedContent->setLink($xmlBody->channel->link);
@@ -65,7 +63,7 @@ class RssParser extends Parser
 
         foreach ($xmlBody->channel->item as $xmlElement)
         {
-            $item = new Item();
+            $item = $this->newItem();
             $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
             $item->setTitle($xmlElement->title)
                     ->setDescription($xmlElement->description)

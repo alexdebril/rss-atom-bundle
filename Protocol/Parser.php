@@ -15,6 +15,7 @@ namespace Debril\RssAtomBundle\Protocol;
 use \SimpleXMLElement;
 use \DateTime;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
+use Debril\RssAtomBundle\Protocol\Parser\Factory;
 
 /**
  * Parser
@@ -42,6 +43,12 @@ abstract class Parser
      * @var array[string]
      */
     protected $dateFormats = array();
+
+    /**
+     *
+     * @var Debril\RssAtomBundle\Protocol\Parser\Factory
+     */
+    protected $factory;
 
     /**
      * Parses the feed's body to create a FeedContent instance.
@@ -114,6 +121,71 @@ abstract class Parser
         }
 
         throw new ParserException('Impossible to guess date format : ' . $date);
+    }
+
+    /**
+     *
+     * @return \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed
+     */
+    public function newFeed()
+    {
+        if ($this->getFactory() instanceof Debril\RssAtomBundle\Protocol\Parser\Factory)
+            return $this->getFactory()->newItem();
+
+        return new Parser\FeedContent;
+    }
+
+    /**
+     *
+     * @return \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed
+     */
+    public function newItem()
+    {
+        if ($this->getFactory() instanceof Debril\RssAtomBundle\Protocol\Parser\Factory)
+            return $this->getFactory()->newItem();
+
+        return new Parser\Item;
+    }
+
+    /**
+     *
+     * @return Debril\RssAtomBundle\Protocol\Parser\Factory
+     */
+    public function getFactory()
+    {
+        return $this->factory;
+    }
+
+    /**
+     *
+     * @param \Debril\RssAtomBundle\Protocol\Parser\Factory $factory
+     * @return \Debril\RssAtomBundle\Protocol\Parser
+     */
+    public function setFactory(Factory $factory)
+    {
+        $this->factory = $factory;
+        return $this;
+    }
+
+    /**
+     *
+     * @param \Debril\RssAtomBundle\Protocol\ParsedFeed $feed
+     * @param \Debril\RssAtomBundle\Protocol\Parser\ParsedItem $item
+     * @param \DateTime $startDate
+     * @return \Debril\RssAtomBundle\Protocol\Parser
+     * @throws \Exception
+     */
+    public function addAcceptableItem(ParsedFeed $feed, Parser\ParsedItem $item, \DateTime $startDate)
+    {
+        if ($item->getUpdated() instanceof \DateTime)
+        {
+            if ($item->getUpdated() > $startDate)
+                $feed->addItem($item);
+        }
+        else
+            throw new \Exception("tried to add an item without date");
+
+        return $this;
     }
 
     /**

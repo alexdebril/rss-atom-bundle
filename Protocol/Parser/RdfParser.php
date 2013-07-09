@@ -49,7 +49,7 @@ class RdfParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {
-        $feedContent = new FeedContent();
+        $feedContent = $this->newFeed();
 
         $feedContent->setId($xmlBody->channel->link);
         $feedContent->setLink($xmlBody->channel->link);
@@ -65,7 +65,7 @@ class RdfParser extends Parser
 
         foreach ($xmlBody->item as $xmlElement)
         {
-            $item = new Item();
+            $item = $this->newItem();
             $date = $xmlElement->children('dc', true);
             $format = isset($format) ? $format : $this->guessDateFormat($date[0]);
 

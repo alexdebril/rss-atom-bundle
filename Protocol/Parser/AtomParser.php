@@ -53,7 +53,7 @@ class AtomParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {
-        $feedContent = new FeedContent();
+        $feedContent = $this->newFeed();
 
         $feedContent->setId($xmlBody->id);
 
@@ -67,7 +67,7 @@ class AtomParser extends Parser
 
         foreach ($xmlBody->entry as $xmlElement)
         {
-            $item = new Item();
+            $item = $this->newItem();
             $item->setTitle($xmlElement->title)
                     ->setId($xmlElement->id)
                     ->setSummary($xmlElement->summary)
