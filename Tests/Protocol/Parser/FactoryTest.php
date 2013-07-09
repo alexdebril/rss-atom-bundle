@@ -41,6 +41,15 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Factory::newItem
+     */
+    public function testNewItem()
+    {
+        $item = $this->object->newItem();
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\ParsedItem", $item);
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Factory::setFeedClass
      */
     public function testSetFeedClass()
