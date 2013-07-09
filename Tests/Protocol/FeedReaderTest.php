@@ -19,7 +19,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver);
+        $this->object = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
     }
 
     /**
@@ -36,7 +36,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $reader = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver);
+        $reader = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $this->assertAttributeInstanceOf("\Debril\RssAtomBundle\Driver\FileDriver", 'driver', $reader);
     }
@@ -208,7 +208,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
                 ->method('getResponse')
                 ->will($this->returnValue($response));
 
-        $reader = new FeedReader($mock);
+        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
@@ -228,7 +228,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
                 ->method('getResponse')
                 ->will($this->returnValue($response));
 
-        $reader = new FeedReader($mock);
+        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
@@ -248,7 +248,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
                 ->method('getResponse')
                 ->will($this->returnValue($response));
 
-        $reader = new FeedReader($mock);
+        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
@@ -268,7 +268,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
                 ->method('getResponse')
                 ->will($this->returnValue($response));
 
-        $reader = new FeedReader($mock);
+        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }

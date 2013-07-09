@@ -14,7 +14,7 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use \DateTime;
 
-class Item implements \Debril\RssAtomBundle\Protocol\Item, \Debril\RssAtomBundle\Protocol\AtomItem
+class Item implements ParsedItem, \Debril\RssAtomBundle\Protocol\Item, \Debril\RssAtomBundle\Protocol\AtomItem
 {
 
     /**

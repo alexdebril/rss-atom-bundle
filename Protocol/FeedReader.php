@@ -15,6 +15,7 @@ namespace Debril\RssAtomBundle\Protocol;
 use \SimpleXMLElement;
 use Debril\RssAtomBundle\Driver\HttpDriver;
 use Debril\RssAtomBundle\Driver\HttpDriverResponse;
+use Debril\RssAtomBundle\Protocol\Parser\Factory;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
 use Debril\RssAtomBundle\Exception\FeedCannotBeReadException;
 use Debril\RssAtomBundle\Exception\FeedNotFoundException;
@@ -73,11 +74,18 @@ class FeedReader
 
     /**
      *
+     * @var Debril\RssAtomBundle\Protocol\Parser
+     */
+    protected $factory = null;
+
+    /**
+     *
      * @param \Debril\RssAtomBundle\Driver\HttpDriver $driver
      */
-    public function __construct(HttpDriver $driver)
+    public function __construct(HttpDriver $driver, Factory $factory)
     {
         $this->driver = $driver;
+        $this->factory = $factory;
     }
 
     /**
