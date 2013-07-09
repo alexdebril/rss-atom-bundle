@@ -9,6 +9,8 @@
         <parameter key="debril.parser.rdf.class">Debril\RssAtomBundle\Protocol\Parser\RdfParser</parameter>
         <parameter key="debril.parser.atom.class">Debril\RssAtomBundle\Protocol\Parser\AtomParser</parameter>
         <parameter key="debril.parser.factory.class">Debril\RssAtomBundle\Protocol\Parser\Factory</parameter>
+        <parameter key="debril.parser.feed.class">Debril\RssAtomBundle\Protocol\Parser\FeedContent</parameter>
+        <parameter key="debril.parser.item.class">Debril\RssAtomBundle\Protocol\Parser\Item</parameter>
         <parameter key="debril.reader.class">Debril\RssAtomBundle\Protocol\FeedReader</parameter>
         <parameter key="debril.formatter.rss.class">Debril\RssAtomBundle\Protocol\Formatter\FeedRssFormatter</parameter>
         <parameter key="debril.formatter.atom.class">Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter</parameter>
@@ -34,7 +36,14 @@
         </service>
 
         <service id="debril.http.curl" class="%debril.http.curl.class%" />
-        <service id="debril.parser.factory" class="%debril.parser.factory.class%" />
+        <service id="debril.parser.factory" class="%debril.parser.factory.class%">
+            <call method="setFeedClass">
+                <argument>%debril.parser.feed.class%</argument>
+            </call>
+            <call method="setItemClass">
+                <argument>%debril.parser.item.class%</argument>
+            </call>
+        </service>
 
         <service id="debril.reader" class="%debril.reader.class%">
             <argument type="service" id="debril.http.curl"/>
