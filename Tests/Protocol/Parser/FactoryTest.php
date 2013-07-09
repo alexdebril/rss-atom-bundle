@@ -32,7 +32,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Factory::newFeed
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Factory::newFeed
      */
     public function testNewFeed()
     {
@@ -41,7 +41,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Factory::setFeedClass
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Factory::setFeedClass
      */
     public function testSetFeedClass()
     {
@@ -49,7 +49,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Factory::setFeedClass
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Factory::setFeedClass
      * @expectedException \Exception
      */
     public function testSetFeedClassException()
@@ -58,7 +58,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Factory::setItemClass
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Factory::setItemClass
      */
     public function testSetItemClass()
     {
@@ -66,7 +66,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Factory::setItemClass
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Factory::setItemClass
      * @expectedException \Exception
      */
     public function testSetItemClassException()
