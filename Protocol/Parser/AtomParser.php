@@ -81,7 +81,7 @@ class AtomParser extends Parser
                 $item->setAuthor($xmlElement->author->name);
             }
 
-            $feedContent->addAcceptableItem($item, $modifiedSince);
+            $this->addAcceptableItem($feedContent, $item, $modifiedSince);
         }
 
         return $feedContent;

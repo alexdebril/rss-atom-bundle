@@ -12,8 +12,6 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
-use Debril\RssAtomBundle\Protocol\Item;
-use Debril\RssAtomBundle\Protocol\Parser\ParsedItem;
 use Debril\RssAtomBundle\Protocol\FeedContentException;
 
 /**
@@ -38,7 +36,7 @@ use Debril\RssAtomBundle\Protocol\FeedContentException;
  * $feed->addItem($item);
  * </code>
  */
-class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, ParsedFeed
+class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed
 {
 
     /**
@@ -225,6 +223,7 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, ParsedF
 
     /**
      *
+     * @deprecated since version 1.2.0
      * @param \Debril\RssAtomBundle\Protocol\Item $item
      * @param \DateTime $startDate
      * @return \Debril\RssAtomBundle\Protocol\FeedContent

@@ -16,6 +16,8 @@ use \SimpleXMLElement;
 use \DateTime;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
+use Debril\RssAtomBundle\Protocol\Parser\ParsedFeed;
+use Debril\RssAtomBundle\Protocol\Parser\ParsedItem;
 
 /**
  * Parser
@@ -169,13 +171,13 @@ abstract class Parser
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\ParsedFeed $feed
+     * @param \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed $feed
      * @param \Debril\RssAtomBundle\Protocol\Parser\ParsedItem $item
      * @param \DateTime $startDate
      * @return \Debril\RssAtomBundle\Protocol\Parser
      * @throws \Exception
      */
-    public function addAcceptableItem(ParsedFeed $feed, Parser\ParsedItem $item, \DateTime $startDate)
+    public function addAcceptableItem(ParsedFeed $feed, ParsedItem $item, \DateTime $startDate)
     {
         if ($item->getUpdated() instanceof \DateTime)
         {

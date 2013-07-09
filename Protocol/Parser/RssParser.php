@@ -73,7 +73,7 @@ class RssParser extends Parser
                     ->setComment($xmlElement->comments)
                     ->setAuthor($xmlElement->author);
 
-            $feedContent->addAcceptableItem($item, $modifiedSince);
+            $this->addAcceptableItem($feedContent, $item, $modifiedSince);
         }
 
         return $feedContent;

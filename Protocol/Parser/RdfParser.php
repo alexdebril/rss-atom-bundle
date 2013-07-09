@@ -74,7 +74,7 @@ class RdfParser extends Parser
                     ->setUpdated(self::convertToDateTime($date[0], $format))
                     ->setLink($xmlElement->link);
 
-            $feedContent->addAcceptableItem($item, $modifiedSince);
+            $this->addAcceptableItem($feedContent, $item, $modifiedSince);
         }
 
         return $feedContent;
