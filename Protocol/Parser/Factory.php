@@ -36,7 +36,7 @@ class Factory
     {
         $newFeed = new $this->feedClass();
         if (!$newFeed instanceof \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed)
-            throw new \Exception("{$this->feedClass} does not implement ParserFeed interface");
+            throw new \Exception("{$this->feedClass} does not implement ParsedFeed interface");
 
         return $newFeed;
     }
@@ -50,7 +50,7 @@ class Factory
     {
         $newItem = new $this->itemClass();
         if (!$newItem instanceof \Debril\RssAtomBundle\Protocol\Parser\ParsedItem)
-            throw new \Exception("{$this->feedItem} does not implement ParserItem interface");
+            throw new \Exception("{$this->itemClass} does not implement ParsedItem interface");
 
         return $newItem;
     }

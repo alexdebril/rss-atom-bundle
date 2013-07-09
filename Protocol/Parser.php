@@ -131,8 +131,8 @@ abstract class Parser
      */
     public function newFeed()
     {
-        if ($this->getFactory() instanceof Debril\RssAtomBundle\Protocol\Parser\Factory)
-            return $this->getFactory()->newItem();
+        if ($this->getFactory() instanceof \Debril\RssAtomBundle\Protocol\Parser\Factory)
+            return $this->getFactory()->newFeed();
 
         return new Parser\FeedContent;
     }
@@ -143,7 +143,7 @@ abstract class Parser
      */
     public function newItem()
     {
-        if ($this->getFactory() instanceof Debril\RssAtomBundle\Protocol\Parser\Factory)
+        if ($this->getFactory() instanceof \Debril\RssAtomBundle\Protocol\Parser\Factory)
             return $this->getFactory()->newItem();
 
         return new Parser\Item;
