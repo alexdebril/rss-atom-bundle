@@ -40,4 +40,38 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\ParsedFeed", $feed);
     }
 
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Factory::setFeedClass
+     */
+    public function testSetFeedClass()
+    {
+        $this->object->setFeedClass('Debril\RssAtomBundle\Protocol\Parser\FeedContent');
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Factory::setFeedClass
+     * @expectedException \Exception
+     */
+    public function testSetFeedClassException()
+    {
+        $this->object->setFeedClass('Debril\RssAtomBundle\Protocol\A\Bad\Name');
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Factory::setItemClass
+     */
+    public function testSetItemClass()
+    {
+        $this->object->setItemClass('Debril\RssAtomBundle\Protocol\Parser\Item');
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Factory::setItemClass
+     * @expectedException \Exception
+     */
+    public function testSetItemClassException()
+    {
+        $this->object->setItemClass('Debril\RssAtomBundle\Protocol\A\Bad\Name');
+    }
+
 }

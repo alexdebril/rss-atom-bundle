@@ -55,5 +55,33 @@ class Factory
         return $newItem;
     }
 
+    /**
+     *
+     * @param string $feedClass
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
+     */
+    public function setFeedClass($feedClass)
+    {
+        if (!class_exists($feedClass))
+            throw new \Exception("{$feedClass} does not exist");
+
+        $this->feedClass = $feedClass;
+        return $this;
+    }
+
+    /**
+     *
+     * @param string $itemClass
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
+     */
+    public function setItemClass($itemClass)
+    {
+        if (!class_exists($itemClass))
+            throw new \Exception("{$itemClass} does not exist");
+
+        $this->itemClass = $itemClass;
+        return $this;
+    }
+
 }
 
