@@ -78,7 +78,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
         $feed = $this->object->parse($xmlBody, $date);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
         $this->assertNotNull($feed->getId(), "feed->getId() should not return an empty value");
         $this->assertGreaterThan(0, $feed->getItemsCount());
@@ -156,7 +156,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
         $feed = $this->object->parse($xmlBody, $date);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
         $item = current($feed->getItems());
 
         $this->assertTrue(strlen($item->getDescription()) > 0);

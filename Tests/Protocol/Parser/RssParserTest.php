@@ -73,7 +73,7 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
         $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
         $feed = $this->object->parse($xmlBody, $date);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedContent", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
         $this->assertNotNull($feed->getId(), "feed->getId() should not return an empty value");
 

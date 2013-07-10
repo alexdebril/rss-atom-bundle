@@ -29,28 +29,28 @@ class Factory
 
     /**
      *
-     * @return \Debril\RssAtomBundle\Protocol\ParsedFeed
+     * @return \Debril\RssAtomBundle\Protocol\FeedIn
      * @throws Exception
      */
     public function newFeed()
     {
         $newFeed = new $this->feedClass();
-        if (!$newFeed instanceof \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed)
-            throw new \Exception("{$this->feedClass} does not implement ParsedFeed interface");
+        if (!$newFeed instanceof \Debril\RssAtomBundle\Protocol\FeedIn)
+            throw new \Exception("{$this->feedClass} does not implement FeedIn interface");
 
         return $newFeed;
     }
 
     /**
      *
-     * @return \Debril\RssAtomBundle\Protocol\ParsedItem
+     * @return \Debril\RssAtomBundle\Protocol\ItemIn
      * @throws Exception
      */
     public function newItem()
     {
         $newItem = new $this->itemClass();
-        if (!$newItem instanceof \Debril\RssAtomBundle\Protocol\Parser\ParsedItem)
-            throw new \Exception("{$this->itemClass} does not implement ParsedItem interface");
+        if (!$newItem instanceof \Debril\RssAtomBundle\Protocol\ItemIn)
+            throw new \Exception("{$this->itemClass} does not implement ItemIn interface");
 
         return $newItem;
     }

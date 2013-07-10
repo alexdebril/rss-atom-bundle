@@ -13,8 +13,6 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
-use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
-use Debril\RssAtomBundle\Protocol\Parser\Item;
 use \SimpleXMLElement;
 
 class RdfParser extends Parser
@@ -45,7 +43,7 @@ class RdfParser extends Parser
      *
      * @param SimpleXMLElement $xmlBody
      * @param \DateTime $modifiedSince
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
     protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {

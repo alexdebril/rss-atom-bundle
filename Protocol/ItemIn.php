@@ -10,9 +10,12 @@
  *
  */
 
-namespace Debril\RssAtomBundle\Protocol\Parser;
+namespace Debril\RssAtomBundle\Protocol;
 
-interface ParsedItem
+/**
+ * interface used to represent incoming items
+ */
+interface ItemIn
 {
 
     /**

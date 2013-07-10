@@ -85,10 +85,10 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
         $feed = $this->object->getFeedContent($url, $date);
 
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
         $item = current($feed->getItems());
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\Item", $item);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemIn", $item);
 
         $this->assertNotNull($item->getId());
         $this->assertNotNull($item->getLink());
@@ -108,10 +108,10 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
         $feed = $this->object->getFeedContent($url, $date);
 
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
         $item = current($feed->getItems());
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\Item", $item);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemIn", $item);
 
         $this->assertNotNull($item->getId());
         $this->assertNotNull($item->getLink());
@@ -145,7 +145,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $feed = $this->object->parseBody($response, $date);
 
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedContent", $feed);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
     }
 
     /**

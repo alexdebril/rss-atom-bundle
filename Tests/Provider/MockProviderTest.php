@@ -41,7 +41,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
         $options->set('contentId', 1);
         $feed = $this->object->getFeedContent($options);
 
-        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedContent', $feed);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedOut', $feed);
     }
 
     /**

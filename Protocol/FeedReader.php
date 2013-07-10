@@ -113,7 +113,7 @@ class FeedReader
      *
      * @param string $url
      * @param \DateTime $lastModified
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
     public function getFeedContent($url, \DateTime $modifiedSince)
     {

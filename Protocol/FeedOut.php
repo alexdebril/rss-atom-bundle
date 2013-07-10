@@ -12,7 +12,10 @@
 
 namespace Debril\RssAtomBundle\Protocol;
 
-interface FeedContent
+/**
+ * Interface used to send a RSS/ATOM stream to Formatter classes
+ */
+interface FeedOut
 {
 
     /**
@@ -46,7 +49,7 @@ interface FeedContent
 
     /**
      *
-     * @return array[\Debril\RssAtomBundle\Protocol\Item]
+     * @return array[\Debril\RssAtomBundle\Protocol\ItemOut]
      */
     public function getItems();
 }

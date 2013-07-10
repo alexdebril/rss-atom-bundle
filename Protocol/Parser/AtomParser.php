@@ -49,7 +49,7 @@ class AtomParser extends Parser
      *
      * @param SimpleXMLElement $xmlBody
      * @param \DateTime $modifiedSince
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \\Debril\RssAtomBundle\Protocol\FeedIn
      */
     protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
     {

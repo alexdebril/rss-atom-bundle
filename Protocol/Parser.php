@@ -16,8 +16,8 @@ use \SimpleXMLElement;
 use \DateTime;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
-use Debril\RssAtomBundle\Protocol\Parser\ParsedFeed;
-use Debril\RssAtomBundle\Protocol\Parser\ParsedItem;
+use Debril\RssAtomBundle\Protocol\FeedIn;
+use Debril\RssAtomBundle\Protocol\ItemIn;
 
 /**
  * Parser
@@ -57,7 +57,7 @@ abstract class Parser
      *
      * @param SimpleXMLElement $xmlBody
      * @param \DateTime $modifiedSince
-     * @return FeedContent
+     * @return FeedIn
      * @throws ParserException
      */
     public function parse(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
@@ -127,7 +127,7 @@ abstract class Parser
 
     /**
      *
-     * @return \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed
+     * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
     public function newFeed()
     {
@@ -139,7 +139,7 @@ abstract class Parser
 
     /**
      *
-     * @return \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed
+     * @return \Debril\RssAtomBundle\Protocol\ItemIn
      */
     public function newItem()
     {
@@ -171,13 +171,13 @@ abstract class Parser
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed $feed
-     * @param \Debril\RssAtomBundle\Protocol\Parser\ParsedItem $item
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
      * @param \DateTime $startDate
      * @return \Debril\RssAtomBundle\Protocol\Parser
      * @throws \Exception
      */
-    public function addAcceptableItem(ParsedFeed $feed, ParsedItem $item, \DateTime $startDate)
+    public function addAcceptableItem(FeedIn $feed, ItemIn $item, \DateTime $startDate)
     {
         if ($item->getUpdated() instanceof \DateTime)
         {
@@ -246,7 +246,7 @@ abstract class Parser
      *
      * @param SimpleXMLElement $body
      * @param DateTime $modifiedSince
-     * @return FeedContent
+     * @return FeedIn
      */
     abstract protected function parseBody(SimpleXMLElement $body, \DateTime $modifiedSince);
 }

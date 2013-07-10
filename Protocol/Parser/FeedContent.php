@@ -12,6 +12,10 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
+use \Debril\RssAtomBundle\Protocol\FeedIn;
+use \Debril\RssAtomBundle\Protocol\FeedOut;
+use \Debril\RssAtomBundle\Protocol\ItemIn;
+
 /**
  * A full Feed's content representation, containing both the headers of the feed
  * (not the HTTP one) and its news.
@@ -34,7 +38,7 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
  * $feed->addItem($item);
  * </code>
  */
-class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril\RssAtomBundle\Protocol\Parser\ParsedFeed
+class FeedContent implements FeedIn, FeedOut
 {
 
     /**
@@ -129,7 +133,7 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril
     /**
      *
      * @param string $title
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setTitle($title)
     {
@@ -150,7 +154,7 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril
     /**
      *
      * @param string $description
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setDescription($description)
     {
@@ -171,7 +175,7 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril
     /**
      *
      * @param string $link
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setLink($link)
     {
@@ -192,7 +196,7 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril
     /**
      *
      * @param string $id
-     * @return \Debril\RssAtomBundle\Protocol\FeedContent
+     * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setId($id)
     {
@@ -220,10 +224,10 @@ class FeedContent implements \Debril\RssAtomBundle\Protocol\FeedContent, \Debril
     }
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\Item $item
+     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
      * @return FeedContent
      */
-    public function addItem(ParsedItem $item)
+    public function addItem(ItemIn $item)
     {
         $this->items[] = $item;
 

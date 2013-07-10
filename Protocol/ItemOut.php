@@ -12,7 +12,10 @@
 
 namespace Debril\RssAtomBundle\Protocol;
 
-interface Item
+/**
+ * Item sent to Formatter classes
+ */
+interface ItemOut
 {
 
     /**

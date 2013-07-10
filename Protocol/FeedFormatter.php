@@ -12,7 +12,7 @@
 
 namespace Debril\RssAtomBundle\Protocol;
 
-use Debril\RssAtomBundle\Protocol\FeedContent;
+use Debril\RssAtomBundle\Protocol\FeedOut;
 
 abstract class FeedFormatter
 {
@@ -25,21 +25,21 @@ abstract class FeedFormatter
     /**
      *
      * @param \DomDocument $element
-     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
+     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
-    abstract public function setMetas(\DomDocument $element, FeedContent $content);
+    abstract public function setMetas(\DomDocument $element, FeedOut $content);
 
     /**
      * @param \DomDocument $element
-     * @param \Debril\RssAtomBundle\Protocol\Item $item
+     * @param \Debril\RssAtomBundle\Protocol\ItemOut $item
      */
-    abstract protected function addEntry(\DomDocument $document, Item $item);
+    abstract protected function addEntry(\DomDocument $document, ItemOut $item);
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
+     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
-    public function toString(FeedContent $content)
+    public function toString(FeedOut $content)
     {
         $element = $this->toDom($content);
 
@@ -48,9 +48,9 @@ abstract class FeedFormatter
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
+     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
-    public function toDom(FeedContent $content)
+    public function toDom(FeedOut $content)
     {
         $element = $this->getRootElement();
 
@@ -63,9 +63,9 @@ abstract class FeedFormatter
     /**
      *
      * @param \DomDocument $element
-     * @param \Debril\RssAtomBundle\Protocol\FeedContent $content
+     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
-    public function setEntries(\DomDocument $document, FeedContent $content)
+    public function setEntries(\DomDocument $document, FeedOut $content)
     {
         $items = $content->getItems();
         foreach ($items as $item)

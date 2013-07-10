@@ -10,22 +10,25 @@
  *
  */
 
-namespace Debril\RssAtomBundle\Protocol\Parser;
+namespace Debril\RssAtomBundle\Protocol;
 
-use Debril\RssAtomBundle\Protocol\Parser\ParsedItem;
+use Debril\RssAtomBundle\Protocol\ItemIn;
 
-interface ParsedFeed
+/**
+ * interface used when reading an external feed
+ */
+interface FeedIn
 {
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\Parser\ParsedItem $item
+     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
      */
-    public function addItem(ParsedItem $item);
+    public function addItem(ItemIn $item);
 
     /**
      *
-     * @return array[\Debril\RssAtomBundle\Protocol\Parser\ParsedItem]
+     * @return array[\Debril\RssAtomBundle\Protocol\ItemIn]
      */
     public function getItems();
 
