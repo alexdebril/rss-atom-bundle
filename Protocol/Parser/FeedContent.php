@@ -12,8 +12,6 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
-use Debril\RssAtomBundle\Protocol\FeedContentException;
-
 /**
  * A full Feed's content representation, containing both the headers of the feed
  * (not the HTTP one) and its news.
