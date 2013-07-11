@@ -70,6 +70,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser::setFactory
+     */
+    public function testSetFactory()
+    {
+        $this->object->setFactory(new Parser\Factory);
+
+        $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Factory', $this->object->getFactory());
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::addAcceptableItem
      */
     public function testAddAcceptableItem()
