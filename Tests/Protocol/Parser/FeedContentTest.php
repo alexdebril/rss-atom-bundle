@@ -221,7 +221,6 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::addItem
-     * @todo   Implement testAddItem().
      */
     public function testAddItem()
     {
@@ -231,6 +230,18 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\FeedContent", $ret);
         $this->assertEquals($count + 1, $this->object->getItemsCount());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setPublicId
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getPublicId
+     */
+    public function testSetPublicId()
+    {
+        $id = uniqid();
+        $this->object->setPublicId($id);
+
+        $this->assertEquals($id, $this->object->getPublicId());
     }
 
 }

@@ -237,4 +237,16 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($newContentType, $this->object->getContentType());
     }
 
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setPublicId
+     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getPublicId
+     */
+    public function testSetPublicId()
+    {
+        $id = uniqid();
+        $this->object->setPublicId($id);
+
+        $this->assertEquals($id, $this->object->getPublicId());
+    }
+
 }
