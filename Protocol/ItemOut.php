@@ -24,9 +24,15 @@ interface ItemOut
     public function getTitle();
 
     /**
+     * @deprecated
      * @return string
      */
     public function getId();
+
+    /**
+     * @return string
+     */
+    public function getPublicId();
 
     /**
      * atom : content

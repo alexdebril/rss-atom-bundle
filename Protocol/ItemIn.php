@@ -25,10 +25,15 @@ interface ItemIn
     public function setTitle($title);
 
     /**
-     *
+     * @deprecated
      * @param mixed $id
      */
     public function setId($id);
+
+    /**
+     * @param string $id
+     */
+    public function setPublicId($id);
 
     /**
      *

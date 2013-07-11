@@ -42,10 +42,15 @@ interface FeedOut
     public function getLink();
 
     /**
-     *
+     * @deprecated
      * @return string
      */
     public function getId();
+
+    /**
+     * @return string
+     */
+    public function getPublicId();
 
     /**
      *

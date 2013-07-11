@@ -57,9 +57,15 @@ interface FeedIn
     public function setLink($link);
 
     /**
-     *
+     * @deprecated
      * @param mixed $id
      */
     public function setId($id);
+
+    /**
+     *
+     * @param string $id
+     */
+    public function setPublicId($id);
 }
 
