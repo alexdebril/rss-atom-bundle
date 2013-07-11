@@ -49,7 +49,7 @@ class RssParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
     {
-        $feed->setId($xmlBody->channel->link);
+        $feed->setPublicId($xmlBody->channel->link);
         $feed->setLink($xmlBody->channel->link);
         $feed->setTitle($xmlBody->channel->title);
         $feed->setDescription($xmlBody->channel->description);
@@ -67,7 +67,7 @@ class RssParser extends Parser
             $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
             $item->setTitle($xmlElement->title)
                     ->setDescription($xmlElement->description)
-                    ->setId($xmlElement->guid)
+                    ->setPublicId($xmlElement->guid)
                     ->setUpdated(self::convertToDateTime($xmlElement->pubDate, $format))
                     ->setLink($xmlElement->link)
                     ->setComment($xmlElement->comments)

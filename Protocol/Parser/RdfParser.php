@@ -49,7 +49,7 @@ class RdfParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
     {
-        $feed->setId($xmlBody->channel->link);
+        $feed->setPublicId($xmlBody->channel->link);
         $feed->setLink($xmlBody->channel->link);
         $feed->setTitle($xmlBody->channel->title);
         $feed->setDescription($xmlBody->channel->description);
