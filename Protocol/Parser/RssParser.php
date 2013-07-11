@@ -56,9 +56,10 @@ class RssParser extends Parser
 
         if (isset($xmlBody->channel->lastBuildDate))
         {
-            $format = $this->guessDateFormat($xmlBody->channel->lastBuildDate);
-            $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate, $format);
-            $feed->setLastModified($updated);
+            $this->setLastModified($feed, $xmlBody->channel->lastBuildDate);
+        } elseif (isset($xmlBody->channel->pubDate))
+        {
+            $this->setLastModified($feed, $xmlBody->channel->pubDate);
         }
 
         foreach ($xmlBody->channel->item as $xmlElement)
@@ -77,6 +78,18 @@ class RssParser extends Parser
         }
 
         return $feed;
+    }
+
+    /**
+     *
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param type $rssDate
+     */
+    protected function setLastModified(FeedIn $feed, $rssDate)
+    {
+        $format = $this->guessDateFormat($rssDate);
+        $updated = self::convertToDateTime($rssDate, $format);
+        $feed->setLastModified($updated);
     }
 
 }
