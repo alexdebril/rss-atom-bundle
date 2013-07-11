@@ -49,8 +49,8 @@ interface FeedIn
     public function setTitle($title);
 
     /**
-     * Atom : feed. <feed><subtitle>
-     * Rss  : rss.channel. <rss><channel><description>
+     * Atom : feed.subtitle <feed><subtitle>
+     * Rss  : rss.channel.description <rss><channel><description>
      * @param string $description
      */
     public function setDescription($description);
@@ -77,4 +77,3 @@ interface FeedIn
      */
     public function setPublicId($id);
 }
-
