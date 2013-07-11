@@ -13,6 +13,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
+use Debril\RssAtomBundle\Protocol\FeedIn;
 use \SimpleXMLElement;
 
 class RdfParser extends Parser
@@ -42,23 +43,22 @@ class RdfParser extends Parser
     /**
      *
      * @param SimpleXMLElement $xmlBody
+     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param \DateTime $modifiedSince
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
     {
-        $feedContent = $this->newFeed();
-
-        $feedContent->setId($xmlBody->channel->link);
-        $feedContent->setLink($xmlBody->channel->link);
-        $feedContent->setTitle($xmlBody->channel->title);
-        $feedContent->setDescription($xmlBody->channel->description);
+        $feed->setId($xmlBody->channel->link);
+        $feed->setLink($xmlBody->channel->link);
+        $feed->setTitle($xmlBody->channel->title);
+        $feed->setDescription($xmlBody->channel->description);
 
         if (isset($xmlBody->channel->date))
         {
             $date = $xmlBody->channel->children('dc', true);
             $updated = self::convertToDateTime($date[0], $this->guessDateFormat($date[0]));
-            $feedContent->setLastModified($updated);
+            $feed->setLastModified($updated);
         }
 
         foreach ($xmlBody->item as $xmlElement)
@@ -72,10 +72,10 @@ class RdfParser extends Parser
                     ->setUpdated(self::convertToDateTime($date[0], $format))
                     ->setLink($xmlElement->link);
 
-            $this->addAcceptableItem($feedContent, $item, $modifiedSince);
+            $this->addAcceptableItem($feed, $item, $modifiedSince);
         }
 
-        return $feedContent;
+        return $feed;
     }
 
 }

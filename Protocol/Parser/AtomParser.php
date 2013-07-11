@@ -46,22 +46,23 @@ class AtomParser extends Parser
     /**
      *
      * @param SimpleXMLElement $xmlBody
+     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param \DateTime $modifiedSince
      * @return \\Debril\RssAtomBundle\Protocol\FeedIn
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
+    protected function parseBody(SimpleXMLElement $xmlBody, $feed, \DateTime $modifiedSince)
     {
-        $feedContent = $this->newFeed();
+        $feed = $this->newFeed();
 
-        $feedContent->setId($xmlBody->id);
+        $feed->setId($xmlBody->id);
 
-        $feedContent->setLink(current($xmlBody->link[0]['href']));
-        $feedContent->setTitle($xmlBody->title);
-        $feedContent->setDescription($xmlBody->subtitle);
+        $feed->setLink(current($xmlBody->link[0]['href']));
+        $feed->setTitle($xmlBody->title);
+        $feed->setDescription($xmlBody->subtitle);
 
         $format = $this->guessDateFormat($xmlBody->updated);
         $updated = self::convertToDateTime($xmlBody->updated, $format);
-        $feedContent->setLastModified($updated);
+        $feed->setLastModified($updated);
 
         foreach ($xmlBody->entry as $xmlElement)
         {
@@ -79,10 +80,10 @@ class AtomParser extends Parser
                 $item->setAuthor($xmlElement->author->name);
             }
 
-            $this->addAcceptableItem($feedContent, $item, $modifiedSince);
+            $this->addAcceptableItem($feed, $item, $modifiedSince);
         }
 
-        return $feedContent;
+        return $feed;
     }
 
     protected function parseContent(SimpleXMLElement $content)

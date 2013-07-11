@@ -56,11 +56,12 @@ abstract class Parser
      * Parses the feed's body to create a FeedContent instance.
      *
      * @param SimpleXMLElement $xmlBody
+     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param \DateTime $modifiedSince
      * @return FeedIn
      * @throws ParserException
      */
-    public function parse(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
+    public function parse(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
     {
         if (!$this->canHandle($xmlBody))
         {
@@ -69,7 +70,7 @@ abstract class Parser
 
         $this->checkBodyStructure($xmlBody);
 
-        return $this->parseBody($xmlBody, $modifiedSince);
+        return $this->parseBody($xmlBody, $feed, $modifiedSince);
     }
 
     /**
@@ -245,9 +246,10 @@ abstract class Parser
      * Performs the actual conversion into a FeedContent instance
      *
      * @param SimpleXMLElement $body
+     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param DateTime $modifiedSince
      * @return FeedIn
      */
-    abstract protected function parseBody(SimpleXMLElement $body, \DateTime $modifiedSince);
+    abstract protected function parseBody(SimpleXMLElement $body, FeedIn $feed, \DateTime $modifiedSince);
 }
 

@@ -13,6 +13,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
+use Debril\RssAtomBundle\Protocol\FeedIn;
 use \SimpleXMLElement;
 
 class RssParser extends Parser
@@ -42,23 +43,24 @@ class RssParser extends Parser
     /**
      *
      * @param SimpleXMLElement $xmlBody
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param \DateTime $modifiedSince
-     * @return \\Debril\RssAtomBundle\Protocol\FeedIn
+     * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, \DateTime $modifiedSince)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
     {
-        $feedContent = $this->newFeed();
+        $feed = $this->newFeed();
 
-        $feedContent->setId($xmlBody->channel->link);
-        $feedContent->setLink($xmlBody->channel->link);
-        $feedContent->setTitle($xmlBody->channel->title);
-        $feedContent->setDescription($xmlBody->channel->description);
+        $feed->setId($xmlBody->channel->link);
+        $feed->setLink($xmlBody->channel->link);
+        $feed->setTitle($xmlBody->channel->title);
+        $feed->setDescription($xmlBody->channel->description);
 
         if (isset($xmlBody->channel->lastBuildDate))
         {
             $format = $this->guessDateFormat($xmlBody->channel->lastBuildDate);
             $updated = self::convertToDateTime($xmlBody->channel->lastBuildDate, $format);
-            $feedContent->setLastModified($updated);
+            $feed->setLastModified($updated);
         }
 
         foreach ($xmlBody->channel->item as $xmlElement)
@@ -73,10 +75,10 @@ class RssParser extends Parser
                     ->setComment($xmlElement->comments)
                     ->setAuthor($xmlElement->author);
 
-            $this->addAcceptableItem($feedContent, $item, $modifiedSince);
+            $this->addAcceptableItem($feed, $item, $modifiedSince);
         }
 
-        return $feedContent;
+        return $feed;
     }
 
 }
