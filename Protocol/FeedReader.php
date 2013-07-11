@@ -31,9 +31,9 @@ use Debril\RssAtomBundle\Exception\FeedForbiddenException;
  * Parser and use it to return a FeedContent instance.
  *
  * <code>
- * // a HttpDriver instance is required to construct a FeedReader.
+ * // HttpDriver and Factory instances are required to construct a FeedReader.
  * // Here we use the HttpCurlDriver (recommanded)
- * $reader = new FeedReader(new HttpCurlDriver());
+ * $reader = new FeedReader(new HttpCurlDriver(), new Factory());
  *
  * // now we add the parsers
  * $reader->addParser(new AtomParser());
@@ -47,40 +47,35 @@ use Debril\RssAtomBundle\Exception\FeedForbiddenException;
  * echo $feed->getTitle();
  *
  * // each
- * foreach( $content as $item )
+ * foreach( $content->getItems() as $item )
  * {
  *      echo $item->getTitle();
  *      echo $item->getSummary();
  * }
  * </code>
  *
- * @see FeedContent
- *
  */
 class FeedReader
 {
 
     /**
-     *
-     * @var array
+     * @var array[\Debril\RssAtomBundle\Protocol\Parser]
      */
     protected $parsers = array();
 
     /**
-     *
      * @var Debril\RssAtomBundle\Driver\Driver
      */
     protected $driver = null;
 
     /**
-     *
-     * @var Debril\RssAtomBundle\Protocol\Parser
+     * @var Debril\RssAtomBundle\Protocol\Parser\Factory
      */
     protected $factory = null;
 
     /**
-     *
      * @param \Debril\RssAtomBundle\Driver\HttpDriver $driver
+     * @param \Debril\RssAtomBundle\Protocol\Parser\Factory $factory
      */
     public function __construct(HttpDriver $driver, Factory $factory)
     {
@@ -89,7 +84,8 @@ class FeedReader
     }
 
     /**
-     * @param Parser $parser
+     * Add a Parser
+     * @param \Debril\RssAtomBundle\Protocol\Parser $parser
      * @return \Debril\RssAtomBundle\Protocol\FeedReader
      */
     public function addParser(Parser $parser)
@@ -101,7 +97,6 @@ class FeedReader
     }
 
     /**
-     *
      * @return \Debril\RssAtomBundle\Driver\HttpDriver
      */
     public function getDriver()
@@ -110,7 +105,7 @@ class FeedReader
     }
 
     /**
-     *
+     * Read a feed using its url and create a FeedIn instance
      * @param string $url
      * @param \DateTime $lastModified
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
@@ -121,7 +116,7 @@ class FeedReader
     }
 
     /**
-     *
+     * Read a feed using its url and hydrate the given FeedIn instance
      * @param type $url
      * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param \DateTime $modifiedSince
@@ -135,7 +130,7 @@ class FeedReader
     }
 
     /**
-     *
+     * Read the XML stream hosted at $url
      * @param string $url
      * @param \Datetime $lastModified
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
@@ -146,10 +141,15 @@ class FeedReader
     }
 
     /**
-     *
+     * Parse the body of a feed and write it into the FeedIn instance
      * @param \Debril\RssAtomBundle\Driver\HttpDriverResponse $response
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param \Datetime $modifiedSince
-     * @return FeedContent
+     * @return FeedIn
+     * @throws FeedNotFoundException
+     * @throws FeedNotModifiedException
+     * @throws FeedServerErrorException
+     * @throws FeedForbiddenException
      * @throws FeedCannotBeReadException
      */
     public function parseBody(HttpDriverResponse $response, FeedIn $feed, \Datetime $modifiedSince)
@@ -182,6 +182,7 @@ class FeedReader
     }
 
     /**
+     * Choose the accurate Parser for the XML stream
      * @param SimpleXMLElement $xmlBody
      * @throws ParserException
      * @return Parser

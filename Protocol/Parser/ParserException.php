@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,9 +9,10 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 class ParserException extends \Exception
 {
-    //put your code here
+
 }
