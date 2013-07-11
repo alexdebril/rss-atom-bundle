@@ -49,8 +49,6 @@ class RssParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
     {
-        $feed = $this->newFeed();
-
         $feed->setId($xmlBody->channel->link);
         $feed->setLink($xmlBody->channel->link);
         $feed->setTitle($xmlBody->channel->title);

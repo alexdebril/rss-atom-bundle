@@ -52,8 +52,6 @@ class AtomParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, $feed, \DateTime $modifiedSince)
     {
-        $feed = $this->newFeed();
-
         $feed->setId($xmlBody->id);
 
         $feed->setLink(current($xmlBody->link[0]['href']));
