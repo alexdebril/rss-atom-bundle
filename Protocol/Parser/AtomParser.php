@@ -69,7 +69,6 @@ class AtomParser extends Parser
             $item->setTitle($xmlElement->title)
                     ->setPublicId($xmlElement->id)
                     ->setSummary($xmlElement->summary)
-                    ->setContentType($xmlElement->content[0]['type'])
                     ->setDescription($this->parseContent($xmlElement->content))
                     ->setUpdated(self::convertToDateTime($xmlElement->updated, $format))
                     ->setLink($xmlElement->link[0]['href']);

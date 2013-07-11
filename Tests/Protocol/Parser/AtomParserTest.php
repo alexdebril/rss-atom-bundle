@@ -90,7 +90,6 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
 
         $item = current($feed->getItems());
         $this->assertEquals('John Doe', $item->getAuthor());
-        $this->assertEquals(\Debril\RssAtomBundle\Protocol\AtomItem::XHTML, $item->getContentType());
     }
 
     /**
