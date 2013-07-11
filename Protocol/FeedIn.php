@@ -22,14 +22,14 @@ interface FeedIn
 
     /**
      * Atom : feed.entry <feed><entry>
-     * Rss  : rss.channel.entry <rss><channel><entry>
+     * Rss  : rss.channel.item <rss><channel><item>
      * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
      */
     public function addItem(ItemIn $item);
 
     /**
      * Atom : feed.entry <feed><entry>
-     * Rss  : rss.channel.entry <rss><channel><entry>
+     * Rss  : rss.channel.item <rss><channel><item>
      * @return array[\Debril\RssAtomBundle\Protocol\ItemIn]
      */
     public function getItems();
