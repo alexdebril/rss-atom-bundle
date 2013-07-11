@@ -15,10 +15,11 @@ namespace Debril\RssAtomBundle\Protocol\Formatter;
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
 use Debril\RssAtomBundle\Protocol\FeedOut;
 use Debril\RssAtomBundle\Protocol\ItemOut;
-use Debril\RssAtomBundle\Protocol\AtomItem;
 
 class FeedAtomFormatter extends FeedFormatter
 {
+
+    const CONTENT_TYPE_HTML = 'html';
 
     /**
      *
@@ -74,7 +75,7 @@ class FeedAtomFormatter extends FeedFormatter
     /**
      *
      * @param \DOMDocument $document
-     * @param \Debril\RssAtomBundle\Protocol\Item $item
+     * @param \Debril\RssAtomBundle\Protocol\ItemOut $item
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     protected function addEntry(\DOMDocument $document, ItemOut $item)
@@ -91,14 +92,14 @@ class FeedAtomFormatter extends FeedFormatter
         $elements[] = $document->createElement('id', $item->getLink());
         $elements[] = $document->createElement('updated', $item->getUpdated()->format(\DateTime::ATOM));
 
-        if ($item instanceof AtomItem && strlen($item->getSummary()) > 0)
+        if (strlen($item->getSummary()) > 0)
         {
             $summary = $document->createElement('summary', htmlspecialchars($item->getSummary(), ENT_COMPAT, 'UTF-8'));
-            $summary->setAttribute('type', AtomItem::HTML);
+            $summary->setAttribute('type', self::CONTENT_TYPE_HTML);
         }
 
         $content = $document->createElement('content', htmlspecialchars($item->getDescription(), ENT_COMPAT, 'UTF-8'));
-        $content->setAttribute('type', AtomItem::HTML);
+        $content->setAttribute('type', self::CONTENT_TYPE_HTML);
         $elements[] = $content;
 
         if (!is_null($item->getComment()))

@@ -70,11 +70,5 @@ interface ItemIn
      * @param string $comment
      */
     public function setComment($comment);
-
-    /**
-     *
-     * @param string $type
-     */
-    public function setContentType($type);
 }
 
