@@ -75,6 +75,21 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::readFeed
+     */
+    public function testReadFeed()
+    {
+        $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
+
+        $this->object->addParser(new Parser\RssParser);
+        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
+
+        $feed = $this->object->readFeed($url, new Parser\FeedContent, $date);
+
+        $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\FeedIn', $feed);
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::getFeedContent
      */
     public function testGetRssFeedContent()
@@ -263,6 +278,26 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
         $response->setHttpCode(403);
+
+        $mock->expects($this->any())
+                ->method('getResponse')
+                ->will($this->returnValue($response));
+
+        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+
+        $reader->getFeedContent('http://afakeurl', new \DateTime);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     * @expectedException Debril\RssAtomBundle\Exception\FeedCannotBeReadException
+     */
+    public function testParseBodyUnknownError()
+    {
+        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
+
+        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
+        $response->setHttpCode(666);
 
         $mock->expects($this->any())
                 ->method('getResponse')
