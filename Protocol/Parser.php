@@ -128,18 +128,6 @@ abstract class Parser
 
     /**
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedIn
-     */
-    public function newFeed()
-    {
-        if ($this->getFactory() instanceof \Debril\RssAtomBundle\Protocol\Parser\Factory)
-            return $this->getFactory()->newFeed();
-
-        return new Parser\FeedContent;
-    }
-
-    /**
-     *
      * @return \Debril\RssAtomBundle\Protocol\ItemIn
      */
     public function newItem()
