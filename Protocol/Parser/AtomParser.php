@@ -13,6 +13,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
+use Debril\RssAtomBundle\Protocol\FeedIn;
 use \SimpleXMLElement;
 
 class AtomParser extends Parser
@@ -50,7 +51,7 @@ class AtomParser extends Parser
      * @param \DateTime $modifiedSince
      * @return \\Debril\RssAtomBundle\Protocol\FeedIn
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, $feed, \DateTime $modifiedSince)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
     {
         $feed->setId($xmlBody->id);
 
