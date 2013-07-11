@@ -143,7 +143,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $date = new \DateTime;
         $response = $this->object->getResponse($url, $date);
 
-        $feed = $this->object->parseBody($response, $date);
+        $feed = $this->object->parseBody($response, new Parser\FeedContent, $date);
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
     }

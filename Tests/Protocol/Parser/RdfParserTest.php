@@ -59,7 +59,7 @@ class RdfParserTest extends \PHPUnit_Framework_TestCase
     {
         $file = dirname(__FILE__) . '/../../../Resources/truncated-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $this->object->parse($xmlBody, new \DateTime);
+        $this->object->parse($xmlBody, new FeedContent, new \DateTime);
     }
 
     /**
@@ -71,7 +71,7 @@ class RdfParserTest extends \PHPUnit_Framework_TestCase
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
-        $feed = $this->object->parse($xmlBody, $date);
+        $feed = $this->object->parse($xmlBody, new FeedContent, $date);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 

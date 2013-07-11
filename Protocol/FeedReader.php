@@ -117,9 +117,21 @@ class FeedReader
      */
     public function getFeedContent($url, \DateTime $modifiedSince)
     {
+        return $this->readFeed($url, $this->factory->newFeed(), $modifiedSince);
+    }
+
+    /**
+     *
+     * @param type $url
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \DateTime $modifiedSince
+     * @return \Debril\RssAtomBundle\Protocol\FeedIn
+     */
+    public function readFeed($url, FeedIn $feed, \DateTime $modifiedSince)
+    {
         $response = $this->getResponse($url, $modifiedSince);
 
-        return $this->parseBody($response, $modifiedSince);
+        return $this->parseBody($response, $feed, $modifiedSince);
     }
 
     /**
@@ -140,14 +152,14 @@ class FeedReader
      * @return FeedContent
      * @throws FeedCannotBeReadException
      */
-    public function parseBody(HttpDriverResponse $response, \Datetime $modifiedSince)
+    public function parseBody(HttpDriverResponse $response, FeedIn $feed, \Datetime $modifiedSince)
     {
         if ($response->getHttpCodeIsOk())
         {
             $xmlBody = new SimpleXMLElement($response->getBody());
             $parser = $this->getAccurateParser($xmlBody);
 
-            return $parser->parse($xmlBody, $modifiedSince);
+            return $parser->parse($xmlBody, $feed, $modifiedSince);
         }
 
         switch ($response->getHttpCode())
