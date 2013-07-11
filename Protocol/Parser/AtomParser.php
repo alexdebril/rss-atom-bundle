@@ -13,8 +13,6 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\Parser;
-use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
-use Debril\RssAtomBundle\Protocol\Parser\Item;
 use \SimpleXMLElement;
 
 class AtomParser extends Parser
