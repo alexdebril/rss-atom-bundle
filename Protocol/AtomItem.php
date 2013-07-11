@@ -12,6 +12,9 @@
 
 namespace Debril\RssAtomBundle\Protocol;
 
+/**
+ * @deprecated since version 1.2.0
+ */
 interface AtomItem
 {
     /**
