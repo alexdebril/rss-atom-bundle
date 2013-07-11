@@ -234,5 +234,22 @@ class FeedContent implements FeedIn, FeedOut
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getPublicId()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * @param string $id
+     * @return type
+     */
+    public function setPublicId($id)
+    {
+        return $this->setId($id);
+    }
+
 }
 

@@ -249,5 +249,24 @@ class Item implements ItemIn, ItemOut, \Debril\RssAtomBundle\Protocol\AtomItem
         return $this;
     }
 
+    /**
+     *
+     * @return string
+     */
+    public function getPublicId()
+    {
+        return $this->getId();
+    }
+
+    /**
+     *
+     * @param string $id
+     * @return type
+     */
+    public function setPublicId($id)
+    {
+        return $this->setId($id);
+    }
+
 }
 
