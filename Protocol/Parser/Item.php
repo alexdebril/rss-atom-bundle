@@ -20,57 +20,62 @@ class Item implements ItemIn, ItemOut
 {
 
     /**
+     * Atom : feed.entry.title <feed><entry><title>
+     * Rss  : rss.channel.item.title <rss><channel><item><title>
      * @var string
      */
     protected $title;
 
     /**
+     * Atom : feed.entry.summary <feed><entry><summary>
      * @var string
      */
     protected $summary;
 
     /**
-     * RSS : description
-     * ATOM : Content
-     *
+     * Atom : feed.entry.content <feed><entry><content>
+     * Rss  : rss.channel.item.description <rss><channel><item><description>
      * @var string
      */
     protected $description;
 
     /**
+     * Atom : feed.entry.updated <feed><entry><updated>
+     * Rss  : rss.channel.item.pubDate <rss><channel><item><pubDate>
      * @var DateTime
      */
     protected $updated;
 
     /**
+     * Atom : feed.entry.id <feed><entry><id>
+     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
      * @var string
      */
     protected $id;
 
     /**
+     * Atom : feed.entry.link <feed><entry><link>
+     * Rss  : rss.channel.item.link <rss><channel><item><link>
      * @var string
      */
     protected $link;
 
     /**
-     *
-     * @var \Debril\RssAtomBundle\Protocol\Author
+     * Atom : feed.entry.author.name <feed><entry><author><name>
+     * Rss  : rss.channel.item.author <rss><channel><item><author>
+     * @var string
      */
     protected $author;
 
     /**
-     *
+     * Rss  : rss.channel.item.comment <rss><channel><item><comment>
      * @var string
      */
     protected $comment;
 
     /**
-     *
-     * @var string
-     */
-    protected $contentType;
-
-    /**
+     * Atom : feed.entry.title <feed><entry><title>
+     * Rss  : rss.channel.item.title <rss><channel><item><title>
      * @return string
      */
     public function getTitle()
@@ -79,8 +84,10 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
+     * Atom : feed.entry.title <feed><entry><title>
+     * Rss  : rss.channel.item.title <rss><channel><item><title>
      * @param string $title
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setTitle($title)
     {
@@ -90,6 +97,9 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
+     * Atom : feed.entry.id <feed><entry><id>
+     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
+     * @deprecated
      * @return string
      */
     public function getId()
@@ -98,8 +108,11 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
+     * Atom : feed.entry.id <feed><entry><id>
+     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
+     * @deprecated
      * @param string $id
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setId($id)
     {
@@ -109,7 +122,8 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Atom : feed.entry.content <feed><entry><content>
+     * Rss  : rss.channel.item.description <rss><channel><item><description>
      * @return string
      */
     public function getDescription()
@@ -118,9 +132,10 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Atom : feed.entry.content <feed><entry><content>
+     * Rss  : rss.channel.item.description <rss><channel><item><description>
      * @param string $description
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setDescription($description)
     {
@@ -130,6 +145,7 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
+     * Atom : feed.entry.summary <feed><entry><summary>
      * @return string
      */
     public function getSummary()
@@ -138,8 +154,9 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     * @param unknown_type $summary
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * Atom : feed.entry.summary <feed><entry><summary>
+     * @param string $summary
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setSummary($summary)
     {
@@ -149,7 +166,9 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     * @return DateTime
+     * Atom : feed.entry.updated <feed><entry><updated>
+     * Rss  : rss.channel.item.pubDate <rss><channel><item><pubDate>
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -157,8 +176,10 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     * @param DateTime $updated
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * Atom : feed.entry.updated <feed><entry><updated>
+     * Rss  : rss.channel.item.pubDate <rss><channel><item><pubDate>
+     * @param \DateTime $updated
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setUpdated(DateTime $updated)
     {
@@ -168,6 +189,8 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
+     * Atom : feed.entry.link <feed><entry><link>
+     * Rss  : rss.channel.item.link <rss><channel><item><link>
      * @return string
      */
     public function getLink()
@@ -176,8 +199,10 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     * @param unknown_type $link
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * Atom : feed.entry.link <feed><entry><link>
+     * Rss  : rss.channel.item.link <rss><channel><item><link>
+     * @param string $link
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setLink($link)
     {
@@ -187,7 +212,8 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Atom : feed.entry.author.name <feed><entry><author><name>
+     * Rss  : rss.channel.item.author <rss><channel><item><author>
      * @return string
      */
     public function getAuthor()
@@ -196,9 +222,10 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Atom : feed.entry.author.name <feed><entry><author><name>
+     * Rss  : rss.channel.item.author <rss><channel><item><author>
      * @param string $author
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setAuthor($author)
     {
@@ -208,7 +235,7 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Rss  : rss.channel.item.comment <rss><channel><item><comment>
      * @return string
      */
     public function getComment()
@@ -217,9 +244,9 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Rss  : rss.channel.item.comment <rss><channel><item><comment>
      * @param string $comment
-     * @return \Debril\RssAtomBundle\Protocol\Item
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setComment($comment)
     {
@@ -229,7 +256,7 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * @deprecated
      * @return string
      */
     public function getContentType()
@@ -238,7 +265,7 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * @deprecated
      * @param string $type
      * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
@@ -250,7 +277,8 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Atom : feed.entry.id <feed><entry><id>
+     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
      * @return string
      */
     public function getPublicId()
@@ -259,9 +287,10 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
-     *
+     * Atom : feed.entry.id <feed><entry><id>
+     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
      * @param string $id
-     * @return type
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
     public function setPublicId($id)
     {
@@ -269,4 +298,3 @@ class Item implements ItemIn, ItemOut
     }
 
 }
-
