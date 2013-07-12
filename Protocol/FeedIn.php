@@ -37,6 +37,7 @@ interface FeedIn
     /**
      * Atom : feed.updated <feed><updated>
      * Rss  : rss.channel.lastBuildDate <rss><channel><lastBuildDate>
+     *   or   rss.channel.pubDate <rss><channel><pubDate>
      * @param \DateTime $lastModified
      */
     public function setLastModified(\DateTime $lastModified);
