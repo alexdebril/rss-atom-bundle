@@ -40,7 +40,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->object->setDescription(self::description);
         $this->object->setAuthor(self::author);
         $this->object->setComment(self::comments);
-        $this->object->setContentType(self::contentType);
     }
 
     /**
@@ -215,26 +214,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->object->setComment($newComment);
 
         $this->assertEquals($newComment, $this->object->getComment());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getContentType
-     */
-    public function testGetContentType()
-    {
-        $this->assertEquals(self::contentType, $this->object->getContentType());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setContentType
-     */
-    public function testSetContentType()
-    {
-        $newContentType = 'xhtml';
-
-        $this->object->setContentType($newContentType);
-
-        $this->assertEquals($newContentType, $this->object->getContentType());
     }
 
     /**

@@ -51,7 +51,7 @@ class Item implements ItemIn, ItemOut
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>
      * @var string
      */
-    protected $id;
+    protected $publicId;
 
     /**
      * Atom : feed.entry.link <feed><entry><link>
@@ -99,24 +99,22 @@ class Item implements ItemIn, ItemOut
     /**
      * Atom : feed.entry.id <feed><entry><id>
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>
-     * @deprecated
      * @return string
      */
-    public function getId()
+    public function getPublicId()
     {
-        return $this->id;
+        return $this->publicId;
     }
 
     /**
      * Atom : feed.entry.id <feed><entry><id>
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>
-     * @deprecated
-     * @param string $id
+     * @param string $publicId
      * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
-    public function setId($id)
+    public function setPublicId($publicId)
     {
-        $this->id = $id;
+        $this->publicId = $publicId;
 
         return $this;
     }
@@ -256,45 +254,26 @@ class Item implements ItemIn, ItemOut
     }
 
     /**
+     * Atom : feed.entry.id <feed><entry><id>
+     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
      * @deprecated
      * @return string
      */
-    public function getContentType()
+    public function getId()
     {
-        return $this->contentType;
-    }
-
-    /**
-     * @deprecated
-     * @param string $type
-     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
-     */
-    public function setContentType($type)
-    {
-        $this->contentType = $type;
-
-        return $this;
+        return $this->getPublicId();
     }
 
     /**
      * Atom : feed.entry.id <feed><entry><id>
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>
-     * @return string
-     */
-    public function getPublicId()
-    {
-        return $this->getId();
-    }
-
-    /**
-     * Atom : feed.entry.id <feed><entry><id>
-     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
+     * @deprecated
      * @param string $id
      * @return \Debril\RssAtomBundle\Protocol\Parser\Item
      */
-    public function setPublicId($id)
+    public function setId($id)
     {
-        return $this->setId($id);
+        return $this->setPublicId($id);
     }
 
 }
