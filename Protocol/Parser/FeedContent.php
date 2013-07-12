@@ -57,12 +57,6 @@ class FeedContent implements FeedIn, FeedOut
     protected $lastModified;
 
     /**
-     *
-     * @var array
-     */
-    protected $headers;
-
-    /**
      * Atom : feed.title <feed><title>
      * Rss  : rss.channel.title <rss><channel><title>
      * @var string
@@ -91,6 +85,13 @@ class FeedContent implements FeedIn, FeedOut
     protected $id;
 
     /**
+     * Atom : feed.id <feed><id>
+     * Rss  : rss.channel.id <rss><channel><id>
+     * @var string
+     */
+    protected $publicId;
+
+    /**
      * Atom : feed.updated <feed><updated>
      * Rss  : rss.channel.lastBuildDate <rss><channel><lastBuildDate>
      *   or   rss.channel.pubDate <rss><channel><pubDate>
@@ -112,24 +113,6 @@ class FeedContent implements FeedIn, FeedOut
         $this->lastModified = $lastModified;
 
         return $this;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return $this->headers;
-    }
-
-    /**
-     *
-     * @param array $headers
-     */
-    public function setHeaders($headers)
-    {
-        $this->headers = $headers;
     }
 
     /**
@@ -204,10 +187,9 @@ class FeedContent implements FeedIn, FeedOut
     /**
      * Atom : feed.id <feed><id>
      * Rss  : rss.channel.id <rss><channel><id>
-     * @deprecated
      * @return string
      */
-    public function getId()
+    public function getPublicId()
     {
         return $this->id;
     }
@@ -218,7 +200,7 @@ class FeedContent implements FeedIn, FeedOut
      * @param string $id
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
-    public function setId($id)
+    public function setPublicId($id)
     {
         $this->id = $id;
 
@@ -226,7 +208,7 @@ class FeedContent implements FeedIn, FeedOut
     }
 
     /**
-     *
+     * Number of feed.entry or rss.channel.item in the stream
      * @return int
      */
     public function getItemsCount()
@@ -262,20 +244,20 @@ class FeedContent implements FeedIn, FeedOut
      * Rss  : rss.channel.id <rss><channel><id>
      * @return string
      */
-    public function getPublicId()
+    public function getId()
     {
-        return $this->getId();
+        return $this->getPublicId();
     }
 
     /**
      * Atom : feed.id <feed><id>
      * Rss  : rss.channel.id <rss><channel><id>
      * @param string $id
-     * @return type
+     * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
-    public function setPublicId($id)
+    public function setId($id)
     {
-        return $this->setId($id);
+        return $this->setPublicId($id);
     }
 
 }

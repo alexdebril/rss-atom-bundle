@@ -44,13 +44,6 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
         $lastModified = new \DateTime();
 
-        $this->headers = array(
-            'Last-Modified' => $lastModified->format(\DateTime::RFC2822),
-            'Content-Lenght' => '110',
-        );
-
-        $this->object->setHeaders($this->headers);
-
         $this->object->setLastModified($lastModified);
     }
 
@@ -83,28 +76,6 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $this->object->setLastModified($lastModified);
 
         $this->assertEquals($lastModified, $this->object->getLastModified());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getHeaders
-     * @todo   Implement testGetHeaders().
-     */
-    public function testGetHeaders()
-    {
-        $this->assertInternalType('array', $this->object->getHeaders());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setHeaders
-     * @todo   Implement testSetHeaders().
-     */
-    public function testSetHeaders()
-    {
-        $this->headers['Content-Type'] = 'Content-Type: text/html; charset=utf-8';
-
-        $this->object->setHeaders($this->headers);
-
-        $this->assertEquals($this->headers, $this->object->getHeaders());
     }
 
     /**
@@ -177,22 +148,22 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getId
      * @todo   Implement testGetId().
      */
-    public function testGetId()
+    public function testGetPublicId()
     {
-        $this->assertEquals(self::id, $this->object->getId());
+        $this->assertEquals(self::id, $this->object->getPublicId());
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setId
-     * @todo   Implement testSetId().
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setPublicId
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getPublicId
      */
-    public function testSetId()
+    public function testSetPublicId()
     {
         $newId = '5';
 
-        $this->object->setId($newId);
+        $this->object->setPublicId($newId);
 
-        $this->assertEquals($newId, $this->object->getId());
+        $this->assertEquals($newId, $this->object->getPublicId());
     }
 
     /**
@@ -230,18 +201,6 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\FeedContent", $ret);
         $this->assertEquals($count + 1, $this->object->getItemsCount());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setPublicId
-     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getPublicId
-     */
-    public function testSetPublicId()
-    {
-        $id = uniqid();
-        $this->object->setPublicId($id);
-
-        $this->assertEquals($id, $this->object->getPublicId());
     }
 
 }
