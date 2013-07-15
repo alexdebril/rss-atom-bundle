@@ -29,7 +29,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     {
         $this->object = new FeedContent;
 
-        $this->object->setId(self::id);
+        $this->object->setPublicId(self::id);
         $this->object->setLink(self::link);
         $this->object->setTitle(self::title);
         $this->object->setDescription(self::subtitle);
@@ -38,7 +38,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 5; $i++)
         {
             $item = new Item();
-            $item->setId($i);
+            $item->setPublicId($i);
             $this->object->addItem($item);
         }
 
@@ -145,8 +145,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getId
-     * @todo   Implement testGetId().
+     * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getPublicId
      */
     public function testGetPublicId()
     {

@@ -28,14 +28,6 @@ interface ItemIn
     /**
      * Atom : feed.entry.id <feed><entry><id>
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>
-     * @deprecated
-     * @param mixed $id
-     */
-    public function setId($id);
-
-    /**
-     * Atom : feed.entry.id <feed><entry><id>
-     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
      * @param string $id
      */
     public function setPublicId($id);

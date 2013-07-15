@@ -253,27 +253,4 @@ class Item implements ItemIn, ItemOut
         return $this;
     }
 
-    /**
-     * Atom : feed.entry.id <feed><entry><id>
-     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
-     * @deprecated
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->getPublicId();
-    }
-
-    /**
-     * Atom : feed.entry.id <feed><entry><id>
-     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
-     * @deprecated
-     * @param string $id
-     * @return \Debril\RssAtomBundle\Protocol\Parser\Item
-     */
-    public function setId($id)
-    {
-        return $this->setPublicId($id);
-    }
-
 }

@@ -49,14 +49,6 @@ interface FeedOut
     /**
      * Atom : feed.id <feed><id>
      * Rss  : rss.channel.id <rss><channel><id>
-     * @deprecated
-     * @return string
-     */
-    public function getId();
-
-    /**
-     * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
      * @return string
      */
     public function getPublicId();

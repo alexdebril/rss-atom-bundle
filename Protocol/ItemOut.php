@@ -28,14 +28,6 @@ interface ItemOut
     /**
      * Atom : feed.entry.id <feed><entry><id>
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>
-     * @deprecated
-     * @return string
-     */
-    public function getId();
-
-    /**
-     * Atom : feed.entry.id <feed><entry><id>
-     * Rss  : rss.channel.item.guid <rss><channel><item><guid>
      * @return string
      */
     public function getPublicId();

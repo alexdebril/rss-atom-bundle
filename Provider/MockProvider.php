@@ -37,7 +37,7 @@ class MockProvider implements FeedContentProvider
         if ($contentId === 'not-found')
             throw new FeedNotFoundException;
 
-        $content->setId($contentId);
+        $content->setPublicId($contentId);
 
         $content->setTitle('thank you for using RssAtomBundle');
         $content->setDescription('this is the mock FeedContent');
@@ -46,7 +46,7 @@ class MockProvider implements FeedContentProvider
 
         $item = new Item;
 
-        $item->setId('1');
+        $item->setPublicId('1');
         $item->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/somelink');
         $item->setTitle('This is an item');
         $item->setSummary('this stream was generated using the MockProvider class');

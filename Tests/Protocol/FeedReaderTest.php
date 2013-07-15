@@ -105,7 +105,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $item = current($feed->getItems());
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemIn", $item);
 
-        $this->assertNotNull($item->getId());
+        $this->assertNotNull($item->getPublicId());
         $this->assertNotNull($item->getLink());
         $this->assertNotNull($item->getTitle());
         $this->assertNotNull($item->getDescription());
@@ -128,7 +128,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $item = current($feed->getItems());
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemIn", $item);
 
-        $this->assertNotNull($item->getId());
+        $this->assertNotNull($item->getPublicId());
         $this->assertNotNull($item->getLink());
         $this->assertNotNull($item->getTitle());
         $this->assertNotNull($item->getSummary());

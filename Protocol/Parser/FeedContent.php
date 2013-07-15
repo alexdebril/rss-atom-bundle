@@ -82,13 +82,6 @@ class FeedContent implements FeedIn, FeedOut
      * Rss  : rss.channel.id <rss><channel><id>
      * @var string
      */
-    protected $id;
-
-    /**
-     * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
-     * @var string
-     */
     protected $publicId;
 
     /**
@@ -237,27 +230,6 @@ class FeedContent implements FeedIn, FeedOut
         $this->items[] = $item;
 
         return $this;
-    }
-
-    /**
-     * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->getPublicId();
-    }
-
-    /**
-     * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
-     * @param string $id
-     * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
-     */
-    public function setId($id)
-    {
-        return $this->setPublicId($id);
     }
 
 }

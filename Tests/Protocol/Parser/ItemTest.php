@@ -33,7 +33,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->object = new Item;
 
         $this->object->setTitle(self::title);
-        $this->object->setId(self::id);
+        $this->object->setPublicId(self::id);
         $this->object->setLink(self::link);
         $this->object->setSummary(self::summary);
         $this->object->setUpdated(new \DateTime);
@@ -70,27 +70,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
         $this->object->setTitle($newTitle);
         $this->assertEquals($newTitle, $this->object->getTitle());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getId
-     * @todo   Implement testGetId().
-     */
-    public function testGetId()
-    {
-        $this->assertEquals(self::id, $this->object->getId());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setId
-     * @todo   Implement testSetId().
-     */
-    public function testSetId()
-    {
-        $newId = 2;
-        $this->object->setId($newId);
-
-        $this->assertEquals($newId, $this->object->getId());
     }
 
     /**

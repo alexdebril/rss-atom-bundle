@@ -66,14 +66,6 @@ interface FeedIn
     /**
      * Atom : feed.id <feed><id>
      * Rss  : rss.channel.id <rss><channel><id>
-     * @deprecated
-     * @param mixed $id
-     */
-    public function setId($id);
-
-    /**
-     * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
      * @param string $id
      */
     public function setPublicId($id);
