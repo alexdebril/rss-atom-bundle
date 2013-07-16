@@ -6,7 +6,8 @@ RssAtomBundle - Read and Build Atom/RSS feeds
 RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / Atom feeds. It features:
 
 - Detection of the feed format (RSS / Atom)
-- HTTP Headers support in order to save network traffic
+- A generic StreamController built to write all your feeds. This controller is able to send a 304 HTTP Code if the feed didn't change since the last visit
+- HTTP Headers support when reading feeds in order to save network traffic
 - Content filtering to fetch only the newest items
 - multiple feeds writing
 
