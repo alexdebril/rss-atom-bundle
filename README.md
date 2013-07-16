@@ -32,12 +32,14 @@ then, ask Composer to install it:
 
     composer.phar update debril/rss-atom-bundle
 
-Migration from 1.1.6 to 1.2.0
+Compatibility between 1.1.6 and 1.2.0
 -----------------------------
 
 If you are already using rss-atom-bundle, beware that the 1.2.0 version breaks some backward compatibility. If you do not need the improvements provided by the 1.2.0 version, please edit composer.json as below :
 
     "debril/rss-atom-bundle": "~1.1, <1.2"
+
+The migration process is described in the [wiki]()
 
 Fetching the repository
 -----------------------
@@ -58,11 +60,10 @@ You can run the unit test suites using the following command in the Bundle's sou
 Usage
 =====
 
-rss-atom-bundle is designed to read feeds across the internet and to publish your own. It provides two sets of interfaces, each one being dedicated to
-feed's consuming or publishing :
+rss-atom-bundle is designed to read feeds across the internet and to publish your own. It provides two sets of interfaces, each one being dedicated to feed's consuming or publishing :
 
-- FeedIn & ItemIn are used for feed reading.
-- FeedOut & ItemOut are used for feed publishing.
+- [FeedIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedIn.php) & ItemIn(https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemIn.php) are used for feed reading.
+- [FeedOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedOut.php) & [ItemOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemOut.php) are used for feed publishing.
 
 Feed Reading
 ------------
@@ -96,7 +97,7 @@ Wherever you have access to the service container :
 ```
 `getFeedContent()` fetches the feed hosted at `$url` and removes items prior to `$date`. If it is the first time you read this feed, then you must specify a date far enough in the past to keep all the items. This method does not loop until the `$date` is reached, it justs performs one hit and filters the response to keep only the fresh articles.
 
-If you need more information, please visit the Reading Feeds section on the wiki : https://github.com/alexdebril/rss-atom-bundle/wiki/Reading-feeds
+If you need more information, please visit the [Reading Feeds](https://github.com/alexdebril/rss-atom-bundle/wiki/Reading-feeds) section on the wiki
 
 Providing feeds
 ----------------
@@ -133,6 +134,8 @@ interface FeedOut
      * @return string
      */
     public function getTitle();
+
+    // Full source can be read in the repository .......
 ?>
 ```
 
@@ -159,6 +162,9 @@ interface FeedContentProvider
 ```
 
 If the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error. Otherwise, `getFeedContent(Options $options)` must return a `FeedContent` instance, which will return an array of `Item` objects through `getItems()`. Then, the controller uses a `FeedFormatter` object to properly turn your `FeedContent` object into a XML stream.
+
+Useful Tips
+===========
 
 Skipping 304 HTTP Code
 ----------------------
