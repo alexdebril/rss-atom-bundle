@@ -184,7 +184,7 @@ Choosing your own provider
 
 Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :
 
-```
+```xml
     <route id="your_route_name" pattern="/your/route/{contentId}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="format">rss</default>
