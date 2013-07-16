@@ -63,7 +63,7 @@ Usage
 
 rss-atom-bundle is designed to read feeds across the internet and to publish your own. It provides two sets of interfaces, each one being dedicated to feed's consuming or publishing :
 
-- [FeedIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedIn.php) & ItemIn(https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemIn.php) are used for feed reading.
+- [FeedIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedIn.php) & [ItemIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemIn.php) are used for feed reading.
 - [FeedOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedOut.php) & [ItemOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemOut.php) are used for feed publishing.
 
 Feed Reading
