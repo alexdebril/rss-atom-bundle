@@ -10,6 +10,7 @@ RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / 
 - HTTP Headers support when reading feeds in order to save network traffic
 - Content filtering to fetch only the newest items
 - multiple feeds writing
+- Ability to use doctrine as a data source
 
 All classes are heavily tested using PHPUnit.
 
@@ -163,6 +164,8 @@ interface FeedContentProvider
 ```
 
 If the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error. Otherwise, `getFeedContent(Options $options)` must return a `FeedContent` instance, which will return an array of `Item` objects through `getItems()`. Then, the controller uses a `FeedFormatter` object to properly turn your `FeedContent` object into a XML stream.
+
+More information on the FeedContentProvider interface and how to interface rss-atom-bundle directly with doctrine can be found in the [Providing Feeds section](https://github.com/alexdebril/rss-atom-bundle/wiki/Providing-feeds)
 
 Useful Tips
 ===========
