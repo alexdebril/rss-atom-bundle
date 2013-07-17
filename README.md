@@ -40,7 +40,7 @@ If you are already using rss-atom-bundle, beware that the 1.2.0 version breaks s
 
     "debril/rss-atom-bundle": "~1.1, <1.2"
 
-The migration process is described in the [wiki]()
+The migration process is described in the [migrations section](https://github.com/alexdebril/rss-atom-bundle/wiki/Migrations)
 
 Fetching the repository
 -----------------------
