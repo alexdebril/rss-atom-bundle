@@ -17,6 +17,7 @@
         <parameter key="debril.http.curl.class">Debril\RssAtomBundle\Driver\HttpCurlDriver</parameter>
         <parameter key="debril.provider.mock.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
         <parameter key="debril.provider.default.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
+        <parameter key="debril.provider.doctrine.class">Debril\RssAtomBundle\Provider\DoctrineFeedContentProvider</parameter>
     </parameters>
     <services>
         <service id="debril.parser.rss" class="%debril.parser.rss.class%">
