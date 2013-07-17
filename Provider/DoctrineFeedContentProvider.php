@@ -70,7 +70,7 @@ class DoctrineFeedContentProvider implements FeedContentProvider
         $feed = $this->getDoctrine()
                 ->getManager()
                 ->getRepository($this->getRepositoryName())
-                ->getFeed($options->get('id'));
+                ->findOneById($options->get('id'));
 
         // if the feed is an actual FeedOut instance, then return it
         if ($feed instanceof \Debril\RssAtomBundle\Protocol\FeedOut)
