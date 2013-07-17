@@ -23,17 +23,17 @@ class StreamController extends Controller
     protected $since;
 
     /**
-     * @Route("/stream/{contentId}")
+     * @Route("/stream/{id}")
      * @Template()
      */
-    public function indexAction($format, $contentId = null, $source = self::DEFAULT_SOURCE)
+    public function indexAction($format, $id = null, $source = self::DEFAULT_SOURCE)
     {
         $options = new Options;
 
         $options->set('Since', $this->getModifiedSince());
 
-        if (!is_null($contentId))
-            $options->set('contentId', $contentId);
+        if (!is_null($id))
+            $options->set('id', $id);
 
         return $this->createStreamResponse($options, $format, $source);
     }

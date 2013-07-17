@@ -32,12 +32,12 @@ class MockProvider implements FeedContentProvider
     {
         $content = new FeedContent;
 
-        $contentId = $options->get('contentId');
+        $id = $options->get('id');
 
-        if ($contentId === 'not-found')
+        if ($id === 'not-found')
             throw new FeedNotFoundException;
 
-        $content->setPublicId($contentId);
+        $content->setPublicId($id);
 
         $content->setTitle('thank you for using RssAtomBundle');
         $content->setDescription('this is the mock FeedContent');
