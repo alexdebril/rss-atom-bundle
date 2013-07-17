@@ -38,7 +38,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
     {
         $options = new \Symfony\Component\OptionsResolver\Options;
 
-        $options->set('contentId', 1);
+        $options->set('id', 1);
         $feed = $this->object->getFeedContent($options);
 
         $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedOut', $feed);
@@ -52,7 +52,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
     {
         $options = new \Symfony\Component\OptionsResolver\Options;
 
-        $options->set('contentId', 'not-found');
+        $options->set('id', 'not-found');
         $feed = $this->object->getFeedContent($options);
     }
 
