@@ -1,12 +1,13 @@
 RssAtomBundle - Read and Build Atom/RSS feeds
 =============================================
-
+[![Build Status](https://secure.travis-ci.org/alexdebril/rss-atom-bundle.png?branch=master)](http://travis-ci.org/alexdebril/rss-atom-bundle)
 [![Latest Stable Version](https://poser.pugx.org/debril/rss-atom-bundle/v/stable.png)](https://packagist.org/packages/debril/rss-atom-bundle)
 
 RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / Atom feeds. It features:
 
 - Detection of the feed format (RSS / Atom)
-- HTTP Headers support in order to save network traffic
+- A generic StreamController built to write all your feeds. This controller is able to send a 304 HTTP Code if the feed didn't change since the last visit
+- HTTP Headers support when reading feeds in order to save network traffic
 - Content filtering to fetch only the newest items
 - multiple feeds writing
 
@@ -39,7 +40,7 @@ If you are already using rss-atom-bundle, beware that the 1.2.0 version breaks s
 
     "debril/rss-atom-bundle": "~1.1, <1.2"
 
-The migration process is described in the [wiki]()
+The migration process is described in the [migrations section](https://github.com/alexdebril/rss-atom-bundle/wiki/Migrations)
 
 Fetching the repository
 -----------------------
@@ -62,7 +63,7 @@ Usage
 
 rss-atom-bundle is designed to read feeds across the internet and to publish your own. It provides two sets of interfaces, each one being dedicated to feed's consuming or publishing :
 
-- [FeedIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedIn.php) & ItemIn(https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemIn.php) are used for feed reading.
+- [FeedIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedIn.php) & [ItemIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemIn.php) are used for feed reading.
 - [FeedOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedOut.php) & [ItemOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemOut.php) are used for feed publishing.
 
 Feed Reading
@@ -183,7 +184,7 @@ Choosing your own provider
 
 Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :
 
-```
+```xml
     <route id="your_route_name" pattern="/your/route/{contentId}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="format">rss</default>
