@@ -30,6 +30,7 @@ class DebrilRssAtomExtension extends Extension
             \DateTime::RFC3339,
             \DateTime::RSS,
             \DateTime::W3C,
+            'Y-m-d\TH:i:s.uP',
             'Y-m-d',
         );
 
