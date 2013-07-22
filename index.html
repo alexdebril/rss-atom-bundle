@@ -28,37 +28,221 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+          <h1>
+<a name="rssatombundle---read-and-build-atomrss-feeds" class="anchor" href="#rssatombundle---read-and-build-atomrss-feeds"><span class="octicon octicon-link"></span></a>RssAtomBundle - Read and Build Atom/RSS feeds</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / Atom feeds. It features:</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<ul>
+<li>Detection of the feed format (RSS / Atom)</li>
+<li>A generic StreamController built to write all your feeds. This controller is able to send a 304 HTTP Code if the feed didn't change since the last visit</li>
+<li>HTTP Headers support when reading feeds in order to save network traffic</li>
+<li>Content filtering to fetch only the newest items</li>
+<li>multiple feeds writing</li>
+<li>Ability to use doctrine as a data source</li>
+</ul><p>All classes are heavily tested using PHPUnit.</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>As a Symfony 2 Bundle, RssAtomBundle must be installed using Composer. If you do not know Composer, please refer to its website: <a href="http://getcomposer.org/">http://getcomposer.org/</a></p>
+
+<h2>
+<a name="installation-in-a-symfony-2-project" class="anchor" href="#installation-in-a-symfony-2-project"><span class="octicon octicon-link"></span></a>Installation in a Symfony 2 project</h2>
+
+<p>This is the most common way if you want to add RssAtomBundle into an existing project.
+Edit composer.json and add the following line in the "require" section:</p>
+
+<pre><code>"debril/rss-atom-bundle": "~1.1"
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>then, ask Composer to install it:</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<pre><code>composer.phar update debril/rss-atom-bundle
+</code></pre>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h2>
+<a name="compatibility-between-116-and-120" class="anchor" href="#compatibility-between-116-and-120"><span class="octicon octicon-link"></span></a>Compatibility between 1.1.6 and 1.2.0</h2>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>If you are already using rss-atom-bundle, beware that the 1.2.0 version breaks some backward compatibility. If you do not need the improvements provided by the 1.2.0 version, please edit composer.json as below :</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<pre><code>"debril/rss-atom-bundle": "~1.1, &lt;1.2"
+</code></pre>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p>The migration process is described in the <a href="https://github.com/alexdebril/rss-atom-bundle/wiki/Migrations">migrations section</a></p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h2>
+<a name="fetching-the-repository" class="anchor" href="#fetching-the-repository"><span class="octicon octicon-link"></span></a>Fetching the repository</h2>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<p>Do this if you want to contribute (and you're welcome to do so):</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<pre><code>git clone https://github.com/alexdebril/rss-atom-bundle.git
+
+composer.phar install --dev
+</code></pre>
+
+<h1>
+<a name="unit-testing" class="anchor" href="#unit-testing"><span class="octicon octicon-link"></span></a>Unit Testing</h1>
+
+<p>You can run the unit test suites using the following command in the Bundle's source director:</p>
+
+<pre><code>bin/phpunit
+</code></pre>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p>rss-atom-bundle is designed to read feeds across the internet and to publish your own. It provides two sets of interfaces, each one being dedicated to feed's consuming or publishing :</p>
+
+<ul>
+<li>
+<a href="https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedIn.php">FeedIn</a> &amp; <a href="https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemIn.php">ItemIn</a> are used for feed reading.</li>
+<li>
+<a href="https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedOut.php">FeedOut</a> &amp; <a href="https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemOut.php">ItemOut</a> are used for feed publishing.</li>
+</ul><h2>
+<a name="feed-reading" class="anchor" href="#feed-reading"><span class="octicon octicon-link"></span></a>Feed Reading</h2>
+
+<p>To read a feed you need to use the <code>debril.reader</code> service which provides two methods for that : <code>getFeedContent()</code> and <code>readFeed()</code>. This service is based upon the <a href="https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedReader.php">FeedReader</a> class.</p>
+
+<h2>
+<a name="using-getfeedcontent" class="anchor" href="#using-getfeedcontent"><span class="octicon octicon-link"></span></a>using getFeedContent()</h2>
+
+<p><code>getFeedContent()</code> is designed to give a brand new FeedContent instance or any object of your own, as long as it implements the <a href="https://github.com/alexdebril/rss-atom-bundle/blob/dev-master/Protocol/FeedIn.php">FeedIn</a> interface. It takes two arguments :</p>
+
+<ul>
+<li>
+<code>$url</code> : URL of the RSS/Atom feed you want to read (eg: <a href="http://php.net/feed.atom">http://php.net/feed.atom</a>)</li>
+<li>
+<code>$date</code> : the last time you read this feed. This is useful to fetch only the articles which were published after your last hit.</li>
+</ul><p>Wherever you have access to the service container :</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+    <span class="c1">// fetch the FeedReader</span>
+    <span class="nv">$reader</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'debril.reader'</span><span class="p">);</span>
+
+    <span class="c1">// this date is used to fetch only the latest items</span>
+    <span class="nv">$date</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\DateTime</span><span class="p">(</span><span class="nv">$unmodifiedSince</span><span class="p">);</span>
+
+    <span class="c1">// the feed you want to read</span>
+    <span class="nv">$url</span> <span class="o">=</span> <span class="s1">'http://host.tld/feed'</span><span class="p">;</span>
+
+    <span class="c1">// now fetch its (fresh) content</span>
+    <span class="nv">$feed</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">-&gt;</span><span class="na">getFeedContent</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nv">$date</span><span class="p">);</span>
+
+    <span class="c1">// the $content object contains as many Item instances as you have fresh articles in the feed</span>
+    <span class="nv">$items</span> <span class="o">=</span> <span class="nv">$feed</span><span class="o">-&gt;</span><span class="na">getItems</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+<p><code>getFeedContent()</code> fetches the feed hosted at <code>$url</code> and removes items prior to <code>$date</code>. If it is the first time you read this feed, then you must specify a date far enough in the past to keep all the items. This method does not loop until the <code>$date</code> is reached, it justs performs one hit and filters the response to keep only the fresh articles.</p>
+
+<p>If you need more information, please visit the <a href="https://github.com/alexdebril/rss-atom-bundle/wiki/Reading-feeds">Reading Feeds</a> section on the wiki</p>
+
+<h2>
+<a name="providing-feeds" class="anchor" href="#providing-feeds"><span class="octicon octicon-link"></span></a>Providing feeds</h2>
+
+<p>RssAtomBundle offers the ability to provide RSS/Atom feeds. The route will match the following pattern : /{format}/{contentId}</p>
+
+<ul>
+<li>{format} must be "rss" or "atom" (or whatever you want if you add the good routing rule in routing.yml)</li>
+<li>{contentId} is an optional argument. Use it you have several feeds</li>
+</ul><p>The request will be handled by <code>StreamController</code>, according to the following steps :</p>
+
+<ul>
+<li>1 : grabs the ModifiedSince header if it exists</li>
+<li>2 : creates an <code>Options</code> instance holding the request's parameters (contentId if it exists)</li>
+<li>3 : gets the provider defined in services.xml and calls the <code>getFeedContent(Options $options)</code> method</li>
+<li>4 : compare the feed's LastModified property with the ModifiedSince header</li>
+<li>5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the stream is built and sent to the client</li>
+</ul><p>StreamController expects the getFeedContent()'s return value to be a FeedOut instance. It can be a Debril\RssAtomBundle\Protocol\Parser\FeedContent or a class you wrote and if so, your class MUST implement the FeedOut interface.</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">interface</span> <span class="nx">FeedOut</span>
+<span class="p">{</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Atom : feed.updated &lt;feed&gt;&lt;updated&gt;</span>
+<span class="sd">     * Rss  : rss.channel.lastBuildDate &lt;rss&gt;&lt;channel&gt;&lt;lastBuildDate&gt;</span>
+<span class="sd">     * @return \DateTime</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getLastModified</span><span class="p">();</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Atom : feed.title &lt;feed&gt;&lt;title&gt;</span>
+<span class="sd">     * Rss  : rss.channel.title &lt;rss&gt;&lt;channel&gt;&lt;title&gt;</span>
+<span class="sd">     * @return string</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTitle</span><span class="p">();</span>
+
+    <span class="c1">// Full source can be read in the repository .......</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+<p>Now, how to plug the <code>StreamController</code> with the provider of your choice ? The easiest way is to override the <code>debril.provider.default</code> service with your own in services.xml :</p>
+
+<div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">"debril.provider.default"</span> <span class="na">class=</span><span class="s">"Namespace\Of\Your\Class"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;argument</span> <span class="na">type=</span><span class="s">"service"</span> <span class="na">id=</span><span class="s">"doctrine"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+
+<p>Your class just needs to implement the <code>FeedContentProvider</code> interface :</p>
+
+<div class="highlight"><pre><span class="k">interface</span> <span class="nx">FeedContentProvider</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @param \Symfony\Component\OptionsResolver $params</span>
+<span class="sd">     * @return \Debril\RssAtomBundle\Protocol\FeedOut</span>
+<span class="sd">     * @throws \Debril\RssAtomBundle\Protocol\FeedNotFoundException</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getFeedContent</span><span class="p">(</span><span class="nx">Options</span> <span class="nv">$options</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>If the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error. Otherwise, <code>getFeedContent(Options $options)</code> must return a <code>FeedContent</code> instance, which will return an array of <code>Item</code> objects through <code>getItems()</code>. Then, the controller uses a <code>FeedFormatter</code> object to properly turn your <code>FeedContent</code> object into a XML stream.</p>
+
+<p>More information on the FeedContentProvider interface and how to interface rss-atom-bundle directly with doctrine can be found in the <a href="https://github.com/alexdebril/rss-atom-bundle/wiki/Providing-feeds">Providing Feeds section</a></p>
+
+<h1>
+<a name="useful-tips" class="anchor" href="#useful-tips"><span class="octicon octicon-link"></span></a>Useful Tips</h1>
+
+<h2>
+<a name="skipping-304-http-code" class="anchor" href="#skipping-304-http-code"><span class="octicon octicon-link"></span></a>Skipping 304 HTTP Code</h2>
+
+<p>The HTTP cache handling can be annoying during development process, you can skip it through configuration in your app/config/parameters.yml file :</p>
+
+<div class="highlight"><pre><span class="l-Scalar-Plain">parameters</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">force_refresh</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">true</span>
+</pre></div>
+
+<p>This way, the <code>StreamController</code> will always display your feed's content and return a 200 HTTP code.</p>
+
+<h2>
+<a name="choosing-your-own-provider" class="anchor" href="#choosing-your-own-provider"><span class="octicon octicon-link"></span></a>Choosing your own provider</h2>
+
+<p>Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :</p>
+
+<div class="highlight"><pre>    <span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">"your_route_name"</span> <span class="na">pattern=</span><span class="s">"/your/route/{contentId}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">"_controller"</span><span class="nt">&gt;</span>DebrilRssAtomBundle:Stream:index<span class="nt">&lt;/default&gt;</span>
+        <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">"format"</span><span class="nt">&gt;</span>rss<span class="nt">&lt;/default&gt;</span>
+        <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">"source"</span><span class="nt">&gt;</span>your.provider.service<span class="nt">&lt;/default&gt;</span>
+    <span class="nt">&lt;/route&gt;</span>
+</pre></div>
+
+<p>The <code>source</code> parameter must contain a valid service name defined in your application.</p>
+
+<h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
+
+<ul>
+<li>Alex Debril</li>
+<li>Elnur Abdurrakhimov <a href="https://github.com/elnur">https://github.com/elnur</a>
+</li>
+<li>matdev <a href="https://github.com/matdev">https://github.com/matdev</a>
+</li>
+</ul>
         </section>
 
         <aside id="sidebar">
