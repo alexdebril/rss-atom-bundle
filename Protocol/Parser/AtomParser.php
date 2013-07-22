@@ -73,6 +73,14 @@ class AtomParser extends Parser
                     ->setUpdated(self::convertToDateTime($xmlElement->updated, $format))
                     ->setLink($xmlElement->link[0]['href']);
 
+            foreach ($xmlElement->link as $xmlLink)
+            {
+                if ((string)$xmlLink['rel'] === 'alternate')
+                {
+                    $item->setLink($xmlLink['href']);
+                }
+            }
+            
             if ($xmlElement->author)
             {
                 $item->setAuthor($xmlElement->author->name);
