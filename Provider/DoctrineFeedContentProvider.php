@@ -17,6 +17,9 @@ use \Doctrine\Bundle\DoctrineBundle\Registry;
 use \Debril\RssAtomBundle\Provider\FeedContentProvider;
 use \Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DoctrineFeedContentProvider implements FeedContentProvider
 {
 
