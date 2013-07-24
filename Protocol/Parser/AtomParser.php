@@ -55,7 +55,7 @@ class AtomParser extends Parser
     {
         $feed->setPublicId($xmlBody->id);
 
-        $feed->setLink(current($xmlBody->link[0]['href']));
+        $feed->setLink(current($this->detectLink($xmlBody, 'self')));
         $feed->setTitle($xmlBody->title);
         $feed->setDescription($xmlBody->subtitle);
 
@@ -70,17 +70,10 @@ class AtomParser extends Parser
                     ->setPublicId($xmlElement->id)
                     ->setSummary($xmlElement->summary)
                     ->setDescription($this->parseContent($xmlElement->content))
-                    ->setUpdated(self::convertToDateTime($xmlElement->updated, $format))
-                    ->setLink($xmlElement->link[0]['href']);
+                    ->setUpdated(self::convertToDateTime($xmlElement->updated, $format));
 
-            foreach ($xmlElement->link as $xmlLink)
-            {
-                if ((string)$xmlLink['rel'] === 'alternate')
-                {
-                    $item->setLink($xmlLink['href']);
-                }
-            }
-            
+            $item->setLink($this->detectLink($xmlElement, 'alternate'));
+
             if ($xmlElement->author)
             {
                 $item->setAuthor($xmlElement->author->name);
@@ -90,6 +83,25 @@ class AtomParser extends Parser
         }
 
         return $feed;
+    }
+
+    /**
+     *
+     * @param SimpleXMLElement $element
+     * @param type $type
+     */
+    protected function detectLink(SimpleXMLElement $xmlElement, $type)
+    {
+        foreach ($xmlElement->link as $xmlLink)
+        {
+            if ((string) $xmlLink['rel'] === $type)
+            {
+                return $xmlLink['href'];
+            }
+        }
+
+        // return the first if the desired link does not exist
+        return $xmlElement->link[0]['href'];
     }
 
     protected function parseContent(SimpleXMLElement $content)
