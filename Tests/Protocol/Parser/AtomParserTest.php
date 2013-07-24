@@ -69,6 +69,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
      * @covers Debril\RssAtomBundle\Protocol\Parser::parse
      * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::parseBody
      * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::parseContent
+     * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::detectLink
      */
     public function testParse()
     {
