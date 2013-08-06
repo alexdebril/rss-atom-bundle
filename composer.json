@@ -14,7 +14,7 @@
         "php": ">=5.3.3",
         "symfony/config": "~2.2",
         "symfony/options-resolver": "~2.2",
-	"debril/rss-atom": "dev-master"
+	"debril/rss-atom": ">=0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7"
