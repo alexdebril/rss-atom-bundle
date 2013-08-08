@@ -3,6 +3,7 @@
 namespace Debril\RssAtomBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\OptionsResolver\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,8 +13,16 @@ use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
 class StreamController extends Controller
 {
+    /**
+     * default provider
+     */
 
     const DEFAULT_SOURCE = 'debril.provider.default';
+
+    /**
+     * parameter used to force refresh at every hit (skips 'If-Modified-Since' usage).
+     * set it to true for debug purpose
+     */
     const FORCE_PARAM_NAME = 'force_refresh';
 
     /**
@@ -26,20 +35,18 @@ class StreamController extends Controller
      * @Route("/stream/{id}")
      * @Template()
      */
-    public function indexAction($format, $id = null, $source = self::DEFAULT_SOURCE)
+    public function indexAction(Request $request)
     {
-        $options = new Options;
-
+        $options = $this->buildOptions($request);
         $options->set('Since', $this->getModifiedSince());
 
-        if (!is_null($id))
-            $options->set('id', $id);
-
-        return $this->createStreamResponse($options, $format, $source);
+        return $this->createStreamResponse(
+                        $options, $request->get('format'), $request->get('source', self::DEFAULT_SOURCE)
+        );
     }
 
     /**
-     *
+     * Extract the 'If-Modified-Since' value from the headers
      * @return \DateTime
      */
     public function getModifiedSince()
@@ -48,9 +55,8 @@ class StreamController extends Controller
         {
             if ($this->getRequest()->headers->has('If-Modified-Since'))
             {
-                $this->since = \DateTime::createFromFormat(
-                                \DateTime::RSS, $this->getRequest()->headers->get('If-Modified-Since')
-                );
+                $string = $this->getRequest()->headers->get('If-Modified-Since');
+                $this->since = \DateTime::createFromFormat(\DateTime::RSS, $string);
             } else
             {
                 $this->since = new \DateTime;
@@ -62,6 +68,9 @@ class StreamController extends Controller
     }
 
     /**
+     * Generate the HTTP response
+     * 200 : a full body containing the stream
+     * 304 : Not modified
      *
      * @param \Symfony\Component\OptionsResolver\Options $options
      * @return \Symfony\Component\HttpFoundation\Response
@@ -89,6 +98,9 @@ class StreamController extends Controller
     }
 
     /**
+     * Get the Stream's content using a FeedContentProvider
+     * The FeedContentProvider instance is provided as a service
+     * default : debril.provider.service
      *
      * @param \Symfony\Component\OptionsResolver\Options $options
      * @return FeedContent
@@ -113,6 +125,22 @@ class StreamController extends Controller
     }
 
     /**
+     * Build an Options object using parameters coming from the route
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\OptionsResolver\Options
+     */
+    protected function buildOptions(Request $request)
+    {
+        $options = new Options;
+        $routeParams = $request->attributes->get('_route_params');
+        foreach ($routeParams as $key => $value)
+            $options->set($key, $value);
+
+        return $options;
+    }
+
+    /**
      * Returns true if the controller must ignore the last modified date
      *
      * @return boolean
@@ -126,6 +154,7 @@ class StreamController extends Controller
     }
 
     /**
+     * Get the accurate formatter
      *
      * @param  string $format
      * @return Debril\RssAtomBundle\Protocol\FeedFormatter
