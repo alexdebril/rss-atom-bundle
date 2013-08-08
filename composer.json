@@ -13,11 +13,15 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/config": "~2.2",
-        "symfony/options-resolver": "~2.2",
-	"debril/rss-atom": ">=0.1"
+        "symfony/options-resolver": "~2.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "~3.7"
+        "phpunit/phpunit": "~3.7",
+        "doctrine/common": "~2.3",
+	"symfony/framework-bundle": "~2.3",
+        "symfony/finder": "~2.3",
+        "symfony/form": "~2.3",
+        "symfony/browser-kit": "~2.3"
     },
     "autoload": {
         "psr-0": {

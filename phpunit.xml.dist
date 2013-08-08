@@ -2,6 +2,10 @@
 
 <phpunit bootstrap="./Tests/bootstrap.php" colors="true">
 
+    <php>
+        <server name="KERNEL_DIR" value="Tests/Controller/App" />
+    </php>
+
     <testsuites>
         <testsuite name="DebrilRssAtomBundle test suite">
             <directory suffix="Test.php">./Tests</directory>

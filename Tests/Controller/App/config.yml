@@ -1,0 +1,10 @@
+# Tests/Controller/App/config.yml
+framework:
+    secret:          secret
+    test: ~
+    router:          { resource: "%kernel.root_dir%/routing.xml" }
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    session:
+        storage_id: session.storage.filesystem
