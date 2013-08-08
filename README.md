@@ -14,10 +14,6 @@ RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / 
 
 All classes are heavily tested using PHPUnit.
 
-Migration
-=========
-Core classes are moving to another project called rss-atom. The dependency should be harmless
-
 Installation
 ============
 
