@@ -184,7 +184,7 @@ class FeedContent implements FeedIn, FeedOut
      */
     public function getPublicId()
     {
-        return $this->id;
+        return $this->publicId;
     }
 
     /**
@@ -195,7 +195,7 @@ class FeedContent implements FeedIn, FeedOut
      */
     public function setPublicId($id)
     {
-        $this->id = $id;
+        $this->publicId = $id;
 
         return $this;
     }
