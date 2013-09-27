@@ -13,10 +13,10 @@ use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
 class StreamController extends Controller
 {
+
     /**
      * default provider
      */
-
     const DEFAULT_SOURCE = 'debril.provider.default';
 
     /**
@@ -41,7 +41,7 @@ class StreamController extends Controller
         $options->set('Since', $this->getModifiedSince());
 
         return $this->createStreamResponse(
-                        $options, $request->get('format'), $request->get('source', self::DEFAULT_SOURCE)
+                        $options, $request->get('format', 'rss'), $request->get('source', self::DEFAULT_SOURCE)
         );
     }
 
@@ -168,7 +168,7 @@ class StreamController extends Controller
         );
 
         if (!array_key_exists($format, $services))
-            throw new Exception("Unsupported format {$format}");
+            throw new \Exception("Unsupported format {$format}");
 
         return $this->get($services[$format]);
     }
