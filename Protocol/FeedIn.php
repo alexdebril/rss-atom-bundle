@@ -27,12 +27,6 @@ interface FeedIn
      */
     public function addItem(ItemIn $item);
 
-    /**
-     * Atom : feed.entry <feed><entry>
-     * Rss  : rss.channel.item <rss><channel><item>
-     * @return array[\Debril\RssAtomBundle\Protocol\ItemIn]
-     */
-    public function getItems();
 
     /**
      * Atom : feed.updated <feed><updated>
