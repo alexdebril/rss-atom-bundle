@@ -65,12 +65,14 @@ class AtomParser extends Parser
 
         foreach ($xmlBody->entry as $xmlElement)
         {
+            $itemFormat = isset($itemFormat) ? $itemFormat : $this->guessDateFormat($xmlElement->updated);
+
             $item = $this->newItem();
             $item->setTitle($xmlElement->title)
                     ->setPublicId($xmlElement->id)
                     ->setSummary($xmlElement->summary)
                     ->setDescription($this->parseContent($xmlElement->content))
-                    ->setUpdated(self::convertToDateTime($xmlElement->updated, $format));
+                    ->setUpdated(self::convertToDateTime($xmlElement->updated, $itemFormat));
 
             $item->setLink($this->detectLink($xmlElement, 'alternate'));
 
