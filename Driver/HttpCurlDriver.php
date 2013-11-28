@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rss/Atom Bundle for Symfony 2
  *
@@ -8,6 +9,7 @@
  * @copyright (c) 2013, Alexandre Debril
  *
  */
+
 namespace Debril\RssAtomBundle\Driver;
 
 class HttpCurlDriver implements HttpDriver
@@ -27,21 +29,21 @@ class HttpCurlDriver implements HttpDriver
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_TIMECONDITION, CURL_TIMECOND_IFMODSINCE);
         curl_setopt($curl, CURLOPT_TIMEVALUE, $lastModified->getTimestamp());
+        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
         $curlReturn = curl_exec($curl);
 
-        if ( ! $curlReturn )
+        if (!$curlReturn)
         {
             $err = curl_error($curl);
             throw new DriverUnreachableResourceException("Error accessing {$url} : {$err}");
         }
 
-        $headerSize   = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
         curl_close($curl);
 
         return $this->getHttpResponse(
-                        substr($curlReturn, 0, $headerSize),
-                        substr($curlReturn, $headerSize)
-                );
+                        substr($curlReturn, 0, $headerSize), substr($curlReturn, $headerSize)
+        );
     }
 
     /**
@@ -65,4 +67,5 @@ class HttpCurlDriver implements HttpDriver
 
         return $response;
     }
+
 }
