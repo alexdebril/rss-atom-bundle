@@ -63,7 +63,7 @@ class RssParser extends Parser
             $this->setLastModified($feed, $xmlBody->channel->pubDate);
         } else
         {
-            $this->setLastModified($feed, $xmlBody->channel->item[0]->pubDate);
+            $this->setLastModified($feed, $xmlBody->channel->item->pubDate);
         }
 
         foreach ($xmlBody->channel->item as $xmlElement)
