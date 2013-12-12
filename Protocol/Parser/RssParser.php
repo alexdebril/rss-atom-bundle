@@ -55,6 +55,8 @@ class RssParser extends Parser
         $feed->setDescription($xmlBody->channel->description);
 
         // @todo make that clean ...
+        $mustPickLatest = false;
+        $latest = clone $modifiedSince;
         if (isset($xmlBody->channel->lastBuildDate))
         {
             $this->setLastModified($feed, $xmlBody->channel->lastBuildDate);
@@ -63,20 +65,27 @@ class RssParser extends Parser
             $this->setLastModified($feed, $xmlBody->channel->pubDate);
         } else
         {
-            $this->setLastModified($feed, $xmlBody->channel->item->pubDate);
+            $mustPickLatest = true;
         }
 
         foreach ($xmlBody->channel->item as $xmlElement)
         {
             $item = $this->newItem();
             $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
+            $date = self::convertToDateTime($xmlElement->pubDate, $format);
             $item->setTitle($xmlElement->title)
                     ->setDescription($xmlElement->description)
                     ->setPublicId($xmlElement->guid)
-                    ->setUpdated(self::convertToDateTime($xmlElement->pubDate, $format))
+                    ->setUpdated($date)
                     ->setLink($xmlElement->link)
                     ->setComment($xmlElement->comments)
                     ->setAuthor($xmlElement->author);
+
+            if ($mustPickLatest && $date > $latest)
+            {
+                $latest = $date;
+                $feed->setLastModified($date);
+            }
 
             $this->addAcceptableItem($feed, $item, $modifiedSince);
         }

@@ -123,7 +123,8 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
-        $item = reset($feed->getItems());
+        $feeds = $feed->getItems();
+        $item = next($feeds);
         $this->assertEquals($item->getUpdated(), $feed->getLastModified());
     }
 

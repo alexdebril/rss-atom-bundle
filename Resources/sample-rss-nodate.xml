@@ -15,6 +15,14 @@
             <author>John Doe</author>
         </item>
 
+        <item>
+            <title>Example entry</title>
+            <description>Here is some text containing an interesting description.</description>
+            <link>http://www.wikipedia.org/</link>
+            <guid>unique string per item</guid>
+            <pubDate>Mon, 13 Sep 2009 16:45:00 GMT</pubDate>
+            <author>John Doe</author>
+        </item>
 
         <item>
             <title>Example entry</title>
