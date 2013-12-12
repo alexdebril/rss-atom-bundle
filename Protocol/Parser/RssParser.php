@@ -54,12 +54,16 @@ class RssParser extends Parser
         $feed->setTitle($xmlBody->channel->title);
         $feed->setDescription($xmlBody->channel->description);
 
+        // @todo make that clean ...
         if (isset($xmlBody->channel->lastBuildDate))
         {
             $this->setLastModified($feed, $xmlBody->channel->lastBuildDate);
         } elseif (isset($xmlBody->channel->pubDate))
         {
             $this->setLastModified($feed, $xmlBody->channel->pubDate);
+        } else
+        {
+            $this->setLastModified($feed, $xmlBody->channel->item[0]->pubDate);
         }
 
         foreach ($xmlBody->channel->item as $xmlElement)
@@ -93,4 +97,3 @@ class RssParser extends Parser
     }
 
 }
-

@@ -107,6 +107,27 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\RssParser::parseBody
+     */
+    public function testParseWithoutDate()
+    {
+        $file = dirname(__FILE__) . '/../../../Resources/sample-rss-nodate.xml';
+        $xmlBody = new \SimpleXMLElement(file_get_contents($file));
+
+        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
+        $feed = $this->object->parse($xmlBody, new FeedContent, $date);
+
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+
+        $this->assertNotNull($feed->getPublicId(), "feed->getPublicId() should not return an empty value");
+
+        $this->assertGreaterThan(0, $feed->getItemsCount());
+        $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $item = reset($feed->getItems());
+        $this->assertEquals($item->getUpdated(), $feed->getLastModified());
+    }
+
+    /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::setDateFormats
      * @covers Debril\RssAtomBundle\Protocol\Parser\RssParser::__construct
      */
