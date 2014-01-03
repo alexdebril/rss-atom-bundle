@@ -48,7 +48,7 @@ abstract class Parser
 
     /**
      *
-     * @var Debril\RssAtomBundle\Protocol\Parser\Factory
+     * @var \Debril\RssAtomBundle\Protocol\Parser\Factory
      */
     protected $factory;
 
@@ -56,12 +56,12 @@ abstract class Parser
      * Parses the feed's body to create a FeedContent instance.
      *
      * @param SimpleXMLElement $xmlBody
-     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param \DateTime $modifiedSince
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param array $filters
+     * @throws Parser\ParserException
      * @return FeedIn
-     * @throws ParserException
      */
-    public function parse(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
+    public function parse(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters = array())
     {
         if (!$this->canHandle($xmlBody))
         {
@@ -70,7 +70,7 @@ abstract class Parser
 
         $this->checkBodyStructure($xmlBody);
 
-        return $this->parseBody($xmlBody, $feed, $modifiedSince);
+        return $this->parseBody($xmlBody, $feed, $filters);
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class Parser
      *
      * @param array $dates
      */
-    public function setdateFormats(array $dates)
+    public function setDateFormats(array $dates)
     {
         $this->dateFormats = $dates;
     }
@@ -140,7 +140,7 @@ abstract class Parser
 
     /**
      *
-     * @return Debril\RssAtomBundle\Protocol\Parser\Factory
+     * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
      */
     public function getFactory()
     {
@@ -159,24 +159,52 @@ abstract class Parser
     }
 
     /**
-     *
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
-     * @param \DateTime $startDate
-     * @return \Debril\RssAtomBundle\Protocol\Parser
-     * @throws \Exception
+     * @deprecated since 1.3.0 replaced by addValidItem
+     * @param FeedIn $feed
+     * @param ItemIn $item
+     * @param array $filters
+     * @return $this
      */
-    public function addAcceptableItem(FeedIn $feed, ItemIn $item, \DateTime $startDate)
+    public function addAcceptableItem(FeedIn $feed, ItemIn $item, \DateTime $modifiedSince)
     {
-        if ($item->getUpdated() instanceof \DateTime)
-        {
-            if ($item->getUpdated() > $startDate)
-                $feed->addItem($item);
-        }
-        else
-            throw new \Exception("tried to add an item without date");
+        $filters = array(
+            new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($modifiedSince)
+        );
+
+        return $this->addValidItem($feed, $item, $filters);
+    }
+
+    /**
+     * @param FeedIn $feed
+     * @param ItemIn $item
+     * @param array $filters
+     * @return $this
+     */
+    public function addValidItem(FeedIn $feed, ItemIn $item, array $filters = array())
+    {
+       if ( $this->isValid($item, $filters) )
+       {
+           $feed->addItem($item);
+       }
 
         return $this;
+    }
+
+    /**
+     * @param ItemIn $item
+     * @param array $filters
+     * @return bool
+     */
+    public function isValid(ItemIn $item, array $filters = array())
+    {
+        $valid = true;
+        foreach( $filters as $filter )  {
+            if ( $filter instanceof \Debril\RssAtomBundle\Protocol\Filter ) {
+                $valid = $filter->isValid($item) ? $valid:false;
+            }
+        }
+
+        return $valid;
     }
 
     /**
@@ -234,10 +262,10 @@ abstract class Parser
      * Performs the actual conversion into a FeedContent instance
      *
      * @param SimpleXMLElement $body
-     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param DateTime $modifiedSince
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param array $filters
      * @return FeedIn
      */
-    abstract protected function parseBody(SimpleXMLElement $body, FeedIn $feed, \DateTime $modifiedSince);
+    abstract protected function parseBody(SimpleXMLElement $body, FeedIn $feed, array $filters);
 }
 

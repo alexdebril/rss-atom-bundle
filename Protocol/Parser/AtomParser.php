@@ -47,11 +47,11 @@ class AtomParser extends Parser
     /**
      *
      * @param SimpleXMLElement $xmlBody
-     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
      * @param \DateTime $modifiedSince
      * @return \\Debril\RssAtomBundle\Protocol\FeedIn
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters)
     {
         $feed->setPublicId($xmlBody->id);
 
@@ -81,7 +81,7 @@ class AtomParser extends Parser
                 $item->setAuthor($xmlElement->author->name);
             }
 
-            $this->addAcceptableItem($feed, $item, $modifiedSince);
+            $this->addValidItem($feed, $item, $filters);
         }
 
         return $feed;

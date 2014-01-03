@@ -48,9 +48,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::convertToDateTime
-     * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
      */
-    public function testconvertToDateTimeException()
+    public function testConvertToDateTimeException()
     {
         $string = '09-12-2012';
         Parser::convertToDateTime($string);
@@ -59,7 +59,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::convertToDateTime
      */
-    public function testconvertToDateTime()
+    public function testConvertToDateTime()
     {
         $string = '2003-12-13T18:30:02Z';
         $date = Parser::convertToDateTime($string, \DateTime::RFC3339);
@@ -106,17 +106,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser", $ret);
         $this->assertEquals(0, $feed->getItemsCount());
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser::addAcceptableItem
-     * @expectedException \Exception
-     */
-    public function testAddAcceptableItemException()
-    {
-        $feed = new FeedContent;
-        $item = new Item();
-        $this->object->addAcceptableItem($feed, $item, \DateTime::createFromFormat('j-M-Y', '16-Feb-2012'));
     }
 
 }

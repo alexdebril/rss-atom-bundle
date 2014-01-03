@@ -44,10 +44,10 @@ class RssParser extends Parser
      *
      * @param SimpleXMLElement $xmlBody
      * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param \DateTime $modifiedSince
+     * @param array $filters
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters)
     {
         $feed->setPublicId($xmlBody->channel->link);
         $feed->setLink($xmlBody->channel->link);
@@ -56,7 +56,7 @@ class RssParser extends Parser
 
         // @todo make that clean ...
         $mustPickLatest = false;
-        $latest = clone $modifiedSince;
+        $latest = new \DateTime('@0');
         if (isset($xmlBody->channel->lastBuildDate))
         {
             $this->setLastModified($feed, $xmlBody->channel->lastBuildDate);
@@ -91,7 +91,7 @@ class RssParser extends Parser
                 $feed->setLastModified($date);
             }
 
-            $this->addAcceptableItem($feed, $item, $modifiedSince);
+            $this->addValidItem($feed, $item, $filters);
         }
 
         return $feed;

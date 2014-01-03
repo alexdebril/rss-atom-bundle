@@ -43,11 +43,11 @@ class RdfParser extends Parser
     /**
      *
      * @param SimpleXMLElement $xmlBody
-     * @param Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param \DateTime $modifiedSince
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param array $filters
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, \DateTime $modifiedSince)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters)
     {
         $feed->setPublicId($xmlBody->channel->link);
         $feed->setLink($xmlBody->channel->link);
@@ -72,7 +72,7 @@ class RdfParser extends Parser
                     ->setUpdated(self::convertToDateTime($date[0], $format))
                     ->setLink($xmlElement->link);
 
-            $this->addAcceptableItem($feed, $item, $modifiedSince);
+            $this->addValidItem($feed, $item, $filters);
         }
 
         return $feed;

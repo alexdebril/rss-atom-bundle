@@ -53,13 +53,14 @@ class RdfParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\RdfParser::checkBodyStructure
-     * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
      */
     public function testParseError()
     {
         $file = dirname(__FILE__) . '/../../../Resources/truncated-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $this->object->parse($xmlBody, new FeedContent, new \DateTime);
+        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
+        $this->object->parse($xmlBody, new FeedContent, $filters);
     }
 
     /**
@@ -71,7 +72,8 @@ class RdfParserTest extends \PHPUnit_Framework_TestCase
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
-        $feed = $this->object->parse($xmlBody, new FeedContent, $date);
+        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $feed = $this->object->parse($xmlBody, new FeedContent, $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
@@ -118,7 +120,7 @@ class RdfParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
-     * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
      */
     public function testGuessDateFormatException()
     {
