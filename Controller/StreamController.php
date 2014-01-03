@@ -6,8 +6,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\OptionsResolver\Options;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Debril\RssAtomBundle\Provider\FeedContentProvider;
 use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
@@ -157,8 +155,8 @@ class StreamController extends Controller
      * Get the accurate formatter
      *
      * @param  string $format
-     * @return Debril\RssAtomBundle\Protocol\FeedFormatter
-     * @throws Exception
+     * @throws \Exception
+     * @return \Debril\RssAtomBundle\Protocol\FeedFormatter
      */
     protected function getFormatter($format)
     {
