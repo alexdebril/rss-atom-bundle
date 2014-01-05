@@ -33,6 +33,22 @@ Edit composer.json and add the following line in the "require" section:
 then, ask Composer to install it:
 
     composer.phar update debril/rss-atom-bundle
+    
+finally, edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
+
+
+```php
+class AppKernel extends Kernel
+{
+
+    public function registerBundles()
+    {
+        $bundles = array(
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            // ...
+            // register the bundle here
+            new Debril\RssAtomBundle\DebrilRssAtomBundle(),
+```
 
 Compatibility between 1.1.6 and 1.2.0
 -----------------------------
