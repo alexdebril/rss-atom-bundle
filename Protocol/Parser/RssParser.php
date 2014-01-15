@@ -68,11 +68,15 @@ class RssParser extends Parser
             $mustPickLatest = true;
         }
 
+        $date = new \DateTime('now');
         foreach ($xmlBody->channel->item as $xmlElement)
         {
             $item = $this->newItem();
-            $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
-            $date = self::convertToDateTime($xmlElement->pubDate, $format);
+            if ( isset($xmlElement->pubDate) )
+            {
+                $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
+                $date = self::convertToDateTime($xmlElement->pubDate, $format);
+            }
             $item->setTitle($xmlElement->title)
                     ->setDescription($xmlElement->description)
                     ->setPublicId($xmlElement->guid)
