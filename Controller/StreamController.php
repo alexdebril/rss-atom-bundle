@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\OptionsResolver\Options;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Debril\RssAtomBundle\Provider\FeedContentProvider;
 use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
