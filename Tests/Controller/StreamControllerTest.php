@@ -21,6 +21,7 @@ class StreamControllerTest extends WebTestCase
                 new \DateTimeZone(date_default_timezone_get())
         );
 
+        $lastModified->add(new \DateInterval('PT1S'));
         $this->assertInstanceOf('\DateTime', $lastModified);
         $this->assertGreaterThan(0, $response->getMaxAge());
         $this->assertGreaterThan(0, strlen($response->getContent()));
