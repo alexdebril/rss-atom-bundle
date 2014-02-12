@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: alex
@@ -8,9 +9,9 @@
 
 namespace Debril\RssAtomBundle\Protocol\Filter;
 
-
 class Limit implements \Debril\RssAtomBundle\Protocol\Filter
 {
+
     /**
      * @var int
      */
@@ -35,8 +36,7 @@ class Limit implements \Debril\RssAtomBundle\Protocol\Filter
      */
     public function isValid(\Debril\RssAtomBundle\Protocol\ItemIn $item)
     {
-        $this->count++;
-        return ($this->limit > $this->count);
+        return ($this->limit > $this->count++);
     }
 
-} 
+}
