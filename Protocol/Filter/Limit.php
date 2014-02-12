@@ -31,10 +31,10 @@ class Limit implements \Debril\RssAtomBundle\Protocol\Filter
     }
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
+     * @param \Debril\RssAtomBundle\Protocol\Parser\Item $item
      * @return boolean
      */
-    public function isValid(\Debril\RssAtomBundle\Protocol\ItemIn $item)
+    public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item)
     {
         return ($this->limit > $this->count++);
     }

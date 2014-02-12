@@ -16,8 +16,8 @@ interface Filter
 {
 
     /**
-     * @param Debril\RssAtomBundle\Protocol\ItemIn
+     * @param \Debril\RssAtomBundle\Protocol\Parser\Item
      * @return boolean
      */
-    public function isValid(\Debril\RssAtomBundle\Protocol\ItemIn $item);
+    public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item);
 }
