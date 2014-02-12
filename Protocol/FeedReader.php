@@ -118,7 +118,7 @@ class FeedReader
         if (is_numeric($arg))
         {
             return $this->getFilteredContent($url, array(
-                new Filter\Limit($arg)
+                        new Filter\Limit($arg)
             ));
         }
         if ($arg instanceof \DateTime)
@@ -153,7 +153,7 @@ class FeedReader
         $filters = array(
             new Filter\ModifiedSince($modifiedSince)
         );
-        
+
         return $this->getFilteredContent($url, $filters);
     }
 
@@ -184,7 +184,8 @@ class FeedReader
      */
     public function getResponse($url, \Datetime $modifiedSince = null)
     {
-        if ( is_null($modifiedSince) ) {
+        if (is_null($modifiedSince))
+        {
             $modifiedSince = new \DateTime('@0');
         }
 
@@ -218,16 +219,12 @@ class FeedReader
         {
             case HttpDriverResponse::HTTP_CODE_NOT_FOUND :
                 throw new FeedNotFoundException($response->getHttpMessage());
-                break;
             case HttpDriverResponse::HTTP_CODE_NOT_MODIFIED :
                 throw new FeedNotModifiedException($response->getHttpMessage());
-                break;
             case HttpDriverResponse::HTTP_CODE_SERVER_ERROR :
                 throw new FeedServerErrorException($response->getHttpMessage());
-                break;
             case HttpDriverResponse::HTTP_CODE_FORBIDDEN:
                 throw new FeedForbiddenException($response->getHttpMessage());
-                break;
             default :
                 throw new FeedCannotBeReadException($response->getHttpMessage(), $response->getHttpCode());
         }
