@@ -61,11 +61,12 @@ class RdfParser extends Parser
             $feed->setLastModified($updated);
         }
 
+        $format = null;
         foreach ($xmlBody->item as $xmlElement)
         {
             $item = $this->newItem();
             $date = $xmlElement->children('dc', true);
-            $format = isset($format) ? $format : $this->guessDateFormat($date[0]);
+            $format = !is_null($format) ? $format : $this->guessDateFormat($date[0]);
 
             $item->setTitle($xmlElement->title)
                     ->setDescription($xmlElement->description)
@@ -79,4 +80,3 @@ class RdfParser extends Parser
     }
 
 }
-
