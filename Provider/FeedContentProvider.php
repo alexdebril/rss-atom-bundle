@@ -20,10 +20,9 @@ interface FeedContentProvider
 {
 
     /**
-     *
-     * @param \Symfony\Component\OptionsResolver $params
+     * @param  \Symfony\Component\OptionsResolver\Options $options
      * @throws \Debril\RssAtomBundle\Exception\FeedNotFoundException
+     * @return \Debril\RssAtomBundle\Protocol\FeedOut
      */
     public function getFeedContent(Options $options);
 }
-

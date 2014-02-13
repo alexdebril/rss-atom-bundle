@@ -17,7 +17,7 @@ class HttpCurlDriver implements HttpDriver
 
     /**
      *
-     * @param type $url
+     * @param string $url
      * @param \DateTime $lastModified
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      * @throws DriverUnreachableResourceException

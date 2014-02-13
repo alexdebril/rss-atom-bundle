@@ -103,7 +103,8 @@ class StreamController extends Controller
      * default : debril.provider.service
      *
      * @param \Symfony\Component\OptionsResolver\Options $options
-     * @return FeedContent
+     * @param string $source
+     * @return \Debril\RssAtomBundle\Protocol\FeedOut
      * @throws \Exception
      */
     protected function getContent(Options $options, $source)

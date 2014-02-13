@@ -162,7 +162,6 @@ abstract class Parser
      * @deprecated since 1.3.0 replaced by addValidItem
      * @param FeedIn $feed
      * @param ItemIn $item
-     * @param array $filters
      * @return $this
      */
     public function addAcceptableItem(FeedIn $feed, ItemIn $item, \DateTime $modifiedSince)

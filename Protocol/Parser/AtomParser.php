@@ -48,8 +48,7 @@ class AtomParser extends Parser
      *
      * @param SimpleXMLElement $xmlBody
      * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param \DateTime $modifiedSince
-     * @return \\Debril\RssAtomBundle\Protocol\FeedIn
+     * @return FeedIn
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters)
     {
@@ -89,8 +88,8 @@ class AtomParser extends Parser
 
     /**
      *
-     * @param SimpleXMLElement $element
-     * @param type $type
+     * @param SimpleXMLElement $xmlElement
+     * @param string $type
      */
     protected function detectLink(SimpleXMLElement $xmlElement, $type)
     {

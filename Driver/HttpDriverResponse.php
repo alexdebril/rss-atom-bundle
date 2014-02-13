@@ -156,7 +156,7 @@ class HttpDriverResponse
     /**
      *
      * @param string $body
-     * @return \Debril\RssAtomBundle\HttpDriverResponse
+     * @return HttpDriverResponse
      */
     public function setBody($body)
     {

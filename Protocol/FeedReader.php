@@ -110,7 +110,7 @@ class FeedReader
      * Second parameter can be either a \DateTime instance or a numeric limit
      *
      * @param string $url
-     * @param mixed $arg
+     * @param \DateTime $arg
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
     public function getFeedContent($url, $arg = null)
@@ -144,9 +144,9 @@ class FeedReader
 
     /**
      *
-     * @param type $url
+     * @param string $url
      * @param \DateTime $modifiedSince
-     * @return type
+     * @return FeedIn
      */
     public function getFeedContentSince($url, \DateTime $modifiedSince)
     {
@@ -197,7 +197,6 @@ class FeedReader
      * @todo convert the last argument into an array of filters
      * @param \Debril\RssAtomBundle\Driver\HttpDriverResponse $response
      * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param \Datetime $modifiedSince
      * @return FeedIn
      * @throws FeedNotFoundException
      * @throws FeedNotModifiedException

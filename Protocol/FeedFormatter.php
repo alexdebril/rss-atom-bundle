@@ -30,7 +30,7 @@ abstract class FeedFormatter
     abstract public function setMetas(\DomDocument $element, FeedOut $content);
 
     /**
-     * @param \DomDocument $element
+     * @param \DomDocument $document
      * @param \Debril\RssAtomBundle\Protocol\ItemOut $item
      */
     abstract protected function addEntry(\DomDocument $document, ItemOut $item);
@@ -61,8 +61,7 @@ abstract class FeedFormatter
     }
 
     /**
-     *
-     * @param \DomDocument $element
+     * @param \DomDocument $document
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     public function setEntries(\DomDocument $document, FeedOut $content)

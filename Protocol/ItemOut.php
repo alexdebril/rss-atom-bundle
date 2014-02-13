@@ -48,13 +48,14 @@ interface ItemOut
     /**
      * Atom : feed.entry.updated <feed><entry><updated>
      * Rss  : rss.channel.item.pubDate <rss><channel><item><pubDate>
-     * @return DateTime
+     * @return \DateTime
      */
     public function getUpdated();
 
     /**
      * Atom : feed.entry.link <feed><entry><link>
      * Rss  : rss.channel.item.link <rss><channel><item><link>
+     * @return string
      */
     public function getLink();
 

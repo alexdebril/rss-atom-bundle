@@ -64,7 +64,7 @@ class DoctrineFeedContentProvider implements FeedContentProvider
 
     /**
      * @param \Symfony\Component\OptionsResolver\Options $options
-     * @return \Debril\FeedAggregatorBundle\Provider\Feed
+     * @return \Debril\RssAtomBundle\Protocol\FeedOut
      * @throws FeedNotFoundException
      */
     public function getFeedContent(Options $options)

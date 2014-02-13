@@ -48,8 +48,7 @@ class FeedAtomFormatter extends FeedFormatter
     }
 
     /**
-     *
-     * @param \SimpleXMLElement $element
+     * @param \DomDocument $document
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     public function setMetas(\DOMDocument $document, FeedOut $content)
@@ -76,7 +75,6 @@ class FeedAtomFormatter extends FeedFormatter
      *
      * @param \DOMDocument $document
      * @param \Debril\RssAtomBundle\Protocol\ItemOut $item
-     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     protected function addEntry(\DOMDocument $document, ItemOut $item)
     {
@@ -128,4 +126,3 @@ class FeedAtomFormatter extends FeedFormatter
     }
 
 }
-
