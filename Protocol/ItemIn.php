@@ -15,7 +15,7 @@ namespace Debril\RssAtomBundle\Protocol;
 /**
  * interface used to represent incoming items
  */
-interface ItemIn
+interface ItemIn extends ItemOut
 {
 
     /**
@@ -72,4 +72,3 @@ interface ItemIn
      */
     public function setComment($comment);
 }
-
