@@ -30,6 +30,7 @@ class HttpCurlDriver implements HttpDriver
         curl_setopt($curl, CURLOPT_TIMECONDITION, CURL_TIMECOND_IFMODSINCE);
         curl_setopt($curl, CURLOPT_TIMEVALUE, $lastModified->getTimestamp());
         curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:27.0) Gecko/20100101 Firefox/27.0');
         $curlReturn = curl_exec($curl);
 
         if (!$curlReturn)
