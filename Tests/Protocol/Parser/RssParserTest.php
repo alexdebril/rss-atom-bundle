@@ -135,28 +135,20 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::setDateFormats
      * @covers Debril\RssAtomBundle\Protocol\Parser\RssParser::__construct
+     * @dataProvider getDefaultFormats
      */
-    public function testSetDateFormats()
+    public function testSetDateFormats($default)
     {
-        $default = array(
-            \DateTime::RFC3339,
-            \DateTime::RSS,
-        );
-
         $this->object->setdateFormats($default);
         $this->assertEquals($default, $this->readAttribute($this->object, 'dateFormats'));
     }
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     * @dataProvider getDefaultFormats
      */
-    public function testGuessDateFormat()
+    public function testGuessDateFormat(array $default)
     {
-        $default = array(
-            \DateTime::RFC3339,
-            \DateTime::RSS,
-        );
-
         $this->object->setdateFormats($default);
 
         $date = 'Mon, 06 Sep 2009 16:45:00 GMT';
@@ -167,19 +159,30 @@ class RssParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     * @dataProvider getDefaultFormats
      * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
      */
-    public function testGuessDateFormatException()
+    public function testGuessDateFormatException(array $default)
     {
-        $default = array(
-            \DateTime::RFC3339,
-            \DateTime::RSS,
-        );
-
         $this->object->setdateFormats($default);
 
         $date = '2003-13T18:30:02Z';
         $this->object->guessDateFormat($date);
     }
 
+    /**
+     * @return array
+     */
+    public function getDefaultFormats()
+    {
+        return
+            array(
+                array(
+                    array(
+                    \DateTime::RFC3339,
+                    \DateTime::RSS,
+                )
+            )
+        );
+    }
 }

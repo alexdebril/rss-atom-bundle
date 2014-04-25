@@ -207,16 +207,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody304()
     {
-        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
-
-        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
-        $response->setHttpCode(304);
-
-        $mock->expects($this->any())
-                ->method('getResponse')
-                ->will($this->returnValue($response));
-
-        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(304), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
@@ -227,16 +218,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody404()
     {
-        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
-
-        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
-        $response->setHttpCode(404);
-
-        $mock->expects($this->any())
-                ->method('getResponse')
-                ->will($this->returnValue($response));
-
-        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(404), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
@@ -247,16 +229,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody500()
     {
-        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
-
-        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
-        $response->setHttpCode(500);
-
-        $mock->expects($this->any())
-                ->method('getResponse')
-                ->will($this->returnValue($response));
-
-        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(500), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
@@ -267,16 +240,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody403()
     {
-        $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
-
-        $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
-        $response->setHttpCode(403);
-
-        $mock->expects($this->any())
-                ->method('getResponse')
-                ->will($this->returnValue($response));
-
-        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(403), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
     }
@@ -287,18 +251,27 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBodyUnknownError()
     {
+        $reader = new FeedReader($this->getMockDriver(666), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+
+        $reader->getFeedContent('http://afakeurl', new \DateTime);
+    }
+
+    /**
+     * @param $responseHttpCode
+     * @return \Debril\RssAtomBundle\Driver\HttpCurlDriver a mocked instance
+     */
+    public function getMockDriver($responseHttpCode)
+    {
         $mock = $this->getMock("\Debril\RssAtomBundle\Driver\HttpCurlDriver");
 
         $response = new \Debril\RssAtomBundle\Driver\HttpDriverResponse();
-        $response->setHttpCode(666);
+        $response->setHttpCode($responseHttpCode);
 
         $mock->expects($this->any())
-                ->method('getResponse')
-                ->will($this->returnValue($response));
+            ->method('getResponse')
+            ->will($this->returnValue($response));
 
-        $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
-
-        $reader->getFeedContent('http://afakeurl', new \DateTime);
+        return $mock;
     }
 
     /**
