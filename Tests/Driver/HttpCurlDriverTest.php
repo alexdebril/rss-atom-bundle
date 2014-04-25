@@ -8,7 +8,7 @@ namespace Debril\RssAtomBundle\Driver;
 class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
 {
 
-    const URL = 'https://raw.github.com/alexdebril/rss-atom-bundle/master/Resources/sample-atom.xml';
+    const URL = 'https://raw.githubusercontent.com/alexdebril/rss-atom-bundle/master/Resources/sample-atom.xml';
 
     /**
      * @var HttpCurlDriver

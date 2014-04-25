@@ -102,13 +102,8 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDateFormats()
     {
-        $default = array(
-            \DateTime::RFC3339,
-            \DateTime::RSS,
-        );
-
-        $this->object->setdateFormats($default);
-        $this->assertEquals($default, $this->readAttribute($this->object, 'dateFormats'));
+        $this->object->setdateFormats($this->getDefaultFormats());
+        $this->assertEquals($this->getDefaultFormats(), $this->readAttribute($this->object, 'dateFormats'));
     }
 
     /**
@@ -116,12 +111,7 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testGuessDateFormat()
     {
-        $default = array(
-            \DateTime::RFC3339,
-            \DateTime::RSS,
-        );
-
-        $this->object->setdateFormats($default);
+        $this->object->setdateFormats($this->getDefaultFormats());
 
         $date = '2003-12-13T18:30:02Z';
         $format = $this->object->guessDateFormat($date);
@@ -135,17 +125,10 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testGuessDateFormatException()
     {
-        $default = array(
-            \DateTime::RFC3339,
-            \DateTime::RSS,
-        );
-
-        $this->object->setdateFormats($default);
+        $this->object->setdateFormats($this->getDefaultFormats());
 
         $date = '2003-13T18:30:02Z';
         $format = $this->object->guessDateFormat($date);
-
-        $this->assertEquals(\DateTime::RFC3339, $format);
     }
 
     /**
@@ -164,6 +147,17 @@ class AtomParserTest extends \PHPUnit_Framework_TestCase
         $item = current($feed->getItems());
 
         $this->assertTrue(strlen($item->getDescription()) > 0);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDefaultFormats()
+    {
+        return array(
+            \DateTime::RFC3339,
+            \DateTime::RSS,
+        );
     }
 
 }
