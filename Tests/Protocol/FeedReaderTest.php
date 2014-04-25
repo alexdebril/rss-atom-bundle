@@ -77,28 +77,24 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::readFeed
+     * @dataProvider getRssInputs
      */
-    public function testReadFeed()
+    public function testReadFeed($url, \DateTime $date)
     {
-        $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
-
-        $this->object->addParser(new Parser\RssParser);
-        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
-
-        $feed = $this->object->readFeed($url, new Parser\FeedContent, $date);
+        $feed = $this->object
+            ->addParser(new Parser\RssParser)
+            ->readFeed($url, new Parser\FeedContent, $date);
 
         $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\FeedIn', $feed);
     }
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::getFeedContent
+     * @dataProvider getRssInputs
      */
-    public function testGetRssFeedContent()
+    public function testGetRssFeedContent($url, \DateTime $date)
     {
-        $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
         $this->object->addParser(new Parser\RssParser);
-        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
-
         $this->validateFeed($this->object->getFeedContent($url, $date));
     }
 
@@ -115,7 +111,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param FeedContent $feed
+     * @param FeedIn $feed
      */
     protected function validateFeed(FeedIn $feed)
     {
@@ -303,6 +299,19 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $reader = new FeedReader($mock, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
 
         $reader->getFeedContent('http://afakeurl', new \DateTime);
+    }
+
+    /**
+     * @return array
+     */
+    public function getRssInputs()
+    {
+        return array(
+            array(
+                dirname(__FILE__) . '/../../Resources/sample-rss.xml',
+                \DateTime::createFromFormat("Y-m-d", "2005-10-10")
+            )
+        );
     }
 
 }
