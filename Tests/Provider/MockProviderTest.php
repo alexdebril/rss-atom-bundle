@@ -53,7 +53,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
         $options = new \Symfony\Component\OptionsResolver\Options;
 
         $options->set('id', 'not-found');
-        $feed = $this->object->getFeedContent($options);
+        $this->object->getFeedContent($options);
     }
 
 }
