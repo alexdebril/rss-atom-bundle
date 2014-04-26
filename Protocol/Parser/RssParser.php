@@ -12,8 +12,8 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
+use Debril\RssAtomBundle\Protocol\FeedInterface;
 use Debril\RssAtomBundle\Protocol\Parser;
-use Debril\RssAtomBundle\Protocol\FeedIn;
 use \SimpleXMLElement;
 
 class RssParser extends Parser
@@ -43,11 +43,11 @@ class RssParser extends Parser
     /**
      *
      * @param SimpleXMLElement $xmlBody
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
      * @param array $filters
-     * @return \Debril\RssAtomBundle\Protocol\FeedIn
+     * @return \Debril\RssAtomBundle\Protocol\FeedInterface
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
     {
         $feed->setPublicId($xmlBody->channel->link);
         $feed->setLink($xmlBody->channel->link);
@@ -87,10 +87,10 @@ class RssParser extends Parser
 
     /**
      * @param SimpleXMLElement $xmlBody
-     * @param FeedIn $feed
+     * @param FeedInterface $feed
      * @param $latestItemDate
      */
-    protected function detectAndSetLastModified(SimpleXMLElement $xmlBody, FeedIn $feed, $latestItemDate)
+    protected function detectAndSetLastModified(SimpleXMLElement $xmlBody, FeedInterface $feed, $latestItemDate)
     {
         if (isset($xmlBody->channel->lastBuildDate)) {
             $this->setLastModified($feed, $xmlBody->channel->lastBuildDate);
@@ -103,10 +103,10 @@ class RssParser extends Parser
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
      * @param type $rssDate
      */
-    protected function setLastModified(FeedIn $feed, $rssDate)
+    protected function setLastModified(FeedInterface $feed, $rssDate)
     {
         $format = $this->guessDateFormat($rssDate);
         $updated = self::convertToDateTime($rssDate, $format);

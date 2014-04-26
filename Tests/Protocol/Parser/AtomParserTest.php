@@ -132,7 +132,7 @@ class AtomParserTest extends ParserAbstract
         $this->object->setdateFormats($default);
 
         $date = '2003-13T18:30:02Z';
-        $format = $this->object->guessDateFormat($date);
+        $this->object->guessDateFormat($date);
     }
 
     /**

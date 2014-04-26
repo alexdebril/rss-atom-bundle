@@ -12,8 +12,8 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
+use Debril\RssAtomBundle\Protocol\FeedInterface;
 use Debril\RssAtomBundle\Protocol\Parser;
-use Debril\RssAtomBundle\Protocol\FeedIn;
 use \SimpleXMLElement;
 
 class AtomParser extends Parser
@@ -46,12 +46,12 @@ class AtomParser extends Parser
 
     /**
      * @param SimpleXMLElement $xmlBody
-     * @param FeedIn $feed
+     * @param FeedInterface $feed
      * @param array $filters
-     * @return FeedIn
+     * @return FeedInterface
      * @throws ParserException
      */
-    protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters)
+    protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
     {
         $this->parseHeaders($xmlBody, $feed);
 
@@ -81,10 +81,10 @@ class AtomParser extends Parser
 
     /**
      * @param SimpleXMLElement $xmlBody
-     * @param FeedIn $feed
+     * @param FeedInterface $feed
      * @throws ParserException
      */
-    protected function parseHeaders(SimpleXMLElement $xmlBody, FeedIn $feed)
+    protected function parseHeaders(SimpleXMLElement $xmlBody, FeedInterface $feed)
     {
         $feed->setPublicId($xmlBody->id);
 

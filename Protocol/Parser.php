@@ -16,8 +16,6 @@ use \SimpleXMLElement;
 use \DateTime;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
-use Debril\RssAtomBundle\Protocol\FeedIn;
-use Debril\RssAtomBundle\Protocol\ItemIn;
 
 /**
  * Parser
@@ -56,12 +54,12 @@ abstract class Parser
      * Parses the feed's body to create a FeedContent instance.
      *
      * @param SimpleXMLElement $xmlBody
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
      * @param array $filters
      * @throws Parser\ParserException
-     * @return FeedIn
+     * @return FeedInterface
      */
-    public function parse(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters = array())
+    public function parse(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters = array())
     {
         if (!$this->canHandle($xmlBody))
         {
@@ -261,10 +259,10 @@ abstract class Parser
      * Performs the actual conversion into a FeedContent instance
      *
      * @param SimpleXMLElement $body
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param FeedInterface $feed
      * @param array $filters
      * @return FeedIn
      */
-    abstract protected function parseBody(SimpleXMLElement $body, FeedIn $feed, array $filters);
+    abstract protected function parseBody(SimpleXMLElement $body, FeedInterface $feed, array $filters);
 }
 
