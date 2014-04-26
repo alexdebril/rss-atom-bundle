@@ -11,6 +11,10 @@ namespace Debril\RssAtomBundle\Tests\Protocol;
 
 class ParserAbstract extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Parser
+     */
+    protected $object;
 
     /**
      * @dataProvider getDefaultFormats
