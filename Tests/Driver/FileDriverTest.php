@@ -35,10 +35,9 @@ class FileDriverTest extends \PHPUnit_Framework_TestCase {
      */
     public function testGetResponseException()
     {
-
         $url = dirname(__FILE__) . '/../../Resources/dummy.rss';
 
-        $response = $this->object->getResponse($url, new \DateTime() );
+        $this->object->getResponse($url, new \DateTime() );
     }
 
     /**
@@ -47,7 +46,6 @@ class FileDriverTest extends \PHPUnit_Framework_TestCase {
      */
     public function testGetResponse()
     {
-
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
 
         $response = $this->object->getResponse($url, new \DateTime() );
@@ -56,7 +54,6 @@ class FileDriverTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertInternalType("string", $response->getBody());
         $this->assertGreaterThan(0, strlen($response->getBody()));
-
     }
 
 }
