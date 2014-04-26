@@ -11,7 +11,7 @@ class StreamControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/mock/rss');
+        $client->request('GET', '/mock/rss');
 
         $response = $client->getResponse();
         $this->assertEquals('200', $response->getStatusCode());
