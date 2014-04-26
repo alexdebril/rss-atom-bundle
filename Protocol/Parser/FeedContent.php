@@ -12,8 +12,7 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
-use \Debril\RssAtomBundle\Protocol\FeedIn;
-use \Debril\RssAtomBundle\Protocol\FeedOut;
+use \Debril\RssAtomBundle\Protocol\FeedInterface;
 use \Debril\RssAtomBundle\Protocol\ItemIn;
 
 /**
@@ -38,7 +37,7 @@ use \Debril\RssAtomBundle\Protocol\ItemIn;
  * $feed->addItem($item);
  * </code>
  */
-class FeedContent implements FeedIn, FeedOut
+class FeedContent implements FeedInterface
 {
 
     /**
@@ -100,6 +99,7 @@ class FeedContent implements FeedIn, FeedOut
      * Rss  : rss.channel.lastBuildDate <rss><channel><lastBuildDate>
      *   or   rss.channel.pubDate <rss><channel><pubDate>
      * @param \DateTime $lastModified
+     * @return $this
      */
     public function setLastModified(\DateTime $lastModified)
     {

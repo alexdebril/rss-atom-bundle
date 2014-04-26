@@ -54,20 +54,7 @@ class RssParser extends Parser
         $feed->setTitle($xmlBody->channel->title);
         $feed->setDescription($xmlBody->channel->description);
 
-        // @todo make that clean ...
-        $mustPickLatest = false;
         $latest = new \DateTime('@0');
-        if (isset($xmlBody->channel->lastBuildDate))
-        {
-            $this->setLastModified($feed, $xmlBody->channel->lastBuildDate);
-        } elseif (isset($xmlBody->channel->pubDate))
-        {
-            $this->setLastModified($feed, $xmlBody->channel->pubDate);
-        } else
-        {
-            $mustPickLatest = true;
-        }
-
         $date = new \DateTime('now');
         foreach ($xmlBody->channel->item as $xmlElement)
         {
@@ -85,16 +72,33 @@ class RssParser extends Parser
                     ->setComment($xmlElement->comments)
                     ->setAuthor($xmlElement->author);
 
-            if ($mustPickLatest && $date > $latest)
+            if ($date > $latest)
             {
                 $latest = $date;
-                $feed->setLastModified($date);
             }
 
             $this->addValidItem($feed, $item, $filters);
         }
 
+        $this->detectAndSetLastModified($xmlBody, $feed, $latest);
+
         return $feed;
+    }
+
+    /**
+     * @param SimpleXMLElement $xmlBody
+     * @param FeedIn $feed
+     * @param $latestItemDate
+     */
+    protected function detectAndSetLastModified(SimpleXMLElement $xmlBody, FeedIn $feed, $latestItemDate)
+    {
+        if (isset($xmlBody->channel->lastBuildDate)) {
+            $this->setLastModified($feed, $xmlBody->channel->lastBuildDate);
+        } elseif (isset($xmlBody->channel->pubDate)) {
+            $this->setLastModified($feed, $xmlBody->channel->pubDate);
+        } else {
+            $feed->setLastModified($latestItemDate);
+        }
     }
 
     /**

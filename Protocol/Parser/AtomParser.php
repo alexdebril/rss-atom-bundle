@@ -45,22 +45,15 @@ class AtomParser extends Parser
     }
 
     /**
-     *
      * @param SimpleXMLElement $xmlBody
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param FeedIn $feed
+     * @param array $filters
      * @return FeedIn
+     * @throws ParserException
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedIn $feed, array $filters)
     {
-        $feed->setPublicId($xmlBody->id);
-
-        $feed->setLink(current($this->detectLink($xmlBody, 'self')));
-        $feed->setTitle($xmlBody->title);
-        $feed->setDescription($xmlBody->subtitle);
-
-        $format = $this->guessDateFormat($xmlBody->updated);
-        $updated = self::convertToDateTime($xmlBody->updated, $format);
-        $feed->setLastModified($updated);
+        $this->parseHeaders($xmlBody, $feed);
 
         foreach ($xmlBody->entry as $xmlElement)
         {
@@ -84,6 +77,24 @@ class AtomParser extends Parser
         }
 
         return $feed;
+    }
+
+    /**
+     * @param SimpleXMLElement $xmlBody
+     * @param FeedIn $feed
+     * @throws ParserException
+     */
+    protected function parseHeaders(SimpleXMLElement $xmlBody, FeedIn $feed)
+    {
+        $feed->setPublicId($xmlBody->id);
+
+        $feed->setLink(current($this->detectLink($xmlBody, 'self')));
+        $feed->setTitle($xmlBody->title);
+        $feed->setDescription($xmlBody->subtitle);
+
+        $format = $this->guessDateFormat($xmlBody->updated);
+        $updated = self::convertToDateTime($xmlBody->updated, $format);
+        $feed->setLastModified($updated);
     }
 
     /**
