@@ -13,6 +13,20 @@ class ParserAbstract extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * @dataProvider getDefaultFormats
+     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
+     */
+    public function testGuessDateFormat($default)
+    {
+        $this->object->setdateFormats($default);
+
+        $date = 'Mon, 06 Sep 2009 16:45:00 GMT';
+        $format = $this->object->guessDateFormat($date);
+
+        $this->assertEquals(\DateTime::RSS, $format);
+    }
+
+    /**
      * @return array
      */
     public function getDefaultFormats()

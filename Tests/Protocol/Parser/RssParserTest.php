@@ -147,20 +147,6 @@ class RssParserTest extends ParserAbstract
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
      * @dataProvider getDefaultFormats
-     */
-    public function testGuessDateFormat(array $default)
-    {
-        $this->object->setdateFormats($default);
-
-        $date = 'Mon, 06 Sep 2009 16:45:00 GMT';
-        $format = $this->object->guessDateFormat($date);
-
-        $this->assertEquals(\DateTime::RSS, $format);
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
-     * @dataProvider getDefaultFormats
      * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
      */
     public function testGuessDateFormatException(array $default)

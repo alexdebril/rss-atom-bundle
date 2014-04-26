@@ -111,20 +111,6 @@ class AtomParserTest extends ParserAbstract
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
      * @dataProvider getDefaultFormats
-     */
-    public function testGuessDateFormat($default)
-    {
-        $this->object->setdateFormats($default);
-
-        $date = '2003-12-13T18:30:02Z';
-        $format = $this->object->guessDateFormat($date);
-
-        $this->assertEquals(\DateTime::RFC3339, $format);
-    }
-
-    /**
-     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
-     * @dataProvider getDefaultFormats
      * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
      */
     public function testGuessDateFormatException($default)

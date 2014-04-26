@@ -98,20 +98,6 @@ class RdfParserTest extends ParserAbstract
     }
 
     /**
-     * @dataProvider getDefaultFormats
-     * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
-     */
-    public function testGuessDateFormat($default)
-    {
-        $this->object->setdateFormats($default);
-
-        $date = 'Mon, 06 Sep 2009 16:45:00 GMT';
-        $format = $this->object->guessDateFormat($date);
-
-        $this->assertEquals(\DateTime::RSS, $format);
-    }
-
-    /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
      * @dataProvider getDefaultFormats
      * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
