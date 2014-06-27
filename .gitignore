@@ -1,7 +1,4 @@
 /bin/
 /composer.lock
 /vendor/
-/nbproject/
-coverage/
 cache/
-.idea/
