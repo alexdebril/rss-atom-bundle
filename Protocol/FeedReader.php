@@ -206,7 +206,7 @@ class FeedReader
      */
     public function parseBody(HttpDriverResponse $response, FeedIn $feed, array $filters = array())
     {
-        if ($response->getHttpCodeIsOk())
+        if ($response->getHttpCodeIsOk() || $response->getHttpCodeIsRedirection())
         {
             $xmlBody = new SimpleXMLElement($response->getBody());
             $parser = $this->getAccurateParser($xmlBody);
