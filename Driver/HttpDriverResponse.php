@@ -16,8 +16,10 @@ class HttpDriverResponse
 {
 
     const HTTP_CODE_OK = 200;
+    const HTTP_CODE_MOVE_PERMANENTLY = 301;
+    const HTTP_CODE_FOUND = 302;
     const HTTP_CODE_NOT_MODIFIED = 304;
-    CONST HTTP_CODE_FORBIDDEN = 403;
+    const HTTP_CODE_FORBIDDEN = 403;
     const HTTP_CODE_NOT_FOUND = 404;
     const HTTP_CODE_SERVER_ERROR = 500;
 
@@ -58,6 +60,20 @@ class HttpDriverResponse
     public function getHttpCodeIsOk()
     {
         return $this->getHttpCode() === self::HTTP_CODE_OK;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function getHttpCodeIsRedirection()
+    {
+        return in_array(
+            $this->getHttpCode(),
+            array(
+                self::HTTP_CODE_MOVE_PERMANENTLY,
+                self::HTTP_CODE_FOUND
+            )
+        );
     }
 
     /**
