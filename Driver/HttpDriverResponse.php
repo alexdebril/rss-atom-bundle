@@ -77,6 +77,19 @@ class HttpDriverResponse
     }
 
     /**
+     * @return bool
+     */
+    public function getHttpCodeIsCached()
+    {
+        return in_array(
+            $this->getHttpCode(),
+            array(
+                self::HTTP_CODE_NOT_MODIFIED
+            )
+        );
+    }
+
+    /**
      *
      * @return int
      */
