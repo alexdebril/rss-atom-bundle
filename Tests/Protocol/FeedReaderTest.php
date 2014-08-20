@@ -142,6 +142,35 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
      */
+    public function testAdditionalNamespacedElements()
+    {
+        $url = dirname(__FILE__) . '/../../Resources/sample-atom-namespaced.xml';
+        $this->object->addParser(new Parser\AtomParser);
+        $response = $this->object->getResponse($url, new \DateTime);
+        $feed = $this->object->parseBody($response, new Parser\FeedContent);
+        $items = $feed->getItems();
+        $additional = $items[0]->getAdditional();
+        $this->assertEquals('http://original-link.com/item.html', $additional['feedburner']->origLink);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     */
+    public function testRssAdditionalNamespacedElements()
+    {
+        $url = dirname(__FILE__) . '/../../Resources/sample-rss-media.xml';
+        $this->object->addParser(new Parser\RssParser());
+        $response = $this->object->getResponse($url, new \DateTime);
+        $feed = $this->object->parseBody($response, new Parser\FeedContent);
+        $items = $feed->getItems();
+        $additional = $items[0]->getAdditional();
+        $additionalAttributes = $additional['media']->thumbnail->attributes();
+        $this->assertEquals('http://media-server.com/image.jpg', $additionalAttributes['url']);
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     */
     public function testParseBody()
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';

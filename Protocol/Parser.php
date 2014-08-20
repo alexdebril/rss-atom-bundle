@@ -68,6 +68,8 @@ abstract class Parser
 
         $this->checkBodyStructure($xmlBody);
 
+        $xmlBody = $this->registerNamespaces($xmlBody);
+
         return $this->parseBody($xmlBody, $feed, $filters);
     }
 
@@ -92,7 +94,7 @@ abstract class Parser
         {
             $report = implode(", ", $errors);
             throw new ParserException(
-            "error while parsing the feed : {$report}"
+                "error while parsing the feed : {$report}"
             );
         }
     }
@@ -248,6 +250,40 @@ abstract class Parser
     }
 
     /**
+     * register Namespaces
+     *
+     * @param SimpleXMLElement $xmlBody
+     * @return SimpleXMLElement
+     */
+    protected function registerNamespaces(SimpleXMLElement $xmlBody){
+        $namespaces = $xmlBody->getNamespaces(true);
+        foreach ($namespaces as $prefix => $ns) {
+            if($prefix != ''){
+                $xmlBody->registerXPathNamespace($prefix, $ns);
+            }
+        }
+        return $xmlBody;
+    }
+
+    /**
+     * @param SimpleXMLElement $xmlElement
+     * @param $namespaces
+     * @return array
+     */
+    protected function getAdditionalNamespacesElements(SimpleXMLElement $xmlElement, $namespaces){
+        $additional = array();
+        foreach ($namespaces as $prefix => $ns) {
+            if($prefix != ''){
+                $additionalElement = $xmlElement->children($ns);
+                if(!empty($additionalElement)){
+                    $additional[$prefix] = $additionalElement;
+                }
+            }
+        }
+        return $additional;
+    }
+
+    /**
      * Tells if the parser can handle the feed or not
      *
      * @param  SimpleXMLElement $xmlBody
@@ -265,4 +301,3 @@ abstract class Parser
      */
     abstract protected function parseBody(SimpleXMLElement $body, FeedInterface $feed, array $filters);
 }
-

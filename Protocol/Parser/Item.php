@@ -74,6 +74,13 @@ class Item implements ItemIn, ItemOut
     protected $comment;
 
     /**
+     * this will take all additional elements from other namespace as array with raw simpleXml
+     * f.e. MediaRss or FeedBurner additions
+     * @var array
+     */
+    protected $additional;
+
+    /**
      * Atom : feed.entry.title <feed><entry><title>
      * Rss  : rss.channel.item.title <rss><channel><item><title>
      * @return string
@@ -252,5 +259,29 @@ class Item implements ItemIn, ItemOut
 
         return $this;
     }
+
+    /**
+     * this will take all additional elements from other namespace as array with raw simpleXml
+     * f.e. MediaRss or FeedBurner additions
+     *
+     * @param array $additional
+     */
+    public function setAdditional(array $additional)
+    {
+        $this->additional = $additional;
+    }
+
+    /**
+     * this will take all additional elements from other namespace as array with raw simpleXml
+     * f.e. MediaRss or FeedBurner additions
+     *
+     * @return array
+     */
+    public function getAdditional()
+    {
+        return $this->additional;
+    }
+
+
 
 }
