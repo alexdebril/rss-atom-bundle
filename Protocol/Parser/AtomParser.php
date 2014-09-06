@@ -55,6 +55,8 @@ class AtomParser extends Parser
     {
         $this->parseHeaders($xmlBody, $feed);
 
+        $namespaces = $xmlBody->getNamespaces(true);
+
         foreach ($xmlBody->entry as $xmlElement)
         {
             $itemFormat = isset($itemFormat) ? $itemFormat : $this->guessDateFormat($xmlElement->updated);
@@ -72,6 +74,9 @@ class AtomParser extends Parser
             {
                 $item->setAuthor($xmlElement->author->name);
             }
+
+
+            $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
             $this->addValidItem($feed, $item, $filters);
         }

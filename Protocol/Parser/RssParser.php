@@ -49,6 +49,8 @@ class RssParser extends Parser
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
     {
+        $namespaces = $xmlBody->getNamespaces(true);
+
         $feed->setPublicId($xmlBody->channel->link);
         $feed->setLink($xmlBody->channel->link);
         $feed->setTitle($xmlBody->channel->title);
@@ -65,17 +67,19 @@ class RssParser extends Parser
                 $date = self::convertToDateTime($xmlElement->pubDate, $format);
             }
             $item->setTitle($xmlElement->title)
-                    ->setDescription($xmlElement->description)
-                    ->setPublicId($xmlElement->guid)
-                    ->setUpdated($date)
-                    ->setLink($xmlElement->link)
-                    ->setComment($xmlElement->comments)
-                    ->setAuthor($xmlElement->author);
+                 ->setDescription($xmlElement->description)
+                 ->setPublicId($xmlElement->guid)
+                 ->setUpdated($date)
+                 ->setLink($xmlElement->link)
+                 ->setComment($xmlElement->comments)
+                 ->setAuthor($xmlElement->author);
 
             if ($date > $latest)
             {
                 $latest = $date;
             }
+
+            $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
             $this->addValidItem($feed, $item, $filters);
         }
