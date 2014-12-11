@@ -32,6 +32,7 @@ class DebrilRssAtomExtension extends Extension
             \DateTime::W3C,
             'Y-m-d\TH:i:s.uP',
             'Y-m-d',
+            'd/m/Y'
         );
 
         if (!isset($config['date_formats'])) {
