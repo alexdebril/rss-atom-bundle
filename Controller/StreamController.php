@@ -37,8 +37,8 @@ class StreamController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $options = $this->buildOptions($request);
-        $options->set('Since', $this->getModifiedSince());
+        $options = $request->attributes->get('_route_params');
+        $options['Since'] = $this->getModifiedSince();
 
         return $this->createStreamResponse(
                         $options, $request->get('format', 'rss'), $request->get('source', self::DEFAULT_SOURCE)
@@ -72,10 +72,13 @@ class StreamController extends Controller
      * 200 : a full body containing the stream
      * 304 : Not modified
      *
-     * @param \Symfony\Component\OptionsResolver\Options $options
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param array $options
+     * @param $format
+     * @param string $source
+     * @return Response
+     * @throws \Exception
      */
-    public function createStreamResponse(Options $options, $format, $source = self::DEFAULT_SOURCE)
+    public function createStreamResponse(array $options, $format, $source = self::DEFAULT_SOURCE)
     {
         $content = $this->getContent($options, $source);
 
@@ -107,7 +110,7 @@ class StreamController extends Controller
      * @return \Debril\RssAtomBundle\Protocol\FeedOut
      * @throws \Exception
      */
-    protected function getContent(Options $options, $source)
+    protected function getContent(array $options, $source)
     {
         $provider = $this->get($source);
 
@@ -123,22 +126,6 @@ class StreamController extends Controller
         {
             throw $this->createNotFoundException('feed not found');
         }
-    }
-
-    /**
-     * Build an Options object using parameters coming from the route
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\OptionsResolver\Options
-     */
-    protected function buildOptions(Request $request)
-    {
-        $options = new Options;
-        $routeParams = $request->attributes->get('_route_params');
-        foreach ($routeParams as $key => $value)
-            $options->set($key, $value);
-
-        return $options;
     }
 
     /**
