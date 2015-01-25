@@ -19,7 +19,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Factory;
+        $this->object = new Factory();
     }
 
     /**

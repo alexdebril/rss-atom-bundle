@@ -19,7 +19,6 @@ class FormatterAbstract extends \PHPUnit_Framework_TestCase
      */
     protected $feed;
 
-
     protected function setUp()
     {
         $this->feed = new FeedContent();
@@ -28,14 +27,14 @@ class FormatterAbstract extends \PHPUnit_Framework_TestCase
         $this->feed->setLink('http://example.com');
         $this->feed->setTitle('feed title');
         $this->feed->setDescription('feed subtitle');
-        $this->feed->setLastModified(new \DateTime);
+        $this->feed->setLastModified(new \DateTime());
 
-        $item = new Item;
+        $item = new Item();
         $item->setPublicId('item id');
         $item->setLink('http://example.com/1');
         $item->setSummary('lorem ipsum');
         $item->setTitle('title 1');
-        $item->setUpdated(new \DateTime);
+        $item->setUpdated(new \DateTime());
         $item->setComment('http://linktothecomments.com');
         $item->setAuthor('Contributor');
 
@@ -51,10 +50,9 @@ class FormatterAbstract extends \PHPUnit_Framework_TestCase
 
         $object->setEntries($element, $this->feed);
 
-        foreach ($element->childNodes as $entry)
-        {
+        foreach ($element->childNodes as $entry) {
             $this->assertInstanceOf("\DomNode", $entry);
         }
     }
 
-} 
+}

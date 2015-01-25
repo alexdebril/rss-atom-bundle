@@ -20,7 +20,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $this->object = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver(), new \Debril\RssAtomBundle\Protocol\Parser\Factory());
     }
 
     /**
@@ -37,7 +37,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $reader = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver, new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader(new \Debril\RssAtomBundle\Driver\FileDriver(), new \Debril\RssAtomBundle\Protocol\Parser\Factory());
 
         $this->assertAttributeInstanceOf("\Debril\RssAtomBundle\Driver\FileDriver", 'driver', $reader);
     }
@@ -47,7 +47,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddParser()
     {
-        $parser = new Parser\AtomParser;
+        $parser = new Parser\AtomParser();
         $this->object->addParser($parser);
 
         $this->assertAttributeEquals(array($parser), 'parsers', $this->object);
@@ -72,7 +72,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
 
-        $this->object->getFeedContent($url, new \DateTime);
+        $this->object->getFeedContent($url, new \DateTime());
     }
 
     /**
@@ -82,8 +82,8 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testReadFeed($url, \DateTime $date)
     {
         $feed = $this->object
-            ->addParser(new Parser\RssParser)
-            ->readFeed($url, new Parser\FeedContent, $date);
+            ->addParser(new Parser\RssParser())
+            ->readFeed($url, new Parser\FeedContent(), $date);
 
         $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\FeedIn', $feed);
     }
@@ -94,7 +94,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRssFeedContent($url, \DateTime $date)
     {
-        $this->object->addParser(new Parser\RssParser);
+        $this->object->addParser(new Parser\RssParser());
         $this->validateFeed($this->object->getFeedContent($url, $date));
     }
 
@@ -104,7 +104,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testGetAtomFeedContent()
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
-        $this->object->addParser(new Parser\AtomParser);
+        $this->object->addParser(new Parser\AtomParser());
         $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
 
         $this->validateFeed($this->object->getFeedContent($url, $date));
@@ -133,8 +133,8 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testGetResponse()
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
-        $this->object->addParser(new Parser\AtomParser);
-        $response = $this->object->getResponse($url, new \DateTime);
+        $this->object->addParser(new Parser\AtomParser());
+        $response = $this->object->getResponse($url, new \DateTime());
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Driver\HttpDriverResponse", $response);
     }
@@ -145,9 +145,9 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testAdditionalNamespacedElements()
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-atom-namespaced.xml';
-        $this->object->addParser(new Parser\AtomParser);
-        $response = $this->object->getResponse($url, new \DateTime);
-        $feed = $this->object->parseBody($response, new Parser\FeedContent);
+        $this->object->addParser(new Parser\AtomParser());
+        $response = $this->object->getResponse($url, new \DateTime());
+        $feed = $this->object->parseBody($response, new Parser\FeedContent());
         $items = $feed->getItems();
         $additional = $items[0]->getAdditional();
         $this->assertEquals('http://original-link.com/item.html', $additional['feedburner']->origLink);
@@ -160,8 +160,8 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-rss-media.xml';
         $this->object->addParser(new Parser\RssParser());
-        $response = $this->object->getResponse($url, new \DateTime);
-        $feed = $this->object->parseBody($response, new Parser\FeedContent);
+        $response = $this->object->getResponse($url, new \DateTime());
+        $feed = $this->object->parseBody($response, new Parser\FeedContent());
         $items = $feed->getItems();
         $additional = $items[0]->getAdditional();
         $additionalAttributes = $additional['media']->thumbnail->attributes();
@@ -174,13 +174,13 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testParseBody()
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
-        $this->object->addParser(new Parser\RssParser);
+        $this->object->addParser(new Parser\RssParser());
 
-        $date = new \DateTime;
+        $date = new \DateTime();
         $response = $this->object->getResponse($url, $date);
 
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
-        $feed = $this->object->parseBody($response, new Parser\FeedContent, $filters);
+        $feed = $this->object->parseBody($response, new Parser\FeedContent(), $filters);
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
     }
@@ -190,13 +190,13 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAccurateParser()
     {
-        $this->object->addParser(new Parser\RssParser);
-        $this->object->addParser(new Parser\RdfParser);
-        $this->object->addParser(new Parser\AtomParser);
+        $this->object->addParser(new Parser\RssParser());
+        $this->object->addParser(new Parser\RdfParser());
+        $this->object->addParser(new Parser\AtomParser());
 
         $url = dirname(__FILE__) . '/../../Resources/sample-rdf.xml';
 
-        $rdfBody = $this->object->getResponse($url, new \DateTime)->getBody();
+        $rdfBody = $this->object->getResponse($url, new \DateTime())->getBody();
 
         $this->assertInstanceOf(
                 "Debril\RssAtomBundle\Protocol\Parser\RdfParser", $this->object->getAccurateParser(new \SimpleXMLElement($rdfBody))
@@ -204,7 +204,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
 
-        $rssBody = $this->object->getResponse($url, new \DateTime)->getBody();
+        $rssBody = $this->object->getResponse($url, new \DateTime())->getBody();
 
         $this->assertInstanceOf(
                 "Debril\RssAtomBundle\Protocol\Parser\RssParser", $this->object->getAccurateParser(new \SimpleXMLElement($rssBody))
@@ -212,7 +212,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
         $url = dirname(__FILE__) . '/../../Resources/sample-atom.xml';
 
-        $atomBody = $this->object->getResponse($url, new \DateTime)->getBody();
+        $atomBody = $this->object->getResponse($url, new \DateTime())->getBody();
 
         $this->assertInstanceOf(
                 "Debril\RssAtomBundle\Protocol\Parser\AtomParser", $this->object->getAccurateParser(new \SimpleXMLElement($atomBody))
@@ -226,7 +226,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testGetAccurateParserException()
     {
         $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
-        $rssBody = $this->object->getResponse($url, new \DateTime)->getBody();
+        $rssBody = $this->object->getResponse($url, new \DateTime())->getBody();
         $this->object->getAccurateParser(new \SimpleXMLElement($rssBody));
     }
 
@@ -236,9 +236,9 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody304()
     {
-        $reader = new FeedReader($this->getMockDriver(304), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(304), new \Debril\RssAtomBundle\Protocol\Parser\Factory());
 
-        $reader->getFeedContent('http://afakeurl', new \DateTime);
+        $reader->getFeedContent('http://afakeurl', new \DateTime());
     }
 
     /**
@@ -247,9 +247,9 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody404()
     {
-        $reader = new FeedReader($this->getMockDriver(404), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(404), new \Debril\RssAtomBundle\Protocol\Parser\Factory());
 
-        $reader->getFeedContent('http://afakeurl', new \DateTime);
+        $reader->getFeedContent('http://afakeurl', new \DateTime());
     }
 
     /**
@@ -258,9 +258,9 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody500()
     {
-        $reader = new FeedReader($this->getMockDriver(500), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(500), new \Debril\RssAtomBundle\Protocol\Parser\Factory());
 
-        $reader->getFeedContent('http://afakeurl', new \DateTime);
+        $reader->getFeedContent('http://afakeurl', new \DateTime());
     }
 
     /**
@@ -269,9 +269,9 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBody403()
     {
-        $reader = new FeedReader($this->getMockDriver(403), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(403), new \Debril\RssAtomBundle\Protocol\Parser\Factory());
 
-        $reader->getFeedContent('http://afakeurl', new \DateTime);
+        $reader->getFeedContent('http://afakeurl', new \DateTime());
     }
 
     /**
@@ -280,9 +280,9 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseBodyUnknownError()
     {
-        $reader = new FeedReader($this->getMockDriver(666), new \Debril\RssAtomBundle\Protocol\Parser\Factory);
+        $reader = new FeedReader($this->getMockDriver(666), new \Debril\RssAtomBundle\Protocol\Parser\Factory());
 
-        $reader->getFeedContent('http://afakeurl', new \DateTime);
+        $reader->getFeedContent('http://afakeurl', new \DateTime());
     }
 
     /**

@@ -25,7 +25,7 @@ class ModifiedSinceTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->date = new \DateTime;
+        $this->date = new \DateTime();
         $this->object = new ModifiedSince($this->date);
     }
 
@@ -54,7 +54,7 @@ class ModifiedSinceTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValid()
     {
-        $item = new \Debril\RssAtomBundle\Protocol\Parser\Item;
+        $item = new \Debril\RssAtomBundle\Protocol\Parser\Item();
 
         $date = clone $this->date;
         $this->assertFalse($this->object->isValid($item), 'Item must not be valid if no date is specified');

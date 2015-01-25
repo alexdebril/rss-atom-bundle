@@ -21,7 +21,7 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new HttpCurlDriver;
+        $this->object = new HttpCurlDriver();
     }
 
     /**
@@ -39,8 +39,7 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
     public function testGetResponse()
     {
         $date = \DateTime::createFromFormat('j-M-Y', '10-Feb-2002');
-        try
-        {
+        try {
             $response = $this->object->getResponse(self::URL, $date);
 
             $this->assertInstanceOf("Debril\RssAtomBundle\Driver\HttpDriverResponse", $response);
@@ -48,8 +47,7 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
 
             $this->assertInternalType("string", $response->getBody());
             $this->assertGreaterThan(0, strlen($response->getBody()));
-        } catch (DriverUnreachableResourceException $e)
-        {
+        } catch (DriverUnreachableResourceException $e) {
             $this->markTestIncomplete(
                     'This test cannot be run.'
             );

@@ -8,7 +8,6 @@
 
 namespace Debril\RssAtomBundle\Tests\Protocol;
 
-
 class ParserAbstract extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -46,4 +45,4 @@ class ParserAbstract extends \PHPUnit_Framework_TestCase
             );
     }
 
-} 
+}

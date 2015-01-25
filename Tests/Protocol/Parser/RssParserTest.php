@@ -20,7 +20,7 @@ class RssParserTest extends ParserAbstract
      */
     protected function setUp()
     {
-        $this->object = new RssParser;
+        $this->object = new RssParser();
     }
 
     /**
@@ -60,8 +60,8 @@ class RssParserTest extends ParserAbstract
     {
         $file = dirname(__FILE__) . '/../../../Resources/truncated-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime));
-        $this->object->parse($xmlBody, new FeedContent, $filters);
+        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
+        $this->object->parse($xmlBody, new FeedContent(), $filters);
     }
 
     /**
@@ -74,7 +74,7 @@ class RssParserTest extends ParserAbstract
 
         $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
-        $feed = $this->object->parse($xmlBody, new FeedContent, $filters);
+        $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
@@ -100,7 +100,7 @@ class RssParserTest extends ParserAbstract
 
         $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
-        $feed = $this->object->parse($xmlBody, new FeedContent, $filters);
+        $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
@@ -120,7 +120,7 @@ class RssParserTest extends ParserAbstract
 
         $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
-        $feed = $this->object->parse($xmlBody, new FeedContent, $filters);
+        $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 

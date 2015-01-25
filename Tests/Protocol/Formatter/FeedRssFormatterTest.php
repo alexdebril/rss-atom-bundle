@@ -2,8 +2,6 @@
 
 namespace Debril\RssAtomBundle\Protocol\Formatter;
 
-use \Debril\RssAtomBundle\Protocol\Parser\FeedContent;
-use \Debril\RssAtomBundle\Protocol\Parser\Item;
 use \Debril\RssAtomBundle\Tests\Protocol\FormatterAbstract;
 
 /**
@@ -25,7 +23,7 @@ class FeedRssFormatterTest extends FormatterAbstract
     {
         parent::setUp();
 
-        $this->object = new FeedRssFormatter;
+        $this->object = new FeedRssFormatter();
     }
 
     /**

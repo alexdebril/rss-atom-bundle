@@ -23,7 +23,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new AtomParser;
+        $this->object = new AtomParser();
     }
 
     /**
@@ -74,7 +74,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFactory()
     {
-        $this->object->setFactory(new Parser\Factory);
+        $this->object->setFactory(new Parser\Factory());
 
         $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Factory', $this->object->getFactory());
     }
@@ -100,7 +100,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $feed = new FeedContent();
         $item = new Item();
-        $date = new \DateTime;
+        $date = new \DateTime();
         $item->setUpdated($date);
         $ret = $this->object->addAcceptableItem($feed, $item, $date);
 

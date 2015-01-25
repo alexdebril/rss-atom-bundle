@@ -37,7 +37,7 @@ class LimitTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValid()
     {
-        $item = new \Debril\RssAtomBundle\Protocol\Parser\Item;
+        $item = new \Debril\RssAtomBundle\Protocol\Parser\Item();
         $this->assertTrue($this->object->isValid($item), 'First one is valid');
         $this->assertTrue($this->object->isValid($item), 'Second one is valid');
         $this->assertFalse($this->object->isValid($item), 'Third one is not valid');
