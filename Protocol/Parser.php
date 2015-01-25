@@ -28,7 +28,7 @@ abstract class Parser
      *
      * @var \DateTimeZone
      */
-    static protected $timezone;
+    protected static $timezone;
 
     /**
      * List of mandatory fields
@@ -53,16 +53,15 @@ abstract class Parser
     /**
      * Parses the feed's body to create a FeedContent instance.
      *
-     * @param SimpleXMLElement $xmlBody
-     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param array $filters
+     * @param  SimpleXMLElement                             $xmlBody
+     * @param  \Debril\RssAtomBundle\Protocol\FeedInterface $feed
+     * @param  array                                        $filters
      * @throws Parser\ParserException
      * @return FeedInterface
      */
     public function parse(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters = array())
     {
-        if (!$this->canHandle($xmlBody))
-        {
+        if (!$this->canHandle($xmlBody)) {
             throw new ParserException('this is not a supported format');
         }
 
@@ -75,23 +74,20 @@ abstract class Parser
 
     /**
      *
-     * @param SimpleXMLElement $body
+     * @param  SimpleXMLElement $body
      * @throws ParserException
      */
     protected function checkBodyStructure(SimpleXMLElement $body)
     {
         $errors = array();
 
-        foreach ($this->mandatoryFields as $field)
-        {
-            if (!isset($body->$field))
-            {
+        foreach ($this->mandatoryFields as $field) {
+            if (!isset($body->$field)) {
                 $errors[] = "missing {$field}";
             }
         }
 
-        if (0 < count($errors))
-        {
+        if (0 < count($errors)) {
             $report = implode(", ", $errors);
             throw new ParserException(
                 "error while parsing the feed : {$report}"
@@ -110,14 +106,13 @@ abstract class Parser
 
     /**
      *
-     * @param type $date
-     * @return string date Format
+     * @param  type            $date
+     * @return string          date Format
      * @throws ParserException
      */
     public function guessDateFormat($date)
     {
-        foreach ($this->dateFormats as $format)
-        {
+        foreach ($this->dateFormats as $format) {
             $test = \DateTime::createFromFormat($format, $date);
             if ($test instanceof \DateTime)
                 return $format;
@@ -135,7 +130,7 @@ abstract class Parser
         if ($this->getFactory() instanceof \Debril\RssAtomBundle\Protocol\Parser\Factory)
             return $this->getFactory()->newItem();
 
-        return new Parser\Item;
+        return new Parser\Item();
     }
 
     /**
@@ -149,19 +144,20 @@ abstract class Parser
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\Parser\Factory $factory
+     * @param  \Debril\RssAtomBundle\Protocol\Parser\Factory $factory
      * @return \Debril\RssAtomBundle\Protocol\Parser
      */
     public function setFactory(Factory $factory)
     {
         $this->factory = $factory;
+
         return $this;
     }
 
     /**
      * @deprecated since 1.3.0 replaced by addValidItem
-     * @param FeedIn $feed
-     * @param ItemIn $item
+     * @param  FeedIn $feed
+     * @param  ItemIn $item
      * @return $this
      */
     public function addAcceptableItem(FeedIn $feed, ItemIn $item, \DateTime $modifiedSince)
@@ -174,15 +170,14 @@ abstract class Parser
     }
 
     /**
-     * @param FeedIn $feed
-     * @param ItemIn $item
-     * @param array $filters
+     * @param  FeedIn $feed
+     * @param  ItemIn $item
+     * @param  array  $filters
      * @return $this
      */
     public function addValidItem(FeedIn $feed, ItemIn $item, array $filters = array())
     {
-       if ( $this->isValid($item, $filters) )
-       {
+       if ( $this->isValid($item, $filters) ) {
            $feed->addItem($item);
        }
 
@@ -190,16 +185,16 @@ abstract class Parser
     }
 
     /**
-     * @param ItemIn $item
-     * @param array $filters
+     * @param  ItemIn $item
+     * @param  array  $filters
      * @return bool
      */
     public function isValid(ItemIn $item, array $filters = array())
     {
         $valid = true;
-        foreach( $filters as $filter )  {
-            if ( $filter instanceof \Debril\RssAtomBundle\Protocol\Filter ) {
-                $valid = $filter->isValid($item) ? $valid:false;
+        foreach ($filters as $filter) {
+            if ($filter instanceof \Debril\RssAtomBundle\Protocol\Filter) {
+                $valid = $filter->isValid($item) ? $valid : false;
             }
         }
 
@@ -212,12 +207,11 @@ abstract class Parser
      * @param string $string
      * @param string $format
      */
-    static public function convertToDateTime($string, $format = DateTime::RFC2822)
+    public static function convertToDateTime($string, $format = DateTime::RFC2822)
     {
         $date = DateTime::createFromFormat($format, $string);
 
-        if (!$date instanceof \DateTime)
-        {
+        if (!$date instanceof \DateTime) {
             throw new ParserException("date is the wrong format : {$string} - expected {$format}");
         }
 
@@ -231,10 +225,9 @@ abstract class Parser
      *
      * @return \DateTimeZone
      */
-    static public function getSystemTimezone()
+    public static function getSystemTimezone()
     {
-        if (is_null(self::$timezone))
-        {
+        if (is_null(self::$timezone)) {
             self::$timezone = new \DateTimeZone(date_default_timezone_get());
         }
 
@@ -244,7 +237,7 @@ abstract class Parser
     /**
      * Reset the system's time zone
      */
-    static public function resetTimezone()
+    public static function resetTimezone()
     {
         self::$timezone = null;
     }
@@ -252,34 +245,38 @@ abstract class Parser
     /**
      * register Namespaces
      *
-     * @param SimpleXMLElement $xmlBody
+     * @param  SimpleXMLElement $xmlBody
      * @return SimpleXMLElement
      */
-    protected function registerNamespaces(SimpleXMLElement $xmlBody){
+    protected function registerNamespaces(SimpleXMLElement $xmlBody)
+    {
         $namespaces = $xmlBody->getNamespaces(true);
         foreach ($namespaces as $prefix => $ns) {
-            if($prefix != ''){
+            if ($prefix != '') {
                 $xmlBody->registerXPathNamespace($prefix, $ns);
             }
         }
+
         return $xmlBody;
     }
 
     /**
-     * @param SimpleXMLElement $xmlElement
+     * @param  SimpleXMLElement $xmlElement
      * @param $namespaces
      * @return array
      */
-    protected function getAdditionalNamespacesElements(SimpleXMLElement $xmlElement, $namespaces){
+    protected function getAdditionalNamespacesElements(SimpleXMLElement $xmlElement, $namespaces)
+    {
         $additional = array();
         foreach ($namespaces as $prefix => $ns) {
-            if($prefix != ''){
+            if ($prefix != '') {
                 $additionalElement = $xmlElement->children($ns);
-                if(!empty($additionalElement)){
+                if (!empty($additionalElement)) {
                     $additional[$prefix] = $additionalElement;
                 }
             }
         }
+
         return $additional;
     }
 
@@ -294,9 +291,9 @@ abstract class Parser
     /**
      * Performs the actual conversion into a FeedContent instance
      *
-     * @param SimpleXMLElement $body
-     * @param FeedInterface $feed
-     * @param array $filters
+     * @param  SimpleXMLElement $body
+     * @param  FeedInterface    $feed
+     * @param  array            $filters
      * @return FeedIn
      */
     abstract protected function parseBody(SimpleXMLElement $body, FeedInterface $feed, array $filters);

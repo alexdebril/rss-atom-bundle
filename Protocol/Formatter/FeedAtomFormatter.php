@@ -23,7 +23,7 @@ class FeedAtomFormatter extends FeedFormatter
 
     /**
      *
-     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
+     * @param  \Debril\RssAtomBundle\Protocol\FeedOut $content
      * @return string
      */
     public function toString(FeedOut $content)
@@ -48,7 +48,7 @@ class FeedAtomFormatter extends FeedFormatter
     }
 
     /**
-     * @param \DomDocument $document
+     * @param \DomDocument                           $document
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     public function setMetas(\DOMDocument $document, FeedOut $content)
@@ -65,15 +65,14 @@ class FeedAtomFormatter extends FeedFormatter
         $elements[] = $link;
         $elements[] = $document->createElement('updated', $content->getLastModified()->format(\DateTime::ATOM));
 
-        foreach ($elements as $element)
-        {
+        foreach ($elements as $element) {
             $document->documentElement->appendChild($element);
         }
     }
 
     /**
      *
-     * @param \DOMDocument $document
+     * @param \DOMDocument                           $document
      * @param \Debril\RssAtomBundle\Protocol\ItemOut $item
      */
     protected function addEntry(\DOMDocument $document, ItemOut $item)
@@ -90,8 +89,7 @@ class FeedAtomFormatter extends FeedFormatter
         $elements[] = $document->createElement('id', $item->getLink());
         $elements[] = $document->createElement('updated', $item->getUpdated()->format(\DateTime::ATOM));
 
-        if (strlen($item->getSummary()) > 0)
-        {
+        if (strlen($item->getSummary()) > 0) {
             $summary = $document->createElement('summary', htmlspecialchars($item->getSummary(), ENT_COMPAT, 'UTF-8'));
             $summary->setAttribute('type', self::CONTENT_TYPE_HTML);
         }
@@ -100,8 +98,7 @@ class FeedAtomFormatter extends FeedFormatter
         $content->setAttribute('type', self::CONTENT_TYPE_HTML);
         $elements[] = $content;
 
-        if (!is_null($item->getComment()))
-        {
+        if (!is_null($item->getComment())) {
             $comments = $document->createElement('link');
             $comments->setAttribute('href', $item->getComment());
             $comments->setAttribute('rel', 'related');
@@ -109,16 +106,14 @@ class FeedAtomFormatter extends FeedFormatter
             $elements[] = $comments;
         }
 
-        if (!is_null($item->getAuthor()))
-        {
+        if (!is_null($item->getAuthor())) {
             $author = $document->createElement('author');
             $author->appendChild($document->createElement('name', $item->getAuthor()));
 
             $elements[] = $author;
         }
 
-        foreach ($elements as $element)
-        {
+        foreach ($elements as $element) {
             $entry->appendChild($element);
         }
 

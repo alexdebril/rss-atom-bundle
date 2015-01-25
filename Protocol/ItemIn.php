@@ -72,4 +72,3 @@ interface ItemIn
      */
     public function setComment($comment);
 }
-

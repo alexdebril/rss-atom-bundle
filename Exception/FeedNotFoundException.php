@@ -16,4 +16,3 @@ class FeedNotFoundException extends \Exception
 {
 
 }
-

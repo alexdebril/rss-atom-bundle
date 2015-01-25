@@ -16,4 +16,3 @@ class FeedServerErrorException extends \Exception
 {
 
 }
-

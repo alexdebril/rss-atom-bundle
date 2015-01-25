@@ -61,7 +61,7 @@ class HttpDriverResponse
     {
         return $this->getHttpCode() === self::HTTP_CODE_OK;
     }
-    
+
     /**
      * @return boolean
      */
@@ -100,7 +100,7 @@ class HttpDriverResponse
 
     /**
      *
-     * @param int $httpCode
+     * @param  int                                             $httpCode
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHttpCode($httpCode)
@@ -121,7 +121,7 @@ class HttpDriverResponse
 
     /**
      *
-     * @param string $httpVersion
+     * @param  string                                          $httpVersion
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHttpVersion($httpVersion)
@@ -142,7 +142,7 @@ class HttpDriverResponse
 
     /**
      *
-     * @param string $httpMessage
+     * @param  string                                          $httpMessage
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHttpMessage($httpMessage)
@@ -163,7 +163,7 @@ class HttpDriverResponse
 
     /**
      *
-     * @param string $headers
+     * @param  string                                          $headers
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHeaders($headers)
@@ -184,7 +184,7 @@ class HttpDriverResponse
 
     /**
      *
-     * @param string $body
+     * @param  string             $body
      * @return HttpDriverResponse
      */
     public function setBody($body)

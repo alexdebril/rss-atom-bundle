@@ -34,13 +34,11 @@ class DebrilRssAtomExtension extends Extension
             'Y-m-d',
         );
 
-        if (!isset($config['date_formats']))
-        {
+        if (!isset($config['date_formats'])) {
             $container->setParameter(
                     'debril_rss_atom.date_formats', $default
             );
-        } else
-        {
+        } else {
             $container->setParameter(
                     'debril_rss_atom.date_formats', array_merge($default, $config['date_formats'])
             );

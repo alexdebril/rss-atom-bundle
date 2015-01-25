@@ -16,4 +16,3 @@ class FeedCannotBeReadException extends \Exception
 {
     //put your code here
 }
-

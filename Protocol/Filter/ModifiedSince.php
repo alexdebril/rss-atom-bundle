@@ -40,13 +40,12 @@ class ModifiedSince implements \Debril\RssAtomBundle\Protocol\Filter
     /**
      * The item is valid if it was last updated after the modified since date
      *
-     * @param \Debril\RssAtomBundle\Protocol\Parser\Item $item
+     * @param  \Debril\RssAtomBundle\Protocol\Parser\Item $item
      * @return boolean
      */
     public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item)
     {
-        if ($item->getUpdated() instanceof \DateTime)
-        {
+        if ($item->getUpdated() instanceof \DateTime) {
             return $item->getUpdated() > $this->getDate();
         }
 

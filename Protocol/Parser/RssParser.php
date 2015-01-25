@@ -32,7 +32,7 @@ class RssParser extends Parser
     }
 
     /**
-     * @param SimpleXMLElement $xmlBody
+     * @param  SimpleXMLElement $xmlBody
      * @return boolean
      */
     public function canHandle(SimpleXMLElement $xmlBody)
@@ -42,9 +42,9 @@ class RssParser extends Parser
 
     /**
      *
-     * @param SimpleXMLElement $xmlBody
-     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param array $filters
+     * @param  SimpleXMLElement                             $xmlBody
+     * @param  \Debril\RssAtomBundle\Protocol\FeedInterface $feed
+     * @param  array                                        $filters
      * @return \Debril\RssAtomBundle\Protocol\FeedInterface
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
@@ -58,11 +58,9 @@ class RssParser extends Parser
 
         $latest = new \DateTime('@0');
         $date = new \DateTime('now');
-        foreach ($xmlBody->channel->item as $xmlElement)
-        {
+        foreach ($xmlBody->channel->item as $xmlElement) {
             $item = $this->newItem();
-            if ( isset($xmlElement->pubDate) )
-            {
+            if ( isset($xmlElement->pubDate) ) {
                 $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
                 $date = self::convertToDateTime($xmlElement->pubDate, $format);
             }
@@ -74,8 +72,7 @@ class RssParser extends Parser
                  ->setComment($xmlElement->comments)
                  ->setAuthor($xmlElement->author);
 
-            if ($date > $latest)
-            {
+            if ($date > $latest) {
                 $latest = $date;
             }
 
@@ -91,7 +88,7 @@ class RssParser extends Parser
 
     /**
      * @param SimpleXMLElement $xmlBody
-     * @param FeedInterface $feed
+     * @param FeedInterface    $feed
      * @param $latestItemDate
      */
     protected function detectAndSetLastModified(SimpleXMLElement $xmlBody, FeedInterface $feed, $latestItemDate)
@@ -108,7 +105,7 @@ class RssParser extends Parser
     /**
      *
      * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param type $rssDate
+     * @param type                                         $rssDate
      */
     protected function setLastModified(FeedInterface $feed, $rssDate)
     {

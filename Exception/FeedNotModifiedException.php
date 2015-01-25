@@ -16,4 +16,3 @@ class FeedNotModifiedException extends \Exception
 {
 
 }
-

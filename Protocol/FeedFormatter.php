@@ -12,8 +12,6 @@
 
 namespace Debril\RssAtomBundle\Protocol;
 
-use Debril\RssAtomBundle\Protocol\FeedOut;
-
 abstract class FeedFormatter
 {
 
@@ -24,13 +22,13 @@ abstract class FeedFormatter
 
     /**
      *
-     * @param \DomDocument $element
+     * @param \DomDocument                           $element
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     abstract public function setMetas(\DomDocument $element, FeedOut $content);
 
     /**
-     * @param \DomDocument $document
+     * @param \DomDocument                           $document
      * @param \Debril\RssAtomBundle\Protocol\ItemOut $item
      */
     abstract protected function addEntry(\DomDocument $document, ItemOut $item);
@@ -61,14 +59,13 @@ abstract class FeedFormatter
     }
 
     /**
-     * @param \DomDocument $document
+     * @param \DomDocument                           $document
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     public function setEntries(\DomDocument $document, FeedOut $content)
     {
         $items = $content->getItems();
-        foreach ($items as $item)
-        {
+        foreach ($items as $item) {
             $this->addEntry($document, $item);
         }
     }

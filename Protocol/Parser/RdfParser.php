@@ -32,7 +32,7 @@ class RdfParser extends Parser
     }
 
     /**
-     * @param SimpleXMLElement $xmlBody
+     * @param  SimpleXMLElement $xmlBody
      * @return boolean
      */
     public function canHandle(SimpleXMLElement $xmlBody)
@@ -42,9 +42,9 @@ class RdfParser extends Parser
 
     /**
      *
-     * @param SimpleXMLElement $xmlBody
-     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param array $filters
+     * @param  SimpleXMLElement                             $xmlBody
+     * @param  \Debril\RssAtomBundle\Protocol\FeedInterface $feed
+     * @param  array                                        $filters
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
@@ -54,16 +54,14 @@ class RdfParser extends Parser
         $feed->setTitle($xmlBody->channel->title);
         $feed->setDescription($xmlBody->channel->description);
 
-        if (isset($xmlBody->channel->date))
-        {
+        if (isset($xmlBody->channel->date)) {
             $date = $xmlBody->channel->children('dc', true);
             $updated = self::convertToDateTime($date[0], $this->guessDateFormat($date[0]));
             $feed->setLastModified($updated);
         }
 
         $format = null;
-        foreach ($xmlBody->item as $xmlElement)
-        {
+        foreach ($xmlBody->item as $xmlElement) {
             $item = $this->newItem();
             $date = $xmlElement->children('dc', true);
             $format = !is_null($format) ? $format : $this->guessDateFormat($date[0]);

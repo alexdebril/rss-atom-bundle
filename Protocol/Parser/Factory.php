@@ -57,7 +57,7 @@ class Factory
 
     /**
      *
-     * @param string $feedClass
+     * @param  string                                        $feedClass
      * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
      */
     public function setFeedClass($feedClass)
@@ -66,12 +66,13 @@ class Factory
             throw new \Exception("{$feedClass} does not exist");
 
         $this->feedClass = $feedClass;
+
         return $this;
     }
 
     /**
      *
-     * @param string $itemClass
+     * @param  string                                        $itemClass
      * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
      */
     public function setItemClass($itemClass)
@@ -80,8 +81,8 @@ class Factory
             throw new \Exception("{$itemClass} does not exist");
 
         $this->itemClass = $itemClass;
+
         return $this;
     }
 
 }
-

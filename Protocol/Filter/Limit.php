@@ -25,13 +25,13 @@ class Limit implements \Debril\RssAtomBundle\Protocol\Filter
     /**
      * @param $limit
      */
-    function __construct($limit)
+    public function __construct($limit)
     {
         $this->limit = $limit;
     }
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\Parser\Item $item
+     * @param  \Debril\RssAtomBundle\Protocol\Parser\Item $item
      * @return boolean
      */
     public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item)

@@ -36,7 +36,7 @@ class AtomParser extends Parser
     }
 
     /**
-     * @param SimpleXMLElement $xmlBody
+     * @param  SimpleXMLElement $xmlBody
      * @return boolean
      */
     public function canHandle(SimpleXMLElement $xmlBody)
@@ -45,9 +45,9 @@ class AtomParser extends Parser
     }
 
     /**
-     * @param SimpleXMLElement $xmlBody
-     * @param FeedInterface $feed
-     * @param array $filters
+     * @param  SimpleXMLElement $xmlBody
+     * @param  FeedInterface    $feed
+     * @param  array            $filters
      * @return FeedInterface
      * @throws ParserException
      */
@@ -57,8 +57,7 @@ class AtomParser extends Parser
 
         $namespaces = $xmlBody->getNamespaces(true);
 
-        foreach ($xmlBody->entry as $xmlElement)
-        {
+        foreach ($xmlBody->entry as $xmlElement) {
             $itemFormat = isset($itemFormat) ? $itemFormat : $this->guessDateFormat($xmlElement->updated);
 
             $item = $this->newItem();
@@ -70,11 +69,9 @@ class AtomParser extends Parser
 
             $item->setLink($this->detectLink($xmlElement, 'alternate'));
 
-            if ($xmlElement->author)
-            {
+            if ($xmlElement->author) {
                 $item->setAuthor($xmlElement->author->name);
             }
-
 
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
@@ -85,8 +82,8 @@ class AtomParser extends Parser
     }
 
     /**
-     * @param SimpleXMLElement $xmlBody
-     * @param FeedInterface $feed
+     * @param  SimpleXMLElement $xmlBody
+     * @param  FeedInterface    $feed
      * @throws ParserException
      */
     protected function parseHeaders(SimpleXMLElement $xmlBody, FeedInterface $feed)
@@ -105,14 +102,12 @@ class AtomParser extends Parser
     /**
      *
      * @param SimpleXMLElement $xmlElement
-     * @param string $type
+     * @param string           $type
      */
     protected function detectLink(SimpleXMLElement $xmlElement, $type)
     {
-        foreach ($xmlElement->link as $xmlLink)
-        {
-            if ((string) $xmlLink['rel'] === $type)
-            {
+        foreach ($xmlElement->link as $xmlLink) {
+            if ((string) $xmlLink['rel'] === $type) {
                 return $xmlLink['href'];
             }
         }
@@ -123,13 +118,12 @@ class AtomParser extends Parser
 
     protected function parseContent(SimpleXMLElement $content)
     {
-        if (0 < $content->children()->count())
-        {
+        if (0 < $content->children()->count()) {
             $out = '';
-            foreach ($content->children() as $child)
-            {
+            foreach ($content->children() as $child) {
                 $out .= $child->asXML();
             }
+
             return $out;
         }
 
@@ -137,4 +131,3 @@ class AtomParser extends Parser
     }
 
 }
-
