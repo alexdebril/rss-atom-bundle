@@ -14,7 +14,6 @@ namespace Debril\RssAtomBundle\Provider;
 
 use \Symfony\Component\OptionsResolver\Options;
 use \Doctrine\Bundle\DoctrineBundle\Registry;
-use \Debril\RssAtomBundle\Provider\FeedContentProvider;
 use \Debril\RssAtomBundle\Exception\FeedNotFoundException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -53,7 +52,7 @@ class DoctrineFeedContentProvider implements FeedContentProvider
 
     /**
      * Sets the doctrine's repository name
-     * @param string $repositoryName
+     * @param  string                                                     $repositoryName
      * @return \Debril\RssAtomBundle\Provider\DoctrineFeedContentProvider
      */
     public function setRepositoryName($repositoryName)
@@ -64,7 +63,7 @@ class DoctrineFeedContentProvider implements FeedContentProvider
     }
 
     /**
-     * @param array $options
+     * @param  array                                  $options
      * @return \Debril\RssAtomBundle\Protocol\FeedOut
      * @throws FeedNotFoundException
      */
@@ -93,7 +92,7 @@ class DoctrineFeedContentProvider implements FeedContentProvider
     }
 
     /**
-     * @param array $options
+     * @param  array $options
      * @return mixed
      */
     public function getIdFromOptions(array $options)
@@ -102,8 +101,8 @@ class DoctrineFeedContentProvider implements FeedContentProvider
         $optionsResolver->setRequired('id');
 
         $options = $optionsResolver->resolve($options);
+
         return $options['id'];
     }
 
 }
-
