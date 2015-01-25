@@ -19,7 +19,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new MockProvider;
+        $this->object = new MockProvider();
     }
 
     /**
@@ -36,7 +36,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetContent()
     {
-        $options = new \Symfony\Component\OptionsResolver\Options;
+        $options = new \Symfony\Component\OptionsResolver\Options();
 
         $options->set('id', 1);
         $feed = $this->object->getFeedContent($options);
@@ -50,7 +50,7 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGet404()
     {
-        $options = new \Symfony\Component\OptionsResolver\Options;
+        $options = new \Symfony\Component\OptionsResolver\Options();
 
         $options->set('id', 'not-found');
         $this->object->getFeedContent($options);

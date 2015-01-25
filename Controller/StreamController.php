@@ -51,15 +51,12 @@ class StreamController extends Controller
      */
     public function getModifiedSince()
     {
-        if (is_null($this->since))
-        {
-            if ($this->getRequest()->headers->has('If-Modified-Since'))
-            {
+        if (is_null($this->since)) {
+            if ($this->getRequest()->headers->has('If-Modified-Since')) {
                 $string = $this->getRequest()->headers->get('If-Modified-Since');
                 $this->since = \DateTime::createFromFormat(\DateTime::RSS, $string);
-            } else
-            {
-                $this->since = new \DateTime;
+            } else {
+                $this->since = new \DateTime();
                 $this->since->setTimestamp(1);
             }
         }
@@ -72,15 +69,14 @@ class StreamController extends Controller
      * 200 : a full body containing the stream
      * 304 : Not modified
      *
-     * @param \Symfony\Component\OptionsResolver\Options $options
+     * @param  \Symfony\Component\OptionsResolver\Options $options
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function createStreamResponse(Options $options, $format, $source = self::DEFAULT_SOURCE)
     {
         $content = $this->getContent($options, $source);
 
-        if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince())
-        {
+        if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
             $formatter = $this->getFormatter($format);
             $response = new Response($formatter->toString($content));
             $response->headers->set('Content-Type', 'application/xhtml+xml');
@@ -88,9 +84,8 @@ class StreamController extends Controller
             $response->setPublic();
             $response->setMaxAge(3600);
             $response->setLastModified($content->getLastModified());
-        } else
-        {
-            $response = new Response;
+        } else {
+            $response = new Response();
             $response->setNotModified();
         }
 
@@ -102,8 +97,8 @@ class StreamController extends Controller
      * The FeedContentProvider instance is provided as a service
      * default : debril.provider.service
      *
-     * @param \Symfony\Component\OptionsResolver\Options $options
-     * @param string $source
+     * @param  \Symfony\Component\OptionsResolver\Options $options
+     * @param  string                                     $source
      * @return \Debril\RssAtomBundle\Protocol\FeedOut
      * @throws \Exception
      */
@@ -111,16 +106,13 @@ class StreamController extends Controller
     {
         $provider = $this->get($source);
 
-        if (!$provider instanceof FeedContentProvider)
-        {
+        if (!$provider instanceof FeedContentProvider) {
             throw new \Exception('Provider is not a FeedContentProvider instance');
         }
 
-        try
-        {
+        try {
             return $provider->getFeedContent($options);
-        } catch (FeedNotFoundException $e)
-        {
+        } catch (FeedNotFoundException $e) {
             throw $this->createNotFoundException('feed not found');
         }
     }
@@ -128,12 +120,12 @@ class StreamController extends Controller
     /**
      * Build an Options object using parameters coming from the route
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
      * @return \Symfony\Component\OptionsResolver\Options
      */
     protected function buildOptions(Request $request)
     {
-        $options = new Options;
+        $options = new Options();
         $routeParams = $request->attributes->get('_route_params');
         foreach ($routeParams as $key => $value)
             $options->set($key, $value);
@@ -157,7 +149,7 @@ class StreamController extends Controller
     /**
      * Get the accurate formatter
      *
-     * @param  string $format
+     * @param  string                                       $format
      * @throws \Exception
      * @return \Debril\RssAtomBundle\Protocol\FeedFormatter
      */

@@ -55,4 +55,3 @@ class StreamControllerTest extends WebTestCase
     }
 
 }
-

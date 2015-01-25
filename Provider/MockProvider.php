@@ -24,34 +24,34 @@ class MockProvider implements FeedContentProvider
 
     /**
      *
-     * @param \Symfony\Component\OptionsResolver\Options $options
+     * @param  \Symfony\Component\OptionsResolver\Options           $options
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      * @throws \Debril\RssAtomBundle\Protocol\FeedNotFoundException
      */
     public function getFeedContent(Options $options)
     {
-        $content = new FeedContent;
+        $content = new FeedContent();
 
         $id = $options->get('id');
 
         if ($id === 'not-found')
-            throw new FeedNotFoundException;
+            throw new FeedNotFoundException();
 
         $content->setPublicId($id);
 
         $content->setTitle('thank you for using RssAtomBundle');
         $content->setDescription('this is the mock FeedContent');
         $content->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/');
-        $content->setLastModified(new \DateTime);
+        $content->setLastModified(new \DateTime());
 
-        $item = new Item;
+        $item = new Item();
 
         $item->setPublicId('1');
         $item->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/somelink');
         $item->setTitle('This is an item');
         $item->setSummary('this stream was generated using the MockProvider class');
         $item->setDescription('lorem ipsum ....');
-        $item->setUpdated(new \DateTime);
+        $item->setUpdated(new \DateTime());
         $item->setComment('http://example.com/comments');
 
         $item->setAuthor('Contributor');
@@ -62,4 +62,3 @@ class MockProvider implements FeedContentProvider
     }
 
 }
-
