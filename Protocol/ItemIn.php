@@ -14,6 +14,9 @@ namespace Debril\RssAtomBundle\Protocol;
 
 /**
  * interface used to represent incoming items
+ * Interface ItemIn
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Protocol
  */
 interface ItemIn
 {

@@ -10,6 +10,11 @@
  */
 namespace Debril\RssAtomBundle\Driver;
 
+/**
+ * Class FileDriver
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Driver
+ */
 class FileDriver implements HttpDriver
 {
 
