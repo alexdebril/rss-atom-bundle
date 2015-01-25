@@ -16,6 +16,7 @@ use \Symfony\Component\OptionsResolver\Options;
 use \Doctrine\Bundle\DoctrineBundle\Registry;
 use \Debril\RssAtomBundle\Provider\FeedContentProvider;
 use \Debril\RssAtomBundle\Exception\FeedNotFoundException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @codeCoverageIgnore
@@ -63,17 +64,17 @@ class DoctrineFeedContentProvider implements FeedContentProvider
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\Options $options
+     * @param array $options
      * @return \Debril\RssAtomBundle\Protocol\FeedOut
      * @throws FeedNotFoundException
      */
-    public function getFeedContent(Options $options)
+    public function getFeedContent(array $options)
     {
         // fetch feed from data repository
         $feed = $this->getDoctrine()
                 ->getManager()
                 ->getRepository($this->getRepositoryName())
-                ->findOneById($options->get('id'));
+                ->findOneById($this->getIdFromOptions($options));
 
         // if the feed is an actual FeedOut instance, then return it
         if ($feed instanceof \Debril\RssAtomBundle\Protocol\FeedOut)
@@ -89,6 +90,19 @@ class DoctrineFeedContentProvider implements FeedContentProvider
     public function getDoctrine()
     {
         return $this->doctrine;
+    }
+
+    /**
+     * @param array $options
+     * @return mixed
+     */
+    public function getIdFromOptions(array $options)
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setRequired('id');
+
+        $options = $optionsResolver->resolve($options);
+        return $options['id'];
     }
 
 }

@@ -14,15 +14,13 @@
 
 namespace Debril\RssAtomBundle\Provider;
 
-use \Symfony\Component\OptionsResolver\Options;
-
 interface FeedContentProvider
 {
 
     /**
-     * @param  \Symfony\Component\OptionsResolver\Options $options
+     * @param  array $options
      * @throws \Debril\RssAtomBundle\Exception\FeedNotFoundException
      * @return \Debril\RssAtomBundle\Protocol\FeedOut
      */
-    public function getFeedContent(Options $options);
+    public function getFeedContent(array $options);
 }
