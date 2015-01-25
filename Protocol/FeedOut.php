@@ -15,6 +15,11 @@ namespace Debril\RssAtomBundle\Protocol;
 /**
  * Interface used to send a RSS/ATOM stream to Formatter classes
  */
+/**
+ * Interface FeedOut
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Protocol
+ */
 interface FeedOut
 {
 

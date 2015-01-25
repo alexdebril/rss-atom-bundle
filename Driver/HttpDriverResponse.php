@@ -12,6 +12,11 @@
 
 namespace Debril\RssAtomBundle\Driver;
 
+/**
+ * Class HttpDriverResponse
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Driver
+ */
 class HttpDriverResponse
 {
 

@@ -11,6 +11,11 @@
 namespace Debril\RssAtomBundle\Driver;
 use \DateTime;
 
+/**
+ * Interface HttpDriver
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Driver
+ */
 interface HttpDriver
 {
 

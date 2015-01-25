@@ -12,6 +12,11 @@
 
 namespace Debril\RssAtomBundle\Exception;
 
+/**
+ * Class FeedCannotBeReadException
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Exception
+ */
 class FeedCannotBeReadException extends \Exception
 {
     //put your code here

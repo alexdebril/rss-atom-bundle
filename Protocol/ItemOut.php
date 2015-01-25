@@ -15,6 +15,11 @@ namespace Debril\RssAtomBundle\Protocol;
 /**
  * Item sent to Formatter classes
  */
+/**
+ * Interface ItemOut
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Protocol
+ */
 interface ItemOut
 {
 

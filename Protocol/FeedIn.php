@@ -15,6 +15,11 @@ namespace Debril\RssAtomBundle\Protocol;
 /**
  * interface used when reading an external feed
  */
+/**
+ * Interface FeedIn
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Protocol
+ */
 interface FeedIn
 {
 

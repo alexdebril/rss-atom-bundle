@@ -18,7 +18,9 @@ use Debril\RssAtomBundle\Protocol\Parser\ParserException;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
 
 /**
- * Parser
+ * Class Parser
+ * @deprecated will be removed in version 2.0
+ * @package Debril\RssAtomBundle\Protocol
  */
 abstract class Parser
 {
