@@ -49,7 +49,7 @@ class StreamController extends Controller
      * Extract the 'If-Modified-Since' value from the headers
      * @return \DateTime
      */
-    public function getModifiedSince()
+    protected function getModifiedSince()
     {
         if (is_null($this->since)) {
             if ($this->getRequest()->headers->has('If-Modified-Since')) {
@@ -75,7 +75,7 @@ class StreamController extends Controller
      * @return Response
      * @throws \Exception
      */
-    public function createStreamResponse(array $options, $format, $source = self::DEFAULT_SOURCE)
+    protected function createStreamResponse(array $options, $format, $source = self::DEFAULT_SOURCE)
     {
         $content = $this->getContent($options, $source);
 
