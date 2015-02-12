@@ -197,7 +197,6 @@ class FeedReader
 
     /**
      * Parse the body of a feed and write it into the FeedIn instance
-     * @todo convert the last argument into an array of filters
      * @param  \Debril\RssAtomBundle\Driver\HttpDriverResponse $response
      * @param  \Debril\RssAtomBundle\Protocol\FeedIn           $feed
      * @return FeedIn
