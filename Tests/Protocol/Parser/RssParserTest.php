@@ -82,10 +82,13 @@ class RssParserTest extends ParserAbstract
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertInternalType('string', $feed->getLink());
+        $this->assertInternalType('string', $feed->getTitle());
         $this->assertNotNull($feed->getLink());
         $this->assertNotNull($feed->getTitle());
 
         $item = current($feed->getItems());
+        $this->assertInternalType('string', $item->getAuthor());
         $this->assertEquals('John Doe', $item->getAuthor());
     }
 

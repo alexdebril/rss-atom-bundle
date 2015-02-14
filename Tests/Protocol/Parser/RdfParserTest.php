@@ -82,6 +82,9 @@ class RdfParserTest extends ParserAbstract
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertInternalType("string", $feed->getLink());
+        $this->assertInternalType("string", $feed->getDescription());
+        $this->assertInternalType("string", $feed->getTitle());
         $this->assertNotNull($feed->getLink());
         $this->assertNotNull($feed->getTitle());
     }
