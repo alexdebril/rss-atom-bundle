@@ -103,7 +103,7 @@ class Item implements ItemIn, ItemOut
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = (string) $title;
 
         return $this;
     }
@@ -126,7 +126,7 @@ class Item implements ItemIn, ItemOut
      */
     public function setPublicId($publicId)
     {
-        $this->publicId = $publicId;
+        $this->publicId = (string) $publicId;
 
         return $this;
     }
@@ -149,7 +149,7 @@ class Item implements ItemIn, ItemOut
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = (string) $description;
 
         return $this;
     }
@@ -170,7 +170,7 @@ class Item implements ItemIn, ItemOut
      */
     public function setSummary($summary)
     {
-        $this->summary = $summary;
+        $this->summary = (string) $summary;
 
         return $this;
     }
@@ -216,7 +216,7 @@ class Item implements ItemIn, ItemOut
      */
     public function setLink($link)
     {
-        $this->link = $link;
+        $this->link = (string) $link;
 
         return $this;
     }
@@ -239,7 +239,7 @@ class Item implements ItemIn, ItemOut
      */
     public function setAuthor($author)
     {
-        $this->author = $author;
+        $this->author = (string) $author;
 
         return $this;
     }
@@ -260,7 +260,7 @@ class Item implements ItemIn, ItemOut
      */
     public function setComment($comment)
     {
-        $this->comment = $comment;
+        $this->comment = (string) $comment;
 
         return $this;
     }

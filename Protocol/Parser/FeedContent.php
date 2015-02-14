@@ -132,7 +132,7 @@ class FeedContent implements FeedInterface
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = (string) $title;
 
         return $this;
     }
@@ -155,7 +155,7 @@ class FeedContent implements FeedInterface
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = (string) $description;
 
         return $this;
     }
@@ -178,7 +178,7 @@ class FeedContent implements FeedInterface
      */
     public function setLink($link)
     {
-        $this->link = $link;
+        $this->link = (string) $link;
 
         return $this;
     }
@@ -201,7 +201,7 @@ class FeedContent implements FeedInterface
      */
     public function setPublicId($id)
     {
-        $this->publicId = $id;
+        $this->publicId = (string) $id;
 
         return $this;
     }

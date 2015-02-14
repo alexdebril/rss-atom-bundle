@@ -90,10 +90,13 @@ class AtomParserTest extends ParserAbstract
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
         $this->assertNotNull($feed->getLink());
         $this->assertInternalType("string", $feed->getLink());
+        $this->assertInternalType("string", $feed->getDescription());
+        $this->assertInternalType("string", $feed->getTitle());
         $this->assertNotNull($feed->getDescription());
         $this->assertNotNull($feed->getTitle());
 
         $item = current($feed->getItems());
+        $this->assertInternalType('string', $item->getAuthor());
         $this->assertEquals('John Doe', $item->getAuthor());
     }
 
