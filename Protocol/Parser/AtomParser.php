@@ -68,7 +68,7 @@ class AtomParser extends Parser
             $item = $this->newItem();
             $item->setTitle($xmlElement->title)
                     ->setPublicId($xmlElement->id)
-                    ->setSummary($xmlElement->summary)
+                    ->setSummary($this->parseContent($xmlElement->summary))
                     ->setDescription($this->parseContent($xmlElement->content))
                     ->setUpdated(self::convertToDateTime($xmlElement->updated, $itemFormat));
 
@@ -123,7 +123,7 @@ class AtomParser extends Parser
 
     protected function parseContent(SimpleXMLElement $content)
     {
-        if (0 < $content->children()->count()) {
+        if ($content && 0 < $content->children()->count()) {
             $out = '';
             foreach ($content->children() as $child) {
                 $out .= $child->asXML();

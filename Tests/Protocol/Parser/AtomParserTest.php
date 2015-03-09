@@ -142,4 +142,23 @@ class AtomParserTest extends ParserAbstract
         $this->assertTrue(strlen($item->getDescription()) > 0);
     }
 
+    /**
+     *
+     */
+    public function testHtmlSummary()
+    {
+        $file = dirname(__FILE__) . '/../../../Resources/sample-atom-summary.xml';
+        $xmlBody = new \SimpleXMLElement(file_get_contents($file));
+
+        $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
+        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
+
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $item = current($feed->getItems());
+
+        $expected = '<div xmlns="http://www.w3.org/1999/xhtml"><p>sample text</p></div>';
+        $this->assertEquals($expected, $item->getSummary());
+    }
+
 }

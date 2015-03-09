@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Some Blog</title>
+    <updated>2015-03-08T16:46:32Z</updated>
+    <author>
+        <name>Some Name</name>
+        <email>email@example.com</email>
+    </author>
+    <id>http://example.com/atom.xml</id>
+    <link href="http://example.com/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://example.com/" rel="alternate"/>
+
+    <entry>
+        <id>http://example.com/some-posting/</id>
+        <link href="http://example.com/some-posting/" rel="alternate" type="text/html"/>
+        <title>Awesome Title</title>
+        <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>sample text</p></div></summary>
+        <updated>2015-03-01T08:00:00Z</updated>
+        <author>
+            <name>John Doe</name>
+            <email>johndoe@example.com</email>
+            <uri>http://johndoe.com</uri>
+        </author>
+    </entry>
+</feed>
