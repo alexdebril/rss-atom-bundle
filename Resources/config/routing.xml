@@ -4,24 +4,24 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="feed_stream" pattern="/stream/{id}">
+    <route id="feed_stream" path="/stream/{id}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="id">null</default>
     </route>
 
-    <route id="feed_atom" pattern="/atom/{id}">
+    <route id="feed_atom" path="/atom/{id}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="format">atom</default>
         <default key="id">null</default>
     </route>
 
-    <route id="feed_rss" pattern="/rss/{id}">
+    <route id="feed_rss" path="/rss/{id}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="format">rss</default>
         <default key="id">null</default>
     </route>
 
-    <route id="mock_feed_rss" pattern="/mock/rss/{id}">
+    <route id="mock_feed_rss" path="/mock/rss/{id}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="format">rss</default>
         <default key="source">debril.provider.mock</default>
