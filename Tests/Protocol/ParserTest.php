@@ -23,6 +23,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        date_default_timezone_set('Europe/Paris');
         $this->object = new AtomParser();
     }
 
