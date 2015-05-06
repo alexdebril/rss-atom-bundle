@@ -86,6 +86,16 @@ class Item implements ItemIn, ItemOut
     protected $additional;
 
     /**
+     * @var ArrayIterator
+     */
+    protected $medias;
+
+    public function __construct()
+    {
+        $this->medias = new \ArrayIterator;
+    }
+
+    /**
      * Atom : feed.entry.title <feed><entry><title>
      * Rss  : rss.channel.item.title <rss><channel><item><title>
      * @return string
@@ -285,6 +295,25 @@ class Item implements ItemIn, ItemOut
     public function getAdditional()
     {
         return $this->additional;
+    }
+
+    /**
+     * @param Media $media
+     * @return $this
+     */
+    public function addMedia(Media $media)
+    {
+        $this->medias->append($media);
+    
+        return $this;
+    }
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getMedias()
+    {
+        return $this->medias;
     }
 
 }

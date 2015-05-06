@@ -77,4 +77,10 @@ interface ItemOut
      * @return string
      */
     public function getComment();
+    
+    /**
+     * Rss  : rss.channel.item.enclosure <rss><channel><item><enclosure>
+     * @return \ArrayIterator $medias
+     */
+    public function getMedias();
 }
