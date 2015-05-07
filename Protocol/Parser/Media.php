@@ -12,7 +12,9 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
-
+/**
+ * class Media
+ */
 class Media
 {
     
