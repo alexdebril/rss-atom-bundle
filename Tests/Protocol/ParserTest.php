@@ -109,4 +109,29 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $feed->getItemsCount());
     }
 
+    public function testGetAttributeValue()
+    {
+        $xml = new \SimpleXmlElement('<root />');
+        $xml->addAttribute('foo', 'bar');
+        
+        $this->assertNull($this->object->getAttributeValue($xml, 'href'));
+        
+        $this->assertEquals('bar', $this->object->getAttributeValue($xml, 'foo'));
+    }
+
+    public function testCreateMedia()
+    {
+        $xml = new \SimpleXmlElement('<enclosure />');
+        $xml->addAttribute('href', 'http://localhost/');
+        $xml->addAttribute('type', 'audio/mpeg');
+        $xml->addAttribute('lenght', '456');
+        
+        $media = $this->object->createMedia($xml);
+        $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Media', $media);
+        
+        $this->assertEquals('http://localhost/', $media->getUrl());
+        $this->assertEquals('audio/mpeg', $media->getType());
+        $this->assertEquals('456', $media->getLenght());
+    }
+
 }

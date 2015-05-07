@@ -16,6 +16,7 @@ use \SimpleXMLElement;
 use \DateTime;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
+use Debril\RssAtomBundle\Protocol\Parser\Media;
 
 /**
  * Class Parser
@@ -24,6 +25,8 @@ use Debril\RssAtomBundle\Protocol\Parser\Factory;
  */
 abstract class Parser
 {
+
+    const MEDIA_LINK_ATTIBUTE = 'href';
 
     /**
      * System's time zone
@@ -283,6 +286,37 @@ abstract class Parser
     }
 
     /**
+     * @param \SimpleXMLElement $element
+     * @param string $attributeName
+     * @return string|null
+     */
+    public function getAttributeValue(SimpleXMLElement $element, $attributeName)
+    {
+        $attributes = $element[0]->attributes();
+        foreach ( $attributes as $name => $value ) {
+            if ( strcasecmp($name, $attributeName) === 0 ) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param SimpleXMLElement $element
+     * @return Media
+     */
+    public function createMedia(SimpleXMLElement $element)
+    {
+        $media = new Media;
+        $media->setUrl($this->getAttributeValue($element, static::MEDIA_LINK_ATTIBUTE))
+              ->setType($this->getAttributeValue($element, 'type'))
+              ->setLenght($this->getAttributeValue($element, 'lenght'));
+    
+        return $media;
+    }
+
+    /**
      * Tells if the parser can handle the feed or not
      *
      * @param  SimpleXMLElement $xmlBody
@@ -299,4 +333,13 @@ abstract class Parser
      * @return FeedIn
      */
     abstract protected function parseBody(SimpleXMLElement $body, FeedInterface $feed, array $filters);
+    
+    /**
+     * Handles enclosures if any
+     *
+     * @param  SimpleXMLElement $element
+     * @param  ItemIn           $item
+     * @return $this
+     */
+    abstract protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item);
 }

@@ -13,6 +13,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
+use Debril\RssAtomBundle\Protocol\ItemIn;
 use Debril\RssAtomBundle\Protocol\Parser;
 use \SimpleXMLElement;
 
@@ -82,4 +83,15 @@ class RdfParser extends Parser
         return $feed;
     }
 
+    /**
+     * RDF format doesn't support enclosures
+     *
+     * @param  SimpleXMLElement $element
+     * @param  ItemIn    $item
+     * @return $this
+     */
+    protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
+    {
+        return $this;
+    }
 }

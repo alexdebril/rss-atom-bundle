@@ -98,6 +98,15 @@ class AtomParserTest extends ParserAbstract
         $item = current($feed->getItems());
         $this->assertInternalType('string', $item->getAuthor());
         $this->assertEquals('John Doe', $item->getAuthor());
+        
+        $medias = $item->getMedias();
+        $count = 0;
+        foreach ( $medias as $media ) {
+            $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser\Media', $media);
+            $count++;
+        }
+        
+        $this->assertEquals(1, $count);
     }
 
     /**
