@@ -134,7 +134,7 @@ class FeedReader
     }
 
     /**
-     * @param $url
+     * @param string $url
      * @param  array     $filters
      * @param  \DateTime $modifiedSince
      * @return FeedIn
