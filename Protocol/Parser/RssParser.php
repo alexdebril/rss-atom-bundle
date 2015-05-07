@@ -13,6 +13,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
+use Debril\RssAtomBundle\Protocol\ItemIn;
 use Debril\RssAtomBundle\Protocol\Parser;
 use \SimpleXMLElement;
 
@@ -27,7 +28,9 @@ class RssParser extends Parser
     protected $mandatoryFields = array(
         'channel',
     );
-
+    
+    const MEDIA_LINK_ATTIBUTE = 'link';
+    
     /**
      *
      */
@@ -83,6 +86,8 @@ class RssParser extends Parser
 
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
+            $this->handleEnclosure($xmlElement, $item);
+
             $this->addValidItem($feed, $item, $filters);
         }
 
@@ -117,6 +122,23 @@ class RssParser extends Parser
         $format = $this->guessDateFormat($rssDate);
         $updated = self::convertToDateTime($rssDate, $format);
         $feed->setLastModified($updated);
+    }
+        
+    /**
+     * Handles enclosures if any
+     *
+     * @param  SimpleXMLElement $element
+     * @param  ItemIn           $item
+     * @return $this
+     */
+    protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
+    {
+        if ( isset ($element->enclosure) ) {
+            $media = $this->createMedia($element->enclosure);
+            $item->addMedia($media);
+        }
+    
+        return $this;
     }
 
 }

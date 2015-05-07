@@ -12,6 +12,8 @@
 
 namespace Debril\RssAtomBundle\Protocol;
 
+use Debril\RssAtomBundle\Protocol\Parser\Media;
+
 /**
  * interface used to represent incoming items
  * Interface ItemIn
@@ -74,4 +76,10 @@ interface ItemIn
      * @param string $comment
      */
     public function setComment($comment);
+    
+    /**
+     * Rss  : rss.channel.item.enclosure <rss><channel><item><enclosure>
+     * @param Media $media
+     */
+    public function addMedia(Media $media);
 }

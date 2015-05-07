@@ -13,6 +13,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
+use Debril\RssAtomBundle\Protocol\ItemIn;
 use Debril\RssAtomBundle\Protocol\Parser;
 use \SimpleXMLElement;
 
@@ -79,7 +80,8 @@ class AtomParser extends Parser
             }
 
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
-
+            $this->handleEnclosure($xmlElement, $item);
+            
             $this->addValidItem($feed, $item, $filters);
         }
 
@@ -133,6 +135,25 @@ class AtomParser extends Parser
         }
 
         return $content;
+    }
+
+    /**
+     * Handles enclosures if any
+     *
+     * @param  SimpleXMLElement $element
+     * @param  ItemIn           $item
+     * @return $this
+     */
+    protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
+    {
+        foreach ( $element->link as $link ) {
+            if ( strcasecmp ($this->getAttributeValue($link, 'rel'), 'enclosure') === 0 ) {
+                $media = $this->createMedia($link);
+                $item->addMedia($media);
+            }
+        }
+    
+        return $this;
     }
 
 }

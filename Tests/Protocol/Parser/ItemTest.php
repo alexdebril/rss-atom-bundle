@@ -205,4 +205,29 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($id, $this->object->getPublicId());
     }
 
+    public function testAddMedia()
+    {
+        $media = new Media;
+        $media->setType('audio/mpeg');
+        
+        $this->object->addMedia($media);
+        $this->assertAttributeContainsOnly($media, 'medias', $this->object);
+    }
+    
+    public function testGetMedias()
+    {
+        $this->object->addMedia(new Media);
+        $iterator = $this->object->getMedias();
+        
+        $this->assertInstanceOf('\ArrayIterator', $iterator);
+        $count = 0;
+        
+        foreach ( $iterator as $media ) {
+            $count++;
+            $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Media', $media);
+        }
+        
+        $this->assertEquals(1, $count);
+    }
+
 }
