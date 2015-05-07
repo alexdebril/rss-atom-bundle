@@ -1,17 +1,19 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: alex
- * Date: 03/01/14
- * Time: 09:30
+ * Rss/Atom Bundle for Symfony 2
+ *
+ * @package RssAtomBundle\Protocol
+ *
+ * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
+ * @copyright (c) 2013, Alexandre Debril
+ *
  */
 
 namespace Debril\RssAtomBundle\Protocol\Filter;
 
 /**
  * Class Limit
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol\Filter
  */
 class Limit implements \Debril\RssAtomBundle\Protocol\Filter

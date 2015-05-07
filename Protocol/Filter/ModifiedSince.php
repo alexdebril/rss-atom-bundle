@@ -14,7 +14,6 @@ namespace Debril\RssAtomBundle\Protocol\Filter;
 
 /**
  * Class ModifiedSince
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol\Filter
  */
 class ModifiedSince implements \Debril\RssAtomBundle\Protocol\Filter

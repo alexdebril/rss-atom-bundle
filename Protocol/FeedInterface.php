@@ -16,6 +16,5 @@ namespace Debril\RssAtomBundle\Protocol;
  * Transitional interface which deprecates FeedIn and FeedOut
  * Interface FeedInterface
  * @package Debril\RssAtomBundle\Protocol
- * @deprecated will be removed in version 2.0
  */
 interface FeedInterface extends FeedIn, FeedOut { }

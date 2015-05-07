@@ -18,7 +18,6 @@ use \Debril\RssAtomBundle\Protocol\ItemOut;
 
 /**
  * Class Item
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol\Parser
  */
 class Item implements ItemIn, ItemOut

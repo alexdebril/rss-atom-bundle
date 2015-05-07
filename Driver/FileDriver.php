@@ -12,7 +12,6 @@ namespace Debril\RssAtomBundle\Driver;
 
 /**
  * Class FileDriver
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Driver
  */
 class FileDriver implements HttpDriver
@@ -20,8 +19,8 @@ class FileDriver implements HttpDriver
 
     /**
      *
-     * @param  string                                          $url
-     * @param  \DateTime                                       $lastModified
+     * @param  string       $url
+     * @param  \DateTime    $lastModified
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      * @throws DriverUnreachableResourceException
      */

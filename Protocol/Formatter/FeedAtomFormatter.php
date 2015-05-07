@@ -18,7 +18,6 @@ use Debril\RssAtomBundle\Protocol\ItemOut;
 
 /**
  * Class FeedAtomFormatter
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol\Formatter
  */
 class FeedAtomFormatter extends FeedFormatter

@@ -14,7 +14,6 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
 
 /**
  * Class Factory
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol\Parser
  */
 class Factory

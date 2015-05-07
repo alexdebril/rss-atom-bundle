@@ -40,7 +40,6 @@ use \Debril\RssAtomBundle\Protocol\ItemIn;
 
 /**
  * Class FeedContent
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol\Parser
  */
 class FeedContent implements FeedInterface

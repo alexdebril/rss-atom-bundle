@@ -14,7 +14,6 @@ namespace Debril\RssAtomBundle\Protocol;
 
 /**
  * Class FeedFormatter
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol
  */
 abstract class FeedFormatter

@@ -14,7 +14,6 @@ namespace Debril\RssAtomBundle\Exception;
 
 /**
  * Class FeedNotFoundException
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Exception
  */
 class FeedNotFoundException extends \Exception

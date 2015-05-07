@@ -20,7 +20,6 @@ use Debril\RssAtomBundle\Protocol\Parser\Media;
 
 /**
  * Class Parser
- * @deprecated will be removed in version 2.0
  * @package Debril\RssAtomBundle\Protocol
  */
 abstract class Parser
