@@ -10,7 +10,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
-use Debril\RssAtomBundle\Protocol\ItemIn;
+use Debril\RssAtomBundle\Protocol\ItemInInterface;
 
 /**
  * A full Feed's content representation, containing both the headers of the feed
@@ -246,11 +246,11 @@ class FeedContent implements FeedInterface
      * Atom : feed.entry <feed><entry>
      * Rss  : rss.channel.item <rss><channel><item>.
      *
-     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
+     * @param \Debril\RssAtomBundle\Protocol\ItemInInterface $item
      *
      * @return FeedContent
      */
-    public function addItem(ItemIn $item)
+    public function addItem(ItemInInterface $item)
     {
         $this->items[] = $item;
 

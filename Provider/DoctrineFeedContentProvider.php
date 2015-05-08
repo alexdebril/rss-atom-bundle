@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @codeCoverageIgnore
  */
-class DoctrineFeedContentProvider implements FeedContentProvider
+class DoctrineFeedContentProvider implements FeedContentProviderInterface
 {
     /**
      * @var \Doctrine\Bundle\DoctrineBundle\Registry
@@ -63,7 +63,7 @@ class DoctrineFeedContentProvider implements FeedContentProvider
     /**
      * @param array $options
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedOut
+     * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
      *
      * @throws FeedNotFoundException
      */
@@ -75,8 +75,8 @@ class DoctrineFeedContentProvider implements FeedContentProvider
                 ->getRepository($this->getRepositoryName())
                 ->findOneById($this->getIdFromOptions($options));
 
-        // if the feed is an actual FeedOut instance, then return it
-        if ($feed instanceof \Debril\RssAtomBundle\Protocol\FeedOut) {
+        // if the feed is an actual FeedOutInterface instance, then return it
+        if ($feed instanceof \Debril\RssAtomBundle\Protocol\FeedOutInterface) {
             return $feed;
         }
 

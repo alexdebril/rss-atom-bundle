@@ -75,7 +75,7 @@ class RssParserTest extends ParserAbstract
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
@@ -113,7 +113,7 @@ class RssParserTest extends ParserAbstract
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
@@ -133,7 +133,7 @@ class RssParserTest extends ParserAbstract
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 

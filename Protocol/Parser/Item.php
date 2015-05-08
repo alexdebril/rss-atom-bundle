@@ -10,13 +10,13 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use DateTime;
-use Debril\RssAtomBundle\Protocol\ItemIn;
-use Debril\RssAtomBundle\Protocol\ItemOut;
+use Debril\RssAtomBundle\Protocol\ItemInInterface;
+use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class Item.
  */
-class Item implements ItemIn, ItemOut
+class Item implements ItemInInterface, ItemOutInterface
 {
     /**
      * Atom : feed.entry.title <feed><entry><title>

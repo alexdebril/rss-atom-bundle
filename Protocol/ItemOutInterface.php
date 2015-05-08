@@ -13,9 +13,9 @@ namespace Debril\RssAtomBundle\Protocol;
  * Item sent to Formatter classes.
  */
 /**
- * Interface ItemOut.
+ * Interface ItemOutInterface.
  */
-interface ItemOut
+interface ItemOutInterface
 {
     /**
      * Atom : feed.entry.title <feed><entry><title>

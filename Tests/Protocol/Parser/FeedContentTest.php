@@ -178,7 +178,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $item = current($items);
 
         $this->assertInternalType('array', $items);
-        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\ItemIn', $item);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\ItemInInterface', $item);
     }
 
     /**

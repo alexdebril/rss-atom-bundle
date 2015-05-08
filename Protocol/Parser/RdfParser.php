@@ -10,7 +10,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
-use Debril\RssAtomBundle\Protocol\ItemIn;
+use Debril\RssAtomBundle\Protocol\ItemInInterface;
 use Debril\RssAtomBundle\Protocol\Parser;
 use SimpleXMLElement;
 
@@ -46,7 +46,7 @@ class RdfParser extends Parser
      * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
      * @param array                                        $filters
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedIn
+     * @return \Debril\RssAtomBundle\Protocol\FeedInInterface
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
     {
@@ -82,11 +82,11 @@ class RdfParser extends Parser
      * RDF format doesn't support enclosures.
      *
      * @param SimpleXMLElement $element
-     * @param ItemIn           $item
+     * @param ItemInInterface           $item
      *
      * @return $this
      */
-    protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
+    protected function handleEnclosure(SimpleXMLElement $element, ItemInInterface $item)
     {
         return $this;
     }

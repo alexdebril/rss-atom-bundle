@@ -82,7 +82,7 @@ class AtomParserTest extends ParserAbstract
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getId() should not return an empty value');
         $this->assertGreaterThan(0, $feed->getItemsCount());
@@ -144,7 +144,7 @@ class AtomParserTest extends ParserAbstract
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
         $item = current($feed->getItems());
 
         $this->assertTrue(strlen($item->getDescription()) > 0);
@@ -162,7 +162,7 @@ class AtomParserTest extends ParserAbstract
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
         $item = current($feed->getItems());
 
         $expected = '<div xmlns="http://www.w3.org/1999/xhtml"><p>sample text</p></div>';

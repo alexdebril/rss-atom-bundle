@@ -10,7 +10,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
-use Debril\RssAtomBundle\Protocol\ItemIn;
+use Debril\RssAtomBundle\Protocol\ItemInInterface;
 use Debril\RssAtomBundle\Protocol\Parser;
 use SimpleXMLElement;
 
@@ -138,11 +138,11 @@ class AtomParser extends Parser
      * Handles enclosures if any.
      *
      * @param SimpleXMLElement $element
-     * @param ItemIn           $item
+     * @param ItemInInterface           $item
      *
      * @return $this
      */
-    protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
+    protected function handleEnclosure(SimpleXMLElement $element, ItemInInterface $item)
     {
         foreach ($element->link as $link) {
             if (strcasecmp($this->getAttributeValue($link, 'rel'), 'enclosure') === 0) {

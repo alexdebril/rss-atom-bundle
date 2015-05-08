@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Debril\RssAtomBundle\Provider\FeedContentProvider;
+use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
 class StreamController extends Controller
@@ -96,14 +96,14 @@ class StreamController extends Controller
     }
 
     /**
-     * Get the Stream's content using a FeedContentProvider
-     * The FeedContentProvider instance is provided as a service
+     * Get the Stream's content using a FeedContentProviderInterface
+     * The FeedContentProviderInterface instance is provided as a service
      * default : debril.provider.service.
      *
      * @param \Symfony\Component\OptionsResolver\Options $options
      * @param string                                     $source
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedOut
+     * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
      *
      * @throws \Exception
      */
@@ -111,8 +111,8 @@ class StreamController extends Controller
     {
         $provider = $this->get($source);
 
-        if (!$provider instanceof FeedContentProvider) {
-            throw new \Exception('Provider is not a FeedContentProvider instance');
+        if (!$provider instanceof FeedContentProviderInterface) {
+            throw new \Exception('Provider is not a FeedContentProviderInterface instance');
         }
 
         try {

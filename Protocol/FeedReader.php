@@ -11,7 +11,7 @@ namespace Debril\RssAtomBundle\Protocol;
 
 use Debril\RssAtomBundle\Protocol\Filter\ModifiedSince;
 use SimpleXMLElement;
-use Debril\RssAtomBundle\Driver\HttpDriver;
+use Debril\RssAtomBundle\Driver\HttpDriverInterface;
 use Debril\RssAtomBundle\Driver\HttpDriverResponse;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
 use Debril\RssAtomBundle\Protocol\Parser\ParserException;
@@ -24,12 +24,12 @@ use Debril\RssAtomBundle\Exception\FeedForbiddenException;
 /**
  * Class to read any kind of supported feeds (RSS, ATOM, and more if you need).
  *
- * FeedReader uses an HttpDriver to pull feeds and one more Parser instances to
+ * FeedReader uses an HttpDriverInterface to pull feeds and one more Parser instances to
  * parse them. For each feed, FeedReader automatically chooses the accurate
  * Parser and use it to return a FeedContent instance.
  *
  * <code>
- * // HttpDriver and Factory instances are required to construct a FeedReader.
+ * // HttpDriverInterface and Factory instances are required to construct a FeedReader.
  * // Here we use the HttpCurlDriver (recommanded)
  * $reader = new FeedReader(new HttpCurlDriver(), new Factory());
  *
@@ -64,7 +64,7 @@ class FeedReader
     protected $parsers = array();
 
     /**
-     * @var \Debril\RssAtomBundle\Driver\HttpDriver
+     * @var \Debril\RssAtomBundle\Driver\HttpDriverInterface
      */
     protected $driver = null;
 
@@ -74,10 +74,10 @@ class FeedReader
     protected $factory = null;
 
     /**
-     * @param \Debril\RssAtomBundle\Driver\HttpDriver       $driver
+     * @param \Debril\RssAtomBundle\Driver\HttpDriverInterface       $driver
      * @param \Debril\RssAtomBundle\Protocol\Parser\Factory $factory
      */
-    public function __construct(HttpDriver $driver, Factory $factory)
+    public function __construct(HttpDriverInterface $driver, Factory $factory)
     {
         $this->driver = $driver;
         $this->factory = $factory;
@@ -99,7 +99,7 @@ class FeedReader
     }
 
     /**
-     * @return \Debril\RssAtomBundle\Driver\HttpDriver
+     * @return \Debril\RssAtomBundle\Driver\HttpDriverInterface
      */
     public function getDriver()
     {
@@ -107,13 +107,13 @@ class FeedReader
     }
 
     /**
-     * Read a feed using its url and create a FeedIn instance
+     * Read a feed using its url and create a FeedInInterface instance
      * Second parameter can be either a \DateTime instance or a numeric limit.
      *
      * @param string    $url
      * @param \DateTime $arg
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedIn
+     * @return \Debril\RssAtomBundle\Protocol\FeedInInterface
      */
     public function getFeedContent($url, $arg = null)
     {
@@ -134,7 +134,7 @@ class FeedReader
      * @param array     $filters
      * @param \DateTime $modifiedSince
      *
-     * @return FeedIn
+     * @return FeedInInterface
      */
     public function getFilteredContent($url, array $filters, \DateTime $modifiedSince = null)
     {
@@ -147,7 +147,7 @@ class FeedReader
      * @param string    $url
      * @param \DateTime $modifiedSince
      *
-     * @return FeedIn
+     * @return FeedInInterface
      */
     public function getFeedContentSince($url, \DateTime $modifiedSince)
     {
@@ -159,15 +159,15 @@ class FeedReader
     }
 
     /**
-     * Read a feed using its url and hydrate the given FeedIn instance.
+     * Read a feed using its url and hydrate the given FeedInInterface instance.
      *
      * @param string                                $url
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \Debril\RssAtomBundle\Protocol\FeedInInterface $feed
      * @param \DateTime                             $modifiedSince
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedIn
+     * @return \Debril\RssAtomBundle\Protocol\FeedInInterface
      */
-    public function readFeed($url, FeedIn $feed, \DateTime $modifiedSince)
+    public function readFeed($url, FeedInInterface $feed, \DateTime $modifiedSince)
     {
         $response = $this->getResponse($url, $modifiedSince);
 
@@ -196,12 +196,12 @@ class FeedReader
     }
 
     /**
-     * Parse the body of a feed and write it into the FeedIn instance.
+     * Parse the body of a feed and write it into the FeedInInterface instance.
      *
      * @param \Debril\RssAtomBundle\Driver\HttpDriverResponse $response
-     * @param \Debril\RssAtomBundle\Protocol\FeedIn           $feed
+     * @param \Debril\RssAtomBundle\Protocol\FeedInInterface           $feed
      *
-     * @return FeedIn
+     * @return FeedInInterface
      *
      * @throws FeedNotFoundException
      * @throws FeedNotModifiedException
@@ -209,7 +209,7 @@ class FeedReader
      * @throws FeedForbiddenException
      * @throws FeedCannotBeReadException
      */
-    public function parseBody(HttpDriverResponse $response, FeedIn $feed, array $filters = array())
+    public function parseBody(HttpDriverResponse $response, FeedInInterface $feed, array $filters = array())
     {
         if ($response->getHttpCodeIsOk()
             || $response->getHttpCodeIsRedirection()) {

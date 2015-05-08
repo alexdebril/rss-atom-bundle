@@ -25,30 +25,30 @@ class Factory
     protected $itemClass = 'Debril\RssAtomBundle\Protocol\Parser\Item';
 
     /**
-     * @return \Debril\RssAtomBundle\Protocol\FeedIn
+     * @return \Debril\RssAtomBundle\Protocol\FeedInInterface
      *
      * @throws Exception
      */
     public function newFeed()
     {
         $newFeed = new $this->feedClass();
-        if (!$newFeed instanceof \Debril\RssAtomBundle\Protocol\FeedIn) {
-            throw new \Exception("{$this->feedClass} does not implement FeedIn interface");
+        if (!$newFeed instanceof \Debril\RssAtomBundle\Protocol\FeedInInterface) {
+            throw new \Exception("{$this->feedClass} does not implement FeedInInterface interface");
         }
 
         return $newFeed;
     }
 
     /**
-     * @return \Debril\RssAtomBundle\Protocol\ItemIn
+     * @return \Debril\RssAtomBundle\Protocol\ItemInInterface
      *
      * @throws Exception
      */
     public function newItem()
     {
         $newItem = new $this->itemClass();
-        if (!$newItem instanceof \Debril\RssAtomBundle\Protocol\ItemIn) {
-            throw new \Exception("{$this->itemClass} does not implement ItemIn interface");
+        if (!$newItem instanceof \Debril\RssAtomBundle\Protocol\ItemInInterface) {
+            throw new \Exception("{$this->itemClass} does not implement ItemInInterface interface");
         }
 
         return $newItem;

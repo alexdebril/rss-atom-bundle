@@ -13,9 +13,9 @@ use Debril\RssAtomBundle\Protocol\Parser\Media;
 
 /**
  * interface used to represent incoming items
- * Interface ItemIn.
+ * Interface ItemInInterface.
  */
-interface ItemIn
+interface ItemInInterface
 {
     /**
      * Atom : feed.entry.title <feed><entry><title>

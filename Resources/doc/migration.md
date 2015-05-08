@@ -4,14 +4,14 @@
 
 Removed interfaces :
 
-- Debril\RssAtomBundle\Protocol\AtomItem : not replaced, the getSummary() moved into FeedOut
-- Debril\RssAtomBundle\Protocol\FeedContent : replaced by Debril\RssAtomBundle\Protocol\FeedOut
-- Debril\RssAtomBundle\Protocol\Item : replaced by Debril\RssAtomBundle\Protocol\ItemOut
+- Debril\RssAtomBundle\Protocol\AtomItem : not replaced, the getSummary() moved into FeedOutInterface
+- Debril\RssAtomBundle\Protocol\FeedContent : replaced by Debril\RssAtomBundle\Protocol\FeedOutInterface
+- Debril\RssAtomBundle\Protocol\Item : replaced by Debril\RssAtomBundle\Protocol\ItemOutInterface
 
 Removed methods :
 
-- FeedContent::getId() is replaced by FeedOut::getPublicId()
-- Item::getId() is replaced by ItemOut::getPublicId()
+- FeedContent::getId() is replaced by FeedOutInterface::getPublicId()
+- Item::getId() is replaced by ItemOutInterface::getPublicId()
 
 ## From 1.2.0 to 1.2.1
 

@@ -12,9 +12,9 @@ namespace Debril\RssAtomBundle\Driver;
 use DateTime;
 
 /**
- * Interface HttpDriver.
+ * Interface HttpDriverInterface.
  */
-interface HttpDriver
+interface HttpDriverInterface
 {
     /**
      * @param string   $url

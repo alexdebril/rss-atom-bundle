@@ -10,8 +10,8 @@
 namespace Debril\RssAtomBundle\Protocol\Formatter;
 
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
-use Debril\RssAtomBundle\Protocol\FeedOut;
-use Debril\RssAtomBundle\Protocol\ItemOut;
+use Debril\RssAtomBundle\Protocol\FeedOutInterface;
+use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class FeedAtomFormatter.
@@ -21,11 +21,11 @@ class FeedAtomFormatter extends FeedFormatter
     const CONTENT_TYPE_HTML = 'html';
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
+     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
      *
      * @return string
      */
-    public function toString(FeedOut $content)
+    public function toString(FeedOutInterface $content)
     {
         $element = $this->toDom($content);
 
@@ -47,9 +47,9 @@ class FeedAtomFormatter extends FeedFormatter
 
     /**
      * @param \DomDocument                           $document
-     * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
+     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
      */
-    public function setMetas(\DOMDocument $document, FeedOut $content)
+    public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {
         $elements = array();
         $elements[] = $document->createElement('title', htmlspecialchars($content->getTitle()));
@@ -70,9 +70,9 @@ class FeedAtomFormatter extends FeedFormatter
 
     /**
      * @param \DOMDocument                           $document
-     * @param \Debril\RssAtomBundle\Protocol\ItemOut $item
+     * @param \Debril\RssAtomBundle\Protocol\ItemOutInterface $item
      */
-    protected function addEntry(\DOMDocument $document, ItemOut $item)
+    protected function addEntry(\DOMDocument $document, ItemOutInterface $item)
     {
         $entry = $document->createElement('entry');
 

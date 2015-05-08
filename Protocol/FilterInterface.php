@@ -10,9 +10,9 @@
 namespace Debril\RssAtomBundle\Protocol;
 
 /**
- * Interface Filter.
+ * Interface FilterInterface.
  */
-interface Filter
+interface FilterInterface
 {
     /**
      * @param \Debril\RssAtomBundle\Protocol\Parser\Item

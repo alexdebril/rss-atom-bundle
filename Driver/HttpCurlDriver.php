@@ -12,7 +12,7 @@ namespace Debril\RssAtomBundle\Driver;
 /**
  * Class HttpCurlDriver.
  */
-class HttpCurlDriver implements HttpDriver
+class HttpCurlDriver implements HttpDriverInterface
 {
     /**
      * @param string    $url

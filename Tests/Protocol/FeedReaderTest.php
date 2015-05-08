@@ -58,7 +58,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     public function testGetDriver()
     {
         $this->assertInstanceOf(
-                "\Debril\RssAtomBundle\Driver\HttpDriver", $this->object->getDriver()
+                "\Debril\RssAtomBundle\Driver\HttpDriverInterface", $this->object->getDriver()
         );
     }
 
@@ -83,7 +83,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
             ->addParser(new Parser\RssParser())
             ->readFeed($url, new Parser\FeedContent(), $date);
 
-        $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\FeedIn', $feed);
+        $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\FeedInInterface', $feed);
     }
 
     /**
@@ -109,14 +109,14 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param FeedIn $feed
+     * @param FeedInInterface $feed
      */
-    protected function validateFeed(FeedIn $feed)
+    protected function validateFeed(FeedInInterface $feed)
     {
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
 
         $item = current($feed->getItems());
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemIn", $item);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemInInterface", $item);
 
         $this->assertNotNull($item->getPublicId());
         $this->assertNotNull($item->getLink());
@@ -180,7 +180,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parseBody($response, new Parser\FeedContent(), $filters);
 
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
     }
 
     /**

@@ -12,7 +12,7 @@ namespace Debril\RssAtomBundle\Protocol\Filter;
 /**
  * Class Limit.
  */
-class Limit implements \Debril\RssAtomBundle\Protocol\Filter
+class Limit implements \Debril\RssAtomBundle\Protocol\FilterInterface
 {
     /**
      * @var int

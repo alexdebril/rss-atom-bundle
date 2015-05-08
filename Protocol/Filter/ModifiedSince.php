@@ -12,7 +12,7 @@ namespace Debril\RssAtomBundle\Protocol\Filter;
 /**
  * Class ModifiedSince.
  */
-class ModifiedSince implements \Debril\RssAtomBundle\Protocol\Filter
+class ModifiedSince implements \Debril\RssAtomBundle\Protocol\FilterInterface
 {
     /**
      * @var \DateTime

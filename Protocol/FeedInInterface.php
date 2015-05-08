@@ -13,17 +13,17 @@ namespace Debril\RssAtomBundle\Protocol;
  * interface used when reading an external feed.
  */
 /**
- * Interface FeedIn.
+ * Interface FeedInInterface.
  */
-interface FeedIn
+interface FeedInInterface
 {
     /**
      * Atom : feed.entry <feed><entry>
      * Rss  : rss.channel.item <rss><channel><item>.
      *
-     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
+     * @param \Debril\RssAtomBundle\Protocol\ItemInInterface $item
      */
-    public function addItem(ItemIn $item);
+    public function addItem(ItemInInterface $item);
 
     /**
      * Atom : feed.updated <feed><updated>

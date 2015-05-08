@@ -123,7 +123,7 @@ abstract class Parser
     }
 
     /**
-     * @return \Debril\RssAtomBundle\Protocol\ItemIn
+     * @return \Debril\RssAtomBundle\Protocol\ItemInInterface
      */
     public function newItem()
     {
@@ -157,12 +157,12 @@ abstract class Parser
     /**
      * @deprecated since 1.3.0 replaced by addValidItem
      *
-     * @param FeedIn $feed
-     * @param ItemIn $item
+     * @param FeedInInterface $feed
+     * @param ItemInInterface $item
      *
      * @return $this
      */
-    public function addAcceptableItem(FeedIn $feed, ItemIn $item, \DateTime $modifiedSince)
+    public function addAcceptableItem(FeedInInterface $feed, ItemInInterface $item, \DateTime $modifiedSince)
     {
         $filters = array(
             new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($modifiedSince),
@@ -172,13 +172,13 @@ abstract class Parser
     }
 
     /**
-     * @param FeedIn $feed
-     * @param ItemIn $item
+     * @param FeedInInterface $feed
+     * @param ItemInInterface $item
      * @param array  $filters
      *
      * @return $this
      */
-    public function addValidItem(FeedIn $feed, ItemIn $item, array $filters = array())
+    public function addValidItem(FeedInInterface $feed, ItemInInterface $item, array $filters = array())
     {
         if ($this->isValid($item, $filters)) {
             $feed->addItem($item);
@@ -188,16 +188,16 @@ abstract class Parser
     }
 
     /**
-     * @param ItemIn $item
+     * @param ItemInInterface $item
      * @param array  $filters
      *
      * @return bool
      */
-    public function isValid(ItemIn $item, array $filters = array())
+    public function isValid(ItemInInterface $item, array $filters = array())
     {
         $valid = true;
         foreach ($filters as $filter) {
-            if ($filter instanceof \Debril\RssAtomBundle\Protocol\Filter) {
+            if ($filter instanceof \Debril\RssAtomBundle\Protocol\FilterInterface) {
                 $valid = $filter->isValid($item) ? $valid : false;
             }
         }
@@ -335,7 +335,7 @@ abstract class Parser
      * @param FeedInterface    $feed
      * @param array            $filters
      *
-     * @return FeedIn
+     * @return FeedInInterface
      */
     abstract protected function parseBody(SimpleXMLElement $body, FeedInterface $feed, array $filters);
 
@@ -343,9 +343,9 @@ abstract class Parser
      * Handles enclosures if any.
      *
      * @param SimpleXMLElement $element
-     * @param ItemIn           $item
+     * @param ItemInInterface           $item
      *
      * @return $this
      */
-    abstract protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item);
+    abstract protected function handleEnclosure(SimpleXMLElement $element, ItemInInterface $item);
 }

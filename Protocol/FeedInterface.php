@@ -10,9 +10,9 @@
 namespace Debril\RssAtomBundle\Protocol;
 
 /**
- * Transitional interface which deprecates FeedIn and FeedOut
+ * Transitional interface which deprecates FeedInInterface and FeedOutInterface
  * Interface FeedInterface.
  */
-interface FeedInterface extends FeedIn, FeedOut
+interface FeedInterface extends FeedInInterface, FeedOutInterface
 {
 }
