@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "RSS and Atom support for Symfony 2",
     "keywords": ["rss", "atom"],
-    "license": "LGPL",
+    "license": "LGPL-3.0",
     "repositories": [
         {
             "type": "vcs",
