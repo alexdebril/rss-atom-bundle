@@ -12,20 +12,18 @@ use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
 class StreamController extends Controller
 {
-
     /**
-     * default provider
+     * default provider.
      */
     const DEFAULT_SOURCE = 'debril.provider.default';
 
     /**
      * parameter used to force refresh at every hit (skips 'If-Modified-Since' usage).
-     * set it to true for debug purpose
+     * set it to true for debug purpose.
      */
     const FORCE_PARAM_NAME = 'force_refresh';
 
     /**
-     *
      * @var \DateTime
      */
     protected $since;
@@ -45,7 +43,8 @@ class StreamController extends Controller
     }
 
     /**
-     * Extract the 'If-Modified-Since' value from the headers
+     * Extract the 'If-Modified-Since' value from the headers.
+     *
      * @return \DateTime
      */
     protected function getModifiedSince()
@@ -66,12 +65,14 @@ class StreamController extends Controller
     /**
      * Generate the HTTP response
      * 200 : a full body containing the stream
-     * 304 : Not modified
+     * 304 : Not modified.
      *
-     * @param  array      $options
+     * @param array  $options
      * @param $format
-     * @param  string     $source
+     * @param string $source
+     *
      * @return Response
+     *
      * @throws \Exception
      */
     protected function createStreamResponse(array $options, $format, $source = self::DEFAULT_SOURCE)
@@ -97,11 +98,13 @@ class StreamController extends Controller
     /**
      * Get the Stream's content using a FeedContentProvider
      * The FeedContentProvider instance is provided as a service
-     * default : debril.provider.service
+     * default : debril.provider.service.
      *
-     * @param  \Symfony\Component\OptionsResolver\Options $options
-     * @param  string                                     $source
+     * @param \Symfony\Component\OptionsResolver\Options $options
+     * @param string                                     $source
+     *
      * @return \Debril\RssAtomBundle\Protocol\FeedOut
+     *
      * @throws \Exception
      */
     protected function getContent(array $options, $source)
@@ -120,23 +123,26 @@ class StreamController extends Controller
     }
 
     /**
-     * Returns true if the controller must ignore the last modified date
+     * Returns true if the controller must ignore the last modified date.
      *
-     * @return boolean
+     * @return bool
      */
     protected function mustForceRefresh()
     {
-        if ($this->container->hasParameter(self::FORCE_PARAM_NAME))
+        if ($this->container->hasParameter(self::FORCE_PARAM_NAME)) {
             return $this->container->getParameter(self::FORCE_PARAM_NAME);
+        }
 
         return false;
     }
 
     /**
-     * Get the accurate formatter
+     * Get the accurate formatter.
      *
-     * @param  string                                       $format
+     * @param string $format
+     *
      * @throws \Exception
+     *
      * @return \Debril\RssAtomBundle\Protocol\FeedFormatter
      */
     protected function getFormatter($format)
@@ -146,10 +152,10 @@ class StreamController extends Controller
             'atom' => 'debril.formatter.atom',
         );
 
-        if (!array_key_exists($format, $services))
+        if (!array_key_exists($format, $services)) {
             throw new \Exception("Unsupported format {$format}");
+        }
 
         return $this->get($services[$format]);
     }
-
 }

@@ -1,32 +1,30 @@
 <?php
+
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Driver
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
 namespace Debril\RssAtomBundle\Driver;
 
 /**
- * Class FileDriver
- * @package Debril\RssAtomBundle\Driver
+ * Class FileDriver.
  */
 class FileDriver implements HttpDriver
 {
-
     /**
+     * @param string    $url
+     * @param \DateTime $lastModified
      *
-     * @param  string       $url
-     * @param  \DateTime    $lastModified
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     *
      * @throws DriverUnreachableResourceException
      */
     public function getResponse($url, \DateTime $lastModified)
     {
-        if ( !is_readable($url) ) {
+        if (!is_readable($url)) {
             throw new DriverUnreachableResourceException("not found or not readable : {$url}");
         }
 

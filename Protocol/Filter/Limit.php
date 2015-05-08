@@ -1,24 +1,19 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Filter;
 
 /**
- * Class Limit
- * @package Debril\RssAtomBundle\Protocol\Filter
+ * Class Limit.
  */
 class Limit implements \Debril\RssAtomBundle\Protocol\Filter
 {
-
     /**
      * @var int
      */
@@ -38,12 +33,12 @@ class Limit implements \Debril\RssAtomBundle\Protocol\Filter
     }
 
     /**
-     * @param  \Debril\RssAtomBundle\Protocol\Parser\Item $item
-     * @return boolean
+     * @param \Debril\RssAtomBundle\Protocol\Parser\Item $item
+     *
+     * @return bool
      */
     public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item)
     {
         return ($this->limit > $this->count++);
     }
-
 }

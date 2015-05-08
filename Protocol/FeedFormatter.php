@@ -1,31 +1,25 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol;
 
 /**
- * Class FeedFormatter
- * @package Debril\RssAtomBundle\Protocol
+ * Class FeedFormatter.
  */
 abstract class FeedFormatter
 {
-
     /**
      * @return \DomDocument
      */
     abstract public function getRootElement();
 
     /**
-     *
      * @param \DomDocument                           $element
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
@@ -38,7 +32,6 @@ abstract class FeedFormatter
     abstract protected function addEntry(\DomDocument $document, ItemOut $item);
 
     /**
-     *
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     public function toString(FeedOut $content)
@@ -49,7 +42,6 @@ abstract class FeedFormatter
     }
 
     /**
-     *
      * @param \Debril\RssAtomBundle\Protocol\FeedOut $content
      */
     public function toDom(FeedOut $content)
@@ -73,5 +65,4 @@ abstract class FeedFormatter
             $this->addEntry($document, $item);
         }
     }
-
 }

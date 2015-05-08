@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
  */
 class FeedContentTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var FeedContent
      */
@@ -49,11 +48,11 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getLastModified
+     *
      * @todo   Implement testGetLastModified().
      */
     public function testGetLastModified()
@@ -63,6 +62,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setLastModified
+     *
      * @todo   Implement testSetLastModified().
      */
     public function testSetLastModified()
@@ -76,6 +76,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getTitle
+     *
      * @todo   Implement testGetTitle().
      */
     public function testGetTitle()
@@ -85,6 +86,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setTitle
+     *
      * @todo   Implement testSetTitle().
      */
     public function testSetTitle()
@@ -98,6 +100,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getDescription
+     *
      * @todo   Implement testgetDescription().
      */
     public function testgetDescription()
@@ -107,6 +110,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setDescription
+     *
      * @todo   Implement testsetDescription().
      */
     public function testsetDescription()
@@ -120,6 +124,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getLink
+     *
      * @todo   Implement testGetLink().
      */
     public function testGetLink()
@@ -129,6 +134,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::setLink
+     *
      * @todo   Implement testSetLink().
      */
     public function testSetLink()
@@ -163,6 +169,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getItems
+     *
      * @todo   Implement testGetItemsCount().
      */
     public function testGetItems()
@@ -176,6 +183,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\FeedContent::getItemsCount
+     *
      * @todo   Implement testGetItemsCount().
      */
     public function testGetItemsCount()
@@ -197,5 +205,4 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser\FeedContent", $ret);
         $this->assertEquals($count + 1, $this->object->getItemsCount());
     }
-
 }

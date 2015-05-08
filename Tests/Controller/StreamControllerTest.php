@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class StreamControllerTest extends WebTestCase
 {
-
     public function testIndex()
     {
         $client = static::createClient();
@@ -53,5 +52,4 @@ class StreamControllerTest extends WebTestCase
 
         $client->request('GET', '/bad/provider');
     }
-
 }

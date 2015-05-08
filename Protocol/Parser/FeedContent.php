@@ -1,19 +1,16 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
-use \Debril\RssAtomBundle\Protocol\FeedInterface;
-use \Debril\RssAtomBundle\Protocol\ItemIn;
+use Debril\RssAtomBundle\Protocol\FeedInterface;
+use Debril\RssAtomBundle\Protocol\ItemIn;
 
 /**
  * A full Feed's content representation, containing both the headers of the feed
@@ -39,15 +36,14 @@ use \Debril\RssAtomBundle\Protocol\ItemIn;
  */
 
 /**
- * Class FeedContent
- * @package Debril\RssAtomBundle\Protocol\Parser
+ * Class FeedContent.
  */
 class FeedContent implements FeedInterface
 {
-
     /**
      * Atom : feed.entry <feed><entry>
-     * Rss  : rss.channel.item <rss><channel><item>
+     * Rss  : rss.channel.item <rss><channel><item>.
+     *
      * @var array[\Debril\RssAtomBundle\Protocol\Parser\Item]
      */
     protected $items = array();
@@ -55,35 +51,40 @@ class FeedContent implements FeedInterface
     /**
      * Atom : feed.updated <feed><updated>
      * Rss  : rss.channel.lastBuildDate <rss><channel><lastBuildDate>
-     *   or   rss.channel.pubDate <rss><channel><pubDate>
+     *   or   rss.channel.pubDate <rss><channel><pubDate>.
+     *
      * @var \Datetime
      */
     protected $lastModified;
 
     /**
      * Atom : feed.title <feed><title>
-     * Rss  : rss.channel.title <rss><channel><title>
+     * Rss  : rss.channel.title <rss><channel><title>.
+     *
      * @var string
      */
     protected $title;
 
     /**
      * Atom : feed.subtitle <feed><subtitle>
-     * Rss  : rss.channel.description <rss><channel><description>
+     * Rss  : rss.channel.description <rss><channel><description>.
+     *
      * @var string
      */
     protected $description;
 
     /**
      * Atom : feed.link <feed><link>
-     * Rss  : rss.channel.link <rss><channel><link>
+     * Rss  : rss.channel.link <rss><channel><link>.
+     *
      * @var string
      */
     protected $link;
 
     /**
      * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
+     * Rss  : rss.channel.id <rss><channel><id>.
+     *
      * @var string
      */
     protected $publicId;
@@ -91,7 +92,8 @@ class FeedContent implements FeedInterface
     /**
      * Atom : feed.updated <feed><updated>
      * Rss  : rss.channel.lastBuildDate <rss><channel><lastBuildDate>
-     *   or   rss.channel.pubDate <rss><channel><pubDate>
+     *   or   rss.channel.pubDate <rss><channel><pubDate>.
+     *
      * @return \DateTime
      */
     public function getLastModified()
@@ -102,8 +104,10 @@ class FeedContent implements FeedInterface
     /**
      * Atom : feed.updated <feed><updated>
      * Rss  : rss.channel.lastBuildDate <rss><channel><lastBuildDate>
-     *   or   rss.channel.pubDate <rss><channel><pubDate>
-     * @param  \DateTime $lastModified
+     *   or   rss.channel.pubDate <rss><channel><pubDate>.
+     *
+     * @param \DateTime $lastModified
+     *
      * @return $this
      */
     public function setLastModified(\DateTime $lastModified)
@@ -115,7 +119,8 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.title <feed><title>
-     * Rss  : rss.channel.title <rss><channel><title>
+     * Rss  : rss.channel.title <rss><channel><title>.
+     *
      * @return string
      */
     public function getTitle()
@@ -125,8 +130,10 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.title <feed><title>
-     * Rss  : rss.channel.title <rss><channel><title>
-     * @param  string                                            $title
+     * Rss  : rss.channel.title <rss><channel><title>.
+     *
+     * @param string $title
+     *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setTitle($title)
@@ -138,7 +145,8 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.subtitle <feed><subtitle>
-     * Rss  : rss.channel.description <rss><channel><description>
+     * Rss  : rss.channel.description <rss><channel><description>.
+     *
      * @return string
      */
     public function getDescription()
@@ -148,8 +156,10 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.subtitle <feed><subtitle>
-     * Rss  : rss.channel.description <rss><channel><description>
-     * @param  string                                            $description
+     * Rss  : rss.channel.description <rss><channel><description>.
+     *
+     * @param string $description
+     *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setDescription($description)
@@ -161,7 +171,8 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.link <feed><link>
-     * Rss  : rss.channel.link <rss><channel><link>
+     * Rss  : rss.channel.link <rss><channel><link>.
+     *
      * @return string
      */
     public function getLink()
@@ -171,8 +182,10 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.link <feed><link>
-     * Rss  : rss.channel.link <rss><channel><link>
-     * @param  string                                            $link
+     * Rss  : rss.channel.link <rss><channel><link>.
+     *
+     * @param string $link
+     *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setLink($link)
@@ -184,7 +197,8 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
+     * Rss  : rss.channel.id <rss><channel><id>.
+     *
      * @return string
      */
     public function getPublicId()
@@ -194,8 +208,10 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.id <feed><id>
-     * Rss  : rss.channel.id <rss><channel><id>
-     * @param  string                                            $id
+     * Rss  : rss.channel.id <rss><channel><id>.
+     *
+     * @param string $id
+     *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
      */
     public function setPublicId($id)
@@ -206,7 +222,8 @@ class FeedContent implements FeedInterface
     }
 
     /**
-     * Number of feed.entry or rss.channel.item in the stream
+     * Number of feed.entry or rss.channel.item in the stream.
+     *
      * @return int
      */
     public function getItemsCount()
@@ -216,7 +233,8 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.entry <feed><entry>
-     * Rss  : rss.channel.item <rss><channel><item>
+     * Rss  : rss.channel.item <rss><channel><item>.
+     *
      * @return array[\Debril\RssAtomBundle\Protocol\Item]
      */
     public function getItems()
@@ -226,8 +244,10 @@ class FeedContent implements FeedInterface
 
     /**
      * Atom : feed.entry <feed><entry>
-     * Rss  : rss.channel.item <rss><channel><item>
-     * @param  \Debril\RssAtomBundle\Protocol\ItemIn $item
+     * Rss  : rss.channel.item <rss><channel><item>.
+     *
+     * @param \Debril\RssAtomBundle\Protocol\ItemIn $item
+     *
      * @return FeedContent
      */
     public function addItem(ItemIn $item)
@@ -236,5 +256,4 @@ class FeedContent implements FeedInterface
 
         return $this;
     }
-
 }

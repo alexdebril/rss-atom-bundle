@@ -1,6 +1,7 @@
 <?php
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
+
 use Debril\RssAtomBundle\Tests\Protocol\ParserAbstract;
 
 /**
@@ -8,7 +9,6 @@ use Debril\RssAtomBundle\Tests\Protocol\ParserAbstract;
  */
 class AtomParserTest extends ParserAbstract
 {
-
     /**
      * @var AtomParser
      */
@@ -29,7 +29,6 @@ class AtomParserTest extends ParserAbstract
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -39,7 +38,7 @@ class AtomParserTest extends ParserAbstract
      */
     public function testCannotHandle()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-rss.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $this->assertFalse($this->object->canHandle($xmlBody));
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
@@ -51,7 +50,7 @@ class AtomParserTest extends ParserAbstract
      */
     public function testCanHandle()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-atom.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $this->assertTrue($this->object->canHandle($xmlBody));
     }
@@ -62,7 +61,7 @@ class AtomParserTest extends ParserAbstract
      */
     public function testParseError()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/truncated-atom.xml';
+        $file = dirname(__FILE__).'/../../../Resources/truncated-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
         $this->object->parse($xmlBody, new FeedContent(), $filters);
@@ -76,36 +75,36 @@ class AtomParserTest extends ParserAbstract
      */
     public function testParse()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-atom.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
-        $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
+        $date = \DateTime::createFromFormat('Y-m-d', '2002-10-10');
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
-        $this->assertNotNull($feed->getPublicId(), "feed->getId() should not return an empty value");
+        $this->assertNotNull($feed->getPublicId(), 'feed->getId() should not return an empty value');
         $this->assertGreaterThan(0, $feed->getItemsCount());
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
         $this->assertNotNull($feed->getLink());
-        $this->assertInternalType("string", $feed->getLink());
-        $this->assertInternalType("string", $feed->getDescription());
-        $this->assertInternalType("string", $feed->getTitle());
+        $this->assertInternalType('string', $feed->getLink());
+        $this->assertInternalType('string', $feed->getDescription());
+        $this->assertInternalType('string', $feed->getTitle());
         $this->assertNotNull($feed->getDescription());
         $this->assertNotNull($feed->getTitle());
 
         $item = current($feed->getItems());
         $this->assertInternalType('string', $item->getAuthor());
         $this->assertEquals('John Doe', $item->getAuthor());
-        
+
         $medias = $item->getMedias();
         $count = 0;
-        foreach ( $medias as $media ) {
+        foreach ($medias as $media) {
             $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser\Media', $media);
             $count++;
         }
-        
+
         $this->assertEquals(1, $count);
     }
 
@@ -138,10 +137,10 @@ class AtomParserTest extends ParserAbstract
      */
     public function testHtmlContent()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-atom-html.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-atom-html.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
-        $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
+        $date = \DateTime::createFromFormat('Y-m-d', '2002-10-10');
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
@@ -156,10 +155,10 @@ class AtomParserTest extends ParserAbstract
      */
     public function testHtmlSummary()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-atom-summary.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-atom-summary.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
-        $date = \DateTime::createFromFormat("Y-m-d", "2002-10-10");
+        $date = \DateTime::createFromFormat('Y-m-d', '2002-10-10');
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
@@ -169,5 +168,4 @@ class AtomParserTest extends ParserAbstract
         $expected = '<div xmlns="http://www.w3.org/1999/xhtml"><p>sample text</p></div>';
         $this->assertEquals($expected, $item->getSummary());
     }
-
 }

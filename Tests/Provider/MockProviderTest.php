@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Provider;
  */
 class MockProviderTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var MockProvider
      */
@@ -28,7 +27,6 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -51,5 +49,4 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
         $options = array('id' => 'not-found');
         $this->object->getFeedContent($options);
     }
-
 }

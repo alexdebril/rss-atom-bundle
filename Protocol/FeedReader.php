@@ -1,19 +1,16 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol;
 
 use Debril\RssAtomBundle\Protocol\Filter\ModifiedSince;
-use \SimpleXMLElement;
+use SimpleXMLElement;
 use Debril\RssAtomBundle\Driver\HttpDriver;
 use Debril\RssAtomBundle\Driver\HttpDriverResponse;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
@@ -25,7 +22,7 @@ use Debril\RssAtomBundle\Exception\FeedServerErrorException;
 use Debril\RssAtomBundle\Exception\FeedForbiddenException;
 
 /**
- * Class to read any kind of supported feeds (RSS, ATOM, and more if you need)
+ * Class to read any kind of supported feeds (RSS, ATOM, and more if you need).
  *
  * FeedReader uses an HttpDriver to pull feeds and one more Parser instances to
  * parse them. For each feed, FeedReader automatically chooses the accurate
@@ -54,16 +51,13 @@ use Debril\RssAtomBundle\Exception\FeedForbiddenException;
  *      echo $item->getSummary();
  * }
  * </code>
- *
  */
 
 /**
- * Class FeedReader
- * @package Debril\RssAtomBundle\Protocol
+ * Class FeedReader.
  */
 class FeedReader
 {
-
     /**
      * @var array[\Debril\RssAtomBundle\Protocol\Parser]
      */
@@ -90,8 +84,10 @@ class FeedReader
     }
 
     /**
-     * Add a Parser
-     * @param  \Debril\RssAtomBundle\Protocol\Parser     $parser
+     * Add a Parser.
+     *
+     * @param \Debril\RssAtomBundle\Protocol\Parser $parser
+     *
      * @return \Debril\RssAtomBundle\Protocol\FeedReader
      */
     public function addParser(Parser $parser)
@@ -112,17 +108,18 @@ class FeedReader
 
     /**
      * Read a feed using its url and create a FeedIn instance
-     * Second parameter can be either a \DateTime instance or a numeric limit
+     * Second parameter can be either a \DateTime instance or a numeric limit.
      *
-     * @param  string                                $url
-     * @param  \DateTime                             $arg
+     * @param string    $url
+     * @param \DateTime $arg
+     *
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
     public function getFeedContent($url, $arg = null)
     {
         if (is_numeric($arg)) {
             return $this->getFilteredContent($url, array(
-                        new Filter\Limit($arg)
+                        new Filter\Limit($arg),
             ));
         }
         if ($arg instanceof \DateTime) {
@@ -134,8 +131,9 @@ class FeedReader
 
     /**
      * @param $url
-     * @param  array     $filters
-     * @param  \DateTime $modifiedSince
+     * @param array     $filters
+     * @param \DateTime $modifiedSince
+     *
      * @return FeedIn
      */
     public function getFilteredContent($url, array $filters, \DateTime $modifiedSince = null)
@@ -146,25 +144,27 @@ class FeedReader
     }
 
     /**
+     * @param string    $url
+     * @param \DateTime $modifiedSince
      *
-     * @param  string    $url
-     * @param  \DateTime $modifiedSince
      * @return FeedIn
      */
     public function getFeedContentSince($url, \DateTime $modifiedSince)
     {
         $filters = array(
-            new Filter\ModifiedSince($modifiedSince)
+            new Filter\ModifiedSince($modifiedSince),
         );
 
         return $this->getFilteredContent($url, $filters);
     }
 
     /**
-     * Read a feed using its url and hydrate the given FeedIn instance
-     * @param  string                                $url
-     * @param  \Debril\RssAtomBundle\Protocol\FeedIn $feed
-     * @param  \DateTime                             $modifiedSince
+     * Read a feed using its url and hydrate the given FeedIn instance.
+     *
+     * @param string                                $url
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn $feed
+     * @param \DateTime                             $modifiedSince
+     *
      * @return \Debril\RssAtomBundle\Protocol\FeedIn
      */
     public function readFeed($url, FeedIn $feed, \DateTime $modifiedSince)
@@ -172,17 +172,18 @@ class FeedReader
         $response = $this->getResponse($url, $modifiedSince);
 
         $filters = array(
-            new ModifiedSince($modifiedSince)
+            new ModifiedSince($modifiedSince),
         );
 
         return $this->parseBody($response, $feed, $filters);
     }
 
     /**
-     * Read the XML stream hosted at $url
+     * Read the XML stream hosted at $url.
      *
      * @param $url
-     * @param  \Datetime          $modifiedSince
+     * @param \Datetime $modifiedSince
+     *
      * @return HttpDriverResponse
      */
     public function getResponse($url, \Datetime $modifiedSince = null)
@@ -195,10 +196,13 @@ class FeedReader
     }
 
     /**
-     * Parse the body of a feed and write it into the FeedIn instance
-     * @param  \Debril\RssAtomBundle\Driver\HttpDriverResponse $response
-     * @param  \Debril\RssAtomBundle\Protocol\FeedIn           $feed
+     * Parse the body of a feed and write it into the FeedIn instance.
+     *
+     * @param \Debril\RssAtomBundle\Driver\HttpDriverResponse $response
+     * @param \Debril\RssAtomBundle\Protocol\FeedIn           $feed
+     *
      * @return FeedIn
+     *
      * @throws FeedNotFoundException
      * @throws FeedNotModifiedException
      * @throws FeedServerErrorException
@@ -208,8 +212,7 @@ class FeedReader
     public function parseBody(HttpDriverResponse $response, FeedIn $feed, array $filters = array())
     {
         if ($response->getHttpCodeIsOk()
-            || $response->getHttpCodeIsRedirection())
-        {
+            || $response->getHttpCodeIsRedirection()) {
             $xmlBody = new SimpleXMLElement($response->getBody());
             $parser = $this->getAccurateParser($xmlBody);
 
@@ -231,14 +234,16 @@ class FeedReader
     }
 
     /**
-     * Choose the accurate Parser for the XML stream
-     * @param  SimpleXMLElement $xmlBody
+     * Choose the accurate Parser for the XML stream.
+     *
+     * @param SimpleXMLElement $xmlBody
+     *
      * @throws ParserException
+     *
      * @return Parser
      */
     public function getAccurateParser(SimpleXMLElement $xmlBody)
     {
-
         foreach ($this->parsers as $parser) {
             if ($parser->canHandle($xmlBody)) {
                 return $parser;
@@ -247,5 +252,4 @@ class FeedReader
 
         throw new ParserException('No parser can handle this stream');
     }
-
 }

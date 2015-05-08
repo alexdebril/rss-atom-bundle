@@ -1,19 +1,18 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: alex
  * Date: 25/04/14
- * Time: 23:44
+ * Time: 23:44.
  */
-
 namespace Debril\RssAtomBundle\Tests\Protocol;
 
-use \Debril\RssAtomBundle\Protocol\Parser\FeedContent;
-use \Debril\RssAtomBundle\Protocol\Parser\Item;
+use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
+use Debril\RssAtomBundle\Protocol\Parser\Item;
 
 class FormatterAbstract extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var FeedContent
      */
@@ -54,5 +53,4 @@ class FormatterAbstract extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf("\DomNode", $entry);
         }
     }
-
 }

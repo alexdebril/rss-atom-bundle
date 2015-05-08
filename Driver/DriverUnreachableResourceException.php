@@ -1,18 +1,16 @@
 <?php
+
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Driver
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
 namespace Debril\RssAtomBundle\Driver;
 
 /**
- * Class DriverUnreachableResourceException
- * @package Debril\RssAtomBundle\Driver
+ * Class DriverUnreachableResourceException.
  */
 class DriverUnreachableResourceException extends \Exception
 {

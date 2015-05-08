@@ -1,35 +1,30 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
 use Debril\RssAtomBundle\Protocol\ItemIn;
 use Debril\RssAtomBundle\Protocol\Parser;
-use \SimpleXMLElement;
+use SimpleXMLElement;
 
 /**
- * Class RssParser
- * @package Debril\RssAtomBundle\Protocol\Parser
+ * Class RssParser.
  */
 class RssParser extends Parser
 {
-
     protected $mandatoryFields = array(
         'channel',
     );
-    
+
     const MEDIA_LINK_ATTIBUTE = 'link';
-    
+
     /**
      *
      */
@@ -39,8 +34,9 @@ class RssParser extends Parser
     }
 
     /**
-     * @param  SimpleXMLElement $xmlBody
-     * @return boolean
+     * @param SimpleXMLElement $xmlBody
+     *
+     * @return bool
      */
     public function canHandle(SimpleXMLElement $xmlBody)
     {
@@ -48,10 +44,10 @@ class RssParser extends Parser
     }
 
     /**
+     * @param SimpleXMLElement                             $xmlBody
+     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
+     * @param array                                        $filters
      *
-     * @param  SimpleXMLElement                             $xmlBody
-     * @param  \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param  array                                        $filters
      * @return \Debril\RssAtomBundle\Protocol\FeedInterface
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
@@ -67,7 +63,7 @@ class RssParser extends Parser
         $date = new \DateTime('now');
         foreach ($xmlBody->channel->item as $xmlElement) {
             $item = $this->newItem();
-            if ( isset($xmlElement->pubDate) ) {
+            if (isset($xmlElement->pubDate)) {
                 $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
                 $date = self::convertToDateTime($xmlElement->pubDate, $format);
             }
@@ -112,7 +108,6 @@ class RssParser extends Parser
     }
 
     /**
-     *
      * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
      * @param type                                         $rssDate
      */
@@ -122,22 +117,22 @@ class RssParser extends Parser
         $updated = self::convertToDateTime($rssDate, $format);
         $feed->setLastModified($updated);
     }
-        
+
     /**
-     * Handles enclosures if any
+     * Handles enclosures if any.
      *
-     * @param  SimpleXMLElement $element
-     * @param  ItemIn           $item
+     * @param SimpleXMLElement $element
+     * @param ItemIn           $item
+     *
      * @return $this
      */
     protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
     {
-        if ( isset ($element->enclosure) ) {
+        if (isset($element->enclosure)) {
             $media = $this->createMedia($element->enclosure);
             $item->addMedia($media);
         }
-    
+
         return $this;
     }
-
 }

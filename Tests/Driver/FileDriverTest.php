@@ -31,30 +31,31 @@ class FileDriverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Driver\FileDriver::getResponse
+     *
      * @todo   Implement testGetResponse().
      * @expectedException Debril\RssAtomBundle\Driver\DriverUnreachableResourceException
      */
     public function testGetResponseException()
     {
-        $url = dirname(__FILE__) . '/../../Resources/dummy.rss';
+        $url = dirname(__FILE__).'/../../Resources/dummy.rss';
 
-        $this->object->getResponse($url, new \DateTime() );
+        $this->object->getResponse($url, new \DateTime());
     }
 
     /**
      * @covers Debril\RssAtomBundle\Driver\FileDriver::getResponse
+     *
      * @todo   Implement testGetResponse().
      */
     public function testGetResponse()
     {
-        $url = dirname(__FILE__) . '/../../Resources/sample-rss.xml';
+        $url = dirname(__FILE__).'/../../Resources/sample-rss.xml';
 
-        $response = $this->object->getResponse($url, new \DateTime() );
+        $response = $this->object->getResponse($url, new \DateTime());
 
         $this->assertTrue($response instanceof HttpDriverResponse);
 
-        $this->assertInternalType("string", $response->getBody());
+        $this->assertInternalType('string', $response->getBody());
         $this->assertGreaterThan(0, strlen($response->getBody()));
     }
-
 }

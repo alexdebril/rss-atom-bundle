@@ -1,6 +1,7 @@
 <?php
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
+
 use Debril\RssAtomBundle\Tests\Protocol\ParserAbstract;
 
 /**
@@ -8,7 +9,6 @@ use Debril\RssAtomBundle\Tests\Protocol\ParserAbstract;
  */
 class RssParserTest extends ParserAbstract
 {
-
     /**
      * @var RssParser
      */
@@ -29,7 +29,6 @@ class RssParserTest extends ParserAbstract
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -37,7 +36,7 @@ class RssParserTest extends ParserAbstract
      */
     public function testCannotHandle()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-atom.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $this->assertFalse($this->object->canHandle($xmlBody));
     }
@@ -47,7 +46,7 @@ class RssParserTest extends ParserAbstract
      */
     public function testCanHandle()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-rss.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $this->assertTrue($this->object->canHandle($xmlBody));
     }
@@ -58,7 +57,7 @@ class RssParserTest extends ParserAbstract
      */
     public function testParseError()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/truncated-rss.xml';
+        $file = dirname(__FILE__).'/../../../Resources/truncated-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
         $this->object->parse($xmlBody, new FeedContent(), $filters);
@@ -69,16 +68,16 @@ class RssParserTest extends ParserAbstract
      */
     public function testParse()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-rss.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
-        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
+        $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
-        $this->assertNotNull($feed->getPublicId(), "feed->getPublicId() should not return an empty value");
+        $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
@@ -90,14 +89,14 @@ class RssParserTest extends ParserAbstract
         $item = current($feed->getItems());
         $this->assertInternalType('string', $item->getAuthor());
         $this->assertEquals('John Doe', $item->getAuthor());
-        
+
         $medias = $item->getMedias();
         $count = 0;
-        foreach ( $medias as $media ) {
+        foreach ($medias as $media) {
             $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser\Media', $media);
             $count++;
         }
-        
+
         $this->assertEquals(1, $count);
     }
 
@@ -107,16 +106,16 @@ class RssParserTest extends ParserAbstract
      */
     public function testParseWithoutBuildDate()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-rss-pubdate.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-rss-pubdate.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
-        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
+        $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
-        $this->assertNotNull($feed->getPublicId(), "feed->getPublicId() should not return an empty value");
+        $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
@@ -127,16 +126,16 @@ class RssParserTest extends ParserAbstract
      */
     public function testParseWithoutDate()
     {
-        $file = dirname(__FILE__) . '/../../../Resources/sample-rss-nodate.xml';
+        $file = dirname(__FILE__).'/../../../Resources/sample-rss-nodate.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
-        $date = \DateTime::createFromFormat("Y-m-d", "2005-10-10");
+        $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
         $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedIn", $feed);
 
-        $this->assertNotNull($feed->getPublicId(), "feed->getPublicId() should not return an empty value");
+        $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
         $this->assertInstanceOf("\DateTime", $feed->getLastModified());
@@ -168,5 +167,4 @@ class RssParserTest extends ParserAbstract
         $date = '2003-13T18:30:02Z';
         $this->object->guessDateFormat($date);
     }
-
 }

@@ -11,7 +11,6 @@ use Debril\RssAtomBundle\Protocol\Parser\Item;
  */
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var AtomParser
      */
@@ -67,7 +66,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\DateTime', $date);
 
-        $this->assertEquals("13/12/2003", $date->format("d/m/Y"));
+        $this->assertEquals('13/12/2003', $date->format('d/m/Y'));
     }
 
     /**
@@ -113,9 +112,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $xml = new \SimpleXmlElement('<root />');
         $xml->addAttribute('foo', 'bar');
-        
+
         $this->assertNull($this->object->getAttributeValue($xml, 'href'));
-        
+
         $this->assertEquals('bar', $this->object->getAttributeValue($xml, 'foo'));
     }
 
@@ -125,13 +124,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $xml->addAttribute('href', 'http://localhost/');
         $xml->addAttribute('type', 'audio/mpeg');
         $xml->addAttribute('lenght', '456');
-        
+
         $media = $this->object->createMedia($xml);
         $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Media', $media);
-        
+
         $this->assertEquals('http://localhost/', $media->getUrl());
         $this->assertEquals('audio/mpeg', $media->getType());
         $this->assertEquals('456', $media->getLenght());
     }
-
 }

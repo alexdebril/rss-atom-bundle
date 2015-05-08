@@ -8,18 +8,18 @@ class MediaTest extends \PHPUnit_Framework_TestCase
      * @var \Debril\RssAtomBundle\Protocol\Parser\Media
      */
     protected $object;
-    
+
     protected function setUp()
     {
-        $this->object = new Media;
+        $this->object = new Media();
     }
-    
+
     public function testSetType()
     {
         $this->object->setType('image/jpeg');
         $this->assertEquals('image/jpeg', $this->object->getType());
     }
-    
+
     public function testSetLenght()
     {
         $this->object->setLenght('87669');
@@ -32,5 +32,4 @@ class MediaTest extends \PHPUnit_Framework_TestCase
         $this->object->setUrl('http://localhost/');
         $this->assertEquals('http://localhost/', $this->object->getUrl());
     }
-
 }

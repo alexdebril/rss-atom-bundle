@@ -1,15 +1,12 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Formatter;
 
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
@@ -17,14 +14,11 @@ use Debril\RssAtomBundle\Protocol\FeedOut;
 use Debril\RssAtomBundle\Protocol\ItemOut;
 
 /**
- * Class FeedRssFormatter
- * @package Debril\RssAtomBundle\Protocol\Formatter
+ * Class FeedRssFormatter.
  */
 class FeedRssFormatter extends FeedFormatter
 {
-
     /**
-     *
      * @return \DomDocument
      */
     public function getRootElement()
@@ -61,7 +55,6 @@ class FeedRssFormatter extends FeedFormatter
     }
 
     /**
-     *
      * @param \DomDocument $document
      * @param ItemOut      $item
      */
@@ -87,5 +80,4 @@ class FeedRssFormatter extends FeedFormatter
 
         $document->documentElement->firstChild->appendChild($entry);
     }
-
 }

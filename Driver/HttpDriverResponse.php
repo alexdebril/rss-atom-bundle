@@ -1,24 +1,19 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Driver
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Driver;
 
 /**
- * Class HttpDriverResponse
- * @package Debril\RssAtomBundle\Driver
+ * Class HttpDriverResponse.
  */
 class HttpDriverResponse
 {
-
     const HTTP_CODE_OK = 200;
     const HTTP_CODE_MOVE_PERMANENTLY = 301;
     const HTTP_CODE_FOUND = 302;
@@ -28,38 +23,32 @@ class HttpDriverResponse
     const HTTP_CODE_SERVER_ERROR = 500;
 
     /**
-     *
      * @var string
      */
     protected $body;
 
     /**
-     *
      * @var array
      */
     protected $headers;
 
     /**
-     *
      * @var int
      */
     protected $httpCode;
 
     /**
-     *
      * @var string
      */
     protected $httpVersion;
 
     /**
-     *
      * @var string
      */
     protected $httpMessage;
 
     /**
-     *
-     * @return boolean
+     * @return bool
      */
     public function getHttpCodeIsOk()
     {
@@ -67,7 +56,7 @@ class HttpDriverResponse
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getHttpCodeIsRedirection()
     {
@@ -75,7 +64,7 @@ class HttpDriverResponse
             $this->getHttpCode(),
             array(
                 self::HTTP_CODE_MOVE_PERMANENTLY,
-                self::HTTP_CODE_FOUND
+                self::HTTP_CODE_FOUND,
             )
         );
     }
@@ -88,13 +77,12 @@ class HttpDriverResponse
         return in_array(
             $this->getHttpCode(),
             array(
-                self::HTTP_CODE_NOT_MODIFIED
+                self::HTTP_CODE_NOT_MODIFIED,
             )
         );
     }
 
     /**
-     *
      * @return int
      */
     public function getHttpCode()
@@ -103,8 +91,8 @@ class HttpDriverResponse
     }
 
     /**
+     * @param int $httpCode
      *
-     * @param  int                                             $httpCode
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHttpCode($httpCode)
@@ -115,7 +103,6 @@ class HttpDriverResponse
     }
 
     /**
-     *
      * @return string
      */
     public function getHttpVersion()
@@ -124,8 +111,8 @@ class HttpDriverResponse
     }
 
     /**
+     * @param string $httpVersion
      *
-     * @param  string                                          $httpVersion
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHttpVersion($httpVersion)
@@ -136,7 +123,6 @@ class HttpDriverResponse
     }
 
     /**
-     *
      * @return string
      */
     public function getHttpMessage()
@@ -145,8 +131,8 @@ class HttpDriverResponse
     }
 
     /**
+     * @param string $httpMessage
      *
-     * @param  string                                          $httpMessage
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHttpMessage($httpMessage)
@@ -157,7 +143,6 @@ class HttpDriverResponse
     }
 
     /**
-     *
      * @return string
      */
     public function getHeaders()
@@ -166,8 +151,8 @@ class HttpDriverResponse
     }
 
     /**
+     * @param string $headers
      *
-     * @param  string                                          $headers
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function setHeaders($headers)
@@ -178,7 +163,6 @@ class HttpDriverResponse
     }
 
     /**
-     *
      * @return string
      */
     public function getBody()
@@ -187,8 +171,8 @@ class HttpDriverResponse
     }
 
     /**
+     * @param string $body
      *
-     * @param  string             $body
      * @return HttpDriverResponse
      */
     public function setBody($body)
@@ -197,5 +181,4 @@ class HttpDriverResponse
 
         return $this;
     }
-
 }

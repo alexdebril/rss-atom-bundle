@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Factory
      */
@@ -28,7 +27,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -82,5 +80,4 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->object->setItemClass('Debril\RssAtomBundle\Protocol\A\Bad\Name');
     }
-
 }
