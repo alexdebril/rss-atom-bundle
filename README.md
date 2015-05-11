@@ -8,6 +8,7 @@ RssAtomBundle - Read and Build Atom/RSS feeds
 RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / Atom feeds. It features:
 
 - Detection of the feed format (RSS / Atom)
+- enclosures support
 - A generic StreamController built to write all your feeds. This controller is able to send a 304 HTTP Code if the feed didn't change since the last visit
 - HTTP Headers support when reading feeds in order to save network traffic
 - Content filtering to fetch only the newest items
@@ -32,7 +33,7 @@ Installation in a Symfony 2 project
 This is the most common way if you want to add RssAtomBundle into an existing project.
 Edit composer.json and add the following line in the "require" section:
 
-    "debril/rss-atom-bundle": "1.5"
+    "debril/rss-atom-bundle": "1.6"
 
 then, ask Composer to install it:
 
@@ -115,6 +116,12 @@ Wherever you have access to the service container :
 
     // the $content object contains as many Item instances as you have fresh articles in the feed
     $items = $feed->getItems();
+
+    foreach ( $items as $item ) {
+        // getMedias() returns enclosures if any
+        $medias = $item->getMedias();
+    }
+
 ?>
 ```
 `getFeedContent()` fetches the feed hosted at `$url` and removes items prior to `$date`. If it is the first time you read this feed, then you must specify a date far enough in the past to keep all the items. This method does not loop until the `$date` is reached, it justs performs one hit and filters the response to keep only the fresh articles.
