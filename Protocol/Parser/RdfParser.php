@@ -1,29 +1,24 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
-use Debril\RssAtomBundle\Protocol\ItemIn;
+use Debril\RssAtomBundle\Protocol\ItemInInterface;
 use Debril\RssAtomBundle\Protocol\Parser;
-use \SimpleXMLElement;
+use SimpleXMLElement;
 
 /**
- * Class RdfParser
- * @package Debril\RssAtomBundle\Protocol\Parser
+ * Class RdfParser.
  */
 class RdfParser extends Parser
 {
-
     protected $mandatoryFields = array(
         'channel',
     );
@@ -37,8 +32,9 @@ class RdfParser extends Parser
     }
 
     /**
-     * @param  SimpleXMLElement $xmlBody
-     * @return boolean
+     * @param SimpleXMLElement $xmlBody
+     *
+     * @return bool
      */
     public function canHandle(SimpleXMLElement $xmlBody)
     {
@@ -46,11 +42,11 @@ class RdfParser extends Parser
     }
 
     /**
+     * @param SimpleXMLElement                             $xmlBody
+     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
+     * @param array                                        $filters
      *
-     * @param  SimpleXMLElement                             $xmlBody
-     * @param  \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param  array                                        $filters
-     * @return \Debril\RssAtomBundle\Protocol\FeedIn
+     * @return \Debril\RssAtomBundle\Protocol\FeedInInterface
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
     {
@@ -83,13 +79,14 @@ class RdfParser extends Parser
     }
 
     /**
-     * RDF format doesn't support enclosures
+     * RDF format doesn't support enclosures.
      *
-     * @param  SimpleXMLElement $element
-     * @param  ItemIn    $item
+     * @param SimpleXMLElement $element
+     * @param ItemInInterface           $item
+     *
      * @return $this
      */
-    protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
+    protected function handleEnclosure(SimpleXMLElement $element, ItemInInterface $item)
     {
         return $this;
     }

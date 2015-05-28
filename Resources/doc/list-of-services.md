@@ -25,8 +25,8 @@ debril.parser.factory
 ---------------------
 Debril\RssAtomBundle\Protocol\Parser\Factory
 
-This service is used to create FeedIn and ItemIn instances. The FeedIn instance is created by FeedReader and every ItemIn instances are created by the Parser.
-It is possible to override the classes used to create the FeedIn and ItemIn objects through configuration :
+This service is used to create FeedInInterface and ItemInInterface instances. The FeedInInterface instance is created by FeedReader and every ItemInInterface instances are created by the Parser.
+It is possible to override the classes used to create the FeedInInterface and ItemInInterface objects through configuration :
 
 ```xml
     <parameters>
@@ -41,7 +41,7 @@ Debril\RssAtomBundle\Protocol\FeedReader
 
 This the main service you'll use to grab streams. It provides two methods for doing it :
 
- - getFeedContent() returns a brand new FeedContent instance or any object of your own, as long as it implements the FeedIn interface.
+ - getFeedContent() returns a brand new FeedContent instance or any object of your own, as long as it implements the FeedInInterface interface.
  - readFeed() hydrates an object you pass as an argument.
 
 debril.formatter.*
@@ -49,7 +49,7 @@ debril.formatter.*
 Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter
 Debril\RssAtomBundle\Protocol\Formatter\FeedRssFormatter
 
-Each Formatter is designed to turn a FeedOut instance (and all its ItemOut) into a XML stream.
+Each Formatter is designed to turn a FeedOutInterface instance (and all its ItemOutInterface) into a XML stream.
 
 debril.provider.*
 -----------------

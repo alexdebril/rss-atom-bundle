@@ -1,29 +1,24 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use Debril\RssAtomBundle\Protocol\FeedInterface;
-use Debril\RssAtomBundle\Protocol\ItemIn;
+use Debril\RssAtomBundle\Protocol\ItemInInterface;
 use Debril\RssAtomBundle\Protocol\Parser;
-use \SimpleXMLElement;
+use SimpleXMLElement;
 
 /**
- * Class AtomParser
- * @package Debril\RssAtomBundle\Protocol\Parser
+ * Class AtomParser.
  */
 class AtomParser extends Parser
 {
-
     protected $mandatoryFields = array(
         'id',
         'updated',
@@ -41,8 +36,9 @@ class AtomParser extends Parser
     }
 
     /**
-     * @param  SimpleXMLElement $xmlBody
-     * @return boolean
+     * @param SimpleXMLElement $xmlBody
+     *
+     * @return bool
      */
     public function canHandle(SimpleXMLElement $xmlBody)
     {
@@ -50,10 +46,12 @@ class AtomParser extends Parser
     }
 
     /**
-     * @param  SimpleXMLElement $xmlBody
-     * @param  FeedInterface    $feed
-     * @param  array            $filters
+     * @param SimpleXMLElement $xmlBody
+     * @param FeedInterface    $feed
+     * @param array            $filters
+     *
      * @return FeedInterface
+     *
      * @throws ParserException
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
@@ -80,7 +78,7 @@ class AtomParser extends Parser
 
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
             $this->handleEnclosure($xmlElement, $item);
-            
+
             $this->addValidItem($feed, $item, $filters);
         }
 
@@ -88,8 +86,9 @@ class AtomParser extends Parser
     }
 
     /**
-     * @param  SimpleXMLElement $xmlBody
-     * @param  FeedInterface    $feed
+     * @param SimpleXMLElement $xmlBody
+     * @param FeedInterface    $feed
+     *
      * @throws ParserException
      */
     protected function parseHeaders(SimpleXMLElement $xmlBody, FeedInterface $feed)
@@ -106,7 +105,6 @@ class AtomParser extends Parser
     }
 
     /**
-     *
      * @param SimpleXMLElement $xmlElement
      * @param string           $type
      */
@@ -137,22 +135,22 @@ class AtomParser extends Parser
     }
 
     /**
-     * Handles enclosures if any
+     * Handles enclosures if any.
      *
-     * @param  SimpleXMLElement $element
-     * @param  ItemIn           $item
+     * @param SimpleXMLElement $element
+     * @param ItemInInterface           $item
+     *
      * @return $this
      */
-    protected function handleEnclosure(SimpleXMLElement $element, ItemIn $item)
+    protected function handleEnclosure(SimpleXMLElement $element, ItemInInterface $item)
     {
-        foreach ( $element->link as $link ) {
-            if ( strcasecmp ($this->getAttributeValue($link, 'rel'), 'enclosure') === 0 ) {
+        foreach ($element->link as $link) {
+            if (strcasecmp($this->getAttributeValue($link, 'rel'), 'enclosure') === 0) {
                 $media = $this->createMedia($link);
                 $item->addMedia($media);
             }
         }
-    
+
         return $this;
     }
-
 }

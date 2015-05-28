@@ -85,8 +85,8 @@ Usage
 
 rss-atom-bundle is designed to read feeds across the internet and to publish your own. It provides two sets of interfaces, each one being dedicated to feed's consuming or publishing :
 
-- [FeedIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedIn.php) & [ItemIn](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemIn.php) are used for feed reading.
-- [FeedOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedOut.php) & [ItemOut](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemOut.php) are used for feed publishing.
+- [FeedInInterface](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedInInterface.php) & [ItemInInterface](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemInInterface.php) are used for feed reading.
+- [FeedOutInterface](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedOutInterface.php) & [ItemOutInterface](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/ItemOutInterface.php) are used for feed publishing.
 
 Feed Reading
 ------------
@@ -94,7 +94,7 @@ Feed Reading
 To read a feed you need to use the `debril.reader` service which provides two methods for that : `getFeedContent()` and `readFeed()`. This service is based upon the [FeedReader](https://github.com/alexdebril/rss-atom-bundle/blob/master/Protocol/FeedReader.php) class.
 
 ## using getFeedContent()
-`getFeedContent()` is designed to give a brand new FeedContent instance or any object of your own, as long as it implements the [FeedIn](https://github.com/alexdebril/rss-atom-bundle/blob/dev-master/Protocol/FeedIn.php) interface. It takes two arguments :
+`getFeedContent()` is designed to give a brand new FeedContent instance or any object of your own, as long as it implements the [FeedInInterface](https://github.com/alexdebril/rss-atom-bundle/blob/dev-master/Protocol/FeedInInterface.php) interface. It takes two arguments :
 
 - `$url` : URL of the RSS/Atom feed you want to read (eg: http://php.net/feed.atom)
 - `$date` : the last time you read this feed. This is useful to fetch only the articles which were published after your last hit.
@@ -143,11 +143,11 @@ The request will be handled by `StreamController`, according to the following st
 - 4 : compare the feed's LastModified property with the ModifiedSince header
 - 5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the stream is built and sent to the client
 
-StreamController expects the getFeedContent()'s return value to be a FeedOut instance. It can be a Debril\RssAtomBundle\Protocol\Parser\FeedContent or a class you wrote and if so, your class MUST implement the FeedOut interface.
+StreamController expects the getFeedContent()'s return value to be a FeedOutInterface instance. It can be a Debril\RssAtomBundle\Protocol\Parser\FeedContent or a class you wrote and if so, your class MUST implement the FeedOutInterface interface.
 
 ```php
 <?php
-interface FeedOut
+interface FeedOutInterface
 {
 
     /**
@@ -176,14 +176,14 @@ Now, how to plug the `StreamController` with the provider of your choice ? The e
 </service>
 ```
 
-Your class just needs to implement the `FeedContentProvider` interface :
+Your class just needs to implement the `FeedContentProviderInterface` interface :
 
 ```php
-interface FeedContentProvider
+interface FeedContentProviderInterface
 {
     /**
      * @param \Symfony\Component\OptionsResolver $params
-     * @return \Debril\RssAtomBundle\Protocol\FeedOut
+     * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
      * @throws \Debril\RssAtomBundle\Protocol\FeedNotFoundException
      */
     public function getFeedContent(Options $options);
@@ -192,7 +192,7 @@ interface FeedContentProvider
 
 If the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error. Otherwise, `getFeedContent(Options $options)` must return a `FeedContent` instance, which will return an array of `Item` objects through `getItems()`. Then, the controller uses a `FeedFormatter` object to properly turn your `FeedContent` object into a XML stream.
 
-More information on the FeedContentProvider interface and how to interface rss-atom-bundle directly with doctrine can be found in the [Providing Feeds section](https://github.com/alexdebril/rss-atom-bundle/wiki/Providing-feeds)
+More information on the FeedContentProviderInterface interface and how to interface rss-atom-bundle directly with doctrine can be found in the [Providing Feeds section](https://github.com/alexdebril/rss-atom-bundle/wiki/Providing-feeds)
 
 Useful Tips
 ===========

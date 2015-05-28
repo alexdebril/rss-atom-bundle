@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Driver;
  */
 class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var HttpDriverResponse
      */
@@ -33,7 +32,7 @@ class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->object->setHeaders($this->headers);
 
-        $this->object->setBody("a long string ...");
+        $this->object->setBody('a long string ...');
     }
 
     /**
@@ -42,7 +41,6 @@ class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -67,11 +65,12 @@ class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Driver\HttpDriverResponse::getBody
+     *
      * @todo   Implement testGetBody().
      */
     public function testGetBody()
     {
-        $this->assertInternalType("string", $this->object->getBody());
+        $this->assertInternalType('string', $this->object->getBody());
     }
 
     /**
@@ -79,7 +78,7 @@ class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetBody()
     {
-        $string = "Lorem Ipsum, some long text";
+        $string = 'Lorem Ipsum, some long text';
         $this->object->setBody($string);
 
         $this->assertEquals($string, $this->object->getBody());
@@ -130,5 +129,4 @@ class HttpDriverResponseTest extends \PHPUnit_Framework_TestCase
         $this->object->setHttpmessage($message);
         $this->assertEquals($message, $this->object->getHttpMessage());
     }
-
 }

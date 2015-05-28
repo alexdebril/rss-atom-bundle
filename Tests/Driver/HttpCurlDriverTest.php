@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Driver;
  */
 class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
 {
-
     const URL = 'https://raw.githubusercontent.com/alexdebril/rss-atom-bundle/master/Resources/sample-atom.xml';
 
     /**
@@ -30,7 +29,6 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -43,9 +41,9 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
             $response = $this->object->getResponse(self::URL, $date);
 
             $this->assertInstanceOf("Debril\RssAtomBundle\Driver\HttpDriverResponse", $response);
-            $this->assertInternalType("integer", $response->getHttpCode());
+            $this->assertInternalType('integer', $response->getHttpCode());
 
-            $this->assertInternalType("string", $response->getBody());
+            $this->assertInternalType('string', $response->getBody());
             $this->assertGreaterThan(0, strlen($response->getBody()));
         } catch (DriverUnreachableResourceException $e) {
             $this->markTestIncomplete(
@@ -66,12 +64,11 @@ class HttpCurlDriverTest extends \PHPUnit_Framework_TestCase
 
     public function testGetHttpResponse()
     {
-        $headers = file_get_contents(dirname(__FILE__) . '/../../Resources/tests/curl-200-headers.txt');
-        $body = file_get_contents(dirname(__FILE__) . '/../../Resources/sample-atom.xml');
+        $headers = file_get_contents(dirname(__FILE__).'/../../Resources/tests/curl-200-headers.txt');
+        $body = file_get_contents(dirname(__FILE__).'/../../Resources/sample-atom.xml');
 
         $response = $this->object->getHttpResponse($headers, $body);
 
         $this->assertInstanceOf("\Debril\RssAtomBundle\Driver\HttpDriverResponse", $response);
     }
-
 }

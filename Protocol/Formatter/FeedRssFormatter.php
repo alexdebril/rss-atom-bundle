@@ -1,30 +1,24 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Formatter;
 
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
-use Debril\RssAtomBundle\Protocol\FeedOut;
-use Debril\RssAtomBundle\Protocol\ItemOut;
+use Debril\RssAtomBundle\Protocol\FeedOutInterface;
+use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
- * Class FeedRssFormatter
- * @package Debril\RssAtomBundle\Protocol\Formatter
+ * Class FeedRssFormatter.
  */
 class FeedRssFormatter extends FeedFormatter
 {
-
     /**
-     *
      * @return \DomDocument
      */
     public function getRootElement()
@@ -43,9 +37,9 @@ class FeedRssFormatter extends FeedFormatter
 
     /**
      * @param \DomDocument $document
-     * @param FeedOut      $content
+     * @param FeedOutInterface      $content
      */
-    public function setMetas(\DOMDocument $document, FeedOut $content)
+    public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {
         $elements = array();
         $elements[] = $document->createElement('title', htmlspecialchars($content->getTitle()));
@@ -61,11 +55,10 @@ class FeedRssFormatter extends FeedFormatter
     }
 
     /**
-     *
      * @param \DomDocument $document
-     * @param ItemOut      $item
+     * @param ItemOutInterface      $item
      */
-    protected function addEntry(\DomDocument $document, ItemOut $item)
+    protected function addEntry(\DomDocument $document, ItemOutInterface $item)
     {
         $entry = $document->createElement('item');
 
@@ -87,5 +80,4 @@ class FeedRssFormatter extends FeedFormatter
 
         $document->documentElement->firstChild->appendChild($entry);
     }
-
 }

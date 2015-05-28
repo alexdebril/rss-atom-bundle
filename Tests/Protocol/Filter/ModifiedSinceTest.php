@@ -7,14 +7,12 @@ namespace Debril\RssAtomBundle\Protocol\Filter;
  */
 class ModifiedSinceTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var ModifiedSince
      */
     protected $object;
 
     /**
-     *
      * @var DateTime
      */
     protected $date;
@@ -35,11 +33,11 @@ class ModifiedSinceTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Filter\ModifiedSince::getDate
+     *
      * @todo   Implement testGetDate().
      */
     public function testGetDate()
@@ -50,6 +48,7 @@ class ModifiedSinceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Filter\ModifiedSince::isValid
+     *
      * @todo   Implement testIsValid().
      */
     public function testIsValid()
@@ -63,5 +62,4 @@ class ModifiedSinceTest extends \PHPUnit_Framework_TestCase
         $item->setUpdated($date->add(new \DateInterval('P2D')));
         $this->assertTrue($this->object->isValid($item), 'Item must be valid if its date is after modifiedSince');
     }
-
 }

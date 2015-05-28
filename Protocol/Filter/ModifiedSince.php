@@ -1,24 +1,19 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol\Filter;
 
 /**
- * Class ModifiedSince
- * @package Debril\RssAtomBundle\Protocol\Filter
+ * Class ModifiedSince.
  */
-class ModifiedSince implements \Debril\RssAtomBundle\Protocol\Filter
+class ModifiedSince implements \Debril\RssAtomBundle\Protocol\FilterInterface
 {
-
     /**
      * @var \DateTime
      */
@@ -33,7 +28,6 @@ class ModifiedSince implements \Debril\RssAtomBundle\Protocol\Filter
     }
 
     /**
-     *
      * @return \DateTime
      */
     public function getDate()
@@ -42,10 +36,11 @@ class ModifiedSince implements \Debril\RssAtomBundle\Protocol\Filter
     }
 
     /**
-     * The item is valid if it was last updated after the modified since date
+     * The item is valid if it was last updated after the modified since date.
      *
-     * @param  \Debril\RssAtomBundle\Protocol\Parser\Item $item
-     * @return boolean
+     * @param \Debril\RssAtomBundle\Protocol\Parser\Item $item
+     *
+     * @return bool
      */
     public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item)
     {
@@ -55,5 +50,4 @@ class ModifiedSince implements \Debril\RssAtomBundle\Protocol\Filter
 
         return false;
     }
-
 }

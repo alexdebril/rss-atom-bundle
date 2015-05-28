@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Factory
      */
@@ -28,7 +27,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -37,7 +35,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testNewFeed()
     {
         $feed = $this->object->newFeed();
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedIn", $feed);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
     }
 
     /**
@@ -46,7 +44,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testNewItem()
     {
         $item = $this->object->newItem();
-        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemIn", $item);
+        $this->assertInstanceOf("\Debril\RssAtomBundle\Protocol\ItemInInterface", $item);
     }
 
     /**
@@ -82,5 +80,4 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->object->setItemClass('Debril\RssAtomBundle\Protocol\A\Bad\Name');
     }
-
 }

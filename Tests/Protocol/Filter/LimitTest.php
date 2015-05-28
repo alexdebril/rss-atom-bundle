@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Protocol\Filter;
  */
 class LimitTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Limit
      */
@@ -28,11 +27,11 @@ class LimitTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Filter\Limit::isValid
+     *
      * @todo   Implement testIsValid().
      */
     public function testIsValid()
@@ -42,5 +41,4 @@ class LimitTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->object->isValid($item), 'Second one is valid');
         $this->assertFalse($this->object->isValid($item), 'Third one is not valid');
     }
-
 }

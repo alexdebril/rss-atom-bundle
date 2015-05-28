@@ -7,7 +7,6 @@ namespace Debril\RssAtomBundle\Provider;
  */
 class MockProviderTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var MockProvider
      */
@@ -28,7 +27,6 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -39,17 +37,16 @@ class MockProviderTest extends \PHPUnit_Framework_TestCase
         $options = array('id' => 1);
         $feed = $this->object->getFeedContent($options);
 
-        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedOut', $feed);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedOutInterface', $feed);
     }
 
     /**
      * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContent
-     * @expectedException Debril\RssAtomBundle\Exception\FeedNotFoundException
+     * @expectedException \Debril\RssAtomBundle\Exception\FeedNotFoundException
      */
     public function testGet404()
     {
         $options = array('id' => 'not-found');
         $this->object->getFeedContent($options);
     }
-
 }

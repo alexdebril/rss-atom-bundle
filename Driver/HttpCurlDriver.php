@@ -1,29 +1,25 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Driver
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Driver;
 
 /**
- * Class HttpCurlDriver
- * @package Debril\RssAtomBundle\Driver
+ * Class HttpCurlDriver.
  */
-class HttpCurlDriver implements HttpDriver
+class HttpCurlDriver implements HttpDriverInterface
 {
-
     /**
+     * @param string    $url
+     * @param \DateTime $lastModified
      *
-     * @param  string                                          $url
-     * @param  \DateTime                                       $lastModified
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     *
      * @throws DriverUnreachableResourceException
      */
     public function getResponse($url, \DateTime $lastModified)
@@ -53,9 +49,9 @@ class HttpCurlDriver implements HttpDriver
     }
 
     /**
+     * @param string $headerString
+     * @param string $body
      *
-     * @param  string                                          $headerString
-     * @param  string                                          $body
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      */
     public function getHttpResponse($headerString, $body)
@@ -73,5 +69,4 @@ class HttpCurlDriver implements HttpDriver
 
         return $response;
     }
-
 }

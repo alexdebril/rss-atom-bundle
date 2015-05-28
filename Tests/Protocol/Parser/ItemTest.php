@@ -7,13 +7,12 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
  */
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Item
      */
     protected $object;
 
-    const title = "Hello World";
+    const title = 'Hello World';
     const id = 1;
     const link = 'http://example.com/rss';
     const summary = 'Lorem Ipsum...';
@@ -46,11 +45,11 @@ class ItemTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getTitle
+     *
      * @todo   Implement testGetTitle().
      */
     public function testGetTitle()
@@ -60,11 +59,12 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setTitle
+     *
      * @todo   Implement testSetTitle().
      */
     public function testSetTitle()
     {
-        $newTitle = "A brand new title";
+        $newTitle = 'A brand new title';
 
         $this->object->setTitle($newTitle);
         $this->assertEquals($newTitle, $this->object->getTitle());
@@ -72,6 +72,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getSummary
+     *
      * @todo   Implement testGetSummary().
      */
     public function testGetSummary()
@@ -81,6 +82,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setSummary
+     *
      * @todo   Implement testSetSummary().
      */
     public function testSetSummary()
@@ -93,6 +95,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::getUpdated
+     *
      * @todo   Implement testGetUpdated().
      */
     public function testGetUpdated()
@@ -102,6 +105,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\Item::setUpdated
+     *
      * @todo   Implement testSetUpdated().
      */
     public function testSetUpdated()
@@ -207,27 +211,26 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     public function testAddMedia()
     {
-        $media = new Media;
+        $media = new Media();
         $media->setType('audio/mpeg');
-        
+
         $this->object->addMedia($media);
         $this->assertAttributeContainsOnly($media, 'medias', $this->object);
     }
-    
+
     public function testGetMedias()
     {
-        $this->object->addMedia(new Media);
+        $this->object->addMedia(new Media());
         $iterator = $this->object->getMedias();
-        
+
         $this->assertInstanceOf('\ArrayIterator', $iterator);
         $count = 0;
-        
-        foreach ( $iterator as $media ) {
+
+        foreach ($iterator as $media) {
             $count++;
             $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Media', $media);
         }
-        
+
         $this->assertEquals(1, $count);
     }
-
 }

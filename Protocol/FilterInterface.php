@@ -1,27 +1,23 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2
+ * Rss/Atom Bundle for Symfony 2.
  *
- * @package RssAtomBundle\Protocol
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
- *
  */
-
 namespace Debril\RssAtomBundle\Protocol;
 
 /**
- * Interface Filter
- * @package Debril\RssAtomBundle\Protocol
+ * Interface FilterInterface.
  */
-interface Filter
+interface FilterInterface
 {
-
     /**
      * @param \Debril\RssAtomBundle\Protocol\Parser\Item
-     * @return boolean
+     *
+     * @return bool
      */
     public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item);
 }

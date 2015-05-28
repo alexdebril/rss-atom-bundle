@@ -9,7 +9,6 @@ use Debril\RssAtomBundle\Tests\Protocol\FormatterAbstract;
  */
 class FeedAtomFormatterTest extends FormatterAbstract
 {
-
     /**
      * @var FeedAtomFormatter
      */
@@ -31,7 +30,6 @@ class FeedAtomFormatterTest extends FormatterAbstract
      */
     protected function tearDown()
     {
-
     }
 
     /**
@@ -84,5 +82,4 @@ class FeedAtomFormatterTest extends FormatterAbstract
     {
         $this->_testSetEntries($this->object);
     }
-
 }
