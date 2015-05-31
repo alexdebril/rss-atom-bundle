@@ -30,11 +30,13 @@ class StreamController extends Controller
 
     /**
      * @Route("/stream/{id}")
-     * @Template()
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
         $options = $request->attributes->get('_route_params');
+        $this->setModifiedSince($request);
         $options['Since'] = $this->getModifiedSince();
 
         return $this->createStreamResponse(
@@ -50,16 +52,27 @@ class StreamController extends Controller
     protected function getModifiedSince()
     {
         if (is_null($this->since)) {
-            if ($this->getRequest()->headers->has('If-Modified-Since')) {
-                $string = $this->getRequest()->headers->get('If-Modified-Since');
-                $this->since = \DateTime::createFromFormat(\DateTime::RSS, $string);
-            } else {
-                $this->since = new \DateTime();
-                $this->since->setTimestamp(1);
-            }
+            $this->since = new \DateTime('@0');
         }
 
         return $this->since;
+    }
+
+    /**
+     * @param Request $request
+     * @return $this
+     */
+    protected function setModifiedSince(Request $request)
+    {
+        $this->since = new \DateTime();
+        if ($request->headers->has('If-Modified-Since')) {
+            $string = $request->headers->get('If-Modified-Since');
+            $this->since = \DateTime::createFromFormat(\DateTime::RSS, $string);
+        } else {
+            $this->since->setTimestamp(1);
+        }
+
+        return $this;
     }
 
     /**
@@ -100,7 +113,7 @@ class StreamController extends Controller
      * The FeedContentProviderInterface instance is provided as a service
      * default : debril.provider.service.
      *
-     * @param \Symfony\Component\OptionsResolver\Options $options
+     * @param array                                      $options
      * @param string                                     $source
      *
      * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
