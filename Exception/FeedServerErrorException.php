@@ -7,11 +7,12 @@
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
  * @copyright (c) 2013, Alexandre Debril
  */
+
 namespace Debril\RssAtomBundle\Exception;
 
 /**
  * Class FeedServerErrorException.
  */
-class FeedServerErrorException extends \Exception
+class FeedServerErrorException extends FeedException
 {
 }
