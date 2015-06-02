@@ -33,7 +33,7 @@ class FileDriverTest extends \PHPUnit_Framework_TestCase
      * @covers Debril\RssAtomBundle\Driver\FileDriver::getResponse
      *
      * @todo   Implement testGetResponse().
-     * @expectedException Debril\RssAtomBundle\Driver\DriverUnreachableResourceException
+     * @expectedException Debril\RssAtomBundle\Exception\DriverUnreachableResourceException
      */
     public function testGetResponseException()
     {

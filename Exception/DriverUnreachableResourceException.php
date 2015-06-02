@@ -11,8 +11,8 @@
 namespace Debril\RssAtomBundle\Exception;
 
 /**
- * Class FeedCannotBeReadException.
+ * Class DriverUnreachableResourceException.
  */
-class FeedCannotBeReadException extends FeedException
+class DriverUnreachableResourceException extends RssAtomException
 {
 }

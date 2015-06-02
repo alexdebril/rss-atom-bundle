@@ -64,7 +64,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::getFeedContent
-     * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException Debril\RssAtomBundle\Exception\ParserException
      */
     public function testGetFeedContentException()
     {
@@ -219,7 +219,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::getAccurateParser
-     * @expectedException Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException Debril\RssAtomBundle\Exception\ParserException
      */
     public function testGetAccurateParserException()
     {
@@ -230,7 +230,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
-     * @expectedException Debril\RssAtomBundle\Exception\FeedNotModifiedException
+     * @expectedException Debril\RssAtomBundle\Exception\FeedException\FeedNotModifiedException
      */
     public function testParseBody304()
     {
@@ -241,7 +241,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
-     * @expectedException Debril\RssAtomBundle\Exception\FeedNotFoundException
+     * @expectedException Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException
      */
     public function testParseBody404()
     {
@@ -252,7 +252,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
-     * @expectedException Debril\RssAtomBundle\Exception\FeedServerErrorException
+     * @expectedException Debril\RssAtomBundle\Exception\FeedException\FeedServerErrorException
      */
     public function testParseBody500()
     {
@@ -263,7 +263,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
-     * @expectedException Debril\RssAtomBundle\Exception\FeedForbiddenException
+     * @expectedException Debril\RssAtomBundle\Exception\FeedException\FeedForbiddenException
      */
     public function testParseBody403()
     {
@@ -274,7 +274,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
-     * @expectedException Debril\RssAtomBundle\Exception\FeedCannotBeReadException
+     * @expectedException Debril\RssAtomBundle\Exception\FeedException\FeedCannotBeReadException
      */
     public function testParseBodyUnknownError()
     {

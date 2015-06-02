@@ -16,7 +16,7 @@ interface FeedContentProviderInterface
     /**
      * @param array $options
      *
-     * @throws \Debril\RssAtomBundle\Exception\FeedNotFoundException
+     * @throws \Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException
      *
      * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
      */

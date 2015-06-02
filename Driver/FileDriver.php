@@ -9,6 +9,8 @@
  */
 namespace Debril\RssAtomBundle\Driver;
 
+use Debril\RssAtomBundle\Exception\DriverUnreachableResourceException;
+
 /**
  * Class FileDriver.
  */

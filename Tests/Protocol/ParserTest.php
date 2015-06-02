@@ -48,7 +48,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::convertToDateTime
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testConvertToDateTimeException()
     {

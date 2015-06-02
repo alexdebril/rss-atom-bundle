@@ -53,7 +53,7 @@ class RdfParserTest extends ParserAbstract
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\RdfParser::checkBodyStructure
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testParseError()
     {
@@ -102,7 +102,7 @@ class RdfParserTest extends ParserAbstract
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
      * @dataProvider getDefaultFormats
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testGuessDateFormatException($default)
     {

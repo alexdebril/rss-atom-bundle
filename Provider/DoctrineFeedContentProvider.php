@@ -10,7 +10,7 @@
 namespace Debril\RssAtomBundle\Provider;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Debril\RssAtomBundle\Exception\FeedNotFoundException;
+use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
