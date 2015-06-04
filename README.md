@@ -36,11 +36,11 @@ Edit composer.json and add the following line in the "require" section:
 
     "debril/rss-atom-bundle": "1.6"
 
-then, ask Composer to install it:
+Ask Composer to install it:
 
     composer.phar update debril/rss-atom-bundle
     
-finally, edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
+Edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
 
 
 ```php
@@ -54,6 +54,14 @@ class AppKernel extends Kernel
             // ...
             // register the bundle here
             new Debril\RssAtomBundle\DebrilRssAtomBundle(),
+```
+
+Then add the bundle's routing configuration in app/config/routing.yml :
+ 
+```yaml
+feedio:
+    resource: @DebrilRssAtomBundle/Resources/config/routing.yml
+
 ```
 
 Fetching the repository
