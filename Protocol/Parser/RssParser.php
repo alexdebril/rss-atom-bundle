@@ -23,8 +23,6 @@ class RssParser extends Parser
         'channel',
     );
 
-    const MEDIA_LINK_ATTIBUTE = 'link';
-
     /**
      *
      */

@@ -20,7 +20,6 @@ use Debril\RssAtomBundle\Protocol\Parser\Media;
  */
 abstract class Parser
 {
-    const MEDIA_LINK_ATTIBUTE = 'href';
 
     /**
      * System's time zone.
@@ -312,11 +311,27 @@ abstract class Parser
     public function createMedia(SimpleXMLElement $element)
     {
         $media = new Media();
-        $media->setUrl($this->getAttributeValue($element, static::MEDIA_LINK_ATTIBUTE))
+        $media->setUrl($this->searchAttributeValue($element, array('url', 'href', 'link')))
               ->setType($this->getAttributeValue($element, 'type'))
               ->setLenght($this->getAttributeValue($element, 'lenght'));
 
         return $media;
+    }
+
+    /**
+     * Looks for an attribute value under different possible names
+     */
+    public function searchAttributeValue(SimpleXMLElement $element, array $names)
+    {
+        foreach ($names as $name)
+        {
+            $value = $this->getAttributeValue($element, $name);
+            if ( ! is_null($value) ) {
+                return $value;
+            }
+        }
+        
+        return null;
     }
 
     /**
