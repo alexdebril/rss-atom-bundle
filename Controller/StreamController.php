@@ -5,7 +5,6 @@ namespace Debril\RssAtomBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 use Debril\RssAtomBundle\Exception\FeedNotFoundException;
 
@@ -28,7 +27,6 @@ class StreamController extends Controller
     protected $since;
 
     /**
-     * @Route("/stream/{id}")
      * @param Request $request
      * @return Response
      */
