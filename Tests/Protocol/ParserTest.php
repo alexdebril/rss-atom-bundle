@@ -132,4 +132,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('audio/mpeg', $media->getType());
         $this->assertEquals('456', $media->getLenght());
     }
+    
+    public function testSearchAttributeValue()
+    {
+        $xml = new \SimpleXmlElement('<enclosure />');
+        $xml->addAttribute('href', 'http://localhost/');
+        $xml->addAttribute('type', 'audio/mpeg');
+        $xml->addAttribute('lenght', '456');
+        
+        $this->assertNull($this->object->searchAttributeValue($xml, array('foo')));
+        
+        $this->assertEquals('http://localhost/', $this->object->searchAttributeValue($xml, array('url', 'href')));
+    }
 }
