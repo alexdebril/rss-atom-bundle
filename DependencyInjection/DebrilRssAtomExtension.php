@@ -43,5 +43,7 @@ class DebrilRssAtomExtension extends Extension
                     'debril_rss_atom.date_formats', array_merge($default, $config['date_formats'])
             );
         }
+
+        $container->setParameter('debril_rss_atom.private_feeds', $config['private']);
     }
 }

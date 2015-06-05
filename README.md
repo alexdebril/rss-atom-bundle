@@ -224,6 +224,18 @@ Need to keep the existing routes and add one mapped to a different FeedProvider 
 
 The `source` parameter must contain a valid service name defined in your application.
 
+Private feeds
+-------------
+
+You may have private feeds, user-specific or behind some authentication.  
+In that case, you don't want to `Cache-Control: public` header to be added, not to have your feed cached by a reverse-proxy (such as Symfony2 AppCache or Varnish).  
+You can do so by setting `private` parameter to `false` in config:
+
+```yml
+debril_rss_atom:
+    private: true
+```
+
 Contributors
 ------------
 
