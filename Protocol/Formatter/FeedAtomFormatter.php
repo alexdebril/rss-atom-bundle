@@ -110,16 +110,14 @@ class FeedAtomFormatter extends FeedFormatter
             $elements[] = $author;
         }
 
-        if (0 !== count($item->getMedias())) { // Doctrine ArrayCollection do not support empty()
-            foreach ($item->getMedias() as $media) {
-                $mediaLink = $document->createElement('link');
-                $mediaLink->setAttribute('rel', 'enclosure');
-                $mediaLink->setAttribute('href', $media->getUrl());
-                $mediaLink->setAttribute('length', $media->getLength());
-                $mediaLink->setAttribute('type', $media->getType());
+        foreach ($item->getMedias() as $media) {
+            $mediaLink = $document->createElement('link');
+            $mediaLink->setAttribute('rel', 'enclosure');
+            $mediaLink->setAttribute('href', $media->getUrl());
+            $mediaLink->setAttribute('length', $media->getLength());
+            $mediaLink->setAttribute('type', $media->getType());
 
-                $elements[] = $mediaLink;
-            }
+            $elements[] = $mediaLink;
         }
 
         foreach ($elements as $element) {
