@@ -42,11 +42,11 @@ class RssParser extends Parser
     }
 
     /**
-     * @param SimpleXMLElement                             $xmlBody
-     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param array                                        $filters
+     * @param SimpleXMLElement $xmlBody
+     * @param FeedInterface    $feed
+     * @param array            $filters
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedInterface
+     * @return FeedInterface
      */
     protected function parseBody(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters)
     {
@@ -106,8 +106,8 @@ class RssParser extends Parser
     }
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
-     * @param type                                         $rssDate
+     * @param FeedInterface $feed
+     * @param string        $rssDate
      */
     protected function setLastModified(FeedInterface $feed, $rssDate)
     {
@@ -120,7 +120,7 @@ class RssParser extends Parser
      * Handles enclosures if any.
      *
      * @param SimpleXMLElement $element
-     * @param ItemInInterface           $item
+     * @param ItemInInterface  $item
      *
      * @return $this
      */

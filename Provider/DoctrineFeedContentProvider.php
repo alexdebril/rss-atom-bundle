@@ -9,6 +9,7 @@
  */
 namespace Debril\RssAtomBundle\Provider;
 
+use Debril\RssAtomBundle\Protocol\FeedOutInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DoctrineFeedContentProvider implements FeedContentProviderInterface
 {
     /**
-     * @var \Doctrine\Bundle\DoctrineBundle\Registry
+     * @var Registry
      */
     protected $doctrine;
 
@@ -29,7 +30,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
     protected $repositoryName;
 
     /**
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
+     * @param Registry $doctrine
      */
     public function __construct(Registry $doctrine)
     {
@@ -51,7 +52,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
      *
      * @param string $repositoryName
      *
-     * @return \Debril\RssAtomBundle\Provider\DoctrineFeedContentProvider
+     * @return DoctrineFeedContentProvider
      */
     public function setRepositoryName($repositoryName)
     {
@@ -63,7 +64,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
     /**
      * @param array $options
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
+     * @return FeedOutInterface
      *
      * @throws FeedNotFoundException
      */
@@ -76,7 +77,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
                 ->findOneById($this->getIdFromOptions($options));
 
         // if the feed is an actual FeedOutInterface instance, then return it
-        if ($feed instanceof \Debril\RssAtomBundle\Protocol\FeedOutInterface) {
+        if ($feed instanceof FeedOutInterface) {
             return $feed;
         }
 
@@ -85,7 +86,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
     }
 
     /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry
+     * @return Registry
      */
     public function getDoctrine()
     {

@@ -20,19 +20,21 @@ abstract class FeedFormatter
     abstract public function getRootElement();
 
     /**
-     * @param \DomDocument                           $element
-     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
+     * @param \DomDocument     $element
+     * @param FeedOutInterface $content
      */
     abstract public function setMetas(\DomDocument $element, FeedOutInterface $content);
 
     /**
-     * @param \DomDocument                           $document
-     * @param \Debril\RssAtomBundle\Protocol\ItemOutInterface $item
+     * @param \DomDocument     $document
+     * @param ItemOutInterface $item
      */
     abstract protected function addEntry(\DomDocument $document, ItemOutInterface $item);
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
+     * @param FeedOutInterface $content
+     *
+     * @return string
      */
     public function toString(FeedOutInterface $content)
     {
@@ -42,7 +44,9 @@ abstract class FeedFormatter
     }
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
+     * @param FeedOutInterface $content
+     *
+     * @return \DomDocument
      */
     public function toDom(FeedOutInterface $content)
     {
@@ -55,8 +59,8 @@ abstract class FeedFormatter
     }
 
     /**
-     * @param \DomDocument                           $document
-     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
+     * @param \DomDocument     $document
+     * @param FeedOutInterface $content
      */
     public function setEntries(\DomDocument $document, FeedOutInterface $content)
     {

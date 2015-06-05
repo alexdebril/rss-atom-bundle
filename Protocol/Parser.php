@@ -9,8 +9,8 @@
  */
 namespace Debril\RssAtomBundle\Protocol;
 
-use SimpleXMLElement;
-use DateTime;
+use Debril\RssAtomBundle\Protocol\Filter\ModifiedSince;
+use Debril\RssAtomBundle\Protocol\Parser\Item;
 use Debril\RssAtomBundle\Exception\ParserException;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
 use Debril\RssAtomBundle\Protocol\Parser\Media;
@@ -20,7 +20,6 @@ use Debril\RssAtomBundle\Protocol\Parser\Media;
  */
 abstract class Parser
 {
-
     /**
      * System's time zone.
      *
@@ -31,34 +30,34 @@ abstract class Parser
     /**
      * List of mandatory fields.
      *
-     * @var array[string]
+     * @var string[]
      */
     protected $mandatoryFields = array();
 
     /**
      * Feed's date format.
      *
-     * @var array[string]
+     * @var string[]
      */
     protected $dateFormats = array();
 
     /**
-     * @var \Debril\RssAtomBundle\Protocol\Parser\Factory
+     * @var Factory
      */
     protected $factory;
 
     /**
      * Parses the feed's body to create a FeedContent instance.
      *
-     * @param SimpleXMLElement                             $xmlBody
+     * @param \SimpleXMLElement                            $xmlBody
      * @param \Debril\RssAtomBundle\Protocol\FeedInterface $feed
      * @param array                                        $filters
      *
-     * @throws Parser\ParserException
+     * @throws ParserException
      *
      * @return FeedInterface
      */
-    public function parse(SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters = array())
+    public function parse(\SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters = array())
     {
         if (!$this->canHandle($xmlBody)) {
             throw new ParserException('this is not a supported format');
@@ -72,11 +71,11 @@ abstract class Parser
     }
 
     /**
-     * @param SimpleXMLElement $body
+     * @param \SimpleXMLElement $body
      *
      * @throws ParserException
      */
-    protected function checkBodyStructure(SimpleXMLElement $body)
+    protected function checkBodyStructure(\SimpleXMLElement $body)
     {
         $errors = array();
 
@@ -103,7 +102,7 @@ abstract class Parser
     }
 
     /**
-     * @param type $date
+     * @param string $date
      *
      * @return string date Format
      *
@@ -122,19 +121,19 @@ abstract class Parser
     }
 
     /**
-     * @return \Debril\RssAtomBundle\Protocol\ItemInInterface
+     * @return ItemInInterface
      */
     public function newItem()
     {
-        if ($this->getFactory() instanceof \Debril\RssAtomBundle\Protocol\Parser\Factory) {
+        if ($this->getFactory() instanceof Factory) {
             return $this->getFactory()->newItem();
         }
 
-        return new Parser\Item();
+        return new Item();
     }
 
     /**
-     * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
+     * @return Factory
      */
     public function getFactory()
     {
@@ -142,9 +141,9 @@ abstract class Parser
     }
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\Parser\Factory $factory
+     * @param Factory $factory
      *
-     * @return \Debril\RssAtomBundle\Protocol\Parser
+     * @return Parser
      */
     public function setFactory(Factory $factory)
     {
@@ -158,13 +157,14 @@ abstract class Parser
      *
      * @param FeedInInterface $feed
      * @param ItemInInterface $item
+     * @param \DateTime       $modifiedSince
      *
      * @return $this
      */
     public function addAcceptableItem(FeedInInterface $feed, ItemInInterface $item, \DateTime $modifiedSince)
     {
         $filters = array(
-            new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($modifiedSince),
+            new ModifiedSince($modifiedSince),
         );
 
         return $this->addValidItem($feed, $item, $filters);
@@ -173,7 +173,7 @@ abstract class Parser
     /**
      * @param FeedInInterface $feed
      * @param ItemInInterface $item
-     * @param array  $filters
+     * @param array           $filters
      *
      * @return $this
      */
@@ -188,7 +188,7 @@ abstract class Parser
 
     /**
      * @param ItemInInterface $item
-     * @param array  $filters
+     * @param array           $filters
      *
      * @return bool
      */
@@ -196,7 +196,7 @@ abstract class Parser
     {
         $valid = true;
         foreach ($filters as $filter) {
-            if ($filter instanceof \Debril\RssAtomBundle\Protocol\FilterInterface) {
+            if ($filter instanceof FilterInterface) {
                 $valid = $filter->isValid($item) ? $valid : false;
             }
         }
@@ -209,10 +209,12 @@ abstract class Parser
      *
      * @param string $string
      * @param string $format
+     *
+     * @return \DateTime
      */
-    public static function convertToDateTime($string, $format = DateTime::RFC2822)
+    public static function convertToDateTime($string, $format = \DateTime::RFC2822)
     {
-        $date = DateTime::createFromFormat($format, $string);
+        $date = \DateTime::createFromFormat($format, $string);
 
         if (!$date instanceof \DateTime) {
             throw new ParserException("date is the wrong format : {$string} - expected {$format}");
@@ -248,11 +250,11 @@ abstract class Parser
     /**
      * register Namespaces.
      *
-     * @param SimpleXMLElement $xmlBody
+     * @param \SimpleXMLElement $xmlBody
      *
-     * @return SimpleXMLElement
+     * @return \SimpleXMLElement
      */
-    protected function registerNamespaces(SimpleXMLElement $xmlBody)
+    protected function registerNamespaces(\SimpleXMLElement $xmlBody)
     {
         $namespaces = $xmlBody->getNamespaces(true);
         foreach ($namespaces as $prefix => $ns) {
@@ -265,12 +267,12 @@ abstract class Parser
     }
 
     /**
-     * @param SimpleXMLElement $xmlElement
-     * @param $namespaces
+     * @param \SimpleXMLElement $xmlElement
+     * @param array             $namespaces
      *
      * @return array
      */
-    protected function getAdditionalNamespacesElements(SimpleXMLElement $xmlElement, $namespaces)
+    protected function getAdditionalNamespacesElements(\SimpleXMLElement $xmlElement, $namespaces)
     {
         $additional = array();
         foreach ($namespaces as $prefix => $ns) {
@@ -291,7 +293,7 @@ abstract class Parser
      *
      * @return string|null
      */
-    public function getAttributeValue(SimpleXMLElement $element, $attributeName)
+    public function getAttributeValue(\SimpleXMLElement $element, $attributeName)
     {
         $attributes = $element[0]->attributes();
         foreach ($attributes as $name => $value) {
@@ -304,11 +306,11 @@ abstract class Parser
     }
 
     /**
-     * @param SimpleXMLElement $element
+     * @param \SimpleXMLElement $element
      *
      * @return Media
      */
-    public function createMedia(SimpleXMLElement $element)
+    public function createMedia(\SimpleXMLElement $element)
     {
         $media = new Media();
         $media->setUrl($this->searchAttributeValue($element, array('url', 'href', 'link')))
@@ -319,48 +321,52 @@ abstract class Parser
     }
 
     /**
-     * Looks for an attribute value under different possible names
+     * Looks for an attribute value under different possible names.
+     *
+     * @param \SimpleXMLElement $element
+     * @param array             $names
+     *
+     * @return null|string|void
      */
-    public function searchAttributeValue(SimpleXMLElement $element, array $names)
+    public function searchAttributeValue(\SimpleXMLElement $element, array $names)
     {
-        foreach ($names as $name)
-        {
+        foreach ($names as $name) {
             $value = $this->getAttributeValue($element, $name);
-            if ( ! is_null($value) ) {
+            if (!is_null($value)) {
                 return $value;
             }
         }
-        
-        return null;
+
+        return;
     }
 
     /**
      * Tells if the parser can handle the feed or not.
      *
-     * @param SimpleXMLElement $xmlBody
+     * @param \SimpleXMLElement $xmlBody
      *
      * @return bool
      */
-    abstract public function canHandle(SimpleXMLElement $xmlBody);
+    abstract public function canHandle(\SimpleXMLElement $xmlBody);
 
     /**
      * Performs the actual conversion into a FeedContent instance.
      *
-     * @param SimpleXMLElement $body
-     * @param FeedInterface    $feed
-     * @param array            $filters
+     * @param \SimpleXMLElement $body
+     * @param FeedInterface     $feed
+     * @param array             $filters
      *
      * @return FeedInInterface
      */
-    abstract protected function parseBody(SimpleXMLElement $body, FeedInterface $feed, array $filters);
+    abstract protected function parseBody(\SimpleXMLElement $body, FeedInterface $feed, array $filters);
 
     /**
      * Handles enclosures if any.
      *
-     * @param SimpleXMLElement $element
-     * @param ItemInInterface           $item
+     * @param \SimpleXMLElement $element
+     * @param ItemInInterface   $item
      *
      * @return $this
      */
-    abstract protected function handleEnclosure(SimpleXMLElement $element, ItemInInterface $item);
+    abstract protected function handleEnclosure(\SimpleXMLElement $element, ItemInInterface $item);
 }

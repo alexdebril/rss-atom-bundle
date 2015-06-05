@@ -31,7 +31,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
         $this->object->setDescription(self::subtitle);
         $this->object->setLastModified(new \DateTime());
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; ++$i) {
             $item = new Item();
             $item->setPublicId($i);
             $this->object->addItem($item);
@@ -57,7 +57,7 @@ class FeedContentTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLastModified()
     {
-        $this->assertInstanceOf("\DateTime", $this->object->getLastModified());
+        $this->assertInstanceOf('\DateTime', $this->object->getLastModified());
     }
 
     /**

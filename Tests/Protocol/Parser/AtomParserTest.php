@@ -2,6 +2,7 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
+use Debril\RssAtomBundle\Protocol\Filter\ModifiedSince;
 use Debril\RssAtomBundle\Tests\Protocol\ParserAbstract;
 
 /**
@@ -41,7 +42,7 @@ class AtomParserTest extends ParserAbstract
         $file = dirname(__FILE__).'/../../../Resources/sample-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
         $this->assertFalse($this->object->canHandle($xmlBody));
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
+        $filters = array(new ModifiedSince(new \DateTime()));
         $this->object->parse($xmlBody, new FeedContent(), $filters);
     }
 
@@ -63,7 +64,7 @@ class AtomParserTest extends ParserAbstract
     {
         $file = dirname(__FILE__).'/../../../Resources/truncated-atom.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
+        $filters = array(new ModifiedSince(new \DateTime()));
         $this->object->parse($xmlBody, new FeedContent(), $filters);
     }
 
@@ -79,14 +80,14 @@ class AtomParserTest extends ParserAbstract
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat('Y-m-d', '2002-10-10');
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $filters = array(new ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedInInterface', $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getId() should not return an empty value');
         $this->assertGreaterThan(0, $feed->getItemsCount());
-        $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertInstanceOf('\DateTime', $feed->getLastModified());
         $this->assertNotNull($feed->getLink());
         $this->assertInternalType('string', $feed->getLink());
         $this->assertInternalType('string', $feed->getDescription());
@@ -102,7 +103,7 @@ class AtomParserTest extends ParserAbstract
         $count = 0;
         foreach ($medias as $media) {
             $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser\Media', $media);
-            $count++;
+            ++$count;
         }
 
         $this->assertEquals(1, $count);
@@ -141,7 +142,7 @@ class AtomParserTest extends ParserAbstract
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat('Y-m-d', '2002-10-10');
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $filters = array(new ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
@@ -159,7 +160,7 @@ class AtomParserTest extends ParserAbstract
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat('Y-m-d', '2002-10-10');
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $filters = array(new ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
         $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);

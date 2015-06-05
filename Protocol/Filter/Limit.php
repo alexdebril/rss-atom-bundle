@@ -9,10 +9,13 @@
  */
 namespace Debril\RssAtomBundle\Protocol\Filter;
 
+use Debril\RssAtomBundle\Protocol\FilterInterface;
+use Debril\RssAtomBundle\Protocol\Parser\Item;
+
 /**
  * Class Limit.
  */
-class Limit implements \Debril\RssAtomBundle\Protocol\FilterInterface
+class Limit implements FilterInterface
 {
     /**
      * @var int
@@ -25,7 +28,7 @@ class Limit implements \Debril\RssAtomBundle\Protocol\FilterInterface
     protected $count = 0;
 
     /**
-     * @param $limit
+     * @param int $limit
      */
     public function __construct($limit)
     {
@@ -33,11 +36,11 @@ class Limit implements \Debril\RssAtomBundle\Protocol\FilterInterface
     }
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\Parser\Item $item
+     * @param Item $item
      *
      * @return bool
      */
-    public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item)
+    public function isValid(Item $item)
     {
         return ($this->limit > $this->count++);
     }

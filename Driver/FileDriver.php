@@ -20,7 +20,7 @@ class FileDriver implements HttpDriverInterface
      * @param string    $url
      * @param \DateTime $lastModified
      *
-     * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     * @return HttpDriverResponse
      *
      * @throws DriverUnreachableResourceException
      */

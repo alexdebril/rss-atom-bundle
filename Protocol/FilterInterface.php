@@ -9,15 +9,17 @@
  */
 namespace Debril\RssAtomBundle\Protocol;
 
+use Debril\RssAtomBundle\Protocol\Parser\Item;
+
 /**
  * Interface FilterInterface.
  */
 interface FilterInterface
 {
     /**
-     * @param \Debril\RssAtomBundle\Protocol\Parser\Item
+     * @param Item $item
      *
      * @return bool
      */
-    public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item);
+    public function isValid(Item $item);
 }

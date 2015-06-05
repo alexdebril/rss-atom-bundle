@@ -61,7 +61,7 @@ interface FeedOutInterface
      * Atom : feed.entry <feed><entry>
      * Rss  : rss.channel.item <rss><channel><item>.
      *
-     * @return array[\Debril\RssAtomBundle\Protocol\ItemOutInterface]
+     * @return ItemOutInterface[]
      */
     public function getItems();
 }

@@ -2,12 +2,17 @@
 
 namespace Debril\RssAtomBundle\Controller;
 
+use Debril\RssAtomBundle\Protocol\FeedFormatter;
+use Debril\RssAtomBundle\Protocol\FeedOutInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 
+/**
+ * Class StreamController.
+ */
 class StreamController extends Controller
 {
     /**
@@ -28,6 +33,7 @@ class StreamController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(Request $request)
@@ -37,7 +43,9 @@ class StreamController extends Controller
         $options['Since'] = $this->getModifiedSince();
 
         return $this->createStreamResponse(
-                        $options, $request->get('format', 'rss'), $request->get('source', self::DEFAULT_SOURCE)
+            $options,
+            $request->get('format', 'rss'),
+            $request->get('source', self::DEFAULT_SOURCE)
         );
     }
 
@@ -57,6 +65,7 @@ class StreamController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return $this
      */
     protected function setModifiedSince(Request $request)
@@ -77,7 +86,7 @@ class StreamController extends Controller
      * 200 : a full body containing the stream
      * 304 : Not modified.
      *
-     * @param array  $options
+     * @param array $options
      * @param $format
      * @param string $source
      *
@@ -110,10 +119,10 @@ class StreamController extends Controller
      * The FeedContentProviderInterface instance is provided as a service
      * default : debril.provider.service.
      *
-     * @param array                                      $options
-     * @param string                                     $source
+     * @param array  $options
+     * @param string $source
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
+     * @return FeedOutInterface
      *
      * @throws \Exception
      */
@@ -153,7 +162,7 @@ class StreamController extends Controller
      *
      * @throws \Exception
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedFormatter
+     * @return FeedFormatter
      */
     protected function getFormatter($format)
     {

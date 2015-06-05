@@ -9,10 +9,13 @@
  */
 namespace Debril\RssAtomBundle\Protocol\Filter;
 
+use Debril\RssAtomBundle\Protocol\FilterInterface;
+use Debril\RssAtomBundle\Protocol\Parser\Item;
+
 /**
  * Class ModifiedSince.
  */
-class ModifiedSince implements \Debril\RssAtomBundle\Protocol\FilterInterface
+class ModifiedSince implements FilterInterface
 {
     /**
      * @var \DateTime
@@ -38,11 +41,11 @@ class ModifiedSince implements \Debril\RssAtomBundle\Protocol\FilterInterface
     /**
      * The item is valid if it was last updated after the modified since date.
      *
-     * @param \Debril\RssAtomBundle\Protocol\Parser\Item $item
+     * @param Item $item
      *
      * @return bool
      */
-    public function isValid(\Debril\RssAtomBundle\Protocol\Parser\Item $item)
+    public function isValid(Item $item)
     {
         if ($item->getUpdated() instanceof \DateTime) {
             return $item->getUpdated() > $this->getDate();

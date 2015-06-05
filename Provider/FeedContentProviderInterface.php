@@ -11,14 +11,20 @@
  */
 namespace Debril\RssAtomBundle\Provider;
 
+use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
+use Debril\RssAtomBundle\Protocol\FeedOutInterface;
+
+/**
+ * Interface FeedContentProviderInterface.
+ */
 interface FeedContentProviderInterface
 {
     /**
      * @param array $options
      *
-     * @throws \Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException
+     * @throws FeedNotFoundException
      *
-     * @return \Debril\RssAtomBundle\Protocol\FeedOutInterface
+     * @return FeedOutInterface
      */
     public function getFeedContent(array $options);
 }
