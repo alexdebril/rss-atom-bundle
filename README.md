@@ -60,7 +60,7 @@ Then add the bundle's routing configuration in app/config/routing.yml :
  
 ```yaml
 feedio:
-    resource: @DebrilRssAtomBundle/Resources/config/routing.yml
+    resource: @DebrilRssAtomBundle/Resources/config/routing.xml
 
 ```
 
