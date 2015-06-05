@@ -103,7 +103,10 @@ class StreamController extends Controller
             $response = new Response($formatter->toString($content));
             $response->headers->set('Content-Type', 'application/xhtml+xml');
 
-            $response->setPublic();
+            if (! $this->container->getParameter('debril_rss_atom.private_feeds')) {
+                $response->setPublic();
+            }
+
             $response->setMaxAge(3600);
             $response->setLastModified($content->getLastModified());
         } else {

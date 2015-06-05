@@ -18,12 +18,18 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('debril_rss_atom');
-        $rootNode
+
+        $treeBuilder->root('debril_rss_atom')
                 ->children()
-                ->arrayNode('date_formats')
-                ->prototype('scalar')->end()
-                ->end();
+                    ->booleanNode('private')
+                        ->info('Change cache headers so the RSS feed is not cached by public caches (like reverse-proxies...).')
+                        ->defaultValue(false)
+                    ->end()
+                    ->arrayNode('date_formats')
+                        ->prototype('scalar')->end()
+                    ->end()
+                ->end()
+        ;
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
