@@ -11,7 +11,7 @@ namespace Debril\RssAtomBundle\Protocol;
 
 use SimpleXMLElement;
 use DateTime;
-use Debril\RssAtomBundle\Protocol\Parser\ParserException;
+use Debril\RssAtomBundle\Exception\ParserException;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
 use Debril\RssAtomBundle\Protocol\Parser\Media;
 

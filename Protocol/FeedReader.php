@@ -14,12 +14,12 @@ use SimpleXMLElement;
 use Debril\RssAtomBundle\Driver\HttpDriverInterface;
 use Debril\RssAtomBundle\Driver\HttpDriverResponse;
 use Debril\RssAtomBundle\Protocol\Parser\Factory;
-use Debril\RssAtomBundle\Protocol\Parser\ParserException;
-use Debril\RssAtomBundle\Exception\FeedCannotBeReadException;
-use Debril\RssAtomBundle\Exception\FeedNotFoundException;
-use Debril\RssAtomBundle\Exception\FeedNotModifiedException;
-use Debril\RssAtomBundle\Exception\FeedServerErrorException;
-use Debril\RssAtomBundle\Exception\FeedForbiddenException;
+use Debril\RssAtomBundle\Exception\ParserException;
+use Debril\RssAtomBundle\Exception\FeedException\FeedCannotBeReadException;
+use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
+use Debril\RssAtomBundle\Exception\FeedException\FeedNotModifiedException;
+use Debril\RssAtomBundle\Exception\FeedException\FeedServerErrorException;
+use Debril\RssAtomBundle\Exception\FeedException\FeedForbiddenException;
 
 /**
  * Class to read any kind of supported feeds (RSS, ATOM, and more if you need).

@@ -34,7 +34,7 @@ class AtomParserTest extends ParserAbstract
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::parse
      * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::canHandle
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testCannotHandle()
     {
@@ -57,7 +57,7 @@ class AtomParserTest extends ParserAbstract
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\AtomParser::checkBodyStructure
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testParseError()
     {
@@ -122,7 +122,7 @@ class AtomParserTest extends ParserAbstract
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
      * @dataProvider getDefaultFormats
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testGuessDateFormatException($default)
     {

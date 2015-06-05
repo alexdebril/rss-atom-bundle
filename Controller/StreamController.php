@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
-use Debril\RssAtomBundle\Exception\FeedNotFoundException;
+use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 
 class StreamController extends Controller
 {

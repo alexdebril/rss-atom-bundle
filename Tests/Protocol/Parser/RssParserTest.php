@@ -53,7 +53,7 @@ class RssParserTest extends ParserAbstract
 
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser\RssParser::checkBodyStructure
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testParseError()
     {
@@ -158,7 +158,7 @@ class RssParserTest extends ParserAbstract
     /**
      * @covers Debril\RssAtomBundle\Protocol\Parser::guessDateFormat
      * @dataProvider getDefaultFormats
-     * @expectedException \Debril\RssAtomBundle\Protocol\Parser\ParserException
+     * @expectedException \Debril\RssAtomBundle\Exception\ParserException
      */
     public function testGuessDateFormatException(array $default)
     {

@@ -8,7 +8,9 @@
  * @copyright (c) 2013, Alexandre Debril
  */
 
-namespace Debril\RssAtomBundle\Exception;
+namespace Debril\RssAtomBundle\Exception\FeedException;
+
+use Debril\RssAtomBundle\Exception\FeedException;
 
 /**
  * Class FeedServerErrorException.

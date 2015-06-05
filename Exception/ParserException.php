@@ -8,9 +8,7 @@
  * @copyright (c) 2013, Alexandre Debril
  */
 
-namespace Debril\RssAtomBundle\Protocol\Parser;
-
-use Debril\RssAtomBundle\Exception\RssAtomException;
+namespace Debril\RssAtomBundle\Exception;
 
 /**
  * Class ParserException.
