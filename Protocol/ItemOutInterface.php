@@ -81,9 +81,9 @@ interface ItemOutInterface
     public function getComment();
 
     /**
-     * Rss  : rss.channel.item.enclosure <rss><channel><item><enclosure>.
+     * Rss  : rss.channel.item.enclosure for the first one <rss><channel><item><enclosure>, and rss.channel.item.media:content <rss><channel><item><media:content> for all media
      *
-     * @return \ArrayIterator $medias
+     * @return \ArrayIterator|MediaOutInterface[] $medias
      */
     public function getMedias();
 }
