@@ -124,14 +124,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $xml = new \SimpleXmlElement('<enclosure />');
         $xml->addAttribute('href', 'http://localhost/');
         $xml->addAttribute('type', 'audio/mpeg');
-        $xml->addAttribute('lenght', '456');
+        $xml->addAttribute('length', '456');
 
         $media = $this->object->createMedia($xml);
         $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Media', $media);
 
         $this->assertEquals('http://localhost/', $media->getUrl());
         $this->assertEquals('audio/mpeg', $media->getType());
-        $this->assertEquals('456', $media->getLenght());
+        $this->assertEquals('456', $media->getLength());
     }
 
     public function testSearchAttributeValue()
@@ -139,7 +139,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $xml = new \SimpleXmlElement('<enclosure />');
         $xml->addAttribute('href', 'http://localhost/');
         $xml->addAttribute('type', 'audio/mpeg');
-        $xml->addAttribute('lenght', '456');
+        $xml->addAttribute('length', '456');
 
         $this->assertNull($this->object->searchAttributeValue($xml, array('foo')));
 

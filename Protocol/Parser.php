@@ -315,7 +315,7 @@ abstract class Parser
         $media = new Media();
         $media->setUrl($this->searchAttributeValue($element, array('url', 'href', 'link')))
               ->setType($this->getAttributeValue($element, 'type'))
-              ->setLenght($this->getAttributeValue($element, 'lenght'));
+              ->setLength($this->getAttributeValue($element, 'length'));
 
         return $media;
     }
