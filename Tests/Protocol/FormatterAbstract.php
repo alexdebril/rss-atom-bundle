@@ -10,6 +10,7 @@ namespace Debril\RssAtomBundle\Tests\Protocol;
 
 use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
 use Debril\RssAtomBundle\Protocol\Parser\Item;
+use Debril\RssAtomBundle\Protocol\Parser\Media;
 
 class FormatterAbstract extends \PHPUnit_Framework_TestCase
 {
@@ -36,6 +37,12 @@ class FormatterAbstract extends \PHPUnit_Framework_TestCase
         $item->setUpdated(new \DateTime());
         $item->setComment('http://linktothecomments.com');
         $item->setAuthor('Contributor');
+
+        $media = new Media();
+        $media->setUrl('http://media');
+        $media->setUrl('image/jpeg');
+
+        $item->addMedia($media);
 
         $this->feed->addItem($item);
     }

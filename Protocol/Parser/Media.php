@@ -25,7 +25,7 @@ class Media
     protected $url;
 
     /**
-     * @var int
+     * @var int with a legacy typo :)
      */
     protected $lenght;
 
@@ -85,6 +85,26 @@ class Media
     public function setLenght($lenght)
     {
         $this->lenght = intval($lenght);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLength()
+    {
+        return $this->lenght;
+    }
+
+    /**
+     * @param string $length
+     *
+     * @return $this
+     */
+    public function setLength($length)
+    {
+        $this->lenght = intval($length);
 
         return $this;
     }
