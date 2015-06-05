@@ -30,3 +30,8 @@ use Debril\RssAtomBundle\Exception\FeedException\FeedNotModifiedException;
 use Debril\RssAtomBundle\Exception\FeedException\FeedServerErrorException;
 use Debril\RssAtomBundle\Exception\FeedException\FeedForbiddenException;
 ```
+
+### Media::length
+
+There was a typo for `Media::$lenght` field (protected access).
+It now has been renamed to the correct `Media:: $length`, as its accessors, `Media::getLength()` and `Media::setLength()`.
