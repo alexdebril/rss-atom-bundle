@@ -51,7 +51,7 @@ class FeedAtomFormatter extends FeedFormatter
      */
     public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {
-        $elements = [];
+        $elements = array();
         $elements[] = $document->createElement('title', htmlspecialchars($content->getTitle()));
         $elements[] = $document->createElement('subtitle', $content->getDescription());
         $elements[] = $document->createElement('id', $content->getLink());
@@ -76,7 +76,7 @@ class FeedAtomFormatter extends FeedFormatter
     {
         $entry = $document->createElement('entry');
 
-        $elements = [];
+        $elements = array();
         $elements[] = $document->createElement('title', htmlspecialchars($item->getTitle()));
 
         $link = $document->createElement('link');
