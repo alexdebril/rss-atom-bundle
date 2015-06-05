@@ -75,7 +75,7 @@ class FeedRssFormatter extends FeedFormatter
         foreach ($item->getMedias() as $media) {
             // We can have only one enclosure in RSS 2.0
             // We use as a fallback Yahoo RSS Media extension
-            if (1 === $mediaCount) {
+            if (0 === $mediaCount) {
                 $mediaElement = $document->createElement('enclosure');
                 $mediaElement->setAttribute('url', $media->getUrl());
                 $mediaElement->setAttribute('length', $media->getLength());
