@@ -3,6 +3,7 @@
 namespace Debril\RssAtomBundle\Protocol;
 
 use Debril\RssAtomBundle\Protocol\Parser\AtomParser;
+use Debril\RssAtomBundle\Protocol\Parser\Factory;
 use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
 use Debril\RssAtomBundle\Protocol\Parser\Item;
 
@@ -74,7 +75,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFactory()
     {
-        $this->object->setFactory(new Parser\Factory());
+        $this->object->setFactory(new Factory());
 
         $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Factory', $this->object->getFactory());
     }
@@ -89,7 +90,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $item->setUpdated(\DateTime::createFromFormat('j-M-Y', '17-Feb-2012'));
         $ret = $this->object->addAcceptableItem($feed, $item, \DateTime::createFromFormat('j-M-Y', '16-Feb-2012'));
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser", $ret);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser', $ret);
         $this->assertEquals(1, $feed->getItemsCount());
     }
 
@@ -104,7 +105,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $item->setUpdated($date);
         $ret = $this->object->addAcceptableItem($feed, $item, $date);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\Parser", $ret);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser', $ret);
         $this->assertEquals(0, $feed->getItemsCount());
     }
 
@@ -132,16 +133,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('audio/mpeg', $media->getType());
         $this->assertEquals('456', $media->getLenght());
     }
-    
+
     public function testSearchAttributeValue()
     {
         $xml = new \SimpleXmlElement('<enclosure />');
         $xml->addAttribute('href', 'http://localhost/');
         $xml->addAttribute('type', 'audio/mpeg');
         $xml->addAttribute('lenght', '456');
-        
+
         $this->assertNull($this->object->searchAttributeValue($xml, array('foo')));
-        
+
         $this->assertEquals('http://localhost/', $this->object->searchAttributeValue($xml, array('url', 'href')));
     }
 }

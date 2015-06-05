@@ -21,7 +21,7 @@ class FeedAtomFormatter extends FeedFormatter
     const CONTENT_TYPE_HTML = 'html';
 
     /**
-     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
+     * @param FeedOutInterface $content
      *
      * @return string
      */
@@ -46,8 +46,8 @@ class FeedAtomFormatter extends FeedFormatter
     }
 
     /**
-     * @param \DomDocument                           $document
-     * @param \Debril\RssAtomBundle\Protocol\FeedOutInterface $content
+     * @param \DomDocument     $document
+     * @param FeedOutInterface $content
      */
     public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {
@@ -69,8 +69,8 @@ class FeedAtomFormatter extends FeedFormatter
     }
 
     /**
-     * @param \DOMDocument                           $document
-     * @param \Debril\RssAtomBundle\Protocol\ItemOutInterface $item
+     * @param \DOMDocument     $document
+     * @param ItemOutInterface $item
      */
     protected function addEntry(\DOMDocument $document, ItemOutInterface $item)
     {

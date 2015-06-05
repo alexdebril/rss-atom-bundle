@@ -50,7 +50,7 @@ class FeedRssFormatterTest extends FormatterAbstract
     {
         $element = $this->object->toDom($this->feed);
 
-        $this->assertInstanceOf("\DomDocument", $element);
+        $this->assertInstanceOf('\DomDocument', $element);
     }
 
     /**
@@ -60,7 +60,7 @@ class FeedRssFormatterTest extends FormatterAbstract
     {
         $element = $this->object->getRootElement();
 
-        $this->assertInstanceOf("\DomDocument", $element);
+        $this->assertInstanceOf('\DomDocument', $element);
         $this->assertEquals('rss', $element->firstChild->nodeName);
     }
 
@@ -72,7 +72,7 @@ class FeedRssFormatterTest extends FormatterAbstract
         $element = $this->object->getRootElement();
 
         $this->object->setMetas($element, $this->feed);
-        $this->assertInstanceOf("\DomDocument", $element);
+        $this->assertInstanceOf('\DomDocument', $element);
     }
 
     /**

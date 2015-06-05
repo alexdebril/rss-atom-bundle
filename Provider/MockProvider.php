@@ -15,6 +15,9 @@ use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
 use Debril\RssAtomBundle\Protocol\Parser\Item;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 
+/**
+ * Class MockProvider.
+ */
 class MockProvider implements FeedContentProviderInterface
 {
     /**

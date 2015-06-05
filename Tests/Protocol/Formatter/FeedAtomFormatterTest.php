@@ -49,7 +49,7 @@ class FeedAtomFormatterTest extends FormatterAbstract
     {
         $element = $this->object->toDom($this->feed);
 
-        $this->assertInstanceOf("\DomDocument", $element);
+        $this->assertInstanceOf('\DomDocument', $element);
     }
 
     /**
@@ -59,7 +59,7 @@ class FeedAtomFormatterTest extends FormatterAbstract
     {
         $element = $this->object->getRootElement();
 
-        $this->assertInstanceOf("\DomDocument", $element);
+        $this->assertInstanceOf('\DomDocument', $element);
         $this->assertEquals('feed', $element->firstChild->nodeName);
     }
 
@@ -71,7 +71,7 @@ class FeedAtomFormatterTest extends FormatterAbstract
         $element = $this->object->getRootElement();
 
         $this->object->setMetas($element, $this->feed);
-        $this->assertInstanceOf("\DomDocument", $element);
+        $this->assertInstanceOf('\DomDocument', $element);
     }
 
     /**

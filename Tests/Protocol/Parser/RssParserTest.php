@@ -2,6 +2,7 @@
 
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
+use Debril\RssAtomBundle\Protocol\Filter\ModifiedSince;
 use Debril\RssAtomBundle\Tests\Protocol\ParserAbstract;
 
 /**
@@ -59,7 +60,7 @@ class RssParserTest extends ParserAbstract
     {
         $file = dirname(__FILE__).'/../../../Resources/truncated-rss.xml';
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince(new \DateTime()));
+        $filters = array(new ModifiedSince(new \DateTime()));
         $this->object->parse($xmlBody, new FeedContent(), $filters);
     }
 
@@ -72,15 +73,15 @@ class RssParserTest extends ParserAbstract
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $filters = array(new ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedInInterface', $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
-        $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertInstanceOf('\DateTime', $feed->getLastModified());
         $this->assertInternalType('string', $feed->getLink());
         $this->assertInternalType('string', $feed->getTitle());
         $this->assertNotNull($feed->getLink());
@@ -94,7 +95,7 @@ class RssParserTest extends ParserAbstract
         $count = 0;
         foreach ($medias as $media) {
             $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser\Media', $media);
-            $count++;
+            ++$count;
         }
 
         $this->assertEquals(1, $count);
@@ -110,15 +111,15 @@ class RssParserTest extends ParserAbstract
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $filters = array(new ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedInInterface', $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
-        $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertInstanceOf('\DateTime', $feed->getLastModified());
     }
 
     /**
@@ -130,15 +131,15 @@ class RssParserTest extends ParserAbstract
         $xmlBody = new \SimpleXMLElement(file_get_contents($file));
 
         $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
-        $filters = array(new \Debril\RssAtomBundle\Protocol\Filter\ModifiedSince($date));
+        $filters = array(new ModifiedSince($date));
         $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
 
-        $this->assertInstanceOf("Debril\RssAtomBundle\Protocol\FeedInInterface", $feed);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\FeedInInterface', $feed);
 
         $this->assertNotNull($feed->getPublicId(), 'feed->getPublicId() should not return an empty value');
 
         $this->assertGreaterThan(0, $feed->getItemsCount());
-        $this->assertInstanceOf("\DateTime", $feed->getLastModified());
+        $this->assertInstanceOf('\DateTime', $feed->getLastModified());
         $feeds = $feed->getItems();
         $item = next($feeds);
         $this->assertEquals($item->getUpdated(), $feed->getLastModified());

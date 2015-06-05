@@ -9,6 +9,7 @@
  */
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
+use Debril\RssAtomBundle\Exception\ParserException;
 use Debril\RssAtomBundle\Protocol\FeedInterface;
 use Debril\RssAtomBundle\Protocol\ItemInInterface;
 use Debril\RssAtomBundle\Protocol\Parser;
@@ -138,7 +139,7 @@ class AtomParser extends Parser
      * Handles enclosures if any.
      *
      * @param SimpleXMLElement $element
-     * @param ItemInInterface           $item
+     * @param ItemInInterface  $item
      *
      * @return $this
      */

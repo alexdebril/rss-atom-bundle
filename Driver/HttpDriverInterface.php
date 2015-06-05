@@ -9,18 +9,16 @@
  */
 namespace Debril\RssAtomBundle\Driver;
 
-use DateTime;
-
 /**
  * Interface HttpDriverInterface.
  */
 interface HttpDriverInterface
 {
     /**
-     * @param string   $url
-     * @param DateTime $lastModified
+     * @param string    $url
+     * @param \DateTime $lastModified
      *
      * @return HttpDriverResponse
      */
-    public function getResponse($url, DateTime $lastModified);
+    public function getResponse($url, \DateTime $lastModified);
 }

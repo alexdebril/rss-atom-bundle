@@ -4,6 +4,9 @@ namespace Debril\RssAtomBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class StreamControllerTest.
+ */
 class StreamControllerTest extends WebTestCase
 {
     public function testIndex()
@@ -17,7 +20,7 @@ class StreamControllerTest extends WebTestCase
         $lastModified = $response->getLastModified();
 
         $lastModified->setTimezone(
-                new \DateTimeZone(date_default_timezone_get())
+            new \DateTimeZone(date_default_timezone_get())
         );
 
         $lastModified->add(new \DateInterval('PT1S'));
@@ -34,7 +37,7 @@ class StreamControllerTest extends WebTestCase
     }
 
     /**
-     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testNotFound()
     {

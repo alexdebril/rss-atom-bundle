@@ -9,6 +9,9 @@
  */
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
+use Debril\RssAtomBundle\Protocol\FeedInInterface;
+use Debril\RssAtomBundle\Protocol\ItemInInterface;
+
 /**
  * Class Factory.
  */
@@ -25,14 +28,14 @@ class Factory
     protected $itemClass = 'Debril\RssAtomBundle\Protocol\Parser\Item';
 
     /**
-     * @return \Debril\RssAtomBundle\Protocol\FeedInInterface
+     * @return FeedInInterface
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function newFeed()
     {
         $newFeed = new $this->feedClass();
-        if (!$newFeed instanceof \Debril\RssAtomBundle\Protocol\FeedInInterface) {
+        if (!$newFeed instanceof FeedInInterface) {
             throw new \Exception("{$this->feedClass} does not implement FeedInInterface interface");
         }
 
@@ -40,14 +43,14 @@ class Factory
     }
 
     /**
-     * @return \Debril\RssAtomBundle\Protocol\ItemInInterface
+     * @return ItemInInterface
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function newItem()
     {
         $newItem = new $this->itemClass();
-        if (!$newItem instanceof \Debril\RssAtomBundle\Protocol\ItemInInterface) {
+        if (!$newItem instanceof ItemInInterface) {
             throw new \Exception("{$this->itemClass} does not implement ItemInInterface interface");
         }
 
@@ -57,7 +60,9 @@ class Factory
     /**
      * @param string $feedClass
      *
-     * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
+     * @return Factory
+     *
+     * @throws \Exception
      */
     public function setFeedClass($feedClass)
     {
@@ -73,7 +78,9 @@ class Factory
     /**
      * @param string $itemClass
      *
-     * @return \Debril\RssAtomBundle\Protocol\Parser\Factory
+     * @return Factory
+     *
+     * @throws \Exception
      */
     public function setItemClass($itemClass)
     {

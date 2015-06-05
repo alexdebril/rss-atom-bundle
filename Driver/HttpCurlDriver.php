@@ -46,7 +46,8 @@ class HttpCurlDriver implements HttpDriverInterface
         curl_close($curl);
 
         return $this->getHttpResponse(
-                        substr($curlReturn, 0, $headerSize), substr($curlReturn, $headerSize)
+            substr($curlReturn, 0, $headerSize),
+            substr($curlReturn, $headerSize)
         );
     }
 

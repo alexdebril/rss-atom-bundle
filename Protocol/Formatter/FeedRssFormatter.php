@@ -36,8 +36,8 @@ class FeedRssFormatter extends FeedFormatter
     }
 
     /**
-     * @param \DomDocument $document
-     * @param FeedOutInterface      $content
+     * @param \DomDocument     $document
+     * @param FeedOutInterface $content
      */
     public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {
@@ -55,8 +55,8 @@ class FeedRssFormatter extends FeedFormatter
     }
 
     /**
-     * @param \DomDocument $document
-     * @param ItemOutInterface      $item
+     * @param \DomDocument     $document
+     * @param ItemOutInterface $item
      */
     protected function addEntry(\DomDocument $document, ItemOutInterface $item)
     {

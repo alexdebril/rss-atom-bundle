@@ -93,7 +93,7 @@ class HttpDriverResponse
     /**
      * @param int $httpCode
      *
-     * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     * @return HttpDriverResponse
      */
     public function setHttpCode($httpCode)
     {
@@ -113,7 +113,7 @@ class HttpDriverResponse
     /**
      * @param string $httpVersion
      *
-     * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     * @return HttpDriverResponse
      */
     public function setHttpVersion($httpVersion)
     {
@@ -133,7 +133,7 @@ class HttpDriverResponse
     /**
      * @param string $httpMessage
      *
-     * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     * @return HttpDriverResponse
      */
     public function setHttpMessage($httpMessage)
     {
@@ -153,7 +153,7 @@ class HttpDriverResponse
     /**
      * @param string $headers
      *
-     * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     * @return HttpDriverResponse
      */
     public function setHeaders($headers)
     {

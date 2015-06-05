@@ -1,16 +1,13 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: alex
- * Date: 25/04/14
- * Time: 23:44.
- */
 namespace Debril\RssAtomBundle\Tests\Protocol;
 
 use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
 use Debril\RssAtomBundle\Protocol\Parser\Item;
 
+/**
+ * Class FormatterAbstract.
+ */
 class FormatterAbstract extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -50,7 +47,7 @@ class FormatterAbstract extends \PHPUnit_Framework_TestCase
         $object->setEntries($element, $this->feed);
 
         foreach ($element->childNodes as $entry) {
-            $this->assertInstanceOf("\DomNode", $entry);
+            $this->assertInstanceOf('\DomNode', $entry);
         }
     }
 }

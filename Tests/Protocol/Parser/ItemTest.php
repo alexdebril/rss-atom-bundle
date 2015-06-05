@@ -100,7 +100,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUpdated()
     {
-        $this->assertInstanceOf("\DateTime", $this->object->getUpdated());
+        $this->assertInstanceOf('\DateTime', $this->object->getUpdated());
     }
 
     /**
@@ -227,7 +227,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $count = 0;
 
         foreach ($iterator as $media) {
-            $count++;
+            ++$count;
             $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\Parser\Media', $media);
         }
 
