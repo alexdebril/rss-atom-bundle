@@ -51,7 +51,7 @@ class FeedAtomFormatter extends FeedFormatter
      */
     public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {
-        $elements = array();
+        $elements = [];
         $elements[] = $document->createElement('title', htmlspecialchars($content->getTitle()));
         $elements[] = $document->createElement('subtitle', $content->getDescription());
         $elements[] = $document->createElement('id', $content->getLink());
@@ -76,7 +76,7 @@ class FeedAtomFormatter extends FeedFormatter
     {
         $entry = $document->createElement('entry');
 
-        $elements = array();
+        $elements = [];
         $elements[] = $document->createElement('title', htmlspecialchars($item->getTitle()));
 
         $link = $document->createElement('link');
@@ -108,6 +108,18 @@ class FeedAtomFormatter extends FeedFormatter
             $author->appendChild($document->createElement('name', $item->getAuthor()));
 
             $elements[] = $author;
+        }
+
+        if (0 !== count($item->getMedias())) { // Doctrine ArrayCollection do not support empty()
+            foreach ($item->getMedias() as $media) {
+                $mediaLink = $document->createElement('link');
+                $mediaLink->setAttribute('rel', 'enclosure');
+                $mediaLink->setAttribute('href', $media->getUrl());
+                $mediaLink->setAttribute('length', $media->getLength());
+                $mediaLink->setAttribute('type', $media->getType());
+
+                $elements[] = $mediaLink;
+            }
         }
 
         foreach ($elements as $element) {
