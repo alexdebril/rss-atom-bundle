@@ -16,7 +16,7 @@ RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / 
 - multiple feeds writing
 - Ability to use doctrine as a data source
 
-Keep informed about about new releases and incoming features : http://blog.debril.fr/category/rss-atom-bundle
+Keep informed about about new releases and incoming features : http://debril.org/category/rss-atom-bundle
 
 All classes are heavily tested using PHPUnit.
 
