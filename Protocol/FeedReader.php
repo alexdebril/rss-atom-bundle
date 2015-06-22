@@ -109,7 +109,7 @@ class FeedReader
      * @param string    $url
      * @param \DateTime $arg
      *
-     * @return FeedInInterface
+     * @return FeedInInterface|FeedContent
      */
     public function getFeedContent($url, $arg = null)
     {
