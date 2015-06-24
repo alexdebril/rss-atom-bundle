@@ -66,7 +66,6 @@ class RssParser extends Parser
                 $date = self::convertToDateTime($xmlElement->pubDate, $format);
             }
             $item->setTitle($xmlElement->title)
-                 ->setDescription($xmlElement->description)
                  ->setPublicId($xmlElement->guid)
                  ->setUpdated($date)
                  ->setLink($xmlElement->link)
@@ -76,6 +75,8 @@ class RssParser extends Parser
             if ($date > $latest) {
                 $latest = $date;
             }
+
+            $this->handleDescription($xmlElement, $item);
 
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
@@ -132,5 +133,24 @@ class RssParser extends Parser
         }
 
         return $this;
+    }
+
+    /**
+     * According to RSS specs, either we can have a summary in description ;
+     * full content in description ; or a summary in description AND full content in content:encoded
+     *
+     * @param SimpleXMLElement $xmlElement
+     * @param ItemInInterface $item
+     */
+    protected function handleDescription(SimpleXMLElement $xmlElement, ItemInInterface $item)
+    {
+        $contentChild = $xmlElement->children('http://purl.org/rss/1.0/modules/content/');
+
+        if (isset($contentChild->encoded)) {
+            $item->setDescription($contentChild->encoded);
+            $item->setSummary($xmlElement->description);
+        } else {
+            $item->setDescription($xmlElement->description);
+        }
     }
 }
