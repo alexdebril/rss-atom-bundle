@@ -107,6 +107,12 @@ class AtomParserTest extends ParserAbstract
         }
 
         $this->assertEquals(1, $count);
+
+        $categories = $item->getCategories();
+        $this->assertCount(2, $categories);
+        $this->assertInstanceOf('Debril\RssAtomBundle\Protocol\Parser\Category', $categories[0]);
+        $this->assertEquals('Category1', $categories[0]->getName());
+        $this->assertEquals('Category2', $categories[1]->getName());
     }
 
     /**
