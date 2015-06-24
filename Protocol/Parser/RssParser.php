@@ -77,6 +77,8 @@ class RssParser extends Parser
                 $latest = $date;
             }
 
+            $this->parseCategories($xmlElement, $item);
+
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
             $this->handleEnclosure($xmlElement, $item);
@@ -132,5 +134,22 @@ class RssParser extends Parser
         }
 
         return $this;
+    }
+
+    /**
+     * Parse category elements.
+     * We may have more than one.
+     *
+     * @param SimpleXMLElement $element
+     * @param ItemInInterface $item
+     */
+    protected function parseCategories(SimpleXMLElement $element, ItemInInterface $item)
+    {
+        foreach ($element->category as $xmlCategory) {
+            $category = new Category();
+            $category->setName((string) $xmlCategory);
+
+            $item->addCategory($category);
+        }
     }
 }
