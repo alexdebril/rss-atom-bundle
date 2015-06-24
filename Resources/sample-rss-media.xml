@@ -16,6 +16,7 @@
             <pubDate>Mon, 06 Sep 2009 16:45:00 GMT</pubDate>
             <author>John Doe</author>
             <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://media-server.com/image.jpg" height="72" width="72"/>
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Marc</dc:creator>
         </item>
 
     </channel>
