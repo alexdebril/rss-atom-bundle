@@ -168,4 +168,24 @@ class RssParserTest extends ParserAbstract
         $date = '2003-13T18:30:02Z';
         $this->object->guessDateFormat($date);
     }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\RssParser::parseBody
+     */
+    public function testParseWithContentExtension()
+    {
+        $file = dirname(__FILE__).'/../../../Resources/sample-rss-content.xml';
+        $xmlBody = new \SimpleXMLElement(file_get_contents($file));
+
+        $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
+        $filters = array(new ModifiedSince($date));
+        $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
+
+        $this->assertGreaterThan(0, $feed->getItemsCount());
+
+        $item = current($feed->getItems());
+
+        $this->assertEquals('Here is a short summary...', $item->getSummary());
+        $this->assertEquals('Here is the real content', $item->getDescription());
+    }
 }
