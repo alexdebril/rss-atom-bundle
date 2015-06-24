@@ -86,4 +86,12 @@ interface ItemOutInterface
      * @return \ArrayIterator|MediaOutInterface[] $medias
      */
     public function getMedias();
+
+    /**
+     * Atom : feed.entry.category <feed><entry><category>
+     * Rss  : rss.channel.item.category[term] <rss><channel><item><category>
+     *
+     * @return CategoryOutInterface[]
+     */
+    public function getCategories();
 }

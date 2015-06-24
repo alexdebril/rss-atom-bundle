@@ -85,4 +85,12 @@ interface ItemInInterface
      * @param Media $media
      */
     public function addMedia(Media $media);
+
+    /**
+     * Atom : feed.entry.category <feed><entry><category>
+     * Rss  : rss.channel.item.category[term] <rss><channel><item><category>
+     *
+     * @param CategoryInInterface $category
+     */
+    public function addCategory(CategoryInInterface $category);
 }
