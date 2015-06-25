@@ -298,7 +298,7 @@ abstract class Parser
         $attributes = $element[0]->attributes();
         foreach ($attributes as $name => $value) {
             if (strcasecmp($name, $attributeName) === 0) {
-                return $value;
+                return (string) $value;
             }
         }
 
@@ -333,7 +333,7 @@ abstract class Parser
         foreach ($names as $name) {
             $value = $this->getAttributeValue($element, $name);
             if (!is_null($value)) {
-                return $value;
+                return (string) $value;
             }
         }
 
