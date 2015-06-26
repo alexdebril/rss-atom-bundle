@@ -168,10 +168,22 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $feed = $this->object->parseBody($response, new Parser\FeedContent());
         $items = $feed->getItems();
         $additional = $items[0]->getAdditional();
-        $additionalAttributes = $additional['media']->thumbnail->attributes();
-        $this->assertEquals('http://media-server.com/image.jpg', $additionalAttributes['url']);
+        $this->assertEquals('Marc', $additional['dc']);
     }
 
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
+     */
+    public function testRssYahooMediaExtension()
+    {
+        $url = dirname(__FILE__).'/../../Resources/sample-rss-media.xml';
+        $this->object->addParser(new Parser\RssParser());
+        $response = $this->object->getResponse($url, new \DateTime());
+        $feed = $this->object->parseBody($response, new Parser\FeedContent());
+        $items = $feed->getItems();
+        $media = $items[0]->getMedias();
+        $this->assertEquals('http://media-server.com/image.jpg', $media[0]->getUrl());
+    }
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
      */
