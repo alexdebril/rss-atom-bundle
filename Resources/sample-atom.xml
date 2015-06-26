@@ -22,11 +22,13 @@
             <div>A title</div>
             <p>A paragraph</p>
         </content>
+        <category term="Category1" />
         <author>
             <name>John Doe</name>
             <email>johndoe@example.com</email>
             <uri>http://johndoe.com</uri>
         </author>
+        <category term="Category2" />
     </entry>
 
     <entry>
@@ -39,5 +41,4 @@
             <p>A paragraph</p>
         </content>
     </entry>
-
 </feed>

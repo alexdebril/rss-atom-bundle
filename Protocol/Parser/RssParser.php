@@ -66,16 +66,18 @@ class RssParser extends Parser
                 $date = self::convertToDateTime($xmlElement->pubDate, $format);
             }
             $item->setTitle($xmlElement->title)
-                ->setDescription($xmlElement->description)
-                ->setPublicId($xmlElement->guid)
-                ->setUpdated($date)
-                ->setLink($xmlElement->link)
-                ->setComment($xmlElement->comments)
-                ->setAuthor($xmlElement->author);
+                 ->setDescription($xmlElement->description)
+                 ->setPublicId($xmlElement->guid)
+                 ->setUpdated($date)
+                 ->setLink($xmlElement->link)
+                 ->setComment($xmlElement->comments)
+                 ->setAuthor($xmlElement->author);
 
             if ($date > $latest) {
                 $latest = $date;
             }
+
+            $this->parseCategories($xmlElement, $item);
 
             $this->handleDescription($xmlElement, $item);
 
@@ -173,6 +175,23 @@ class RssParser extends Parser
             ;
 
             $item->addMedia($media);
+        }
+    }
+
+    /**
+     * Parse category elements.
+     * We may have more than one.
+     *
+     * @param SimpleXMLElement $element
+     * @param ItemInInterface $item
+     */
+    protected function parseCategories(SimpleXMLElement $element, ItemInInterface $item)
+    {
+        foreach ($element->category as $xmlCategory) {
+            $category = new Category();
+            $category->setName((string) $xmlCategory);
+
+            $item->addCategory($category);
         }
     }
 }

@@ -10,6 +10,7 @@
 namespace Debril\RssAtomBundle\Protocol\Parser;
 
 use DateTime;
+use Debril\RssAtomBundle\Protocol\CategoryInInterface;
 use Debril\RssAtomBundle\Protocol\ItemInInterface;
 use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
@@ -94,10 +95,16 @@ class Item implements ItemInInterface, ItemOutInterface
     protected $medias;
 
     /**
+     * @var Category[]
+     */
+    protected $categories;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
+        $this->categories = array();
         $this->medias = new \ArrayIterator();
     }
 
@@ -345,5 +352,25 @@ class Item implements ItemInInterface, ItemOutInterface
     public function getMedias()
     {
         return $this->medias;
+    }
+
+    /**
+     * @param CategoryInInterface $category
+     *
+     * @return $this
+     */
+    public function addCategory(CategoryInInterface $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Category[]
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
