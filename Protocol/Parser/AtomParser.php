@@ -80,6 +80,8 @@ class AtomParser extends Parser
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
             $this->handleEnclosure($xmlElement, $item);
 
+            $this->parseCategories($xmlElement, $item);
+
             $this->addValidItem($feed, $item, $filters);
         }
 
@@ -153,5 +155,22 @@ class AtomParser extends Parser
         }
 
         return $this;
+    }
+
+    /**
+     * Parse category elements.
+     * We may have more than one.
+     *
+     * @param SimpleXMLElement $element
+     * @param ItemInInterface $item
+     */
+    protected function parseCategories(SimpleXMLElement $element, ItemInInterface $item)
+    {
+        foreach ($element->category as $xmlCategory) {
+            $category = new Category();
+            $category->setName($this->getAttributeValue($xmlCategory, 'term'));
+
+            $item->addCategory($category);
+        }
     }
 }
