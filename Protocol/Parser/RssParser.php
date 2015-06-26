@@ -66,11 +66,12 @@ class RssParser extends Parser
                 $date = self::convertToDateTime($xmlElement->pubDate, $format);
             }
             $item->setTitle($xmlElement->title)
-                 ->setPublicId($xmlElement->guid)
-                 ->setUpdated($date)
-                 ->setLink($xmlElement->link)
-                 ->setComment($xmlElement->comments)
-                 ->setAuthor($xmlElement->author);
+                ->setDescription($xmlElement->description)
+                ->setPublicId($xmlElement->guid)
+                ->setUpdated($date)
+                ->setLink($xmlElement->link)
+                ->setComment($xmlElement->comments)
+                ->setAuthor($xmlElement->author);
 
             if ($date > $latest) {
                 $latest = $date;
@@ -81,6 +82,8 @@ class RssParser extends Parser
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
             $this->handleEnclosure($xmlElement, $item);
+
+            $this->handleMediaExtension($xmlElement, $item);
 
             $this->addValidItem($feed, $item, $filters);
         }
@@ -151,6 +154,25 @@ class RssParser extends Parser
             $item->setSummary($xmlElement->description);
         } else {
             $item->setDescription($xmlElement->description);
+        }
+    }
+
+    /**
+     * Parse elements from Yahoo RSS Media extension
+     *
+     * @param SimpleXMLElement $xmlElement
+     * @param ItemInInterface $item with Media added
+     */
+    protected function handleMediaExtension(SimpleXMLElement $xmlElement, ItemInInterface $item)
+    {
+        foreach ($xmlElement->children('http://search.yahoo.com/mrss/') as $xmlMedia) {
+            $media = new Media();
+            $media->setUrl($this->getAttributeValue($xmlMedia, 'url'))
+                ->setType($this->searchAttributeValue($xmlMedia, array('type', 'medium')))
+                ->setLength($this->getAttributeValue($xmlMedia, 'fileSize'))
+            ;
+
+            $item->addMedia($media);
         }
     }
 }
