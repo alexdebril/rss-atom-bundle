@@ -89,7 +89,7 @@ class RssParserTest extends ParserAbstract
 
         $item = current($feed->getItems());
         $this->assertInternalType('string', $item->getAuthor());
-        $this->assertEquals('John Doe', $item->getAuthor());
+        $this->assertEquals('john.doe@mail.com', $item->getAuthor());
 
         $medias = $item->getMedias();
         $count = 0;
@@ -193,5 +193,25 @@ class RssParserTest extends ParserAbstract
 
         $this->assertEquals('Here is a short summary...', $item->getSummary());
         $this->assertEquals('Here is the real content', $item->getDescription());
+    }
+
+    /**
+     * @covers Debril\RssAtomBundle\Protocol\Parser\RssParser::parseBody
+     */
+    public function testParseWithDublinCoreExtension()
+    {
+        $file = dirname(__FILE__).'/../../../Resources/sample-rss-creator.xml';
+        $xmlBody = new \SimpleXMLElement(file_get_contents($file));
+
+        $date = \DateTime::createFromFormat('Y-m-d', '2005-10-10');
+        $filters = array(new ModifiedSince($date));
+        $feed = $this->object->parse($xmlBody, new FeedContent(), $filters);
+
+        $this->assertGreaterThan(0, $feed->getItemsCount());
+
+        $item = current($feed->getItems());
+
+        $this->assertInternalType('string', $item->getAuthor());
+        $this->assertEquals('John Doe', $item->getAuthor());
     }
 }

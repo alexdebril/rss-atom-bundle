@@ -70,8 +70,7 @@ class RssParser extends Parser
                  ->setPublicId($xmlElement->guid)
                  ->setUpdated($date)
                  ->setLink($xmlElement->link)
-                 ->setComment($xmlElement->comments)
-                 ->setAuthor($xmlElement->author);
+                 ->setComment($xmlElement->comments);
 
             if ($date > $latest) {
                 $latest = $date;
@@ -79,12 +78,12 @@ class RssParser extends Parser
 
             $this->parseCategories($xmlElement, $item);
 
+            $this->handleAuthor($xmlElement, $item);
             $this->handleDescription($xmlElement, $item);
 
             $item->setAdditional($this->getAdditionalNamespacesElements($xmlElement, $namespaces));
 
             $this->handleEnclosure($xmlElement, $item);
-
             $this->handleMediaExtension($xmlElement, $item);
 
             $this->addValidItem($feed, $item, $filters);
@@ -192,6 +191,25 @@ class RssParser extends Parser
             $category->setName((string) $xmlCategory);
 
             $item->addCategory($category);
+        }
+    }
+
+    /**
+     * Parse author:
+     * first we look at optional dc:creator, which is the author name
+     * if no, we fallback to the RSS author element which is the author email
+     *
+     * @param SimpleXMLElement $element
+     * @param ItemInInterface $item
+     */
+    protected function handleAuthor(SimpleXMLElement $element, ItemInInterface $item)
+    {
+        $dcChild = $element->children('http://purl.org/dc/elements/1.1/');
+
+        if (isset($dcChild->creator)) {
+            $item->setAuthor((string) $dcChild->creator);
+        } else {
+            $item->setAuthor((string) $element->author);
         }
     }
 }
