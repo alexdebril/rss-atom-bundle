@@ -61,10 +61,14 @@ class RssParser extends Parser
         $date = new \DateTime('now');
         foreach ($xmlBody->channel->item as $xmlElement) {
             $item = $this->newItem();
+
             if (isset($xmlElement->pubDate)) {
-                $format = isset($format) ? $format : $this->guessDateFormat($xmlElement->pubDate);
-                $date = self::convertToDateTime($xmlElement->pubDate, $format);
+                $readDate = trim($xmlElement->pubDate);
+
+                $format = isset($format) ? $format : $this->guessDateFormat($readDate);
+                $date = self::convertToDateTime($readDate, $format);
             }
+
             $item->setTitle($xmlElement->title)
                  ->setDescription($xmlElement->description)
                  ->setPublicId($xmlElement->guid)
