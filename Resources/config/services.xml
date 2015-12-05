@@ -15,6 +15,8 @@
         <parameter key="debril.formatter.rss.class">Debril\RssAtomBundle\Protocol\Formatter\FeedRssFormatter</parameter>
         <parameter key="debril.formatter.atom.class">Debril\RssAtomBundle\Protocol\Formatter\FeedAtomFormatter</parameter>
         <parameter key="debril.http.curl.class">Debril\RssAtomBundle\Driver\HttpCurlDriver</parameter>
+        <parameter key="debril.http.guzzle_bridge.class">Debril\RssAtomBundle\Driver\GuzzleBridgeDriver</parameter>
+        <parameter key="debril.file.class">Debril\RssAtomBundle\Driver\FileDriver</parameter>
         <parameter key="debril.provider.mock.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
         <parameter key="debril.provider.default.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
         <parameter key="debril.provider.doctrine.class">Debril\RssAtomBundle\Provider\DoctrineFeedContentProvider</parameter>
@@ -37,6 +39,9 @@
         </service>
 
         <service id="debril.http.curl" class="%debril.http.curl.class%" />
+        <service id="debril.http.guzzle_bridge" class="%debril.http.guzzle_bridge.class%" />
+        <service id="debril.file" class="%debril.file.class%" />
+
         <service id="debril.parser.factory" class="%debril.parser.factory.class%">
             <call method="setFeedClass">
                 <argument>%debril.parser.feed.class%</argument>
@@ -47,7 +52,7 @@
         </service>
 
         <service id="debril.reader" class="%debril.reader.class%">
-            <argument type="service" id="debril.http.curl"/>
+            <argument type="service" id="debril.http.curl"/><!-- ID may be changed by Extension -->
             <argument type="service" id="debril.parser.factory"/>
             <call method="addParser">
                 <argument type="service" id="debril.parser.rss" />

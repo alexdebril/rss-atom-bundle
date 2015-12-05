@@ -28,6 +28,14 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('date_formats')
                         ->prototype('scalar')->end()
                     ->end()
+                    ->enumNode('driver')
+                        ->info('Driver to use to fetch RSS feed. Valid values are "curl" (default), "file", "guzzle", "service".')
+                        ->values(array('curl', 'file', 'guzzle', 'service'))
+                        ->defaultValue('curl')
+                    ->end()
+                    ->scalarNode('driver_service')
+                        ->info('If driver is set to "csa-guzzle" or "service", the ID of the service to use')
+                    ->end()
                 ->end()
         ;
 
