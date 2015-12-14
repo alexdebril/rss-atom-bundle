@@ -220,7 +220,7 @@ abstract class Parser
             throw new ParserException("date is the wrong format : {$string} - expected {$format}");
         }
 
-        $date->setTimezone(self::getSystemTimezone());
+        $date->setTimezone(static::getSystemTimezone());
 
         return $date;
     }
@@ -232,11 +232,11 @@ abstract class Parser
      */
     public static function getSystemTimezone()
     {
-        if (is_null(self::$timezone)) {
-            self::$timezone = new \DateTimeZone(date_default_timezone_get());
+        if (is_null(static::$timezone)) {
+            static::$timezone = new \DateTimeZone(date_default_timezone_get());
         }
 
-        return self::$timezone;
+        return static::$timezone;
     }
 
     /**
@@ -244,7 +244,7 @@ abstract class Parser
      */
     public static function resetTimezone()
     {
-        self::$timezone = null;
+        static::$timezone = null;
     }
 
     /**
