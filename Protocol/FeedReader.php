@@ -10,6 +10,7 @@
 namespace Debril\RssAtomBundle\Protocol;
 
 use Debril\RssAtomBundle\Protocol\Filter\ModifiedSince;
+use Debril\RssAtomBundle\Protocol\Parser\XmlParser;
 use SimpleXMLElement;
 use Debril\RssAtomBundle\Driver\HttpDriverInterface;
 use Debril\RssAtomBundle\Driver\HttpDriverResponse;
@@ -70,13 +71,19 @@ class FeedReader
     protected $factory = null;
 
     /**
+     * @var XmlParser
+     */
+    protected $xmlParser = null;
+
+    /**
      * @param HttpDriverInterface $driver
      * @param Factory             $factory
      */
-    public function __construct(HttpDriverInterface $driver, Factory $factory)
+    public function __construct(HttpDriverInterface $driver, Factory $factory, XmlParser $xmlParser)
     {
         $this->driver = $driver;
         $this->factory = $factory;
+        $this->xmlParser = $xmlParser;
     }
 
     /**
@@ -204,7 +211,7 @@ class FeedReader
     {
         if ($response->getHttpCodeIsOk()
             || $response->getHttpCodeIsRedirection()) {
-            $xmlBody = new SimpleXMLElement($response->getBody());
+            $xmlBody = $this->xmlParser->parseString($response->getBody());
             $parser = $this->getAccurateParser($xmlBody);
 
             return $parser->parse($xmlBody, $feed, $filters);
