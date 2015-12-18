@@ -184,6 +184,31 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
         $media = $items[0]->getMedias();
         $this->assertEquals('http://media-server.com/image.jpg', $media[0]->getUrl());
     }
+    
+    /**
+     * issue #98
+     */
+    public function testCallsInLoop()
+    {
+        $urls = array(
+            dirname(__FILE__).'/../../Resources/sample-rss-media.xml',
+            dirname(__FILE__).'/../../Resources/sample-atom.xml',
+        );
+        $this->object->addParser(new Parser\RssParser());
+        $this->object->addParser(new Parser\AtomParser());
+        
+        $count = 0;
+        foreach( $urls as $url ) {
+            $feed = $this->object->getFeedContent($url, new \DateTime('@0'));
+            $this->assertInstanceOf('\Debril\RssAtomBundle\Protocol\FeedInInterface', $feed);
+            $items = $feed->getItems();
+            $this->assertTrue(1 <= count($items));
+            $count++;
+        }
+        
+        $this->assertEquals(2, $count);
+    }
+    
     /**
      * @covers Debril\RssAtomBundle\Protocol\FeedReader::parseBody
      */
