@@ -236,6 +236,36 @@ debril_rss_atom:
     private: true
 ```
 
+Using Guzzle
+------------
+
+Instead of the provided Curl-based driver, you may choose to use a different driver to fetch the RSS feed.
+Then change the configuration:
+
+```yml
+# app/config/config.yml
+debril_rss_atom:
+    driver: curl
+```
+
+Options are:
+
+ * `curl` (default): use a basic CURL-based driver with default options
+ * `file`: will read from a locale file (for tests)
+ * `guzzle`: use a GuzzleClient declared as a service - see below
+ * `service`: use any service that implements `HttpDriverInterface`
+ 
+For the 2 last options, you need to pass the ID of the service you want to use:
+
+```yml
+# app/config/config.yml
+debril_rss_atom:
+    driver: guzzle
+    driver_service: my_guzzle_client_service_id
+```
+
+To easily declare Guzzle clients as Symfony2 services, [CsaGuzzleBundle](https://github.com/csarrazi/CsaGuzzleBundle) may come useful to you.
+
 Contributors
 ------------
 

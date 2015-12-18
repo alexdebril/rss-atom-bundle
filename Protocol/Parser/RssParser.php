@@ -66,7 +66,7 @@ class RssParser extends Parser
                 $readDate = trim($xmlElement->pubDate);
 
                 $format = isset($format) ? $format : $this->guessDateFormat($readDate);
-                $date = self::convertToDateTime($readDate, $format);
+                $date = static::convertToDateTime($readDate, $format);
             }
 
             $item->setTitle($xmlElement->title)
@@ -121,7 +121,7 @@ class RssParser extends Parser
     protected function setLastModified(FeedInterface $feed, $rssDate)
     {
         $format = $this->guessDateFormat($rssDate);
-        $updated = self::convertToDateTime($rssDate, $format);
+        $updated = static::convertToDateTime($rssDate, $format);
         $feed->setLastModified($updated);
     }
 
