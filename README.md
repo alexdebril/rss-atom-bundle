@@ -6,7 +6,7 @@ RssAtomBundle - Read and Build Atom/RSS feeds
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/quality-score.png?s=6e4cc3b9368ddbf14b1066114b6af6d9011894d9)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/coverage.png?s=5bbd191f3b9364b8c31d8f1881f4c1fd06829fc3)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 
-RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / Atom feeds. It features:
+RssAtomBundle is a Bundle for Symfony made to easily access and deliver RSS / Atom feeds. It features:
 
 - Detection of the feed format (RSS / Atom)
 - enclosures support
@@ -26,9 +26,9 @@ Installation
 Dependencies
 ------------
 
-As a Symfony 2 Bundle, RssAtomBundle must be installed using Composer. If you do not know Composer, please refer to its website: http://getcomposer.org/
+As a Symfony Bundle, RssAtomBundle must be installed using Composer. If you do not know Composer, please refer to its website: http://getcomposer.org/
 
-Installation in a Symfony 2 project
+Installation in a Symfony project
 -----------------------------------
 
 This is the most common way if you want to add RssAtomBundle into an existing project.
@@ -228,7 +228,7 @@ Private feeds
 -------------
 
 You may have private feeds, user-specific or behind some authentication.  
-In that case, you don't want to `Cache-Control: public` header to be added, not to have your feed cached by a reverse-proxy (such as Symfony2 AppCache or Varnish).  
+In that case, you don't want to `Cache-Control: public` header to be added, not to have your feed cached by a reverse-proxy (such as Symfony AppCache or Varnish).  
 You can do so by setting `private` parameter to `true` in config:
 
 ```yml
@@ -264,7 +264,7 @@ debril_rss_atom:
     driver_service: my_guzzle_client_service_id
 ```
 
-To easily declare Guzzle clients as Symfony2 services, [CsaGuzzleBundle](https://github.com/csarrazi/CsaGuzzleBundle) may come useful to you.
+To easily declare Guzzle clients as Symfony services, [CsaGuzzleBundle](https://github.com/csarrazi/CsaGuzzleBundle) may come useful to you.
 
 Contributors
 ------------
