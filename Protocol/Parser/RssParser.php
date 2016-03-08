@@ -136,8 +136,10 @@ class RssParser extends Parser
     protected function handleEnclosure(SimpleXMLElement $element, ItemInInterface $item)
     {
         if (isset($element->enclosure)) {
-            $media = $this->createMedia($element->enclosure);
-            $item->addMedia($media);
+            foreach ($element->enclosure as $enclosure) {
+                $media = $this->createMedia($enclosure);
+                $item->addMedia($media);
+            }
         }
 
         return $this;
