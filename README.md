@@ -32,13 +32,8 @@ Installation in a Symfony project
 -----------------------------------
 
 This is the most common way if you want to add RssAtomBundle into an existing project.
-Edit composer.json and add the following line in the "require" section:
 
-    "debril/rss-atom-bundle": "2.2"
-
-Ask Composer to install it:
-
-    composer.phar update debril/rss-atom-bundle
+    composer require debril/rss-atom-bundle
     
 Edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
 
