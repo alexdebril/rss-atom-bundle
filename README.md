@@ -231,6 +231,21 @@ debril_rss_atom:
     private: true
 ```
 
+Using Curl
+----------
+
+Use the following configuration options to change the default Curl settings:
+
+```yml
+# app/config/config.yml
+debril_rss_atom:
+    curlopt:
+        timeout: 10   # in seconds
+        maxredirs: 5
+        useragent: "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 GTB5"
+```
+
+
 Using Guzzle
 ------------
 

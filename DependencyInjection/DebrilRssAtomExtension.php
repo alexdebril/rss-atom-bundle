@@ -46,6 +46,12 @@ class DebrilRssAtomExtension extends Extension
             );
         }
 
+        if ( !isset($config['curlopt']) ) {
+            $container->setParameter('debril_rss_atom.curlopt', array());
+        } else {
+            $container->setParameter('debril_rss_atom.curlopt', $config['curlopt']);
+        }
+        
         $container->setParameter('debril_rss_atom.private_feeds', $config['private']);
     }
 }
