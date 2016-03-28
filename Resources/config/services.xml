@@ -41,7 +41,9 @@
 
         <service id="debril.parser.xml" class="%debril.parser.xml.class%" />
 
-        <service id="debril.http.curl" class="%debril.http.curl.class%" />
+        <service id="debril.http.curl" class="%debril.http.curl.class%">
+            <argument>%debril_rss_atom.curlopt%</argument>
+        </service>    
         <service id="debril.http.guzzle_bridge" class="%debril.http.guzzle_bridge.class%" />
         <service id="debril.file" class="%debril.file.class%" />
 
