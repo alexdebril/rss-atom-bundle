@@ -32,6 +32,7 @@ class DebrilRssAtomExtension extends Extension
             'Y-m-d\TH:i:s.uP',
             'Y-m-d',
             'd/m/Y',
+            'd M Y H:i:s P'
         );
 
         if (!isset($config['date_formats'])) {
