@@ -11,6 +11,7 @@ namespace Debril\RssAtomBundle\Protocol\Filter;
 
 use Debril\RssAtomBundle\Protocol\FilterInterface;
 use Debril\RssAtomBundle\Protocol\Parser\Item;
+use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class Limit.
@@ -40,7 +41,7 @@ class Limit implements FilterInterface
      *
      * @return bool
      */
-    public function isValid(Item $item)
+    public function isValid(ItemOutInterface $item)
     {
         return ($this->limit > $this->count++);
     }
