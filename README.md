@@ -2,6 +2,7 @@ RssAtomBundle - Read and Build Atom/RSS feeds
 =============================================
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/9e0b1301-d7a5-49fd-916b-49da544389ac/big.png)](https://insight.sensiolabs.com/projects/9e0b1301-d7a5-49fd-916b-49da544389ac)
 [![Latest Stable Version](https://poser.pugx.org/debril/rss-atom-bundle/v/stable.png)](https://packagist.org/packages/debril/rss-atom-bundle)
+[![Download Count](https://poser.pugx.org/debril/rss-atom-bundle/d/total)](https://packagist.org/packages/debril/rss-atom-bundle)
 [![Build Status](https://secure.travis-ci.org/alexdebril/rss-atom-bundle.png?branch=master)](http://travis-ci.org/alexdebril/rss-atom-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/quality-score.png?s=6e4cc3b9368ddbf14b1066114b6af6d9011894d9)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/coverage.png?s=5bbd191f3b9364b8c31d8f1881f4c1fd06829fc3)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
