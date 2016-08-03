@@ -311,7 +311,7 @@ class FeedReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function getMockDriver($responseHttpCode)
     {
-        $mock = $this->getMock('\Debril\RssAtomBundle\Driver\HttpCurlDriver');
+        $mock = $this->createMock('\Debril\RssAtomBundle\Driver\HttpCurlDriver');
 
         $response = new HttpDriverResponse();
         $response->setHttpCode($responseHttpCode);
