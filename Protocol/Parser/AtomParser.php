@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2.
+ * Rss/Atom Bundle for Symfony.
  *
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
@@ -69,7 +69,7 @@ class AtomParser extends Parser
                     ->setPublicId($xmlElement->id)
                     ->setSummary($this->parseContent($xmlElement->summary))
                     ->setDescription($this->parseContent($xmlElement->content))
-                    ->setUpdated(self::convertToDateTime($xmlElement->updated, $itemFormat));
+                    ->setUpdated(static::convertToDateTime($xmlElement->updated, $itemFormat));
 
             $item->setLink($this->detectLink($xmlElement, 'alternate'));
 
@@ -103,7 +103,7 @@ class AtomParser extends Parser
         $feed->setDescription($xmlBody->subtitle);
 
         $format = $this->guessDateFormat($xmlBody->updated);
-        $updated = self::convertToDateTime($xmlBody->updated, $format);
+        $updated = static::convertToDateTime($xmlBody->updated, $format);
         $feed->setLastModified($updated);
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2.
+ * Rss/Atom Bundle for Symfony.
  *
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
@@ -17,6 +17,31 @@ use Debril\RssAtomBundle\Exception\DriverUnreachableResourceException;
 class HttpCurlDriver implements HttpDriverInterface
 {
     /**
+     * Configuration options
+     * @var array
+     */
+    private $options;
+    
+    /**
+     * Constructor for passing config options 
+     * @param array $options
+     */
+    public function __construct($options = array()) {
+
+        $this->options = $options;
+
+        $defaults = array('timeout'   => 10,
+                          'useragent' => 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 GTB5',
+                          'maxredirs' => 5);        
+        
+        foreach ( $defaults as $key => $value ) {
+            if ( !isset( $this->options[$key]) ) {
+                $this->options[$key] = $value;
+            }
+        }
+    }
+    
+    /**
      * @param string    $url
      * @param \DateTime $lastModified
      *
@@ -30,11 +55,11 @@ class HttpCurlDriver implements HttpDriverInterface
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_TIMECONDITION, CURL_TIMECOND_IFMODSINCE);
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 GTB5');
+        curl_setopt($curl, CURLOPT_USERAGENT, $this->options['useragent']);
         curl_setopt($curl, CURLOPT_TIMEVALUE, $lastModified->getTimestamp());
-        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_TIMEOUT, $this->options['timeout']);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($curl, CURLOPT_MAXREDIRS, 5);
+        curl_setopt($curl, CURLOPT_MAXREDIRS, $this->options['maxredirs']);
         $curlReturn = curl_exec($curl);
 
         if (!$curlReturn) {

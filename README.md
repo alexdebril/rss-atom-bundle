@@ -2,11 +2,12 @@ RssAtomBundle - Read and Build Atom/RSS feeds
 =============================================
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/9e0b1301-d7a5-49fd-916b-49da544389ac/big.png)](https://insight.sensiolabs.com/projects/9e0b1301-d7a5-49fd-916b-49da544389ac)
 [![Latest Stable Version](https://poser.pugx.org/debril/rss-atom-bundle/v/stable.png)](https://packagist.org/packages/debril/rss-atom-bundle)
+[![Download Count](https://poser.pugx.org/debril/rss-atom-bundle/d/total)](https://packagist.org/packages/debril/rss-atom-bundle)
 [![Build Status](https://secure.travis-ci.org/alexdebril/rss-atom-bundle.png?branch=master)](http://travis-ci.org/alexdebril/rss-atom-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/quality-score.png?s=6e4cc3b9368ddbf14b1066114b6af6d9011894d9)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/coverage.png?s=5bbd191f3b9364b8c31d8f1881f4c1fd06829fc3)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 
-RssAtomBundle is a Bundle for Symfony 2 made to easily access and deliver RSS / Atom feeds. It features:
+RssAtomBundle is a Bundle for Symfony made to easily access and deliver RSS / Atom feeds. It features:
 
 - Detection of the feed format (RSS / Atom)
 - enclosures support
@@ -26,19 +27,14 @@ Installation
 Dependencies
 ------------
 
-As a Symfony 2 Bundle, RssAtomBundle must be installed using Composer. If you do not know Composer, please refer to its website: http://getcomposer.org/
+As a Symfony Bundle, RssAtomBundle must be installed using Composer. If you do not know Composer, please refer to its website: http://getcomposer.org/
 
-Installation in a Symfony 2 project
+Installation in a Symfony project
 -----------------------------------
 
 This is the most common way if you want to add RssAtomBundle into an existing project.
-Edit composer.json and add the following line in the "require" section:
 
-    "debril/rss-atom-bundle": "2.2"
-
-Ask Composer to install it:
-
-    composer.phar update debril/rss-atom-bundle
+    composer require debril/rss-atom-bundle
     
 Edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
 
@@ -60,7 +56,7 @@ Then add the bundle's routing configuration in app/config/routing.yml :
  
 ```yaml
 feedio:
-    resource: @DebrilRssAtomBundle/Resources/config/routing.xml
+    resource: "@DebrilRssAtomBundle/Resources/config/routing.xml"
 
 ```
 
@@ -228,13 +224,58 @@ Private feeds
 -------------
 
 You may have private feeds, user-specific or behind some authentication.  
-In that case, you don't want to `Cache-Control: public` header to be added, not to have your feed cached by a reverse-proxy (such as Symfony2 AppCache or Varnish).  
+In that case, you don't want to `Cache-Control: public` header to be added, not to have your feed cached by a reverse-proxy (such as Symfony AppCache or Varnish).  
 You can do so by setting `private` parameter to `true` in config:
 
 ```yml
 debril_rss_atom:
     private: true
 ```
+
+Using Curl
+----------
+
+Use the following configuration options to change the default Curl settings:
+
+```yml
+# app/config/config.yml
+debril_rss_atom:
+    curlopt:
+        timeout: 10   # in seconds
+        maxredirs: 5
+        useragent: "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 GTB5"
+```
+
+
+Using Guzzle
+------------
+
+Instead of the provided Curl-based driver, you may choose to use a different driver to fetch the RSS feed.
+Then change the configuration:
+
+```yml
+# app/config/config.yml
+debril_rss_atom:
+    driver: curl
+```
+
+Options are:
+
+ * `curl` (default): use a basic CURL-based driver with default options
+ * `file`: will read from a locale file (for tests)
+ * `guzzle`: use a GuzzleClient declared as a service - see below
+ * `service`: use any service that implements `HttpDriverInterface`
+ 
+For the 2 last options, you need to pass the ID of the service you want to use:
+
+```yml
+# app/config/config.yml
+debril_rss_atom:
+    driver: guzzle
+    driver_service: my_guzzle_client_service_id
+```
+
+To easily declare Guzzle clients as Symfony services, [CsaGuzzleBundle](https://github.com/csarrazi/CsaGuzzleBundle) may come useful to you.
 
 Contributors
 ------------

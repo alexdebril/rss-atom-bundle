@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2.
+ * Rss/Atom Bundle for Symfony.
  *
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
@@ -58,7 +58,7 @@ class RdfParser extends Parser
 
         if (isset($xmlBody->channel->date)) {
             $date = $xmlBody->channel->children('dc', true);
-            $updated = self::convertToDateTime($date[0], $this->guessDateFormat($date[0]));
+            $updated = static::convertToDateTime($date[0], $this->guessDateFormat($date[0]));
             $feed->setLastModified($updated);
         }
 
@@ -70,7 +70,7 @@ class RdfParser extends Parser
 
             $item->setTitle($xmlElement->title)
                     ->setDescription($xmlElement->description)
-                    ->setUpdated(self::convertToDateTime($date[0], $format))
+                    ->setUpdated(static::convertToDateTime($date[0], $format))
                     ->setLink($xmlElement->link);
 
             $this->addValidItem($feed, $item, $filters);

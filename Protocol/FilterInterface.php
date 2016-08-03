@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2.
+ * Rss/Atom Bundle for Symfony.
  *
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
@@ -10,6 +10,7 @@
 namespace Debril\RssAtomBundle\Protocol;
 
 use Debril\RssAtomBundle\Protocol\Parser\Item;
+use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Interface FilterInterface.
@@ -21,5 +22,5 @@ interface FilterInterface
      *
      * @return bool
      */
-    public function isValid(Item $item);
+    public function isValid(ItemOutInterface $item);
 }

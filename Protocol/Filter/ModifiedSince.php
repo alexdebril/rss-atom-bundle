@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Rss/Atom Bundle for Symfony 2.
+ * Rss/Atom Bundle for Symfony.
  *
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
@@ -11,6 +11,7 @@ namespace Debril\RssAtomBundle\Protocol\Filter;
 
 use Debril\RssAtomBundle\Protocol\FilterInterface;
 use Debril\RssAtomBundle\Protocol\Parser\Item;
+use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class ModifiedSince.
@@ -45,7 +46,7 @@ class ModifiedSince implements FilterInterface
      *
      * @return bool
      */
-    public function isValid(Item $item)
+    public function isValid(ItemOutInterface $item)
     {
         if ($item->getUpdated() instanceof \DateTime) {
             return $item->getUpdated() > $this->getDate();

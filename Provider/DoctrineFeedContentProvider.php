@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Feed aggregator for Symfony 2.
+ * Feed aggregator for Symfony.
  *
  *
  * @license http://opensource.org/licenses/lgpl-3.0.html LGPL
