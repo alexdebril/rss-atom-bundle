@@ -35,6 +35,7 @@ class DebrilRssAtomExtension extends Extension
             'd M Y H:i:s P',
             'D, d M Y H:i O',
             'D, d M Y H:i:s O',
+            'D M d Y H:i:s e',
         );
 
         if (!isset($config['date_formats'])) {
