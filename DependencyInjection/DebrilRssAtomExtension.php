@@ -32,7 +32,9 @@ class DebrilRssAtomExtension extends Extension
             'Y-m-d\TH:i:s.uP',
             'Y-m-d',
             'd/m/Y',
-            'd M Y H:i:s P'
+            'd M Y H:i:s P',
+            'D, d M Y H:i O',
+            'D, d M Y H:i:s O',
         );
 
         if (!isset($config['date_formats'])) {
@@ -52,7 +54,7 @@ class DebrilRssAtomExtension extends Extension
         } else {
             $container->setParameter('debril_rss_atom.curlopt', $config['curlopt']);
         }
-        
+
         $container->setParameter('debril_rss_atom.private_feeds', $config['private']);
     }
 }
