@@ -110,6 +110,7 @@ abstract class Parser
      */
     public function guessDateFormat($date)
     {
+        $date = trim($date);
         foreach ($this->dateFormats as $format) {
             $test = \DateTime::createFromFormat($format, $date);
             if ($test instanceof \DateTime) {
@@ -214,6 +215,7 @@ abstract class Parser
      */
     public static function convertToDateTime($string, $format = \DateTime::RFC2822)
     {
+        $string = trim($string);
         $date = \DateTime::createFromFormat($format, $string);
 
         if (!$date instanceof \DateTime) {
