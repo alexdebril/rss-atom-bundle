@@ -2,8 +2,7 @@
 
 namespace Debril\RssAtomBundle\Controller;
 
-use Debril\RssAtomBundle\Protocol\FeedFormatter;
-use Debril\RssAtomBundle\Protocol\FeedOutInterface;
+use FeedIo\FeedInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -99,22 +98,34 @@ class StreamController extends Controller
         $content = $this->getContent($options, $source);
 
         if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
-            $formatter = $this->getFormatter($format);
-            $response = new Response($formatter->toString($content));
+            $response = new Response($this->getFeedIo()->format($content, $format)->saveXML());
             $response->headers->set('Content-Type', 'application/xhtml+xml');
+            $this->setFeedHeaders($response, $content);
 
-            if (! $this->container->getParameter('debril_rss_atom.private_feeds')) {
-                $response->setPublic();
-            }
-
-            $response->setMaxAge(3600);
-            $response->setLastModified($content->getLastModified());
         } else {
             $response = new Response();
             $response->setNotModified();
         }
 
         return $response;
+    }
+
+    /**
+     * @param Response $response
+     * @param FeedInterface $feed
+     * @return $this
+     */
+    protected function setFeedHeaders(Response $response, FeedInterface $feed)
+    {
+        $response->headers->set('Content-Type', 'application/xhtml+xml');
+        if (! $this->isPrivate() ) {
+            $response->setPublic();
+        }
+
+        $response->setMaxAge(3600);
+        $response->setLastModified($feed->getLastModified());
+
+        return $this;
     }
 
     /**
@@ -159,25 +170,19 @@ class StreamController extends Controller
     }
 
     /**
-     * Get the accurate formatter.
-     *
-     * @param string $format
-     *
-     * @throws \Exception
-     *
-     * @return FeedFormatter
+     * @return boolean true if the feed must be private
      */
-    protected function getFormatter($format)
+    protected function isPrivate()
     {
-        $services = array(
-            'rss' => 'debril.formatter.rss',
-            'atom' => 'debril.formatter.atom',
-        );
-
-        if (!array_key_exists($format, $services)) {
-            throw new \Exception("Unsupported format {$format}");
-        }
-
-        return $this->get($services[$format]);
+        return $this->container->getParameter('debril_rss_atom.private_feeds');
     }
+
+    /**
+     * @return \FeedIo\FeedIo
+     */
+    protected function getFeedIo()
+    {
+        return $this->container->get('feedio');
+    }
+
 }
