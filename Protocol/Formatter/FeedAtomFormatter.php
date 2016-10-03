@@ -15,6 +15,7 @@ use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class FeedAtomFormatter.
+ * @deprecated removed in version 3.0
  */
 class FeedAtomFormatter extends FeedFormatter
 {
@@ -24,6 +25,7 @@ class FeedAtomFormatter extends FeedFormatter
      * @param FeedOutInterface $content
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function toString(FeedOutInterface $content)
     {
@@ -34,6 +36,7 @@ class FeedAtomFormatter extends FeedFormatter
 
     /**
      * @return \DomDocument
+     * @deprecated removed in version 3.0
      */
     public function getRootElement()
     {
@@ -48,6 +51,7 @@ class FeedAtomFormatter extends FeedFormatter
     /**
      * @param \DomDocument     $document
      * @param FeedOutInterface $content
+     * @deprecated removed in version 3.0
      */
     public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {

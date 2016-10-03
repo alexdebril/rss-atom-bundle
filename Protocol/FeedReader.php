@@ -52,6 +52,7 @@ use Debril\RssAtomBundle\Exception\FeedException\FeedForbiddenException;
  *      echo $item->getSummary();
  * }
  * </code>
+ * @deprecated removed in version 3.0
  */
 class FeedReader
 {
@@ -78,6 +79,7 @@ class FeedReader
     /**
      * @param HttpDriverInterface $driver
      * @param Factory             $factory
+     * @deprecated removed in version 3.0
      */
     public function __construct(HttpDriverInterface $driver, Factory $factory, XmlParser $xmlParser)
     {
@@ -92,6 +94,7 @@ class FeedReader
      * @param Parser $parser
      *
      * @return FeedReader
+     * @deprecated removed in version 3.0
      */
     public function addParser(Parser $parser)
     {
@@ -103,6 +106,7 @@ class FeedReader
 
     /**
      * @return HttpDriverInterface
+     * @deprecated removed in version 3.0
      */
     public function getDriver()
     {
@@ -117,6 +121,7 @@ class FeedReader
      * @param \DateTime $arg
      *
      * @return FeedInInterface|FeedContent
+     * @deprecated removed in version 3.0
      */
     public function getFeedContent($url, $arg = null)
     {
@@ -138,6 +143,7 @@ class FeedReader
      * @param \DateTime $modifiedSince
      *
      * @return FeedInInterface
+     * @deprecated removed in version 3.0
      */
     public function getFilteredContent($url, array $filters, \DateTime $modifiedSince = null)
     {
@@ -151,6 +157,7 @@ class FeedReader
      * @param \DateTime $modifiedSince
      *
      * @return FeedInInterface
+     * @deprecated removed in version 3.0
      */
     public function getFeedContentSince($url, \DateTime $modifiedSince)
     {
@@ -169,6 +176,7 @@ class FeedReader
      * @param \DateTime       $modifiedSince
      *
      * @return FeedInInterface
+     * @deprecated removed in version 3.0
      */
     public function readFeed($url, FeedInInterface $feed, \DateTime $modifiedSince)
     {
@@ -188,6 +196,7 @@ class FeedReader
      * @param \Datetime $modifiedSince
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function getResponse($url, \Datetime $modifiedSince = null)
     {
@@ -206,6 +215,7 @@ class FeedReader
      * @param array              $filters
      *
      * @return FeedInInterface
+     * @deprecated removed in version 3.0
      */
     public function parseBody(HttpDriverResponse $response, FeedInInterface $feed, array $filters = array())
     {
@@ -239,6 +249,7 @@ class FeedReader
      * @throws ParserException
      *
      * @return Parser
+     * @deprecated removed in version 3.0
      */
     public function getAccurateParser(SimpleXMLElement $xmlBody)
     {

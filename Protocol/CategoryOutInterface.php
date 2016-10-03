@@ -19,6 +19,7 @@ interface CategoryOutInterface
      * Rss  : rss.channel.item.category[term] <rss><channel><item><category>
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getName();
 }

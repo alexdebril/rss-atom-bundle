@@ -11,6 +11,7 @@ namespace Debril\RssAtomBundle\Exception;
 
 /**
  * Class ParserException.
+ * @deprecated removed in version 3.0
  */
 class ParserException extends RssAtomException
 {

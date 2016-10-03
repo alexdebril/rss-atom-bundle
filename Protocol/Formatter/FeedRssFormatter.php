@@ -15,11 +15,13 @@ use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class FeedRssFormatter.
+ * @deprecated removed in version 3.0
  */
 class FeedRssFormatter extends FeedFormatter
 {
     /**
      * @return \DomDocument
+     * @deprecated removed in version 3.0
      */
     public function getRootElement()
     {
@@ -38,6 +40,7 @@ class FeedRssFormatter extends FeedFormatter
     /**
      * @param \DomDocument     $document
      * @param FeedOutInterface $content
+     * @deprecated removed in version 3.0
      */
     public function setMetas(\DOMDocument $document, FeedOutInterface $content)
     {

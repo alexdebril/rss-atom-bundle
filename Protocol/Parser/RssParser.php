@@ -16,6 +16,7 @@ use SimpleXMLElement;
 
 /**
  * Class RssParser.
+ * @deprecated removed in version 3.0
  */
 class RssParser extends Parser
 {
@@ -25,6 +26,7 @@ class RssParser extends Parser
 
     /**
      *
+     * @deprecated removed in version 3.0
      */
     public function __construct()
     {
@@ -35,6 +37,7 @@ class RssParser extends Parser
      * @param SimpleXMLElement $xmlBody
      *
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function canHandle(SimpleXMLElement $xmlBody)
     {

@@ -21,6 +21,7 @@ interface FeedInInterface
      * Rss  : rss.channel.item <rss><channel><item>.
      *
      * @param ItemInInterface $item
+     * @deprecated removed in version 3.0
      */
     public function addItem(ItemInInterface $item);
 
@@ -30,6 +31,7 @@ interface FeedInInterface
      *   or   rss.channel.pubDate <rss><channel><pubDate>.
      *
      * @param \DateTime $lastModified
+     * @deprecated removed in version 3.0
      */
     public function setLastModified(\DateTime $lastModified);
 
@@ -38,6 +40,7 @@ interface FeedInInterface
      * Rss  : rss.channel.title <rss><channel><title>.
      *
      * @param string $title
+     * @deprecated removed in version 3.0
      */
     public function setTitle($title);
 
@@ -46,6 +49,7 @@ interface FeedInInterface
      * Rss  : rss.channel.description <rss><channel><description>.
      *
      * @param string $description
+     * @deprecated removed in version 3.0
      */
     public function setDescription($description);
 
@@ -54,6 +58,7 @@ interface FeedInInterface
      * Rss  : rss.channel.link <rss><channel><link>.
      *
      * @param string $link
+     * @deprecated removed in version 3.0
      */
     public function setLink($link);
 
@@ -62,6 +67,7 @@ interface FeedInInterface
      * Rss  : rss.channel.id <rss><channel><id>.
      *
      * @param string $id
+     * @deprecated removed in version 3.0
      */
     public function setPublicId($id);
 }

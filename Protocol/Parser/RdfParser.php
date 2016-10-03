@@ -17,6 +17,7 @@ use SimpleXMLElement;
 
 /**
  * Class RdfParser.
+ * @deprecated removed in version 3.0
  */
 class RdfParser extends Parser
 {
@@ -26,6 +27,7 @@ class RdfParser extends Parser
 
     /**
      *
+     * @deprecated removed in version 3.0
      */
     public function __construct()
     {
@@ -36,6 +38,7 @@ class RdfParser extends Parser
      * @param SimpleXMLElement $xmlBody
      *
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function canHandle(SimpleXMLElement $xmlBody)
     {

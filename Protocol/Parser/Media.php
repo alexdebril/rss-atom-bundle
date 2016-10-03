@@ -11,6 +11,7 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
 
 /**
  * class Media.
+ * @deprecated removed in version 3.0
  */
 class Media
 {
@@ -31,6 +32,7 @@ class Media
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getType()
     {
@@ -41,6 +43,7 @@ class Media
      * @param string $type
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function setType($type)
     {
@@ -51,6 +54,7 @@ class Media
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getUrl()
     {
@@ -61,6 +65,7 @@ class Media
      * @param string $url
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function setUrl($url)
     {
@@ -71,6 +76,7 @@ class Media
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getLength()
     {
@@ -81,6 +87,7 @@ class Media
      * @param string $length
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function setLength($length)
     {

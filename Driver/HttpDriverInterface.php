@@ -19,6 +19,7 @@ interface HttpDriverInterface
      * @param \DateTime $lastModified
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function getResponse($url, \DateTime $lastModified);
 }

@@ -13,6 +13,7 @@ use Debril\RssAtomBundle\Exception\DriverUnreachableResourceException;
 
 /**
  * Class FileDriver.
+ * @deprecated removed in version 3.0
  */
 class FileDriver implements HttpDriverInterface
 {
@@ -23,6 +24,7 @@ class FileDriver implements HttpDriverInterface
      * @return HttpDriverResponse
      *
      * @throws DriverUnreachableResourceException
+     * @deprecated removed in version 3.0
      */
     public function getResponse($url, \DateTime $lastModified)
     {

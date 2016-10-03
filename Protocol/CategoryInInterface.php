@@ -23,6 +23,7 @@ interface CategoryInInterface
      * @param string $name
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function setName($name);
 }

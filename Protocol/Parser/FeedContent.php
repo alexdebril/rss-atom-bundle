@@ -37,6 +37,7 @@ use Debril\RssAtomBundle\Protocol\ItemInInterface;
 
 /**
  * Class FeedContent.
+ * @deprecated removed in version 3.0
  */
 class FeedContent implements FeedInterface
 {
@@ -95,6 +96,7 @@ class FeedContent implements FeedInterface
      *   or   rss.channel.pubDate <rss><channel><pubDate>.
      *
      * @return \DateTime
+     * @deprecated removed in version 3.0
      */
     public function getLastModified()
     {
@@ -109,6 +111,7 @@ class FeedContent implements FeedInterface
      * @param \DateTime $lastModified
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function setLastModified(\DateTime $lastModified)
     {
@@ -122,6 +125,7 @@ class FeedContent implements FeedInterface
      * Rss  : rss.channel.title <rss><channel><title>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getTitle()
     {
@@ -135,6 +139,7 @@ class FeedContent implements FeedInterface
      * @param string $title
      *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
+     * @deprecated removed in version 3.0
      */
     public function setTitle($title)
     {
@@ -148,6 +153,7 @@ class FeedContent implements FeedInterface
      * Rss  : rss.channel.description <rss><channel><description>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getDescription()
     {
@@ -161,6 +167,7 @@ class FeedContent implements FeedInterface
      * @param string $description
      *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
+     * @deprecated removed in version 3.0
      */
     public function setDescription($description)
     {
@@ -174,6 +181,7 @@ class FeedContent implements FeedInterface
      * Rss  : rss.channel.link <rss><channel><link>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getLink()
     {
@@ -187,6 +195,7 @@ class FeedContent implements FeedInterface
      * @param string $link
      *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
+     * @deprecated removed in version 3.0
      */
     public function setLink($link)
     {
@@ -200,6 +209,7 @@ class FeedContent implements FeedInterface
      * Rss  : rss.channel.id <rss><channel><id>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getPublicId()
     {
@@ -213,6 +223,7 @@ class FeedContent implements FeedInterface
      * @param string $id
      *
      * @return \Debril\RssAtomBundle\Protocol\Parser\FeedContent
+     * @deprecated removed in version 3.0
      */
     public function setPublicId($id)
     {
@@ -225,6 +236,7 @@ class FeedContent implements FeedInterface
      * Number of feed.entry or rss.channel.item in the stream.
      *
      * @return int
+     * @deprecated removed in version 3.0
      */
     public function getItemsCount()
     {
@@ -236,6 +248,7 @@ class FeedContent implements FeedInterface
      * Rss  : rss.channel.item <rss><channel><item>.
      *
      * @return array[\Debril\RssAtomBundle\Protocol\Item]
+     * @deprecated removed in version 3.0
      */
     public function getItems()
     {
@@ -249,6 +262,7 @@ class FeedContent implements FeedInterface
      * @param \Debril\RssAtomBundle\Protocol\ItemInInterface $item
      *
      * @return FeedContent
+     * @deprecated removed in version 3.0
      */
     public function addItem(ItemInInterface $item)
     {

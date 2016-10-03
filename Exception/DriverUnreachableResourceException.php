@@ -11,6 +11,7 @@ namespace Debril\RssAtomBundle\Exception;
 
 /**
  * Class DriverUnreachableResourceException.
+ * @deprecated removed in version 3.0
  */
 class DriverUnreachableResourceException extends RssAtomException
 {
