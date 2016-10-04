@@ -100,7 +100,7 @@ class StreamController extends Controller
         $content = $this->getContent($options, $source);
 
         if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
-            $response = $this->getStringOutput($content, $format);
+            $response = new Response($this->getStringOutput($content, $format));
             $response->headers->set('Content-Type', 'application/xhtml+xml');
 
             if (! $this->container->getParameter('debril_rss_atom.private_feeds')) {
@@ -118,9 +118,9 @@ class StreamController extends Controller
     }
 
     /**
-     * @param stdClass $feed
+     * @param $feed
      * @param $format
-     * @return Response
+     * @return string
      * @throws \Exception
      */
     protected function getStringOutput($feed, $format)
@@ -130,7 +130,7 @@ class StreamController extends Controller
         }
 
         $formatter = $this->getFormatter($format);
-        return $response = new Response($formatter->toString($feed));
+        return $formatter->toString($feed);
     }
 
     /**
@@ -195,5 +195,13 @@ class StreamController extends Controller
         }
 
         return $this->get($services[$format]);
+    }
+
+    /**
+     * @return \FeedIo\FeedIo
+     */
+    protected function getFeedIo()
+    {
+        return $this->container->get('feedio');
     }
 }
