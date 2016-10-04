@@ -7,7 +7,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/quality-score.png?s=6e4cc3b9368ddbf14b1066114b6af6d9011894d9)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/coverage.png?s=5bbd191f3b9364b8c31d8f1881f4c1fd06829fc3)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 
-RssAtomBundle is a Bundle for Symfony made to easily access and deliver RSS / Atom feeds. It features:
+RssAtomBundle is a Bundle for Symfony made to easily access and deliver RSS / Atom feeds. It is built on top of [feed-io](https://github.com/alexdebril/feed-io) and features:
 
 - Detection of the feed format (RSS / Atom)
 - enclosures support
@@ -55,7 +55,7 @@ class AppKernel extends Kernel
 Then add the bundle's routing configuration in app/config/routing.yml :
  
 ```yaml
-feedio:
+rssatom:
     resource: "@DebrilRssAtomBundle/Resources/config/routing.xml"
 
 ```
@@ -98,7 +98,7 @@ Wherever you have access to the service container :
 ```php
 <?php
     // get feedio
-    $feedio = $this->container->get('feedio');
+    $feedIo = $this->container->get('feedio');
 
     // this date is used to fetch only the latest items
     $modifiedSince = new \DateTime($date);
@@ -107,9 +107,10 @@ Wherever you have access to the service container :
     $url = 'http://host.tld/feed';
 
     // now fetch its (fresh) content
-    $feed = $feedio->read($url, new \Acme\Entity\Feed, $modifiedSince)->getFeed();
+    $feed = $feedIo->read($url, new \Acme\Entity\Feed, $modifiedSince)->getFeed();
 
     foreach ( $feed as $item ) {
+        echo "item title : {$item->getTitle()} \n ";
         // getMedias() returns enclosures if any
         $medias = $item->getMedias();
     }
@@ -125,7 +126,7 @@ Wherever you have access to the service container :
  ```php
  <?php
      // get feedio
-     $feedio = $this->container->get('feedio');
+     $feedIo = $this->container->get('feedio');
 
      // this date is used to fetch only the latest items
      $modifiedSince = new \DateTime($date);
@@ -134,13 +135,7 @@ Wherever you have access to the service container :
      $url = 'http://host.tld/feed';
 
      // now fetch its (fresh) content
-     $feed = $feedio->readSince($url, $modifiedSince)->getFeed();
-
-     foreach ( $feed as $item ) {
-         // getMedias() returns enclosures if any
-         $medias = $item->getMedias();
-     }
-
+     $feed = $feedIo->readSince($url, $modifiedSince)->getFeed();
  ?>
  ```
 
