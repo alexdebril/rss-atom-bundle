@@ -16,6 +16,7 @@ use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class Item.
+ * @deprecated removed in version 3.0
  */
 class Item implements ItemInInterface, ItemOutInterface
 {
@@ -101,6 +102,7 @@ class Item implements ItemInInterface, ItemOutInterface
 
     /**
      * Constructor.
+     * @deprecated removed in version 3.0
      */
     public function __construct()
     {
@@ -113,6 +115,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Rss  : rss.channel.item.title <rss><channel><item><title>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getTitle()
     {
@@ -126,6 +129,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param string $title
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setTitle($title)
     {
@@ -139,6 +143,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getPublicId()
     {
@@ -152,6 +157,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param string $publicId
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setPublicId($publicId)
     {
@@ -165,6 +171,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Rss  : rss.channel.item.description <rss><channel><item><description>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getDescription()
     {
@@ -178,6 +185,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param string $description
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setDescription($description)
     {
@@ -190,6 +198,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Atom : feed.entry.summary <feed><entry><summary>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getSummary()
     {
@@ -202,6 +211,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param string $summary
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setSummary($summary)
     {
@@ -215,6 +225,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Rss  : rss.channel.item.pubDate <rss><channel><item><pubDate>.
      *
      * @return \DateTime
+     * @deprecated removed in version 3.0
      */
     public function getUpdated()
     {
@@ -228,6 +239,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param \DateTime $updated
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setUpdated(DateTime $updated)
     {
@@ -241,6 +253,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Rss  : rss.channel.item.link <rss><channel><item><link>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getLink()
     {
@@ -254,6 +267,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param string $link
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setLink($link)
     {
@@ -267,6 +281,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Rss  : rss.channel.item.author <rss><channel><item><author>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getAuthor()
     {
@@ -280,6 +295,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param string $author
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setAuthor($author)
     {
@@ -292,6 +308,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * Rss  : rss.channel.item.comment <rss><channel><item><comment>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getComment()
     {
@@ -304,6 +321,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param string $comment
      *
      * @return Item
+     * @deprecated removed in version 3.0
      */
     public function setComment($comment)
     {
@@ -317,6 +335,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * f.e. MediaRss or FeedBurner additions.
      *
      * @param array $additional
+     * @deprecated removed in version 3.0
      */
     public function setAdditional(array $additional)
     {
@@ -328,6 +347,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * f.e. MediaRss or FeedBurner additions.
      *
      * @return array
+     * @deprecated removed in version 3.0
      */
     public function getAdditional()
     {
@@ -338,6 +358,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param Media $media
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function addMedia(Media $media)
     {
@@ -348,6 +369,7 @@ class Item implements ItemInInterface, ItemOutInterface
 
     /**
      * @return \ArrayIterator
+     * @deprecated removed in version 3.0
      */
     public function getMedias()
     {
@@ -358,6 +380,7 @@ class Item implements ItemInInterface, ItemOutInterface
      * @param CategoryInInterface $category
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function addCategory(CategoryInInterface $category)
     {
@@ -368,6 +391,7 @@ class Item implements ItemInInterface, ItemOutInterface
 
     /**
      * @return Category[]
+     * @deprecated removed in version 3.0
      */
     public function getCategories()
     {

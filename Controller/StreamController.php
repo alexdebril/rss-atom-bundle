@@ -4,6 +4,7 @@ namespace Debril\RssAtomBundle\Controller;
 
 use Debril\RssAtomBundle\Protocol\FeedFormatter;
 use Debril\RssAtomBundle\Protocol\FeedOutInterface;
+use FeedIo\Feed;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -99,8 +100,7 @@ class StreamController extends Controller
         $content = $this->getContent($options, $source);
 
         if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
-            $formatter = $this->getFormatter($format);
-            $response = new Response($formatter->toString($content));
+            $response = new Response($this->getStringOutput($content, $format));
             $response->headers->set('Content-Type', 'application/xhtml+xml');
 
             if (! $this->container->getParameter('debril_rss_atom.private_feeds')) {
@@ -115,6 +115,22 @@ class StreamController extends Controller
         }
 
         return $response;
+    }
+
+    /**
+     * @param $feed
+     * @param $format
+     * @return string
+     * @throws \Exception
+     */
+    protected function getStringOutput($feed, $format)
+    {
+        if ( $feed instanceof Feed ) {
+            return $this->getFeedIo()->format($feed, $format)->saveXML();
+        }
+
+        $formatter = $this->getFormatter($format);
+        return $formatter->toString($feed);
     }
 
     /**
@@ -179,5 +195,13 @@ class StreamController extends Controller
         }
 
         return $this->get($services[$format]);
+    }
+
+    /**
+     * @return \FeedIo\FeedIo
+     */
+    protected function getFeedIo()
+    {
+        return $this->container->get('feedio');
     }
 }

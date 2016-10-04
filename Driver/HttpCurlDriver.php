@@ -13,6 +13,7 @@ use Debril\RssAtomBundle\Exception\DriverUnreachableResourceException;
 
 /**
  * Class HttpCurlDriver.
+ * @deprecated removed in version 3.0
  */
 class HttpCurlDriver implements HttpDriverInterface
 {
@@ -25,6 +26,7 @@ class HttpCurlDriver implements HttpDriverInterface
     /**
      * Constructor for passing config options
      * @param array $options
+     * @deprecated removed in version 3.0
      */
     public function __construct($options = array()) {
 
@@ -48,6 +50,7 @@ class HttpCurlDriver implements HttpDriverInterface
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
      *
      * @throws DriverUnreachableResourceException
+     * @deprecated removed in version 3.0
      */
     public function getResponse($url, \DateTime $lastModified)
     {
@@ -82,6 +85,7 @@ class HttpCurlDriver implements HttpDriverInterface
      * @param string $body
      *
      * @return \Debril\RssAtomBundle\Driver\HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function getHttpResponse($headerString, $body)
     {

@@ -18,6 +18,9 @@
         <parameter key="debril.http.curl.class">Debril\RssAtomBundle\Driver\HttpCurlDriver</parameter>
         <parameter key="debril.http.guzzle_bridge.class">Debril\RssAtomBundle\Driver\GuzzleBridgeDriver</parameter>
         <parameter key="debril.file.class">Debril\RssAtomBundle\Driver\FileDriver</parameter>
+        <parameter key="guzzle.client.class">GuzzleHttp\Client</parameter>
+        <parameter key="feedio.client.class">FeedIo\Adapter\Guzzle\Client</parameter>
+        <parameter key="feedio.class">FeedIo\FeedIo</parameter>
         <parameter key="debril.provider.mock.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
         <parameter key="debril.provider.default.class">Debril\RssAtomBundle\Provider\MockProvider</parameter>
         <parameter key="debril.provider.doctrine.class">Debril\RssAtomBundle\Provider\DoctrineFeedContentProvider</parameter>
@@ -69,6 +72,17 @@
             <call method="addParser">
                 <argument type="service" id="debril.parser.atom" />
             </call>
+        </service>
+
+        <service id="guzzle.client" class="%guzzle.client.class%" />
+
+        <service id="feedio.client" class="%feedio.client.class%">
+            <argument type="service" id="guzzle.client"/>
+        </service>
+
+        <service id="feedio" class="%feedio.class%">
+            <argument type="service" id="feedio.client"/>
+            <argument type="service" id="logger"/>
         </service>
 
         <service id="debril.formatter.atom" class="%debril.formatter.atom.class%"  />

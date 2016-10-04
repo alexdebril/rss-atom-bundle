@@ -15,6 +15,7 @@ use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class Limit.
+ * @deprecated removed in version 3.0
  */
 class Limit implements FilterInterface
 {
@@ -30,6 +31,7 @@ class Limit implements FilterInterface
 
     /**
      * @param int $limit
+     * @deprecated removed in version 3.0
      */
     public function __construct($limit)
     {
@@ -40,6 +42,7 @@ class Limit implements FilterInterface
      * @param Item $item
      *
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function isValid(ItemOutInterface $item)
     {

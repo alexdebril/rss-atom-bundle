@@ -22,6 +22,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.title <rss><channel><item><title>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getTitle();
 
@@ -30,6 +31,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.guid <rss><channel><item><guid>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getPublicId();
 
@@ -38,6 +40,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.description <rss><channel><item><description>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getDescription();
 
@@ -45,6 +48,7 @@ interface ItemOutInterface
      * Atom : feed.entry.summary <feed><entry><summary>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getSummary();
 
@@ -53,6 +57,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.pubDate <rss><channel><item><pubDate>.
      *
      * @return \DateTime
+     * @deprecated removed in version 3.0
      */
     public function getUpdated();
 
@@ -61,6 +66,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.link <rss><channel><item><link>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getLink();
 
@@ -69,6 +75,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.author <rss><channel><item><author>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getAuthor();
 
@@ -77,6 +84,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.comment <rss><channel><item><comment>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getComment();
 
@@ -84,6 +92,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.enclosure for the first one <rss><channel><item><enclosure>, and rss.channel.item.media:content <rss><channel><item><media:content> for all media
      *
      * @return \ArrayIterator|MediaOutInterface[] $medias
+     * @deprecated removed in version 3.0
      */
     public function getMedias();
 
@@ -92,6 +101,7 @@ interface ItemOutInterface
      * Rss  : rss.channel.item.category[term] <rss><channel><item><category>
      *
      * @return CategoryOutInterface[]
+     * @deprecated removed in version 3.0
      */
     public function getCategories();
 }

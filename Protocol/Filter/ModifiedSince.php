@@ -15,6 +15,7 @@ use Debril\RssAtomBundle\Protocol\ItemOutInterface;
 
 /**
  * Class ModifiedSince.
+ * @deprecated removed in version 3.0
  */
 class ModifiedSince implements FilterInterface
 {
@@ -25,6 +26,7 @@ class ModifiedSince implements FilterInterface
 
     /**
      * @param \DateTime $date
+     * @deprecated removed in version 3.0
      */
     public function __construct(\DateTime $date)
     {
@@ -33,6 +35,7 @@ class ModifiedSince implements FilterInterface
 
     /**
      * @return \DateTime
+     * @deprecated removed in version 3.0
      */
     public function getDate()
     {
@@ -45,6 +48,7 @@ class ModifiedSince implements FilterInterface
      * @param Item $item
      *
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function isValid(ItemOutInterface $item)
     {

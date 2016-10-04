@@ -12,6 +12,7 @@ namespace Debril\RssAtomBundle\Protocol\Parser;
 /**
  * Class XmlParser
  *
+ * @deprecated removed in version 3.0
  */
 class XmlParser
 {
@@ -21,6 +22,7 @@ class XmlParser
      *
      * @param string $xmlString
      * @return \SimpleXMLElement
+     * @deprecated removed in version 3.0
      */
     public function parseString($xmlString)
     {

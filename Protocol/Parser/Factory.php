@@ -14,6 +14,7 @@ use Debril\RssAtomBundle\Protocol\ItemInInterface;
 
 /**
  * Class Factory.
+ * @deprecated removed in version 3.0
  */
 class Factory
 {
@@ -31,6 +32,7 @@ class Factory
      * @return FeedInInterface
      *
      * @throws \Exception
+     * @deprecated removed in version 3.0
      */
     public function newFeed()
     {
@@ -46,6 +48,7 @@ class Factory
      * @return ItemInInterface
      *
      * @throws \Exception
+     * @deprecated removed in version 3.0
      */
     public function newItem()
     {
@@ -63,6 +66,7 @@ class Factory
      * @return Factory
      *
      * @throws \Exception
+     * @deprecated removed in version 3.0
      */
     public function setFeedClass($feedClass)
     {
@@ -81,6 +85,7 @@ class Factory
      * @return Factory
      *
      * @throws \Exception
+     * @deprecated removed in version 3.0
      */
     public function setItemClass($itemClass)
     {
