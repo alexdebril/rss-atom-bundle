@@ -3,6 +3,7 @@
 namespace Debril\RssAtomBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
@@ -21,6 +22,8 @@ class DebrilRssAtomExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $this->setDefinition($container, 'logger', 'Psr\Log\NullLogger');
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
@@ -57,5 +60,19 @@ class DebrilRssAtomExtension extends Extension
         }
 
         $container->setParameter('debril_rss_atom.private_feeds', $config['private']);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param $serviceName
+     * @param $className
+     * @return $this
+     */
+    protected function setDefinition(ContainerBuilder $container, $serviceName, $className)
+    {
+        if ( ! $container->hasDefinition($serviceName) && ! $container->hasAlias($serviceName)) {
+            $container->setDefinition($serviceName, new Definition($className));
+        }
+        return $this;
     }
 }
