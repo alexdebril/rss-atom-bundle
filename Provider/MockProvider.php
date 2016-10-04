@@ -11,8 +11,8 @@
  */
 namespace Debril\RssAtomBundle\Provider;
 
-use Debril\RssAtomBundle\Protocol\Parser\FeedContent;
-use Debril\RssAtomBundle\Protocol\Parser\Item;
+use FeedIo\Feed;
+use FeedIo\Feed\Item;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 
 /**
@@ -23,13 +23,13 @@ class MockProvider implements FeedContentProviderInterface
     /**
      * @param array $options
      *
-     * @return FeedContent
+     * @return Feed
      *
      * @throws FeedNotFoundException
      */
     public function getFeedContent(array $options)
     {
-        $content = new FeedContent();
+        $content = new Feed();
 
         $id = array_key_exists('id', $options) ? $options['id'] : null;
 
@@ -49,14 +49,10 @@ class MockProvider implements FeedContentProviderInterface
         $item->setPublicId('1');
         $item->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/somelink');
         $item->setTitle('This is an item');
-        $item->setSummary('this stream was generated using the MockProvider class');
-        $item->setDescription('lorem ipsum ....');
-        $item->setUpdated(new \DateTime());
-        $item->setComment('http://example.com/comments');
+        $item->setDescription('this stream was generated using the MockProvider class');
+        $item->setLastModified(new \DateTime());
 
-        $item->setAuthor('Contributor');
-
-        $content->addItem($item);
+        $content->add($item);
 
         return $content;
     }
