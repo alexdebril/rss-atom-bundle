@@ -24,6 +24,10 @@ Keep informed about new releases and incoming features : http://debril.org/categ
 
 You can try rss-atom-bundle through its [Demo](https://rss-atom-demo.herokuapp.com/).
 
+## Version 2.5 is a transitional version
+
+You may notice that a lot of code is now deprecated. It's because feed-io will totally replace most of it in version 3.0, please refer to the [upgrade guide](UPGRADE-3.0.md).
+
 ## Installation
 
 ### Dependencies
