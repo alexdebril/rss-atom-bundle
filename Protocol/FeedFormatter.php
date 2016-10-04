@@ -35,6 +35,7 @@ abstract class FeedFormatter
      * @param FeedOutInterface $content
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function toString(FeedOutInterface $content)
     {
@@ -47,6 +48,7 @@ abstract class FeedFormatter
      * @param FeedOutInterface $content
      *
      * @return \DomDocument
+     * @deprecated removed in version 3.0
      */
     public function toDom(FeedOutInterface $content)
     {
@@ -61,6 +63,7 @@ abstract class FeedFormatter
     /**
      * @param \DomDocument     $document
      * @param FeedOutInterface $content
+     * @deprecated removed in version 3.0
      */
     public function setEntries(\DomDocument $document, FeedOutInterface $content)
     {

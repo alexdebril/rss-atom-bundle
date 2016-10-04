@@ -56,6 +56,7 @@ abstract class Parser
      * @throws ParserException
      *
      * @return FeedInterface
+     * @deprecated removed in version 3.0
      */
     public function parse(\SimpleXMLElement $xmlBody, FeedInterface $feed, array $filters = array())
     {
@@ -95,6 +96,7 @@ abstract class Parser
 
     /**
      * @param array $dates
+     * @deprecated removed in version 3.0
      */
     public function setDateFormats(array $dates)
     {
@@ -107,6 +109,7 @@ abstract class Parser
      * @return string date Format
      *
      * @throws ParserException
+     * @deprecated removed in version 3.0
      */
     public function guessDateFormat($date)
     {
@@ -123,6 +126,7 @@ abstract class Parser
 
     /**
      * @return ItemInInterface
+     * @deprecated removed in version 3.0
      */
     public function newItem()
     {
@@ -135,6 +139,7 @@ abstract class Parser
 
     /**
      * @return Factory
+     * @deprecated removed in version 3.0
      */
     public function getFactory()
     {
@@ -145,6 +150,7 @@ abstract class Parser
      * @param Factory $factory
      *
      * @return Parser
+     * @deprecated removed in version 3.0
      */
     public function setFactory(Factory $factory)
     {
@@ -161,6 +167,7 @@ abstract class Parser
      * @param \DateTime       $modifiedSince
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function addAcceptableItem(FeedInInterface $feed, ItemInInterface $item, \DateTime $modifiedSince)
     {
@@ -177,6 +184,7 @@ abstract class Parser
      * @param array           $filters
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function addValidItem(FeedInInterface $feed, ItemInInterface $item, array $filters = array())
     {
@@ -192,6 +200,7 @@ abstract class Parser
      * @param array           $filters
      *
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function isValid(ItemInInterface $item, array $filters = array())
     {
@@ -212,6 +221,7 @@ abstract class Parser
      * @param string $format
      *
      * @return \DateTime
+     * @deprecated removed in version 3.0
      */
     public static function convertToDateTime($string, $format = \DateTime::RFC2822)
     {
@@ -231,6 +241,7 @@ abstract class Parser
      * Returns the system's timezone.
      *
      * @return \DateTimeZone
+     * @deprecated removed in version 3.0
      */
     public static function getSystemTimezone()
     {
@@ -243,6 +254,7 @@ abstract class Parser
 
     /**
      * Reset the system's time zone.
+     * @deprecated removed in version 3.0
      */
     public static function resetTimezone()
     {
@@ -294,6 +306,7 @@ abstract class Parser
      * @param string            $attributeName
      *
      * @return string|null
+     * @deprecated removed in version 3.0
      */
     public function getAttributeValue(\SimpleXMLElement $element, $attributeName)
     {
@@ -311,6 +324,7 @@ abstract class Parser
      * @param \SimpleXMLElement $element
      *
      * @return Media
+     * @deprecated removed in version 3.0
      */
     public function createMedia(\SimpleXMLElement $element)
     {
@@ -329,6 +343,7 @@ abstract class Parser
      * @param array             $names
      *
      * @return null|string|void
+     * @deprecated removed in version 3.0
      */
     public function searchAttributeValue(\SimpleXMLElement $element, array $names)
     {

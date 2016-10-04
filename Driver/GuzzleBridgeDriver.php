@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 
 /**
  * Class GuzzleBridgeDriver
+ * @deprecated removed in version 3.0
  */
 class GuzzleBridgeDriver implements HttpDriverInterface
 {
@@ -24,6 +25,7 @@ class GuzzleBridgeDriver implements HttpDriverInterface
      * @param \DateTime $lastModified
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function getResponse($url, \DateTime $lastModified)
     {

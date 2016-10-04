@@ -14,6 +14,7 @@ use Debril\RssAtomBundle\Protocol\CategoryOutInterface;
 
 /**
  * Class Category
+ * @deprecated removed in version 3.0
  */
 class Category implements CategoryInInterface, CategoryOutInterface
 {
@@ -27,6 +28,7 @@ class Category implements CategoryInInterface, CategoryOutInterface
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getName()
     {
@@ -37,6 +39,7 @@ class Category implements CategoryInInterface, CategoryOutInterface
      * @param string $name
      *
      * @return $this
+     * @deprecated removed in version 3.0
      */
     public function setName($name)
     {

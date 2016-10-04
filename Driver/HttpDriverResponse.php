@@ -11,6 +11,7 @@ namespace Debril\RssAtomBundle\Driver;
 
 /**
  * Class HttpDriverResponse.
+ * @deprecated removed in version 3.0
  */
 class HttpDriverResponse
 {
@@ -49,6 +50,7 @@ class HttpDriverResponse
 
     /**
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function getHttpCodeIsOk()
     {
@@ -57,6 +59,7 @@ class HttpDriverResponse
 
     /**
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function getHttpCodeIsRedirection()
     {
@@ -71,6 +74,7 @@ class HttpDriverResponse
 
     /**
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function getHttpCodeIsCached()
     {
@@ -84,6 +88,7 @@ class HttpDriverResponse
 
     /**
      * @return int
+     * @deprecated removed in version 3.0
      */
     public function getHttpCode()
     {
@@ -94,6 +99,7 @@ class HttpDriverResponse
      * @param int $httpCode
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function setHttpCode($httpCode)
     {
@@ -104,6 +110,7 @@ class HttpDriverResponse
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getHttpVersion()
     {
@@ -114,6 +121,7 @@ class HttpDriverResponse
      * @param string $httpVersion
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function setHttpVersion($httpVersion)
     {
@@ -124,6 +132,7 @@ class HttpDriverResponse
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getHttpMessage()
     {
@@ -134,6 +143,7 @@ class HttpDriverResponse
      * @param string $httpMessage
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function setHttpMessage($httpMessage)
     {
@@ -144,6 +154,7 @@ class HttpDriverResponse
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getHeaders()
     {
@@ -154,6 +165,7 @@ class HttpDriverResponse
      * @param string $headers
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function setHeaders($headers)
     {
@@ -164,6 +176,7 @@ class HttpDriverResponse
 
     /**
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getBody()
     {
@@ -174,6 +187,7 @@ class HttpDriverResponse
      * @param string $body
      *
      * @return HttpDriverResponse
+     * @deprecated removed in version 3.0
      */
     public function setBody($body)
     {

@@ -22,6 +22,7 @@ interface FeedOutInterface
      * Rss  : rss.channel.lastBuildDate <rss><channel><lastBuildDate>.
      *
      * @return \DateTime
+     * @deprecated removed in version 3.0
      */
     public function getLastModified();
 
@@ -30,6 +31,7 @@ interface FeedOutInterface
      * Rss  : rss.channel.title <rss><channel><title>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getTitle();
 
@@ -38,6 +40,7 @@ interface FeedOutInterface
      * Rss  : rss.channel.description <rss><channel><description>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getDescription();
 
@@ -46,6 +49,7 @@ interface FeedOutInterface
      * Rss  : rss.channel.link <rss><channel><link>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getLink();
 
@@ -54,6 +58,7 @@ interface FeedOutInterface
      * Rss  : rss.channel.id <rss><channel><id>.
      *
      * @return string
+     * @deprecated removed in version 3.0
      */
     public function getPublicId();
 
@@ -62,6 +67,7 @@ interface FeedOutInterface
      * Rss  : rss.channel.item <rss><channel><item>.
      *
      * @return ItemOutInterface[]
+     * @deprecated removed in version 3.0
      */
     public function getItems();
 }

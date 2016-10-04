@@ -21,6 +21,7 @@ interface FilterInterface
      * @param Item $item
      *
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function isValid(ItemOutInterface $item);
 }

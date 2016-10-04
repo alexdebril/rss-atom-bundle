@@ -17,6 +17,7 @@ use SimpleXMLElement;
 
 /**
  * Class AtomParser.
+ * @deprecated removed in version 3.0
  */
 class AtomParser extends Parser
 {
@@ -30,6 +31,7 @@ class AtomParser extends Parser
 
     /**
      *
+     * @deprecated removed in version 3.0
      */
     public function __construct()
     {
@@ -40,6 +42,7 @@ class AtomParser extends Parser
      * @param SimpleXMLElement $xmlBody
      *
      * @return bool
+     * @deprecated removed in version 3.0
      */
     public function canHandle(SimpleXMLElement $xmlBody)
     {
