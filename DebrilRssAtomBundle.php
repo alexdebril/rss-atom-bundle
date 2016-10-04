@@ -8,10 +8,5 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DebrilRssAtomBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
-    {
-        parent::build($container);
 
-        $container->addCompilerPass(new DriverCompilerPass());
-    }
 }
