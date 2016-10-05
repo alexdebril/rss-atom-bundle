@@ -15,6 +15,23 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class DebrilRssAtomExtension extends Extension
 {
+
+    /**
+     * @var array
+     */
+    protected $defaultDateFormats = [
+        \DateTime::RFC3339,
+        \DateTime::RSS,
+        \DateTime::W3C,
+        'Y-m-d\TH:i:s.uP',
+        'Y-m-d',
+        'd/m/Y',
+        'd M Y H:i:s P',
+        'D, d M Y H:i O',
+        'D, d M Y H:i:s O',
+        'D M d Y H:i:s e',
+    ];
+
     /**
      * {@inheritDoc}
      */
@@ -28,31 +45,7 @@ class DebrilRssAtomExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        $default = array(
-            \DateTime::RFC3339,
-            \DateTime::RSS,
-            \DateTime::W3C,
-            'Y-m-d\TH:i:s.uP',
-            'Y-m-d',
-            'd/m/Y',
-            'd M Y H:i:s P',
-            'D, d M Y H:i O',
-            'D, d M Y H:i:s O',
-            'D M d Y H:i:s e',
-        );
-
-        if (!isset($config['date_formats'])) {
-            $container->setParameter(
-                'debril_rss_atom.date_formats',
-                $default
-            );
-        } else {
-            $container->setParameter(
-                'debril_rss_atom.date_formats',
-                array_merge($default, $config['date_formats'])
-            );
-        }
-
+        $this->setDateFormats($container, $config);
         $container->setParameter('debril_rss_atom.private_feeds', $config['private']);
     }
 
@@ -67,6 +60,25 @@ class DebrilRssAtomExtension extends Extension
         if ( ! $container->hasDefinition($serviceName) && ! $container->hasAlias($serviceName)) {
             $container->setDefinition($serviceName, new Definition($className));
         }
+
+        return $this;
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array $config
+     * @return $this
+     */
+    protected function setDateFormats(ContainerBuilder $container, array $config)
+    {
+        $dateFormats = isset($config['date_formats']) ?
+            array_merge($this->defaultDateFormats, $config['date_formats']):
+            $this->defaultDateFormats;
+
+        $container->setParameter(
+            'debril_rss_atom.date_formats',
+            $dateFormats
+        );
 
         return $this;
     }
