@@ -29,7 +29,7 @@ class MockProvider implements FeedContentProviderInterface
      */
     public function getFeedContent(array $options)
     {
-        $content = new Feed();
+        $feed = new Feed();
 
         $id = array_key_exists('id', $options) ? $options['id'] : null;
 
@@ -37,13 +37,22 @@ class MockProvider implements FeedContentProviderInterface
             throw new FeedNotFoundException();
         }
 
-        $content->setPublicId($id);
+        $feed->setPublicId($id);
 
-        $content->setTitle('thank you for using RssAtomBundle');
-        $content->setDescription('this is the mock FeedContent');
-        $content->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/');
-        $content->setLastModified(new \DateTime());
+        $feed->setTitle('thank you for using RssAtomBundle');
+        $feed->setDescription('this is the mock FeedContent');
+        $feed->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/');
+        $feed->setLastModified(new \DateTime());
 
+        return $this->addItem($feed);
+    }
+
+    /**
+     * @param Feed $feed
+     * @return Feed
+     */
+    protected function addItem(Feed $feed)
+    {
         $item = new Item();
 
         $item->setPublicId('1');
@@ -52,8 +61,8 @@ class MockProvider implements FeedContentProviderInterface
         $item->setDescription('this stream was generated using the MockProvider class');
         $item->setLastModified(new \DateTime());
 
-        $content->add($item);
+        $feed->add($item);
 
-        return $content;
+        return $feed;        
     }
 }
