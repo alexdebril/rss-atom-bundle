@@ -136,7 +136,7 @@ class StreamController extends Controller
      * @param array  $options
      * @param string $source
      *
-     * @return FeedOutInterface
+     * @return FeedInterface
      *
      * @throws \Exception
      */
