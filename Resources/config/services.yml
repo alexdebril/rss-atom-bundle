@@ -1,0 +1,22 @@
+parameters:
+    debril.provider.mock.class: Debril\RssAtomBundle\Provider\MockProvider
+    debril.provider.default.class: Debril\RssAtomBundle\Provider\MockProvider
+    debril.provider.doctrine.class: Debril\RssAtomBundle\Provider\DoctrineFeedContentProvider
+
+services:
+    guzzle.client:
+        class: GuzzleHttp\Client
+
+    feedio.client:
+        class: FeedIo\Adapter\Guzzle\Client
+        arguments: ["@guzzle.client"]
+
+    feedio:
+        class: FeedIo\FeedIo
+        arguments: ["@feedio.client", "@logger"]
+
+    debril.provider.default:
+        class: %debril.provider.default.class%
+
+    debril.provider.mock:
+        class: %debril.provider.mock.class%

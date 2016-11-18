@@ -9,7 +9,7 @@
  */
 namespace Debril\RssAtomBundle\Provider;
 
-use Debril\RssAtomBundle\Protocol\FeedOutInterface;
+use FeedIo\FeedInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -64,7 +64,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
     /**
      * @param array $options
      *
-     * @return FeedOutInterface
+     * @return FeedInterface
      *
      * @throws FeedNotFoundException
      */
@@ -76,8 +76,8 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
                 ->getRepository($this->getRepositoryName())
                 ->findOneById($this->getIdFromOptions($options));
 
-        // if the feed is an actual FeedOutInterface instance, then return it
-        if ($feed instanceof FeedOutInterface) {
+        // if the feed is an actual FeedInterface instance, then return it
+        if ($feed instanceof FeedInterface) {
             return $feed;
         }
 
