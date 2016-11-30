@@ -16,7 +16,7 @@ services:
         arguments: ["@feedio.client", "@logger"]
 
     debril.provider.default:
-        class: %debril.provider.default.class%
+        class: '%debril.provider.default.class%'
 
     debril.provider.mock:
-        class: %debril.provider.mock.class%
+        class: '%debril.provider.mock.class%'
