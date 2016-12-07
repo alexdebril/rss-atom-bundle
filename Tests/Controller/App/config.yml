@@ -3,8 +3,8 @@ framework:
     secret:          secret
     test: ~
     router:          { resource: "%kernel.root_dir%/routing.xml" }
-    form:            true
-    csrf_protection: true
+    form:            false
+    csrf_protection: false
     validation:      { enable_annotations: true }
     session:
         storage_id: session.storage.filesystem
