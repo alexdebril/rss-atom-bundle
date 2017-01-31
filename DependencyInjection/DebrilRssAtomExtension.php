@@ -2,6 +2,7 @@
 
 namespace Debril\RssAtomBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Config\FileLocator;
@@ -13,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class DebrilRssAtomExtension extends Extension
+class DebrilRssAtomExtension extends Extension implements CompilerPassInterface
 {
 
     /**
@@ -40,28 +41,11 @@ class DebrilRssAtomExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->setDefinition($container, 'logger', 'Psr\Log\NullLogger');
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
         $this->setDateFormats($container, $config);
         $container->setParameter('debril_rss_atom.private_feeds', $config['private']);
-    }
-
-    /**
-     * @param ContainerBuilder $container
-     * @param $serviceName
-     * @param $className
-     * @return $this
-     */
-    protected function setDefinition(ContainerBuilder $container, $serviceName, $className)
-    {
-        if ( ! $container->hasDefinition($serviceName) && ! $container->hasAlias($serviceName)) {
-            $container->setDefinition($serviceName, new Definition($className));
-        }
-
-        return $this;
     }
 
     /**
@@ -79,6 +63,29 @@ class DebrilRssAtomExtension extends Extension
             'debril_rss_atom.date_formats',
             $dateFormats
         );
+
+        return $this;
+    }
+
+    /**
+     * @param ContainerBuilder $builder
+     */
+    public function process(ContainerBuilder $container)
+    {
+        $this->setDefinition($container, 'logger', 'Psr\Log\NullLogger');
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param $serviceName
+     * @param $className
+     * @return $this
+     */
+    protected function setDefinition(ContainerBuilder $container, $serviceName, $className)
+    {
+        if ( ! $container->has($serviceName) ) {
+            $container->setDefinition($serviceName, new Definition($className));
+        }
 
         return $this;
     }
