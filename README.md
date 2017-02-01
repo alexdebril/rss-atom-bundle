@@ -206,6 +206,48 @@ If the reclaimed feed does not exist, you just need to throw a FeedNotFoundExcep
 
 More information on the FeedContentProviderInterface interface and how to interface rss-atom-bundle directly with doctrine can be found in the [Providing Feeds section](https://github.com/alexdebril/rss-atom-bundle/wiki/Providing-feeds)
 
+## Override tip
+It could happen that according to the order of the bundles registered in `AppKernel`, this override procedures do not work properly. This happens when a bundle is registered before `rss-atom-bundle`.
+In this case, you should use the Symfony `CompilerPass` as reported in the [documentation](http://symfony.com/doc/current/bundles/override.html#services-configuration).
+
+`Vendor/Bundle/VendorBundle.php`:
+```php
+use Vendor\Bundle\DependencyInjection\Compiler\OverrideRssAtomBundleProviderCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+class VendorBundle extends Bundle
+{
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+        $container->addCompilerPass(new OverrideRssAtomBundleProviderCompilerPass());
+    }
+}
+```
+
+and `Vendor/Bundle/DependencyInjection/Compiler/OverrideRssAtomBundleProviderCompilerPass.php`:
+```php
+use Vendor\Bundle\Provider\FeedProvider;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+
+class OverrideRssAtomBundleProviderCompilerPass implements CompilerPassInterface
+{
+    public function process(ContainerBuilder $container)
+    {
+        $definition = $container->getDefinition('debril.provider.default');
+        $definition->setClass(FeedProvider::class);
+        $definition->addArgument(new Reference('my.service1'));
+        $definition->addArgument(new Reference('my.service2'));
+    }
+}
+```
+
+You can follow either `services.xml` or `CompilerPass` but with services, you have to pay attention to bundles registration order.
+
+
 ## Useful Tips
 
 ### Skipping 304 HTTP Code
