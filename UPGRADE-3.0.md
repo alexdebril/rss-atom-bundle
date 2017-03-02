@@ -113,3 +113,4 @@ foreach ( $feed as $item ) {
 ### getAuthor() and getComment() are removed
 
 use getElement($name) instead
+
