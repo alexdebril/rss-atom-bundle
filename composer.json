@@ -36,7 +36,10 @@
     },
     "target-dir": "Debril/RssAtomBundle",
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        }
     },
     "extra": {
         "branch-alias": {
