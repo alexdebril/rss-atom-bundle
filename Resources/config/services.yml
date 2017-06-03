@@ -14,6 +14,10 @@ services:
     feedio:
         class: FeedIo\FeedIo
         arguments: ["@feedio.client", "@logger"]
+        calls:
+          - method: addDateFormats
+            arguments:
+              - '%debril_rss_atom.date_formats%'
 
     debril.provider.default:
         class: '%debril.provider.default.class%'
