@@ -287,9 +287,13 @@ debril_rss_atom:
     private: true
 ```
 
-Contributors
-------------
+### Adding non-standard date formats
 
-* Alex Debril
-* Elnur Abdurrakhimov https://github.com/elnur
-* matdev https://github.com/matdev
+Some feeds use date formats which are not compliant with the specifications. You can fix this by adding the format in your configuration
+
+```yml
+# app/config/config.yml
+debril_rss_atom:
+    date_formats:
+      - 'Y/M/d'
+```
