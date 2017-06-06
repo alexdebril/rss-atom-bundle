@@ -13,7 +13,6 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/config": "~2.6|~3.0",
         "debril/feed-io": "~2.5"
     },
     "require-dev": {
