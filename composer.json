@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.6",
         "debril/feed-io": "~2.5"
     },
     "require-dev": {
@@ -20,14 +20,10 @@
         "doctrine/common": "~2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "symfony/framework-bundle": "~2.6|~3.0 <3.3",
-	    "symfony/config": "3.2",
+        "symfony/config": "~2.6|~3.0 <3.3",
         "symfony/validator": "~2.6|~3.0 <3.3",
         "symfony/finder": "~2.6|~3.0 <3.3",
-        "symfony/form": "~2.6|~3.0 <3.3",
         "symfony/browser-kit": "~2.6|~3.0 <3.3"
-    },
-    "suggest": {
-        "guzzlehttp/guzzle": "We can use Guzzle >= 6.0 to fetch feed - set 'driver' to 'guzzle' then"
     },
     "autoload": {
         "psr-0": {
@@ -39,11 +35,6 @@
         "bin-dir": "bin",
         "preferred-install": {
             "*": "dist"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0.x-dev"
         }
     }
 }
