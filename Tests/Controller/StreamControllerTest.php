@@ -2,6 +2,10 @@
 
 namespace Debril\RssAtomBundle\Tests\Controller;
 
+use FeedIo\Rule\DateTimeBuilder;
+use FeedIo\Standard\Atom;
+use FeedIo\Standard\Rss;
+use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -34,6 +38,38 @@ class StreamControllerTest extends WebTestCase
 
         $this->assertEquals('304', $response2->getStatusCode());
         $this->assertEquals(0, strlen($response2->getContent()));
+    }
+
+    public function testGetAtom()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/atom/1');
+
+        $response = $client->getResponse();
+        $this->assertEquals('200', $response->getStatusCode());
+
+        $atom = new \DOMDocument();
+        $atom->loadXML($response->getContent());
+
+        $standard = new Atom(new DateTimeBuilder(new NullLogger()));
+        $this->assertTrue($standard->canHandle($atom));
+    }
+
+    public function testGetRss()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/rss/1');
+
+        $response = $client->getResponse();
+        $this->assertEquals('200', $response->getStatusCode());
+
+        $atom = new \DOMDocument();
+        $atom->loadXML($response->getContent());
+
+        $standard = new Rss(new DateTimeBuilder(new NullLogger()));
+        $this->assertTrue($standard->canHandle($atom));
     }
 
     /**
