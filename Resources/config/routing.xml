@@ -21,6 +21,12 @@
         <default key="id">null</default>
     </route>
 
+    <route id="feed_json" path="/json/{id}">
+        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
+        <default key="format">json</default>
+        <default key="id">null</default>
+    </route>
+
     <route id="mock_feed_rss" path="/mock/rss/{id}">
         <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
         <default key="format">rss</default>
