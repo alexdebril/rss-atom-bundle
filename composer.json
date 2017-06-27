@@ -4,7 +4,7 @@
     "description": "RSS and Atom support for Symfony",
     "keywords": ["rss", "atom"],
     "homepage": "http://debril.org/category/rss-atom-bundle/",
-    "license": "LGPL-3.0",
+    "license": "MIT",
     "repositories": [
         {
             "type": "vcs",
