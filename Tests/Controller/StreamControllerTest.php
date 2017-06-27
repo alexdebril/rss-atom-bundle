@@ -2,8 +2,10 @@
 
 namespace Debril\RssAtomBundle\Tests\Controller;
 
+use FeedIo\Reader\Document;
 use FeedIo\Rule\DateTimeBuilder;
 use FeedIo\Standard\Atom;
+use FeedIo\Standard\Json;
 use FeedIo\Standard\Rss;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -49,8 +51,7 @@ class StreamControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertEquals('200', $response->getStatusCode());
 
-        $atom = new \DOMDocument();
-        $atom->loadXML($response->getContent());
+        $atom = new Document($response->getContent());
 
         $standard = new Atom(new DateTimeBuilder(new NullLogger()));
         $this->assertTrue($standard->canHandle($atom));
@@ -65,11 +66,25 @@ class StreamControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertEquals('200', $response->getStatusCode());
 
-        $atom = new \DOMDocument();
-        $atom->loadXML($response->getContent());
+        $rss = new Document($response->getContent());
 
         $standard = new Rss(new DateTimeBuilder(new NullLogger()));
-        $this->assertTrue($standard->canHandle($atom));
+        $this->assertTrue($standard->canHandle($rss));
+    }
+
+    public function testGetJson()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/json/1');
+
+        $response = $client->getResponse();
+        $this->assertEquals('200', $response->getStatusCode());
+
+        $json = new Document($response->getContent());
+
+        $standard = new Json(new DateTimeBuilder(new NullLogger()));
+        $this->assertTrue($standard->canHandle($json));
     }
 
     /**
