@@ -60,7 +60,7 @@ Then add the bundle's routing configuration in app/config/routing.yml :
  
 ```yaml
 rssatom:
-    resource: "@DebrilRssAtomBundle/Resources/config/routing.xml"
+    resource: "@DebrilRssAtomBundle/Resources/config/routing.yml"
 
 ```
 
