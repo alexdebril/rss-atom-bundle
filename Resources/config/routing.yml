@@ -1,0 +1,16 @@
+feed_stream:
+    path: /stream/{format}/{id}
+    defaults: { _controller: DebrilRssAtomBundle:Stream:index, format: 'rss' }
+    requirements: { "format": "rss|atom|json" }
+    
+feed_rss:
+    path: /rss/{id}
+    defaults: { _controller: DebrilRssAtomBundle:Stream:index, "format": 'rss', "id": null }
+    
+feed_atom:
+    path: /atom/{id}
+    defaults: { _controller: DebrilRssAtomBundle:Stream:index, "format": 'atom', "id": null }
+
+feed_mock:
+    path: /mock/rss/{id}
+    defaults: { _controller: DebrilRssAtomBundle:Stream:index, "format": 'rss', "id": null }

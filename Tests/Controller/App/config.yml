@@ -2,7 +2,7 @@
 framework:
     secret:          secret
     test: ~
-    router:          { resource: "%kernel.root_dir%/routing.xml" }
+    router:          { resource: "%kernel.root_dir%/routing.yml" }
     form:            false
     csrf_protection: false
     validation:      { enable_annotations: true }
