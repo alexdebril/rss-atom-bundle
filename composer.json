@@ -1,8 +1,8 @@
 {
     "name": "debril/rss-atom-bundle",
     "type": "symfony-bundle",
-    "description": "RSS and Atom support for Symfony",
-    "keywords": ["rss", "atom"],
+    "description": "RSS / Atom and JSONFeed support for Symfony",
+    "keywords": ["rss", "atom", "jsonfeed", "feed", "syndication"],
     "homepage": "http://debril.org/category/rss-atom-bundle/",
     "license": "MIT",
     "repositories": [
