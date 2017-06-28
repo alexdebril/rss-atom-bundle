@@ -98,7 +98,7 @@ class StreamController extends Controller
         $content = $this->getContent($options, $source);
 
         if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
-            $response = new Response($this->getFeedIo()->format($content, $format)->saveXML());
+            $response = new Response($this->getFeedIo()->format($content, $format));
             $response->headers->set('Content-Type', 'application/xhtml+xml');
             $this->setFeedHeaders($response, $content);
 
