@@ -242,28 +242,14 @@ You can follow either `services.xml` or `CompilerPass` but with services, you ha
 ### Skipping 304 HTTP Code
 
 
-The HTTP cache handling can be annoying during development process, you can skip it through configuration in your app/config/parameters.yml file :
+The HTTP cache handling can be annoying during development process, you can skip it through configuration in your app/config/config.yml file :
 
 ```yml
-parameters:
-    force_refresh:     true
+debril_rss_atom:
+    force_refresh: true
 ```
 
 This way, the `StreamController` will always display your feed's content and return a 200 HTTP code.
-
-### Choosing your own provider
-
-Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :
-
-```xml
-    <route id="your_route_name" pattern="/your/route/{contentId}">
-        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
-        <default key="format">rss</default>
-        <default key="source">your.provider.service</default>
-    </route>
-```
-
-The `source` parameter must contain a valid service name defined in your application.
 
 ### Private feeds
 
@@ -287,7 +273,21 @@ debril_rss_atom:
       - 'Y/M/d'
 ```
 
-### Fetching the repository
+### Choosing your own provider
+
+Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :
+
+```xml
+    <route id="your_route_name" pattern="/your/route/{contentId}">
+        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
+        <default key="format">rss</default>
+        <default key="source">your.provider.service</default>
+    </route>
+```
+
+The `source` parameter must contain a valid service name defined in your application.
+
+## Fetching the repository
 
 Do this if you want to contribute (and you're welcome to do so):
 

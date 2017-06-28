@@ -20,12 +20,6 @@ class StreamController extends Controller
     const DEFAULT_SOURCE = 'debril.provider.default';
 
     /**
-     * parameter used to force refresh at every hit (skips 'If-Modified-Since' usage).
-     * set it to true for debug purpose.
-     */
-    const FORCE_PARAM_NAME = 'force_refresh';
-
-    /**
      * @var \DateTime
      */
     protected $since;
@@ -162,11 +156,7 @@ class StreamController extends Controller
      */
     protected function mustForceRefresh()
     {
-        if ($this->container->hasParameter(self::FORCE_PARAM_NAME)) {
-            return $this->container->getParameter(self::FORCE_PARAM_NAME);
-        }
-
-        return false;
+        return $this->container->getParameter('debril_rss_atom.force_refresh');
     }
 
     /**
