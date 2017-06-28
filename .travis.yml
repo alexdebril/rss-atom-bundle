@@ -12,8 +12,8 @@ env:
 script : phpunit --coverage-clover=coverage.clover && wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 before_script:
-  - composer require symfony/framework-bundle:${SYMFONY_VERSION}
-  - composer require symfony/validator:${SYMFONY_VERSION}
-  - composer require symfony/finder:${SYMFONY_VERSION}
-  - composer require symfony/browser-kit:${SYMFONY_VERSION}
+  - composer require "symfony/framework-bundle:~3.2 < 3.3"
+  - composer require "symfony/validator:~3.2 < 3.3"
+  - composer require "symfony/finder:~3.2 < 3.3"
+  - composer require "symfony/browser-kit:~3.2 < 3.3"
   - composer install --dev 
