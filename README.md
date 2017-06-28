@@ -40,6 +40,15 @@ This is the most common way if you want to add RssAtomBundle into an existing pr
 
     composer require debril/rss-atom-bundle
     
+Add the bundle's routing configuration in app/config/routing.yml :
+ 
+```yaml
+rssatom:
+    resource: "@DebrilRssAtomBundle/Resources/config/routing.yml"
+
+```
+#### If your application uses Symfony < 3.3
+   
 Edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
 
 
@@ -56,13 +65,7 @@ class AppKernel extends Kernel
             new Debril\RssAtomBundle\DebrilRssAtomBundle(),
 ```
 
-Then add the bundle's routing configuration in app/config/routing.yml :
- 
-```yaml
-rssatom:
-    resource: "@DebrilRssAtomBundle/Resources/config/routing.yml"
-
-```
+This step will not be necessary anymore starting from Symfony 3.3.
 
 ### Fetching the repository
 
