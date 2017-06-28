@@ -251,20 +251,6 @@ debril_rss_atom:
 
 This way, the `StreamController` will always display your feed's content and return a 200 HTTP code.
 
-### Choosing your own provider
-
-Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :
-
-```xml
-    <route id="your_route_name" pattern="/your/route/{contentId}">
-        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
-        <default key="format">rss</default>
-        <default key="source">your.provider.service</default>
-    </route>
-```
-
-The `source` parameter must contain a valid service name defined in your application.
-
 ### Private feeds
 
 You may have private feeds, user-specific or behind some authentication.  
@@ -287,7 +273,21 @@ debril_rss_atom:
       - 'Y/M/d'
 ```
 
-### Fetching the repository
+### Choosing your own provider
+
+Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :
+
+```xml
+    <route id="your_route_name" pattern="/your/route/{contentId}">
+        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
+        <default key="format">rss</default>
+        <default key="source">your.provider.service</default>
+    </route>
+```
+
+The `source` parameter must contain a valid service name defined in your application.
+
+## Fetching the repository
 
 Do this if you want to contribute (and you're welcome to do so):
 
