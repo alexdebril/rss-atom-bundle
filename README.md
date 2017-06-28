@@ -7,9 +7,9 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/quality-score.png?s=6e4cc3b9368ddbf14b1066114b6af6d9011894d9)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/badges/coverage.png?s=5bbd191f3b9364b8c31d8f1881f4c1fd06829fc3)](https://scrutinizer-ci.com/g/alexdebril/rss-atom-bundle/)
 
-RssAtomBundle is a Bundle for Symfony made to easily access and deliver RSS / Atom feeds. It is built on top of [feed-io](https://github.com/alexdebril/feed-io) and features:
+RssAtomBundle is a Bundle for Symfony made to easily access and deliver JSON / RSS / Atom feeds. It is built on top of [feed-io](https://github.com/alexdebril/feed-io) and features:
 
-- Detection of the feed format (RSS / Atom)
+- Detection of the feed format (JSON/ RSS / Atom)
 - enclosures support
 - A generic StreamController built to write all your feeds. This controller is able to send a 304 HTTP Code if the feed didn't change since the last visit
 - HTTP Headers support when reading feeds in order to save network traffic
@@ -66,20 +66,6 @@ class AppKernel extends Kernel
 ```
 
 This step will not be necessary anymore starting from Symfony 3.3.
-
-### Fetching the repository
-
-Do this if you want to contribute (and you're welcome to do so):
-
-    git clone https://github.com/alexdebril/rss-atom-bundle.git
-
-    composer.phar install --dev
-
-## Unit Testing
-
-You can run the unit test suites using the following command in the Bundle's source director:
-
-    bin/phpunit
 
 ## Usage
 
@@ -148,7 +134,7 @@ Wherever you have access to the service container :
 
 ### Providing feeds
 
-RssAtomBundle offers the ability to provide RSS/Atom feeds. The route will match the following pattern : /{format}/{contentId}
+RssAtomBundle offers the ability to provide JSON/RSS/Atom feeds. The route will match the following pattern : /{format}/{contentId}
 
 - {format} must be "rss" or "atom" (or whatever you want if you add the good routing rule in routing.yml)
 - {contentId} is an optional argument. Use it you have several feeds
@@ -300,3 +286,17 @@ debril_rss_atom:
     date_formats:
       - 'Y/M/d'
 ```
+
+### Fetching the repository
+
+Do this if you want to contribute (and you're welcome to do so):
+
+    git clone https://github.com/alexdebril/rss-atom-bundle.git
+
+    composer.phar install --dev
+
+## Unit Testing
+
+You can run the unit test suites using the following command in the Bundle's source director:
+
+    bin/phpunit
