@@ -24,6 +24,9 @@
         "symfony/finder": "~2.6|~3.0",
         "symfony/browser-kit": "~2.6|~3.0"
     },
+    "suggest": {
+        "doctrine/doctrine-bundle": "allow to provide feeds' content from database"
+    },
     "autoload": {
         "psr-0": {
             "Debril\\RssAtomBundle": ""
