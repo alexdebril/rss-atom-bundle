@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3db41dff4edb71d6311e552ed11d07ed",
+    "content-hash": "c5d932fc80ab3e9fefc8f2c624c5302e",
     "packages": [
         {
             "name": "debril/feed-io",
