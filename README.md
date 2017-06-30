@@ -9,7 +9,7 @@
 
 RssAtomBundle is a Bundle for Symfony made to easily access and deliver JSON / RSS / Atom feeds. It is built on top of [feed-io](https://github.com/alexdebril/feed-io) and features:
 
-- Detection of the feed format (JSON/ RSS / Atom)
+- Detection of the feed format (JSON / RSS / Atom)
 - enclosures support
 - A generic StreamController built to write all your feeds. This controller is able to send a 304 HTTP Code if the feed didn't change since the last visit
 - HTTP Headers support when reading feeds in order to save network traffic
@@ -24,10 +24,6 @@ Keep informed about new releases and incoming features : http://debril.org/categ
 
 You can try rss-atom-bundle through its [Demo](https://rss-atom-demo.herokuapp.com/).
 
-## Version 2.5 is a transitional version
-
-You may notice that a lot of code is now deprecated. It's because feed-io will totally replace most of it in version 3.0, please refer to the [upgrade guide](UPGRADE-3.0.md).
-
 ## Installation
 
 ### Dependencies
@@ -39,16 +35,16 @@ As a Symfony Bundle, RssAtomBundle must be installed using Composer. If you do n
 This is the most common way if you want to add RssAtomBundle into an existing project.
 
     composer require debril/rss-atom-bundle
-    
+
 Add the bundle's routing configuration in app/config/routing.yml :
- 
+
 ```yaml
 rssatom:
     resource: "@DebrilRssAtomBundle/Resources/config/routing.yml"
 
 ```
 #### If your application uses Symfony < 3.3
-   
+
 Edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
 
 
