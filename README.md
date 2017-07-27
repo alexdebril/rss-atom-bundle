@@ -30,11 +30,24 @@ You can try rss-atom-bundle through its [Demo](https://rss-atom-demo.herokuapp.c
 
 As a Symfony Bundle, RssAtomBundle must be installed using Composer. If you do not know Composer, please refer to its website: http://getcomposer.org/
 
-### Installation in a Symfony project
+### Your application uses Symfony 3.3 or later
 
-This is the most common way if you want to add RssAtomBundle into an existing project.
+Activate Symfony's [contrib recipes](https://github.com/symfony/recipes-contrib) and use Composer to require the bundle :
 
-    composer require debril/rss-atom-bundle
+```shell
+composer config extra.symfony.allow-contrib true
+composer require debril/rss-atom-bundle
+```
+
+That's it. To check the installation, you can start your application and hit http://localhost:8000/rss in your browser. You should see a mock RSS stream.
+
+### If your application uses Symfony < 3.3
+
+Install the bundle using Composer :
+
+```shell
+composer require debril/rss-atom-bundle
+```
 
 Add the bundle's routing configuration in app/config/routing.yml :
 
@@ -43,7 +56,6 @@ rssatom:
     resource: "@DebrilRssAtomBundle/Resources/config/routing.yml"
 
 ```
-#### If your application uses Symfony < 3.3
 
 Edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
 
@@ -60,8 +72,6 @@ class AppKernel extends Kernel
             // register the bundle here
             new Debril\RssAtomBundle\DebrilRssAtomBundle(),
 ```
-
-This step will not be necessary anymore starting from Symfony 3.3.
 
 ## Usage
 

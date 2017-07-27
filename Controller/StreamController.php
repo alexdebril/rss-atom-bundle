@@ -93,8 +93,7 @@ class StreamController extends Controller
 
         if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
             $response = new Response($this->getFeedIo()->format($content, $format));
-            $response->headers->set('Content-Type', 'application/xhtml+xml');
-            $this->setFeedHeaders($response, $content);
+            $this->setFeedHeaders($response, $content, $format);
 
         } else {
             $response = new Response();
@@ -107,11 +106,13 @@ class StreamController extends Controller
     /**
      * @param Response $response
      * @param FeedInterface $feed
+     * @param string $format
      * @return $this
      */
-    protected function setFeedHeaders(Response $response, FeedInterface $feed)
+    protected function setFeedHeaders(Response $response, FeedInterface $feed, $format)
     {
-        $response->headers->set('Content-Type', 'application/xhtml+xml');
+        $contentType = 'json' == $format ? 'application/json':'application/xhtml+xml';
+        $response->headers->set('Content-Type', $contentType);
         if (! $this->isPrivate() ) {
             $response->setPublic();
         }
