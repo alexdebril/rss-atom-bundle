@@ -50,6 +50,7 @@ class StreamControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals('200', $response->getStatusCode());
+        $this->assertEquals('application/xhtml+xml', $response->headers->get('content-type'));
 
         $atom = new Document($response->getContent());
 
@@ -65,6 +66,7 @@ class StreamControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals('200', $response->getStatusCode());
+        $this->assertEquals('application/xhtml+xml', $response->headers->get('content-type'));
 
         $rss = new Document($response->getContent());
 
@@ -79,7 +81,9 @@ class StreamControllerTest extends WebTestCase
         $client->request('GET', '/json/1');
 
         $response = $client->getResponse();
+
         $this->assertEquals('200', $response->getStatusCode());
+        $this->assertEquals('application/json', $response->headers->get('content-type'));
 
         $json = new Document($response->getContent());
 

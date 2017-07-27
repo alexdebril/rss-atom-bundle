@@ -12,7 +12,7 @@ feed_atom:
     defaults: { _controller: DebrilRssAtomBundle:Stream:index, "format": 'atom', "id": null }
 
 feed_json:
-    path: /atom/{id}
+    path: /json/{id}
     defaults: { _controller: DebrilRssAtomBundle:Stream:index, "format": 'json', "id": null }
 
 feed_mock:
