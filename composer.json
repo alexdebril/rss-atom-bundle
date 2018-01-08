@@ -38,9 +38,6 @@
     },
     "target-dir": "Debril/RssAtomBundle",
     "config": {
-        "platform": {
-            "php": "5.6.21"
-        },
         "bin-dir": "bin",
         "preferred-install": {
             "*": "dist"
