@@ -12,6 +12,7 @@ services:
         arguments: ["@guzzle.client"]
 
     feedio:
+        public: true
         class: FeedIo\FeedIo
         arguments: ["@feedio.client", "@logger"]
         calls:
@@ -24,3 +25,12 @@ services:
 
     debril.provider.mock:
         class: '%debril.provider.mock.class%'
+
+    Debril\RssAtomBundle\Controller\StreamController:
+        public: true
+        tags:
+            # add multiple tags to control multiple args
+            - name: controller.service_arguments
+              action: indexAction
+              argument: provider
+              id: debril.provider.default
