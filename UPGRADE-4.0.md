@@ -66,5 +66,4 @@ This is because Result::getDocument()'s return value is a wrapper for both XML a
 
 ### That's it
 
-There are no other modifications to upgrade into 3.0.
-
+There are no other modifications to upgrade into 4.0.
