@@ -2,6 +2,7 @@
 
 namespace Debril\RssAtomBundle\Controller;
 
+use FeedIo\FeedIo;
 use FeedIo\FeedInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,6 @@ use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
  */
 class StreamController extends Controller
 {
-    /**
-     * default provider.
-     */
-    const DEFAULT_SOURCE = 'debril.provider.default';
 
     /**
      * @var \DateTime
@@ -26,10 +23,12 @@ class StreamController extends Controller
 
     /**
      * @param Request $request
-     *
+     * @param FeedContentProviderInterface $provider
+     * @param FeedIo $feedIo
      * @return Response
+     * @throws \Exception
      */
-    public function indexAction(Request $request, FeedContentProviderInterface $provider)
+    public function indexAction(Request $request, FeedContentProviderInterface $provider, FeedIo $feedIo)
     {
         $options = $request->attributes->get('_route_params');
         $this->setModifiedSince($request);
@@ -38,7 +37,8 @@ class StreamController extends Controller
         return $this->createStreamResponse(
             $options,
             $request->get('format', 'rss'),
-            $provider
+            $provider,
+            $feedIo
         );
     }
 
@@ -81,18 +81,19 @@ class StreamController extends Controller
      *
      * @param array $options
      * @param $format
-     * @param string $source
+     * @param FeedContentProviderInterface $provider
+     * @param FeedIo $feedIo
      *
      * @return Response
      *
      * @throws \Exception
      */
-    protected function createStreamResponse(array $options, $format, $provider)
+    protected function createStreamResponse(array $options, $format, FeedContentProviderInterface $provider, FeedIo $feedIo)
     {
         $content = $this->getContent($options, $provider);
 
         if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
-            $response = new Response($this->getFeedIo()->format($content, $format));
+            $response = new Response($feedIo->format($content, $format));
             $this->setFeedHeaders($response, $content, $format);
 
         } else {
@@ -129,7 +130,7 @@ class StreamController extends Controller
      * default : debril.provider.service.
      *
      * @param array  $options
-     * @param string $source
+     * @param FeedContentProviderInterface $provider
      *
      * @return FeedInterface
      *
@@ -160,14 +161,6 @@ class StreamController extends Controller
     protected function isPrivate()
     {
         return $this->container->getParameter('debril_rss_atom.private_feeds');
-    }
-
-    /**
-     * @return \FeedIo\FeedIo
-     */
-    protected function getFeedIo()
-    {
-        return $this->container->get('feedio');
     }
 
 }

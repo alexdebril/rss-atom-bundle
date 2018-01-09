@@ -34,3 +34,7 @@ services:
               action: indexAction
               argument: provider
               id: debril.provider.default
+            - name: controller.service_arguments
+              action: indexAction
+              argument: feedIo
+              id: feedio
