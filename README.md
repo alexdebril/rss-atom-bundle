@@ -247,7 +247,45 @@ If the reclaimed feed does not exist, you just need to throw a FeedNotFoundExcep
 
 More information on the FeedContentProviderInterface interface and how to interface rss-atom-bundle directly with doctrine can be found in the [Providing Feeds section](https://github.com/alexdebril/rss-atom-bundle/wiki/Providing-feeds)
 
-## Override tip
+
+## Useful Tips
+
+### Skipping 304 HTTP Code
+
+The HTTP cache handling can be annoying during development process, you can skip it through configuration in your app/config/config.yml file :
+
+```yml
+# config/packages/rss_atom.yaml
+debril_rss_atom:
+    force_refresh: true
+```
+
+This way, the `StreamController` will always display your feed's content and return a 200 HTTP code.
+
+### Private feeds
+
+You may have private feeds, user-specific or behind some authentication.  
+In that case, you don't want to `Cache-Control: public` header to be added, not to have your feed cached by a reverse-proxy (such as Symfony AppCache or Varnish).  
+You can do so by setting `private` parameter to `true` in config:
+
+```yml
+# config/packages/rss_atom.yaml
+debril_rss_atom:
+    private: true
+```
+
+### Adding non-standard date formats
+
+Some feeds use date formats which are not compliant with the specifications. You can fix this by adding the format in your configuration
+
+```yml
+# config/packages/rss_atom.yaml
+debril_rss_atom:
+    date_formats:
+      - 'Y/M/d'
+```
+
+### Override tip
 It could happen that according to the order of the bundles registered in `AppKernel`, this override procedures do not work properly. This happens when a bundle is registered before `rss-atom-bundle`.
 In this case, you should use the Symfony `CompilerPass` as reported in the [documentation](http://symfony.com/doc/current/bundles/override.html#services-configuration).
 
@@ -288,44 +326,6 @@ class OverrideRssAtomBundleProviderCompilerPass implements CompilerPassInterface
 
 You can follow either `services.xml` or `CompilerPass` but with services, you have to pay attention to bundles registration order.
 
-
-## Useful Tips
-
-### Skipping 304 HTTP Code
-
-
-The HTTP cache handling can be annoying during development process, you can skip it through configuration in your app/config/config.yml file :
-
-```yml
-# config/packages/rss_atom.yaml
-debril_rss_atom:
-    force_refresh: true
-```
-
-This way, the `StreamController` will always display your feed's content and return a 200 HTTP code.
-
-### Private feeds
-
-You may have private feeds, user-specific or behind some authentication.  
-In that case, you don't want to `Cache-Control: public` header to be added, not to have your feed cached by a reverse-proxy (such as Symfony AppCache or Varnish).  
-You can do so by setting `private` parameter to `true` in config:
-
-```yml
-# config/packages/rss_atom.yaml
-debril_rss_atom:
-    private: true
-```
-
-### Adding non-standard date formats
-
-Some feeds use date formats which are not compliant with the specifications. You can fix this by adding the format in your configuration
-
-```yml
-# config/packages/rss_atom.yaml
-debril_rss_atom:
-    date_formats:
-      - 'Y/M/d'
-```
 
 ## Fetching the repository
 
