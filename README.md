@@ -59,7 +59,6 @@ rssatom:
 
 Edit your app/AppKernel.php to register the bundle in the registerBundles() method as above:
 
-
 ```php
 class AppKernel extends Kernel
 {
@@ -153,7 +152,63 @@ The request will be handled by `StreamController`, according to the following st
 - 4 : compare the feed's LastModified property with the ModifiedSince header
 - 5 : if LastModified is prior or equal to ModifiedSince then the response contains only a "NotModified" header and the 304 code. Otherwise, the stream is built and sent to the client
 
-StreamController expects the getFeedContent()'s return value to be a FeedInterface instance. It can be a `FeedIo\Feed` or a class you wrote and if so, your class MUST implement `\FeedIo\FeedInterface`.
+#### Defining you own provider
+
+You must give to RssAtomBundle the content you want it to display in the feed. For that, two steps :
+
+- write a class that implements `FeedContentProviderInterface`. This class that we call a 'provider' will be in charge of building the feed.
+- configure the dependency injection to make RssAtomBundle use it
+
+##### FeedContentProviderInterface implementation
+
+Your class just needs to implement the `Debril\RssAtomBundle\Provider\FeedContentProviderInterface` interface, for instance :
+
+```php
+<?php
+# src/Feed/Provider.php
+namespace App\Feed;
+
+use FeedIo\Feed;
+use FeedIo\Feed\Item;
+use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
+
+class Provider implements FeedContentProviderInterface
+{
+
+    /**
+     * @param \Symfony\Component\OptionsResolver $params
+     * @return \FeedIo\FeedInterface
+     * @throws \Debril\RssAtomBundle\Exception\FeedNotFoundException
+     */
+    public function getFeedContent(Options $options)
+    {
+        // build the feed the way you want
+        $feed = new Feed();
+        $feed->setTitle('your title');
+        foreach($this->getItems() as $item ) {
+            $feed->add($item);
+        }
+
+        return $feed;
+    }
+
+    protected function getItems()
+    {
+        foreach($this->fetchFromStorage() as $storedItem) {
+            $item = new Item;
+            $item->setTitle($storedItem->getTitle());
+            // ...
+            yield $item;
+        }
+    }
+    protected function fetchFromStorage()
+    {
+        // query the database to fetch items
+    }
+}
+```
+
+StreamController expects the getFeedContent()'s return value to be a `FeedIo\FeedInterface` instance. It can be a `FeedIo\Feed` or a class of your own and if so, your class MUST implement `\FeedIo\FeedInterface`.
 
 ```php
 <?php
@@ -174,28 +229,19 @@ interface FeedInterface extends \Iterator, NodeInterface
     // Full source can be read in the repository .......
 ?>
 ```
+##### configuration
 
-Now, how to plug the `StreamController` with the provider of your choice ? The easiest way is to override the `debril.provider.default` service with your own in services.xml :
+Now, you need to configure the `debril.provider.default` service with the provider's class in your project's services.yml :
 
-```xml
-<service id="debril.provider.default" class="Namespace\Of\Your\Class">
-    <argument type="service" id="doctrine" />
-</service>
+```yml
+# config/services.yaml
+parameters:
+  debril.provider.default.class: 'App\Feed\Provider'
 ```
 
-Your class just needs to implement the `FeedContentProviderInterface` interface :
+That's it. Go to http://localhost:8000/atom, it should display your feed.
 
-```php
-interface FeedContentProviderInterface
-{
-    /**
-     * @param \Symfony\Component\OptionsResolver $params
-     * @return \FeedIo\FeedInterface
-     * @throws \Debril\RssAtomBundle\Exception\FeedNotFoundException
-     */
-    public function getFeedContent(Options $options);
-}
-```
+##### Make the StreamController answer with a 404
 
 If the reclaimed feed does not exist, you just need to throw a FeedNotFoundException to make the StreamController answer with a 404 error. Otherwise, `getFeedContent(Options $options)` must return a `\FeedIo\FeedInterface` instance. Then, the controller properly turns the object into a XML stream.
 
@@ -251,6 +297,7 @@ You can follow either `services.xml` or `CompilerPass` but with services, you ha
 The HTTP cache handling can be annoying during development process, you can skip it through configuration in your app/config/config.yml file :
 
 ```yml
+# config/packages/rss_atom.yaml
 debril_rss_atom:
     force_refresh: true
 ```
@@ -264,6 +311,7 @@ In that case, you don't want to `Cache-Control: public` header to be added, not 
 You can do so by setting `private` parameter to `true` in config:
 
 ```yml
+# config/packages/rss_atom.yaml
 debril_rss_atom:
     private: true
 ```
@@ -273,25 +321,11 @@ debril_rss_atom:
 Some feeds use date formats which are not compliant with the specifications. You can fix this by adding the format in your configuration
 
 ```yml
-# app/config/config.yml
+# config/packages/rss_atom.yaml
 debril_rss_atom:
     date_formats:
       - 'Y/M/d'
 ```
-
-### Choosing your own provider
-
-Need to keep the existing routes and add one mapped to a different FeedProvider ? add it own in your routing file :
-
-```xml
-    <route id="your_route_name" pattern="/your/route/{contentId}">
-        <default key="_controller">DebrilRssAtomBundle:Stream:index</default>
-        <default key="format">rss</default>
-        <default key="source">your.provider.service</default>
-    </route>
-```
-
-The `source` parameter must contain a valid service name defined in your application.
 
 ## Fetching the repository
 
