@@ -29,7 +29,7 @@ class StreamController extends Controller
      *
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, FeedContentProviderInterface $provider)
     {
         $options = $request->attributes->get('_route_params');
         $this->setModifiedSince($request);
@@ -38,7 +38,7 @@ class StreamController extends Controller
         return $this->createStreamResponse(
             $options,
             $request->get('format', 'rss'),
-            $request->get('source', self::DEFAULT_SOURCE)
+            $provider
         );
     }
 
@@ -87,9 +87,9 @@ class StreamController extends Controller
      *
      * @throws \Exception
      */
-    protected function createStreamResponse(array $options, $format, $source = self::DEFAULT_SOURCE)
+    protected function createStreamResponse(array $options, $format, $provider)
     {
-        $content = $this->getContent($options, $source);
+        $content = $this->getContent($options, $provider);
 
         if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
             $response = new Response($this->getFeedIo()->format($content, $format));
@@ -135,14 +135,8 @@ class StreamController extends Controller
      *
      * @throws \Exception
      */
-    protected function getContent(array $options, $source)
+    protected function getContent(array $options, $provider)
     {
-        $provider = $this->get($source);
-
-        if (!$provider instanceof FeedContentProviderInterface) {
-            throw new \Exception('Provider is not a FeedContentProviderInterface instance');
-        }
-
         try {
             return $provider->getFeedContent($options);
         } catch (FeedNotFoundException $e) {

@@ -2,9 +2,11 @@
 
 // Tests/Controller/App/AppKernel.php
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
+namespace Debril\RssAtomBundle\Tests\Controller\App;
+
+use \Symfony\Component\HttpKernel\Bundle\Bundle;
+use \Symfony\Component\HttpKernel\Kernel;
+use \Symfony\Component\Config\Loader\LoaderInterface;
 
 /**
  * Class AppKernel.
@@ -18,9 +20,9 @@ class AppKernel extends Kernel
     {
         $bundles = array(
             // Dependencies
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             // My Bundle to test
-            new Debril\RssAtomBundle\DebrilRssAtomBundle(),
+            new \Debril\RssAtomBundle\DebrilRssAtomBundle(),
         );
 
         return $bundles;

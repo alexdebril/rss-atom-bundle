@@ -4,6 +4,7 @@
 
     <php>
         <server name="KERNEL_DIR" value="Tests/Controller/App" />
+        <server name="KERNEL_CLASS" value="Debril\RssAtomBundle\Tests\Controller\App\AppKernel" />
     </php>
 
     <testsuites>
