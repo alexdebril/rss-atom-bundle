@@ -27,7 +27,7 @@ services:
         alias: debril.rss_atom.provider
 
     Debril\RssAtomBundle\Controller\StreamController:
-        public: private
+        public: false
         tags:
             # add multiple tags to control multiple args
             - name: controller.service_arguments
