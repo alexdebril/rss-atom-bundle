@@ -231,12 +231,12 @@ interface FeedInterface extends \Iterator, NodeInterface
 ```
 ##### configuration
 
-Now, you need to configure the `debril.provider.default` service with the provider's class in your project's services.yml :
+Now, you need to configure the `debril.rss_atom.provider` service with the provider's class in your project's services.yml :
 
 ```yml
 # config/services.yaml
 parameters:
-  debril.provider.default.class: 'App\Feed\Provider'
+  debril.rss_atom.provider.class: 'App\Feed\Provider'
 ```
 
 That's it. Go to http://localhost:8000/atom, it should display your feed.
@@ -316,7 +316,7 @@ class OverrideRssAtomBundleProviderCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->getDefinition('debril.provider.default');
+        $definition = $container->getDefinition('debril.rss_atom.provider');
         $definition->setClass(FeedProvider::class);
         $definition->addArgument(new Reference('my.service1'));
         $definition->addArgument(new Reference('my.service2'));
