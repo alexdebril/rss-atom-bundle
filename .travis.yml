@@ -22,7 +22,7 @@ matrix:
 
 before_script:
   - composer config --global repo.packagist composer https://packagist.org
-  - composer install
+  - composer update
 
 script : $PHPUNIT_BIN -c $PHPUNIT_CONFIG $PHPUNIT_FLAGS
 
@@ -34,4 +34,3 @@ after_script:
       php ocular.phar code-coverage:upload --format=php-clover coverage.xml
       echo 'done'
     fi
-
