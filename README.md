@@ -239,6 +239,16 @@ parameters:
   debril.rss_atom.provider.class: 'App\Feed\Provider'
 ```
 
+Or, if you need to build it with arguments, you can override `debril.rss_atom.provider`'s declaration :
+
+```yml
+# config/services.yaml
+services:
+  debril.rss_atom.provider:
+    class: App\Feed\Provider
+    arguments: ["@logger", "@doctrine"]
+```
+
 That's it. Go to http://localhost:8000/atom, it should display your feed.
 
 ##### Make the StreamController answer with a 404
@@ -283,6 +293,15 @@ Some feeds use date formats which are not compliant with the specifications. You
 debril_rss_atom:
     date_formats:
       - 'Y/M/d'
+```
+
+### Going back to feed-io 3.0
+
+Starting from version 4.1 rss-atom-bundle comes with feed-io 4 if your application depends on PHP 7.1+. If you need to use feed-io 3 instead for some reason, you can do it in `composer.json` :
+
+```yml
+    "debril/rss-atom-bundle": "^4.1",
+    "debril/feed-io": "~3.0",
 ```
 
 ### Override tip
