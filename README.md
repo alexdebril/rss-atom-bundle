@@ -295,7 +295,7 @@ debril_rss_atom:
       - 'Y/M/d'
 ```
 
-### Going back to feed-io 3.0
+### Going back to feed-io 3.0
 
 Starting from version 4.1 rss-atom-bundle comes with feed-io 4 if your application depends on PHP 7.1+. If you need to use feed-io 3 instead for some reason, you can do it in `composer.json` :
 
