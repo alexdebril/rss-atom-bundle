@@ -210,6 +210,8 @@ class Provider implements FeedContentProviderInterface
 
 StreamController expects the getFeedContent()'s return value to be a `FeedIo\FeedInterface` instance. It can be a `FeedIo\Feed` or a class of your own and if so, your class MUST implement `\FeedIo\FeedInterface`.
 
+You can also start from this class to save some time : [App\Feed\Provider.php](/Resources/sample/Provider.php)
+
 ```php
 <?php
 interface FeedInterface extends \Iterator, NodeInterface
