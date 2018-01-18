@@ -5,4 +5,4 @@ tools:
 filter:
     excluded_paths:
         - Tests/*
-        - Resources/samples/*
+        - Resources/sample/*
