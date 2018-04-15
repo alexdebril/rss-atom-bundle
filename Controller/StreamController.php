@@ -112,7 +112,11 @@ class StreamController extends Controller
      */
     protected function setFeedHeaders(Response $response, FeedInterface $feed, $format)
     {
-        $contentType = 'json' == $format ? 'application/json':'application/xhtml+xml';
+        $contentType =
+            'json' == $format ?
+                $this->getParameter('debril_rss_atom.content_type_json') :
+                $this->getParameter('debril_rss_atom.content_type_rss')
+            ;
         $response->headers->set('Content-Type', $contentType);
         if (! $this->isPrivate() ) {
             $response->setPublic();
