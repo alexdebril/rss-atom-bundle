@@ -34,7 +34,7 @@ class MockProviderTest extends TestCase
      */
     public function testGetContent()
     {
-        $options = array('id' => 1);
+        $options = array('id' => 'some id');
         $feed = $this->object->getFeedContent($options);
 
         $this->assertInstanceOf('FeedIo\FeedInterface', $feed);

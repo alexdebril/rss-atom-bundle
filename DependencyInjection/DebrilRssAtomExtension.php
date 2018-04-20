@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Debril\RssAtomBundle\DependencyInjection;
 
@@ -36,7 +36,7 @@ class DebrilRssAtomExtension extends Extension implements CompilerPassInterface
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container) : void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -56,7 +56,7 @@ class DebrilRssAtomExtension extends Extension implements CompilerPassInterface
      * @param array $config
      * @return $this
      */
-    protected function setDateFormats(ContainerBuilder $container, array $config)
+    protected function setDateFormats(ContainerBuilder $container, array $config) : self
     {
         $dateFormats = isset($config['date_formats']) ?
             array_merge($this->defaultDateFormats, $config['date_formats']):
@@ -71,20 +71,20 @@ class DebrilRssAtomExtension extends Extension implements CompilerPassInterface
     }
 
     /**
-     * @param ContainerBuilder $builder
+     * @param ContainerBuilder $container
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container) : void
     {
         $this->setDefinition($container, 'logger', 'Psr\Log\NullLogger');
     }
 
     /**
      * @param ContainerBuilder $container
-     * @param $serviceName
-     * @param $className
-     * @return $this
+     * @param string $serviceName
+     * @param string $className
+     * @return DebrilRssAtomExtension
      */
-    protected function setDefinition(ContainerBuilder $container, $serviceName, $className)
+    protected function setDefinition(ContainerBuilder $container, string $serviceName, string $className) : self
     {
         if ( ! $container->has($serviceName) ) {
             $container->setDefinition($serviceName, new Definition($className));

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Feed aggregator for Symfony.
@@ -42,7 +42,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
      *
      * @return string
      */
-    public function getRepositoryName()
+    public function getRepositoryName() : string
     {
         return $this->repositoryName;
     }
@@ -54,7 +54,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
      *
      * @return DoctrineFeedContentProvider
      */
-    public function setRepositoryName($repositoryName)
+    public function setRepositoryName(string $repositoryName) : self
     {
         $this->repositoryName = $repositoryName;
 
@@ -68,7 +68,7 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
      *
      * @throws FeedNotFoundException
      */
-    public function getFeedContent(array $options)
+    public function getFeedContent(array $options) : FeedInterface
     {
         // fetch feed from data repository
         $feed = $this->getDoctrine()
@@ -96,9 +96,9 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
     /**
      * @param array $options
      *
-     * @return mixed
+     * @return string
      */
-    public function getIdFromOptions(array $options)
+    public function getIdFromOptions(array $options) : string
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setRequired('id');

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Debril\RssAtomBundle\Controller;
 
@@ -28,7 +28,7 @@ class StreamController extends Controller
      * @return Response
      * @throws \Exception
      */
-    public function indexAction(Request $request, FeedContentProviderInterface $provider, FeedIo $feedIo)
+    public function indexAction(Request $request, FeedContentProviderInterface $provider, FeedIo $feedIo) : Response
     {
         $options = $request->attributes->get('_route_params');
         $this->setModifiedSince($request);
@@ -47,7 +47,7 @@ class StreamController extends Controller
      *
      * @return \DateTime
      */
-    protected function getModifiedSince()
+    protected function getModifiedSince() : \DateTime
     {
         if (is_null($this->since)) {
             $this->since = new \DateTime('@0');
@@ -61,7 +61,7 @@ class StreamController extends Controller
      *
      * @return $this
      */
-    protected function setModifiedSince(Request $request)
+    protected function setModifiedSince(Request $request) : self
     {
         $this->since = new \DateTime();
         if ($request->headers->has('If-Modified-Since')) {
@@ -88,7 +88,7 @@ class StreamController extends Controller
      *
      * @throws \Exception
      */
-    protected function createStreamResponse(array $options, $format, FeedContentProviderInterface $provider, FeedIo $feedIo)
+    protected function createStreamResponse(array $options, string $format, FeedContentProviderInterface $provider, FeedIo $feedIo) : Response
     {
         $content = $this->getContent($options, $provider);
 
@@ -110,7 +110,7 @@ class StreamController extends Controller
      * @param string $format
      * @return $this
      */
-    protected function setFeedHeaders(Response $response, FeedInterface $feed, $format)
+    protected function setFeedHeaders(Response $response, FeedInterface $feed, string $format) : self
     {
         $contentType =
             'json' == $format ?
@@ -140,7 +140,7 @@ class StreamController extends Controller
      *
      * @throws \Exception
      */
-    protected function getContent(array $options, $provider)
+    protected function getContent(array $options, FeedContentProviderInterface $provider) : FeedInterface
     {
         try {
             return $provider->getFeedContent($options);
@@ -154,7 +154,7 @@ class StreamController extends Controller
      *
      * @return bool
      */
-    protected function mustForceRefresh()
+    protected function mustForceRefresh() : bool
     {
         return $this->container->getParameter('debril_rss_atom.force_refresh');
     }
@@ -162,7 +162,7 @@ class StreamController extends Controller
     /**
      * @return boolean true if the feed must be private
      */
-    protected function isPrivate()
+    protected function isPrivate() : bool
     {
         return $this->container->getParameter('debril_rss_atom.private_feeds');
     }

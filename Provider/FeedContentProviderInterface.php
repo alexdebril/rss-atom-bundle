@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * RssAtomBundle.
@@ -26,5 +26,5 @@ interface FeedContentProviderInterface
      *
      * @return FeedInterface
      */
-    public function getFeedContent(array $options);
+    public function getFeedContent(array $options) : FeedInterface;
 }
