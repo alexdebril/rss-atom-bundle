@@ -115,7 +115,7 @@ class StreamController extends Controller
         $contentType =
             'json' == $format ?
                 $this->getParameter('debril_rss_atom.content_type_json') :
-                $this->getParameter('debril_rss_atom.content_type_rss')
+                $this->getParameter('debril_rss_atom.content_type_xml')
             ;
         $response->headers->set('Content-Type', $contentType);
         if (! $this->isPrivate() ) {

@@ -297,7 +297,7 @@ debril_rss_atom:
       - 'Y/M/d'
 ```
 
-### Using custom Content Type header for feed generation 
+### Using custom Content Type header for feed generation
 
 If you need to customize the Content-Type header of your feed you can specify the value in your configuration
 
@@ -305,7 +305,7 @@ If you need to customize the Content-Type header of your feed you can specify th
 # config/packages/rss_atom.yaml
 debril_rss_atom:
     content_type_json: application/json
-    content_type_rss: application/xhtml+xml
+    content_type_xml: application/xhtml+xml
 ```
 
 ### Going back to feed-io 3.0
