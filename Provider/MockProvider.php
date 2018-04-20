@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * RssAtomBundle.
@@ -14,6 +14,7 @@ namespace Debril\RssAtomBundle\Provider;
 use FeedIo\Feed;
 use FeedIo\Feed\Item;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
+use FeedIo\FeedInterface;
 
 /**
  * Class MockProvider.
@@ -23,11 +24,11 @@ class MockProvider implements FeedContentProviderInterface
     /**
      * @param array $options
      *
-     * @return Feed
+     * @return FeedInterface
      *
      * @throws FeedNotFoundException
      */
-    public function getFeedContent(array $options)
+    public function getFeedContent(array $options) : FeedInterface
     {
         $feed = new Feed();
 
@@ -51,7 +52,7 @@ class MockProvider implements FeedContentProviderInterface
      * @param Feed $feed
      * @return Feed
      */
-    protected function addItem(Feed $feed)
+    protected function addItem(Feed $feed) : FeedInterface
     {
         $item = new Item();
 

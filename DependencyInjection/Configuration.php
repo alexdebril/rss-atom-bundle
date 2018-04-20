@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Debril\RssAtomBundle\DependencyInjection;
 
@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritDoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder() : TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
 
