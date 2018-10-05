@@ -80,6 +80,42 @@ feed-io provides two interfaces, each one being dedicated to feed's consuming an
 - [FeedInterface](https://github.com/alexdebril/feed-io/blob/master/src/FeedIo/FeedInterface.php) to handle the feed
 - [ItemInterface](https://github.com/alexdebril/feed-io/blob/master/src/FeedIo/Feed/ItemInterface.php) to handle feed's items
 
+### Getting a FeedIo instance
+
+You can fetch a `FeedIo\FeedIo` instance through dependency injection or the service container.
+
+#### Dependency injection (highly recommended)
+
+```php
+
+namespace App\Feed;
+
+class Consumer
+{
+
+    /**
+     * @type \FeedIo\FeedIo
+     */
+    private $feedIo;
+
+    public function __construct(FeedIo $feedIo)
+    {
+        $this->feedIo = $feedIo;
+    }
+}
+
+```
+
+#### Service Container
+
+Wherever you have access to the service container :
+
+```php
+<?php
+    // get feedio
+    $feedIo = $this->container->get('feedio');
+```
+
 ### Feed Reading
 
 To read a feed you need to use the `feedio` service which provides two methods for that : `read()` and `readSince()`. This service is based upon [FeedIo](https://github.com/alexdebril/feed-io/blob/master/src/FeedIo/FeedIo.php).
@@ -92,12 +128,9 @@ To read a feed you need to use the `feedio` service which provides two methods f
 - `$feed` (optional) : a FeedInterface instance. The default is a new `\FeedIo\Feed` instance
 - `$modifiedSince` (optional) : the last time you read this feed. This is useful to fetch only the articles which were published after your last hit.
 
-Wherever you have access to the service container :
+With a `\FeedIo\FeedIo` instance called `$feedIo` :
 ```php
 <?php
-    // get feedio
-    $feedIo = $this->container->get('feedio');
-
     // this date is used to fetch only the latest items
     $modifiedSince = new \DateTime($date);
 
