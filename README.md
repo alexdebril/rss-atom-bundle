@@ -202,18 +202,18 @@ Your class just needs to implement the `Debril\RssAtomBundle\Provider\FeedConten
 namespace App\Feed;
 
 use FeedIo\Feed;
+use FeedIo\FeedInterface;
 use FeedIo\Feed\Item;
 use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 
 class Provider implements FeedContentProviderInterface
 {
-
     /**
-     * @param \Symfony\Component\OptionsResolver $params
+     * @param array $options
      * @return \FeedIo\FeedInterface
      * @throws \Debril\RssAtomBundle\Exception\FeedNotFoundException
      */
-    public function getFeedContent(Options $options)
+    public function getFeedContent(array $options) : FeedInterface
     {
         // build the feed the way you want
         $feed = new Feed();
