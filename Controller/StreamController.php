@@ -4,16 +4,16 @@ namespace Debril\RssAtomBundle\Controller;
 
 use FeedIo\FeedIo;
 use FeedIo\FeedInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 
 /**
  * Class StreamController.
  */
-class StreamController extends Controller
+class StreamController extends AbstractController
 {
 
     /**
@@ -156,7 +156,7 @@ class StreamController extends Controller
      */
     protected function mustForceRefresh() : bool
     {
-        return $this->container->getParameter('debril_rss_atom.force_refresh');
+        return $this->getParameter('debril_rss_atom.force_refresh');
     }
 
     /**
@@ -164,7 +164,7 @@ class StreamController extends Controller
      */
     protected function isPrivate() : bool
     {
-        return $this->container->getParameter('debril_rss_atom.private_feeds');
+        return $this->getParameter('debril_rss_atom.private_feeds');
     }
 
 }

@@ -4,6 +4,10 @@ parameters:
     debril.provider.doctrine.class: Debril\RssAtomBundle\Provider\DoctrineFeedContentProvider
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
     guzzle.client:
         class: GuzzleHttp\Client
 
