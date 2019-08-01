@@ -2,13 +2,14 @@
 
 namespace Debril\RssAtomBundle\Controller;
 
+use Debril\RssAtomBundle\Response\HeadersBuilder;
+use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
+use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use FeedIo\FeedIo;
 use FeedIo\FeedInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
-use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class StreamController.
@@ -20,6 +21,20 @@ class StreamController extends AbstractController
      * @var \DateTime
      */
     protected $since;
+
+    /**
+     * @var HeadersBuilder
+     */
+    private $headersBuilder;
+
+    /**
+     * StreamController constructor.
+     * @param $headersBuilder
+     */
+    public function __construct(HeadersBuilder $headersBuilder)
+    {
+        $this->headersBuilder = $headersBuilder;
+    }
 
     /**
      * @param Request $request
@@ -90,11 +105,11 @@ class StreamController extends AbstractController
      */
     protected function createStreamResponse(array $options, string $format, FeedContentProviderInterface $provider, FeedIo $feedIo) : Response
     {
-        $content = $this->getContent($options, $provider);
+        $feed = $this->getContent($options, $provider);
 
-        if ($this->mustForceRefresh() || $content->getLastModified() > $this->getModifiedSince()) {
-            $response = new Response($feedIo->format($content, $format));
-            $this->setFeedHeaders($response, $content, $format);
+        if ($this->mustForceRefresh() || $feed->getLastModified() > $this->getModifiedSince()) {
+            $response = new Response($feedIo->format($feed, $format));
+            $this->headersBuilder->setResponseHeaders($response, $format, $feed->getLastModified());
 
         } else {
             $response = new Response();
@@ -102,30 +117,6 @@ class StreamController extends AbstractController
         }
 
         return $response;
-    }
-
-    /**
-     * @param Response $response
-     * @param FeedInterface $feed
-     * @param string $format
-     * @return $this
-     */
-    protected function setFeedHeaders(Response $response, FeedInterface $feed, string $format) : self
-    {
-        $contentType =
-            'json' == $format ?
-                $this->getParameter('debril_rss_atom.content_type_json') :
-                $this->getParameter('debril_rss_atom.content_type_xml')
-            ;
-        $response->headers->set('Content-Type', $contentType);
-        if (! $this->isPrivate() ) {
-            $response->setPublic();
-        }
-
-        $response->setMaxAge(3600);
-        $response->setLastModified($feed->getLastModified());
-
-        return $this;
     }
 
     /**
@@ -157,14 +148,6 @@ class StreamController extends AbstractController
     protected function mustForceRefresh() : bool
     {
         return $this->getParameter('debril_rss_atom.force_refresh');
-    }
-
-    /**
-     * @return boolean true if the feed must be private
-     */
-    protected function isPrivate() : bool
-    {
-        return $this->getParameter('debril_rss_atom.private_feeds');
     }
 
 }

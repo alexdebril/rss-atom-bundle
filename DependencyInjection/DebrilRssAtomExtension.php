@@ -45,7 +45,7 @@ class DebrilRssAtomExtension extends Extension implements CompilerPassInterface
         $loader->load('services.yml');
 
         $this->setDateFormats($container, $config);
-        $container->setParameter('debril_rss_atom.private_feeds', $config['private']);
+        $container->setParameter('debril_rss_atom.public_feeds', !$config['private']);
         $container->setParameter('debril_rss_atom.force_refresh', $config['force_refresh']);
         $container->setParameter('debril_rss_atom.content_type_json', $config['content_type_json']);
         $container->setParameter('debril_rss_atom.content_type_xml', $config['content_type_xml']);
