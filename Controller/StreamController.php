@@ -2,6 +2,7 @@
 
 namespace Debril\RssAtomBundle\Controller;
 
+use Debril\RssAtomBundle\Request\ModifiedSince;
 use Debril\RssAtomBundle\Response\HeadersBuilder;
 use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
@@ -28,12 +29,19 @@ class StreamController extends AbstractController
     private $headersBuilder;
 
     /**
-     * StreamController constructor.
-     * @param $headersBuilder
+     * @var ModifiedSince
      */
-    public function __construct(HeadersBuilder $headersBuilder)
+    private $modifiedSince;
+
+    /**
+     * StreamController constructor.
+     * @param HeadersBuilder $headersBuilder
+     * @param ModifiedSince $modifiedSince
+     */
+    public function __construct(HeadersBuilder $headersBuilder, ModifiedSince $modifiedSince)
     {
         $this->headersBuilder = $headersBuilder;
+        $this->modifiedSince = $modifiedSince;
     }
 
     /**
@@ -46,8 +54,7 @@ class StreamController extends AbstractController
     public function indexAction(Request $request, FeedContentProviderInterface $provider, FeedIo $feedIo) : Response
     {
         $options = $request->attributes->get('_route_params');
-        $this->setModifiedSince($request);
-        $options['Since'] = $this->getModifiedSince();
+        $options['Since'] = $this->modifiedSince->getValue();
 
         return $this->createStreamResponse(
             $options,
@@ -55,38 +62,6 @@ class StreamController extends AbstractController
             $provider,
             $feedIo
         );
-    }
-
-    /**
-     * Extract the 'If-Modified-Since' value from the headers.
-     *
-     * @return \DateTime
-     */
-    protected function getModifiedSince() : \DateTime
-    {
-        if (is_null($this->since)) {
-            $this->since = new \DateTime('@0');
-        }
-
-        return $this->since;
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return $this
-     */
-    protected function setModifiedSince(Request $request) : self
-    {
-        $this->since = new \DateTime();
-        if ($request->headers->has('If-Modified-Since')) {
-            $string = $request->headers->get('If-Modified-Since');
-            $this->since = \DateTime::createFromFormat(\DateTime::RSS, $string);
-        } else {
-            $this->since->setTimestamp(1);
-        }
-
-        return $this;
     }
 
     /**
@@ -107,7 +82,7 @@ class StreamController extends AbstractController
     {
         $feed = $this->getContent($options, $provider);
 
-        if ($this->mustForceRefresh() || $feed->getLastModified() > $this->getModifiedSince()) {
+        if ($this->mustForceRefresh() || $feed->getLastModified() > $this->modifiedSince->getValue()) {
             $response = new Response($feedIo->format($feed, $format));
             $this->headersBuilder->setResponseHeaders($response, $format, $feed->getLastModified());
 

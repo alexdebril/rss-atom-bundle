@@ -40,6 +40,8 @@ services:
                 - "xml"
                 - "%debril_rss_atom.content_type_xml%"
 
+    Debril\RssAtomBundle\Request\ModifiedSince: ~
+
     Debril\RssAtomBundle\Response\HeadersBuilder:
       alias: debril.rss_atom.response.headers
 
