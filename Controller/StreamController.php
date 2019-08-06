@@ -8,14 +8,14 @@ use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use FeedIo\FeedIo;
 use FeedIo\FeedInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class StreamController.
  */
-class StreamController extends AbstractController
+class StreamController
 {
 
     /**
@@ -95,7 +95,7 @@ class StreamController extends AbstractController
         try {
             return $provider->getFeedContent($options);
         } catch (FeedNotFoundException $e) {
-            throw $this->createNotFoundException('feed not found');
+            throw new NotFoundHttpException('feed not found');
         }
     }
 
