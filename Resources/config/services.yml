@@ -7,6 +7,8 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+          $forceRefresh: "%debril_rss_atom.force_refresh%"
 
     guzzle.client:
         class: GuzzleHttp\Client
@@ -41,6 +43,8 @@ services:
                 - "%debril_rss_atom.content_type_xml%"
 
     Debril\RssAtomBundle\Request\ModifiedSince: ~
+
+    Debril\RssAtomBundle\Response\FeedBuilder: ~
 
     Debril\RssAtomBundle\Response\HeadersBuilder:
       alias: debril.rss_atom.response.headers
