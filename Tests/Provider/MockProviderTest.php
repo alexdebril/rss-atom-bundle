@@ -33,7 +33,7 @@ class MockProviderTest extends TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContent
+     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeed
      */
     public function testGetContent()
     {
@@ -44,7 +44,7 @@ class MockProviderTest extends TestCase
     }
 
     /**
-     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeedContent
+     * @covers Debril\RssAtomBundle\Provider\MockProvider::getFeed
      * @expectedException \Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException
      */
     public function testGet404()
