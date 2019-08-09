@@ -13,27 +13,15 @@ class StreamController
 {
 
     /**
-     * @var FeedBuilder
-     */
-    private $feedBuilder;
-
-    /**
-     * @param FeedBuilder $feedBuilder
-     */
-    public function __construct(FeedBuilder $feedBuilder)
-    {
-        $this->feedBuilder = $feedBuilder;
-    }
-
-    /**
      * @param Request $request
+     * @param FeedBuilder $feedBuilder
      * @param FeedProviderInterface $provider
      * @return Response
      */
-    public function indexAction(Request $request, FeedProviderInterface $provider) : Response
+    public function indexAction(Request $request, FeedBuilder $feedBuilder, FeedProviderInterface $provider) : Response
     {
         try {
-            return $this->feedBuilder->getResponse(
+            return $feedBuilder->getResponse(
                 $request->get('format', 'rss'),
                 $provider->getFeed($request)
             );
