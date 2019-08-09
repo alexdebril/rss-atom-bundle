@@ -17,10 +17,7 @@ use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use FeedIo\FeedInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class MockProvider.
- */
-class MockProvider implements FeedContentProviderInterface
+class MockProvider implements FeedProviderInterface
 {
 
     /**
@@ -31,18 +28,6 @@ class MockProvider implements FeedContentProviderInterface
     public function getFeed(Request $request): FeedInterface
     {
         $id = $request->get('id');
-
-        return $this->buildFeed($id);
-    }
-
-    /**
-     * @param array $options
-     * @return FeedInterface
-     * @throws FeedNotFoundException
-     */
-    public function getFeedContent(array $options) : FeedInterface
-    {
-        $id = array_key_exists('id', $options) ? $options['id'] : '';
 
         return $this->buildFeed($id);
     }
