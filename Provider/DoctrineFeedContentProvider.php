@@ -12,9 +12,12 @@ namespace Debril\RssAtomBundle\Provider;
 use FeedIo\FeedInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
+ * @deprecated since 4.3, will be dropped in 5.0
  * @codeCoverageIgnore
  */
 class DoctrineFeedContentProvider implements FeedContentProviderInterface
@@ -30,10 +33,13 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
     protected $repositoryName;
 
     /**
+     * DoctrineFeedContentProvider constructor.
      * @param Registry $doctrine
+     * @param LoggerInterface $logger
      */
-    public function __construct(Registry $doctrine)
+    public function __construct(Registry $doctrine, LoggerInterface $logger)
     {
+        $logger->info('The \\Debril\\RssAtomBundle\\Provider\\DoctrineFeedContentProvider is deprecated since rss-atom-bundle 4.3, will be removed in 5.0');
         $this->doctrine = $doctrine;
     }
 
@@ -106,5 +112,15 @@ class DoctrineFeedContentProvider implements FeedContentProviderInterface
         $options = $optionsResolver->resolve($options);
 
         return $options['id'];
+    }
+
+    /**
+     * @param Request $request
+     * @return FeedInterface
+     * @throws FeedNotFoundException
+     */
+    public function getFeed(Request $request): FeedInterface
+    {
+        return $request->get('id');
     }
 }

@@ -15,9 +15,10 @@ use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use FeedIo\FeedInterface;
 
 /**
+ * @deprecated since 4.3 you MUST use `FeedProviderInterface` instead
  * Interface FeedContentProviderInterface.
  */
-interface FeedContentProviderInterface
+interface FeedContentProviderInterface extends FeedProviderInterface
 {
     /**
      * @param array $options
