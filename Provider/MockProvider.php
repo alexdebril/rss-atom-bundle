@@ -15,31 +15,52 @@ use FeedIo\Feed;
 use FeedIo\Feed\Item;
 use Debril\RssAtomBundle\Exception\FeedException\FeedNotFoundException;
 use FeedIo\FeedInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class MockProvider.
  */
 class MockProvider implements FeedContentProviderInterface
 {
+
+    /**
+     * @param Request $request
+     * @return FeedInterface
+     * @throws FeedNotFoundException
+     */
+    public function getFeed(Request $request): FeedInterface
+    {
+        $id = $request->get('id');
+
+        return $this->buildFeed($id);
+    }
+
     /**
      * @param array $options
-     *
      * @return FeedInterface
-     *
      * @throws FeedNotFoundException
      */
     public function getFeedContent(array $options) : FeedInterface
     {
-        $feed = new Feed();
+        $id = array_key_exists('id', $options) ? $options['id'] : '';
 
-        $id = array_key_exists('id', $options) ? $options['id'] : null;
+        return $this->buildFeed($id);
+    }
 
+    /**
+     * @param string $id
+     * @return FeedInterface
+     * @throws FeedNotFoundException
+     */
+    protected function buildFeed(string $id): FeedInterface
+    {
         if ($id === 'not-found') {
             throw new FeedNotFoundException();
         }
 
-        $feed->setPublicId($id);
+        $feed = new Feed();
 
+        $feed->setPublicId($id);
         $feed->setTitle('thank you for using RssAtomBundle');
         $feed->setDescription('this is the mock FeedContent');
         $feed->setLink('https://raw.github.com/alexdebril/rss-atom-bundle/');
@@ -50,7 +71,8 @@ class MockProvider implements FeedContentProviderInterface
 
     /**
      * @param Feed $feed
-     * @return Feed
+     * @return FeedInterface
+     * @throws \Exception
      */
     protected function addItem(Feed $feed) : FeedInterface
     {

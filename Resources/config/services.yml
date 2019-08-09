@@ -27,13 +27,35 @@ services:
     FeedIo\FeedIo:
         alias: feedio
 
+    debril.rss_atom.response.headers:
+        class: Debril\RssAtomBundle\Response\HeadersBuilder
+        arguments: ["%debril_rss_atom.public_feeds%"]
+        calls:
+            - method: setContentType
+              arguments:
+                - "json"
+                - "%debril_rss_atom.content_type_json%"
+            - method: setContentType
+              arguments:
+                - "xml"
+                - "%debril_rss_atom.content_type_xml%"
+
+    Debril\RssAtomBundle\Request\ModifiedSince: ~
+
+    Debril\RssAtomBundle\Response\FeedBuilder:
+      bind:
+        $forceRefresh: "%debril_rss_atom.force_refresh%"
+
+    Debril\RssAtomBundle\Response\HeadersBuilder:
+      alias: debril.rss_atom.response.headers
+
     debril.rss_atom.provider:
         class: '%debril.rss_atom.provider.class%'
 
     debril.provider.default:
         alias: debril.rss_atom.provider
 
-    Debril\RssAtomBundle\Provider\FeedContentProviderInterface:
+    Debril\RssAtomBundle\Provider\FeedProviderInterface:
         alias: debril.rss_atom.provider
 
     Debril\RssAtomBundle\Controller\StreamController:

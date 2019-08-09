@@ -19,7 +19,7 @@ class StreamControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/mock/rss');
+        $client->request('GET', '/mock/rss/id');
 
         $response = $client->getResponse();
         $this->assertEquals('200', $response->getStatusCode());
@@ -35,7 +35,7 @@ class StreamControllerTest extends WebTestCase
         $this->assertGreaterThan(0, strlen($response->getContent()));
         $this->assertTrue($response->isCacheable());
 
-        $client->request('GET', '/mock/rss', array(), array(), array('HTTP_If-Modified-Since' => $lastModified->format(\DateTime::RSS)));
+        $client->request('GET', '/mock/rss/id', array(), array(), array('HTTP_If-Modified-Since' => $lastModified->format(\DateTime::RSS)));
         $response2 = $client->getResponse();
 
         $this->assertEquals('304', $response2->getStatusCode());

@@ -189,12 +189,12 @@ The request will be handled by `StreamController`, according to the following st
 
 You must give to RssAtomBundle the content you want it to display in the feed. For that, two steps :
 
-- write a class that implements `FeedContentProviderInterface`. This class that we call a 'provider' will be in charge of building the feed.
+- write a class that implements `FeedProviderInterface`. This class that we call a 'provider' will be in charge of building the feed.
 - configure the dependency injection to make RssAtomBundle use it
 
 ##### FeedContentProviderInterface implementation
 
-Your class just needs to implement the `Debril\RssAtomBundle\Provider\FeedContentProviderInterface` interface, for instance :
+Your class just needs to implement the `Debril\RssAtomBundle\Provider\FeedProviderInterface` interface, for instance :
 
 ```php
 <?php
@@ -206,14 +206,14 @@ use FeedIo\FeedInterface;
 use FeedIo\Feed\Item;
 use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
 
-class Provider implements FeedContentProviderInterface
+class Provider implements FeedProviderInterface
 {
     /**
      * @param array $options
      * @return \FeedIo\FeedInterface
      * @throws \Debril\RssAtomBundle\Exception\FeedNotFoundException
      */
-    public function getFeedContent(array $options) : FeedInterface
+    public function getFeed(Request $request) : FeedInterface
     {
         // build the feed the way you want
         $feed = new Feed();
@@ -241,7 +241,7 @@ class Provider implements FeedContentProviderInterface
 }
 ```
 
-StreamController expects the getFeedContent()'s return value to be a `FeedIo\FeedInterface` instance. It can be a `FeedIo\Feed` or a class of your own and if so, your class MUST implement `\FeedIo\FeedInterface`.
+StreamController expects the getFeed()'s return value to be a `FeedIo\FeedInterface` instance. It can be a `FeedIo\Feed` or a class of your own and if so, your class MUST implement `\FeedIo\FeedInterface`.
 
 You can also start from this class to save some time : [App\Feed\Provider.php](/Resources/sample/Provider.php)
 

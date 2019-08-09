@@ -9,15 +9,16 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 
 // All you really need to create a feed
-use Debril\RssAtomBundle\Provider\FeedContentProviderInterface;
+use Debril\RssAtomBundle\Provider\FeedProviderInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use FeedIo\Feed;
 use FeedIo\Feed\Node\Category;
 use FeedIo\FeedInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
 
-class Provider implements FeedContentProviderInterface
+class Provider implements FeedProviderInterface
 {
 
     protected $logger;
@@ -43,7 +44,7 @@ class Provider implements FeedContentProviderInterface
      * @param array $options
      * @return FeedInterface
      */
-    public function getFeedContent(array $options) : FeedInterface
+    public function getFeed(Request $request) : FeedInterface
     {
         $feed = new Feed();
         $feed->setTitle('Feed Title')
