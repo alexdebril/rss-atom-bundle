@@ -9,6 +9,7 @@ use FeedIo\Factory;
 use FeedIo\Feed;
 use FeedIo\FeedIo;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -38,7 +39,7 @@ class FeedBuilderTest extends TestCase
         $stack->push($request);
         $this->feedIo = Factory::create()->getFeedIo();
         $this->headersBuilder = new HeadersBuilder();
-        $this->modifiedSince = new ModifiedSince($stack);
+        $this->modifiedSince = new ModifiedSince($stack, new NullLogger());
         parent::setUp();
     }
 
