@@ -2,6 +2,7 @@
 
 namespace Debril\RssAtomBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -17,9 +18,17 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('debril_rss_atom');
 
-        $treeBuilder->root('debril_rss_atom')
+        // For BC with symfony/config < 4.2
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            /** @var ArrayNodeDefinition $rootNode */
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            $rootNode = $treeBuilder->root('debril_rss_atom');
+        }
+
+        $rootNode
                 ->children()
                     ->booleanNode('private')
                         ->info('Change cache headers so the RSS feed is not cached by public caches (like reverse-proxies...).')
