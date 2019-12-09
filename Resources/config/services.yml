@@ -25,6 +25,7 @@ services:
               - '%debril_rss_atom.date_formats%'
 
     FeedIo\FeedIo:
+        public: true
         alias: feedio
 
     debril.rss_atom.response.headers:
