@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 
-
-namespace Tests\Response;
-
+namespace Debril\RssAtomBundle\Tests\Response;
 
 use Debril\RssAtomBundle\Response\HeadersBuilder;
 use PHPUnit\Framework\TestCase;

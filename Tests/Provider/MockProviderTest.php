@@ -1,7 +1,8 @@
 <?php
 
-namespace Debril\RssAtomBundle\Provider;
+namespace Debril\RssAtomBundle\Tests\Provider;
 
+use Debril\RssAtomBundle\Provider\MockProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

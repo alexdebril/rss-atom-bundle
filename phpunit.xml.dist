@@ -17,10 +17,10 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
+                <directory>./DependencyInjection</directory>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
-		<directory>./DependencyInjection</directory>
             </exclude>
         </whitelist>
     </filter>
