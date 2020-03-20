@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Response;
+namespace Debril\RssAtomBundle\Tests\Response;
 
 use Debril\RssAtomBundle\Request\ModifiedSince;
 use Debril\RssAtomBundle\Response\FeedBuilder;

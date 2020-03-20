@@ -1,7 +1,8 @@
 <?php
 
-namespace Debril\RssAtomBundle\DependencyInjection;
+namespace Debril\RssAtomBundle\Tests\DependencyInjection;
 
+use Debril\RssAtomBundle\DependencyInjection\Configuration;
 use PHPUnit\Framework\TestCase;
 
 class ConfigurationTest extends TestCase

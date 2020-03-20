@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Tests\Request;
-
+namespace Debril\RssAtomBundle\Tests\Request;
 
 use Debril\RssAtomBundle\Request\ModifiedSince;
 use PHPUnit\Framework\TestCase;
