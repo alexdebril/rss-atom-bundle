@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./Tests/bootstrap.php" colors="true">
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
 
     <php>
-        <server name="KERNEL_DIR" value="Tests/Controller/App" />
+        <server name="KERNEL_DIR" value="tests/Controller/App" />
         <server name="KERNEL_CLASS" value="Debril\RssAtomBundle\Tests\Controller\App\AppKernel" />
     </php>
 
@@ -15,12 +15,12 @@
 
     <filter>
         <whitelist>
-            <directory>./</directory>
+            <directory>src/</directory>
             <exclude>
-                <directory>./DependencyInjection</directory>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
-                <directory>./vendor</directory>
+                <directory>src/DependencyInjection</directory>
+                <directory>src/Resources</directory>
+                <directory>tests</directory>
+                <directory>vendor</directory>
             </exclude>
         </whitelist>
     </filter>
