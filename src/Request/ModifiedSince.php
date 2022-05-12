@@ -12,14 +12,14 @@ class ModifiedSince
 
     const HTTP_HEADER_NAME = 'If-Modified-Since';
 
-    private $value;
-
     private $logger;
+
+    private $requestStack;
 
     public function __construct(RequestStack $requestStack, LoggerInterface $logger)
     {
         $this->logger = $logger;
-        $this->value = $this->getModifiedSince($requestStack->getCurrentRequest());
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -27,7 +27,7 @@ class ModifiedSince
      */
     public function getValue(): \DateTime
     {
-        return $this->value;
+        return $this->getModifiedSince($this->requestStack->getCurrentRequest());
     }
 
     private function getModifiedSince(Request $request):\DateTime
